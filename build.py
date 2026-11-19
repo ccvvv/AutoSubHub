@@ -380,10 +380,14 @@ def main() -> None:
     validate_structure(config)
     final_path = os.path.join("site", "subscription.yaml")
     write_yaml(final_path, config)
-    # Parse our own output again before allowing the Pages deploy step to run.
+    # Parse our own output again and ask Mihomo to validate the exact published file.
     with open(final_path, encoding="utf-8") as f:
         roundtrip = yaml.safe_load(f)
     validate_structure(roundtrip)
+    final_check = subprocess.run([os.getenv("MIHOMO_BIN", "./mihomo"), "-t", "-f", final_path],
+                                 capture_output=True, text=True, timeout=45)
+    if final_check.returncode:
+        raise RuntimeError("Mihomo rejected final subscription: " + (final_check.stderr or final_check.stdout)[-2500:])
 
     html = f"""<!doctype html>
 <html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width">
