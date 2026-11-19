@@ -1,0 +1,52 @@
+name: Auto build subscription
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 * * * *"
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: publish-pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Build subscription
+        env:
+          SUBSCRIPTION_URLS: ${{ secrets.SUBSCRIPTION_URLS }}
+          MAX_WORKERS: ${{ vars.MAX_WORKERS }}
+          CONNECT_TIMEOUT: ${{ vars.CONNECT_TIMEOUT }}
+          MAX_NODES: ${{ vars.MAX_NODES }}
+        run: python build.py
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
