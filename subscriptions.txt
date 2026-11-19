@@ -1,0 +1,12 @@
+https://raw.githubusercontent.com/igareck/vpn-configs-for-russia/main/Export/Clash/GLOBAL/BLACK_VLESS_RUS_mobile_clash_global.yaml
+https://ghfile.geekertao.top/https://github.com/PuddinCat/BestClash/blob/main/proxies.yaml
+https://raw.githubusercontent.com/peasoft/NoMoreWalls/master/list.meta.yml
+https://raw.githubusercontent.com/go4sharing/sub/main/sub.yaml
+https://blog.ermao.net/sub/clash/ermao.net
+https://raw.githubusercontent.com/cbusifabcap/daily_free_vpn/refs/heads/main/sub/Clash.yml
+https://raw.githubusercontent.com/LeilaoMi/AutoMergePublicNodes-Optimized/main/output/verified.yaml
+https://github.com/Au1rxx/free-vpn-subscriptions/raw/main/output/clash.yaml
+https://raw.githubusercontent.com/hello-world-1989/cn-news/refs/heads/main/clash-free.yaml
+https://chromego-sub.netlify.app/sub/merged_proxies_new.yaml
+https://raw.githubusercontent.com/ripaojiedian/freenode/main/clash
+https://raw.githubusercontent.com/shaoyouvip/free/refs/heads/main/all.yaml
