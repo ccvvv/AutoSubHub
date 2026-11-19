@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-"""Build a public Clash-compatible subscription from configured source URLs."""
-
+"""Build and verify a public Clash/Mihomo subscription using the Mihomo core."""
 from __future__ import annotations
 
 import base64
@@ -8,17 +7,27 @@ import json
 import os
 import re
 import socket
+import subprocess
+import tempfile
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from urllib.parse import parse_qs, unquote, urlsplit
+from urllib.parse import parse_qs, unquote, urlsplit, quote
 
 import requests
 import yaml
 
-USER_AGENT = "AutoSubHub/1.0 (+https://github.com/ccvvv/AutoSubHub)"
-TIMEOUT = float(os.getenv("CONNECT_TIMEOUT", "3") or "3")
-WORKERS = int(os.getenv("MAX_WORKERS", "80") or "80")
-MAX_NODES = int(os.getenv("MAX_NODES", "500") or "500")
+USER_AGENT = "AutoSubHub/2.0 (+https://github.com/ccvvv/AutoSubHub)"
+CONNECT_TIMEOUT = float(os.getenv("CONNECT_TIMEOUT", "3") or "3")
+HTTP_TIMEOUT_MS = int(os.getenv("HTTP_TEST_TIMEOUT", "8000") or "8000")
+WORKERS = max(1, int(os.getenv("MAX_WORKERS", "80") or "80"))
+HTTP_WORKERS = max(1, int(os.getenv("HTTP_WORKERS", "40") or "40"))
+MAX_NODES = max(1, int(os.getenv("MAX_NODES", "500") or "500"))
+DOWNLOAD_TEST_NODES = max(0, int(os.getenv("DOWNLOAD_TEST_NODES", "25") or "25"))
+DOWNLOAD_BYTES = max(100000, int(os.getenv("DOWNLOAD_BYTES", "1048576") or "1048576"))
+LATENCY_URL = os.getenv("LATENCY_URL", "https://www.gstatic.com/generate_204")
+DOWNLOAD_URL = os.getenv("DOWNLOAD_URL", "https://speed.cloudflare.com/__down?bytes=" + str(DOWNLOAD_BYTES))
+CONTROLLER = "http://127.0.0.1:9090"
+MIXED_PORT = 17890
 
 
 def decode_subscription(text: str) -> str:
@@ -29,8 +38,7 @@ def decode_subscription(text: str) -> str:
         compact = re.sub(r"\s+", "", text)
         if compact and re.fullmatch(r"[A-Za-z0-9+/=_-]+", compact):
             try:
-                padded = compact + "=" * (-len(compact) % 4)
-                decoded = base64.urlsafe_b64decode(padded).decode("utf-8")
+                decoded = base64.urlsafe_b64decode(compact + "=" * (-len(compact) % 4)).decode("utf-8")
                 if "://" in decoded or "proxies:" in decoded:
                     return decoded
             except Exception:
@@ -40,18 +48,10 @@ def decode_subscription(text: str) -> str:
 
 def vmess_from_uri(uri: str) -> dict:
     raw = uri.split("://", 1)[1].split("#", 1)[0]
-    raw += "=" * (-len(raw) % 4)
-    obj = json.loads(base64.urlsafe_b64decode(raw).decode("utf-8"))
-    node = {
-        "name": obj.get("ps") or obj.get("name") or "VMess",
-        "type": "vmess",
-        "server": obj["add"],
-        "port": int(obj["port"]),
-        "uuid": obj["id"],
-        "alterId": int(obj.get("aid", 0)),
-        "cipher": obj.get("scy") or "auto",
-        "udp": True,
-    }
+    obj = json.loads(base64.urlsafe_b64decode(raw + "=" * (-len(raw) % 4)).decode("utf-8"))
+    node = {"name": obj.get("ps") or obj.get("name") or "VMess", "type": "vmess",
+            "server": obj["add"], "port": int(obj["port"]), "uuid": obj["id"],
+            "alterId": int(obj.get("aid", 0)), "cipher": obj.get("scy") or "auto", "udp": True}
     if obj.get("tls") == "tls":
         node["tls"] = True
         if obj.get("sni"):
@@ -74,19 +74,15 @@ def parse_uri(uri: str) -> dict | None:
     scheme = uri.split("://", 1)[0].lower()
     if scheme == "vmess":
         return vmess_from_uri(uri)
-
     p = urlsplit(uri)
     if scheme not in {"vless", "trojan", "ss", "socks", "socks5"}:
         return None
-
+    host, port = p.hostname, p.port
+    if not host or not port:
+        return None
     name = unquote(p.fragment) if p.fragment else scheme.upper()
     query = parse_qs(p.query)
     q = lambda key, default="": query.get(key, [default])[0]
-    host = p.hostname
-    port = p.port
-    if not host or not port:
-        return None
-
     if scheme in {"socks", "socks5"}:
         node = {"name": name, "type": "socks5", "server": host, "port": port, "udp": True}
         if p.username:
@@ -94,27 +90,21 @@ def parse_uri(uri: str) -> dict | None:
         if p.password:
             node["password"] = unquote(p.password)
         return node
-
     if scheme == "ss":
-        userinfo = p.username or ""
-        password = p.password or ""
-        method = ""
+        userinfo, password, method = p.username or "", p.password or "", ""
         if not password and userinfo:
-            decoded = userinfo
             try:
                 decoded = base64.urlsafe_b64decode(userinfo + "=" * (-len(userinfo) % 4)).decode()
             except Exception:
-                pass
+                decoded = userinfo
             if ":" in decoded:
                 method, password = decoded.split(":", 1)
         else:
-            method = unquote(userinfo)
-            password = unquote(password)
+            method, password = unquote(userinfo), unquote(password)
         if not method or not password:
             return None
         return {"name": name, "type": "ss", "server": host, "port": port,
                 "cipher": method, "password": password, "udp": True}
-
     if scheme == "trojan":
         node = {"name": name, "type": "trojan", "server": host, "port": port,
                 "password": unquote(p.username or ""), "udp": True}
@@ -123,7 +113,6 @@ def parse_uri(uri: str) -> dict | None:
                 "uuid": unquote(p.username or ""), "udp": True}
         if q("flow"):
             node["flow"] = q("flow")
-
     security = q("security")
     if security in {"tls", "reality"} or q("tls") == "1":
         node["tls"] = True
@@ -133,7 +122,7 @@ def parse_uri(uri: str) -> dict | None:
         if q("fp"):
             node["client-fingerprint"] = q("fp")
         if security == "reality":
-            node["reality-opts"] = {"public-key": q("pbk"), "short-id": q("sid")}
+            node["reality-opts"] = {"public-key": q("pb"), "short-id": q("sid")}
     network = q("type", "tcp")
     if network == "ws":
         node["network"] = "ws"
@@ -165,106 +154,249 @@ def parse_source(text: str) -> list[dict]:
             if node:
                 nodes.append(node)
         except Exception as exc:
-            print(f"Skip malformed URI ({line[:18]}…): {exc}")
+            print(f"Skip malformed URI: {type(exc).__name__}")
     return nodes
 
 
 def node_key(node: dict) -> tuple:
-    fields = ("type", "server", "port", "uuid", "password", "cipher", "username")
-    return tuple(str(node.get(k, "")) for k in fields)
+    return tuple(str(node.get(k, "")) for k in
+                 ("type", "server", "port", "uuid", "password", "cipher", "username"))
 
 
-def tcp_latency(node: dict) -> tuple[dict, float | None]:
+def tcp_check(node: dict) -> tuple[dict, float | None]:
     try:
         start = time.perf_counter()
-        with socket.create_connection((str(node["server"]), int(node["port"])), timeout=TIMEOUT):
+        with socket.create_connection((str(node["server"]), int(node["port"])), timeout=CONNECT_TIMEOUT):
             return node, round((time.perf_counter() - start) * 1000, 1)
     except Exception:
         return node, None
 
 
-def main() -> None:
-    configured_urls = os.getenv("SUBSCRIPTION_URLS", "").strip()
-    if configured_urls:
-        urls = [line.strip() for line in configured_urls.splitlines() if line.strip()]
-        source_mode = "GitHub Actions secret"
-    else:
-        try:
-            with open("subscriptions.txt", "r", encoding="utf-8") as f:
-                urls = [line.strip() for line in f if line.strip() and not line.lstrip().startswith("#")]
-            source_mode = "subscriptions.txt"
-        except FileNotFoundError:
-            urls = []
-            source_mode = "none"
-    if not urls:
-        raise SystemExit("No subscription sources configured. Set SUBSCRIPTION_URLS or add subscriptions.txt.")
-    print(f"Loaded {len(urls)} subscription sources from {source_mode}")
+def unique_names(nodes: list[dict]) -> list[dict]:
+    used, result = set(), []
+    for i, source in enumerate(nodes, 1):
+        node = dict(source)
+        base = str(node.get("name") or node.get("server") or f"node-{i}")[:55]
+        name, suffix = base, 2
+        while name in used:
+            name = f"{base[:48]}-{suffix}"
+            suffix += 1
+        used.add(name)
+        node["name"] = name
+        result.append(node)
+    return result
 
-    session = requests.Session()
-    session.headers.update({"User-Agent": USER_AGENT})
-    all_nodes = []
-    for index, url in enumerate(urls, 1):
-        try:
-            response = session.get(url, timeout=20)
-            response.raise_for_status()
-            parsed = parse_source(response.text)
-            print(f"Source {index}: parsed {len(parsed)} nodes")
-            all_nodes.extend(parsed)
-        except Exception as exc:
-            print(f"Source {index} failed: {type(exc).__name__}: {exc}")
 
-    unique = {}
-    for node in all_nodes:
-        unique.setdefault(node_key(node), node)
-    candidates = list(unique.values())[:MAX_NODES]
-    if not candidates:
-        raise SystemExit("No supported nodes were parsed; refusing to publish an empty subscription.")
-
-    print(f"Checking TCP reachability for {len(candidates)} unique nodes with {WORKERS} workers")
-    results = []
-    with ThreadPoolExecutor(max_workers=WORKERS) as pool:
-        futures = [pool.submit(tcp_latency, node) for node in candidates]
-        for future in as_completed(futures):
-            node, latency = future.result()
-            if latency is not None:
-                node = dict(node)
-                node["name"] = str(node.get("name") or node.get("server"))[:65]
-                results.append((latency, node))
-
-    results.sort(key=lambda item: item[0])
-    if not results:
-        raise SystemExit("Every node failed the TCP check; refusing to publish an empty subscription.")
-
-    proxies = []
-    for latency, original in results:
-        node = dict(original)
-        node["name"] = f'{node.get("name", "node")} [{latency:g}ms]'
-        proxies.append(node)
-
-    names = [p["name"] for p in proxies]
-    config = {
-        "mixed-port": 7890,
-        "allow-lan": False,
-        "mode": "rule",
-        "log-level": "warning",
-        "ipv6": False,
+def test_config(proxies: list[dict]) -> dict:
+    return {
+        "mixed-port": MIXED_PORT, "allow-lan": False, "mode": "rule",
+        "log-level": "error", "ipv6": False,
+        "external-controller": "127.0.0.1:9090",
         "proxies": proxies,
+        "proxy-groups": [{"name": "TEST", "type": "select", "proxies": [p["name"] for p in proxies]}],
+        "rules": ["MATCH,TEST"],
+    }
+
+
+def final_config(proxies: list[dict]) -> dict:
+    names = [p["name"] for p in proxies]
+    return {
+        "mixed-port": 7890, "allow-lan": False, "mode": "rule",
+        "log-level": "warning", "ipv6": False, "proxies": proxies,
         "proxy-groups": [
             {"name": "AUTO", "type": "url-test", "proxies": names,
-             "url": "https://www.gstatic.com/generate_204", "interval": 300, "tolerance": 80},
+             "url": LATENCY_URL, "interval": 300, "tolerance": 80},
             {"name": "手动选择", "type": "select", "proxies": ["AUTO"] + names},
         ],
         "rules": ["MATCH,手动选择"],
     }
+
+
+def write_yaml(path: str, data: dict) -> None:
+    with open(path, "w", encoding="utf-8") as f:
+        yaml.safe_dump(data, f, allow_unicode=True, sort_keys=False)
+
+
+def validate_structure(config: dict) -> None:
+    proxies = config.get("proxies")
+    if not isinstance(proxies, list) or not proxies:
+        raise RuntimeError("Final config has no proxies")
+    names = [p.get("name") for p in proxies]
+    if len(names) != len(set(names)) or any(not n for n in names):
+        raise RuntimeError("Proxy names are missing or duplicated")
+    valid_types = {"ss", "vmess", "vless", "trojan", "socks5", "http", "snell", "hysteria",
+                   "hysteria2", "tuic", "wireguard", "ssh", "anytls"}
+    for p in proxies:
+        if p.get("type") not in valid_types or not p.get("server") or not isinstance(p.get("port"), int):
+            raise RuntimeError(f"Invalid proxy definition: {p.get('name', '(unnamed)')}")
+    available = set(names) | {"DIRECT", "REJECT"}
+    for group in config.get("proxy-groups", []):
+        missing = set(group.get("proxies", [])) - available - {g.get("name") for g in config["proxy-groups"]}
+        if missing:
+            raise RuntimeError(f"Proxy group {group.get('name')} references missing entries: {sorted(missing)[:5]}")
+    for rule in config.get("rules", []):
+        target = rule.rsplit(",", 1)[-1]
+        if target not in available and target not in {g.get("name") for g in config.get("proxy-groups", [])}:
+            raise RuntimeError(f"Rule references missing group: {target}")
+
+
+def main() -> None:
+    configured = os.getenv("SUBSCRIPTION_URLS", "").strip()
+    if configured:
+        urls = [x.strip() for x in configured.splitlines() if x.strip()]
+        source_mode = "Actions secret"
+    else:
+        with open("subscriptions.txt", encoding="utf-8") as f:
+            urls = [x.strip() for x in f if x.strip() and not x.lstrip().startswith("#")]
+        source_mode = "subscriptions.txt"
+    if not urls:
+        raise SystemExit("No subscription sources configured")
+    print(f"Loaded {len(urls)} sources from {source_mode}")
+
+    session = requests.Session()
+    session.headers.update({"User-Agent": USER_AGENT})
+    collected = []
+    successes = 0
+    for i, url in enumerate(urls, 1):
+        try:
+            response = session.get(url, timeout=25)
+            response.raise_for_status()
+            parsed = parse_source(response.text)
+            print(f"Source {i}: {len(parsed)} nodes")
+            collected.extend(parsed)
+            successes += 1
+        except Exception as exc:
+            print(f"Source {i} failed: {type(exc).__name__}: {exc}")
+    if successes == 0:
+        raise RuntimeError("All subscription sources failed; refusing to publish")
+
+    deduped = {}
+    for node in collected:
+        deduped.setdefault(node_key(node), node)
+    candidates = list(deduped.values())[:MAX_NODES]
+    if not candidates:
+        raise RuntimeError("No supported nodes parsed; refusing to publish")
+
+    print(f"TCP prefilter: {len(candidates)} candidates, {WORKERS} workers")
+    tcp_ok = []
+    with ThreadPoolExecutor(max_workers=WORKERS) as pool:
+        futures = [pool.submit(tcp_check, n) for n in candidates]
+        for future in as_completed(futures):
+            node, latency = future.result()
+            if latency is not None:
+                tcp_ok.append(node)
+    if not tcp_ok:
+        raise RuntimeError("No node passed TCP prefilter")
+
+    tcp_ok = unique_names(tcp_ok)
+    print(f"TCP passed: {len(tcp_ok)}; starting Mihomo real proxy tests")
     os.makedirs("site", exist_ok=True)
-    with open("site/subscription.yaml", "w", encoding="utf-8") as f:
-        yaml.safe_dump(config, f, allow_unicode=True, sort_keys=False)
+
+    with tempfile.TemporaryDirectory(prefix="autohub-") as tmp:
+        test_path = os.path.join(tmp, "test.yaml")
+        write_yaml(test_path, test_config(tcp_ok))
+        check = subprocess.run([os.getenv("MIHOMO_BIN", "./mihomo"), "-t", "-f", test_path],
+                               capture_output=True, text=True, timeout=45)
+        if check.returncode:
+            raise RuntimeError("Mihomo rejected test config: " + (check.stderr or check.stdout)[-2500:])
+        proc = subprocess.Popen([os.getenv("MIHOMO_BIN", "./mihomo"), "-d", tmp, "-f", test_path],
+                                stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
+        try:
+            api = requests.Session()
+            api.headers.update({"Authorization": "Bearer autohub-local-test"})
+            for _ in range(40):
+                if proc.poll() is not None:
+                    raise RuntimeError("Mihomo exited before API became ready")
+                try:
+                    if api.get(CONTROLLER + "/version", timeout=1).ok:
+                        break
+                except requests.RequestException:
+                    time.sleep(0.5)
+            else:
+                raise RuntimeError("Mihomo API did not become ready")
+
+            def proxy_delay(node: dict) -> tuple[dict, int | None]:
+                try:
+                    endpoint = CONTROLLER + "/proxies/" + quote(node["name"], safe="") + "/delay"
+                    response = api.get(endpoint, params={"url": LATENCY_URL, "timeout": HTTP_TIMEOUT_MS},
+                                       timeout=HTTP_TIMEOUT_MS / 1000 + 5)
+                    response.raise_for_status()
+                    delay = response.json().get("delay")
+                    return node, int(delay) if delay and int(delay) > 0 else None
+                except Exception:
+                    return node, None
+
+            tested = []
+            with ThreadPoolExecutor(max_workers=HTTP_WORKERS) as pool:
+                futures = [pool.submit(proxy_delay, n) for n in tcp_ok]
+                for future in as_completed(futures):
+                    node, delay = future.result()
+                    if delay is not None:
+                        tested.append((delay, node))
+            tested.sort(key=lambda x: x[0])
+            if not tested:
+                raise RuntimeError("No node passed real HTTP proxy latency test")
+
+            print(f"HTTP proxy test passed: {len(tested)} / {len(tcp_ok)}")
+            speed_map = {}
+            for delay, node in tested[:DOWNLOAD_TEST_NODES]:
+                try:
+                    selected = api.put(CONTROLLER + "/proxies/TEST", json={"name": node["name"]}, timeout=5)
+                    selected.raise_for_status()
+                    start = time.perf_counter()
+                    response = requests.get(DOWNLOAD_URL, proxies={
+                        "http": f"http://127.0.0.1:{MIXED_PORT}",
+                        "https": f"http://127.0.0.1:{MIXED_PORT}",
+                    }, stream=True, timeout=30, headers={"User-Agent": USER_AGENT})
+                    response.raise_for_status()
+                    total = 0
+                    for chunk in response.iter_content(65536):
+                        if chunk:
+                            total += len(chunk)
+                        if total >= DOWNLOAD_BYTES:
+                            break
+                    elapsed = max(time.perf_counter() - start, 0.001)
+                    if total:
+                        speed_map[node["name"]] = round(total / elapsed / 1024 / 1024, 2)
+                except Exception as exc:
+                    print(f"Download test unavailable for {node['name']}: {type(exc).__name__}")
+            print(f"Download speed measured: {len(speed_map)} nodes")
+        finally:
+            proc.terminate()
+            try:
+                proc.wait(timeout=5)
+            except subprocess.TimeoutExpired:
+                proc.kill()
+
+    output = []
+    for delay, original in tested:
+        node = dict(original)
+        speed = speed_map.get(node["name"])
+        suffix = f" {speed:.2f}MB/s" if speed is not None else ""
+        node["name"] = f"{node['name']} [{delay}ms{suffix}]"
+        output.append(node)
+
+    config = final_config(output)
+    validate_structure(config)
+    final_path = os.path.join("site", "subscription.yaml")
+    write_yaml(final_path, config)
+    # Parse our own output again before allowing the Pages deploy step to run.
+    with open(final_path, encoding="utf-8") as f:
+        roundtrip = yaml.safe_load(f)
+    validate_structure(roundtrip)
+
+    html = f"""<!doctype html>
+<html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width">
+<title>AutoSubHub</title><body style="font-family:system-ui;max-width:760px;margin:40px auto;padding:0 16px">
+<h1>AutoSubHub</h1><p>最后构建：{time.strftime('%Y-%m-%d %H:%M:%S UTC', time.gmtime())}</p>
+<ul><li>TCP 初筛通过：{len(tcp_ok)}</li><li>真实 HTTP 代理测试通过：{len(tested)}</li>
+<li>完成下载测速：{len(speed_map)}</li><li>最终节点：{len(output)}</li></ul>
+<p><a href="subscription.yaml">下载 Clash / Mihomo 订阅</a></p>
+<p>说明：下载速度仅对排名靠前的部分节点抽样测量；没有下载速度标记的节点仍通过了真实 HTTP 代理测试。</p>
+</body></html>"""
     with open("site/index.html", "w", encoding="utf-8") as f:
-        f.write("""<!doctype html><meta charset="utf-8"><title>AutoSubHub</title>
-<h1>AutoSubHub</h1><p>Automatically generated Clash-compatible subscription.</p>
-<p><a href="subscription.yaml">Download subscription.yaml</a></p>
-<p>TCP reachability checks are only a preliminary filter, not a full proxy test.</p>""")
-    print(f"Published {len(proxies)} reachable nodes to site/subscription.yaml")
+        f.write(html)
+    print(f"Validated and prepared {len(output)} nodes for Pages deployment")
 
 
 if __name__ == "__main__":
