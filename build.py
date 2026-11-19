@@ -191,7 +191,7 @@ def test_config(proxies: list[dict]) -> dict:
     return {
         "mixed-port": MIXED_PORT, "allow-lan": False, "mode": "rule",
         "log-level": "error", "ipv6": False,
-        "external-controller": "127.0.0.1:9090",
+        "external-controller": "127.0.0.1:9090", "secret": "autohub-local-test",
         "proxies": proxies,
         "proxy-groups": [{"name": "TEST", "type": "select", "proxies": [p["name"] for p in proxies]}],
         "rules": ["MATCH,TEST"],
