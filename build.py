@@ -184,9 +184,21 @@ def tcp_latency(node: dict) -> tuple[dict, float | None]:
 
 
 def main() -> None:
-    urls = [line.strip() for line in os.getenv("SUBSCRIPTION_URLS", "").splitlines() if line.strip()]
+    configured_urls = os.getenv("SUBSCRIPTION_URLS", "").strip()
+    if configured_urls:
+        urls = [line.strip() for line in configured_urls.splitlines() if line.strip()]
+        source_mode = "GitHub Actions secret"
+    else:
+        try:
+            with open("subscriptions.txt", "r", encoding="utf-8") as f:
+                urls = [line.strip() for line in f if line.strip() and not line.lstrip().startswith("#")]
+            source_mode = "subscriptions.txt"
+        except FileNotFoundError:
+            urls = []
+            source_mode = "none"
     if not urls:
-        raise SystemExit("Missing SUBSCRIPTION_URLS secret. Add one subscription URL per line.")
+        raise SystemExit("No subscription sources configured. Set SUBSCRIPTION_URLS or add subscriptions.txt.")
+    print(f"Loaded {len(urls)} subscription sources from {source_mode}")
 
     session = requests.Session()
     session.headers.update({"User-Agent": USER_AGENT})
