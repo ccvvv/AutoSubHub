@@ -117,8 +117,8 @@ def main() -> None:
     parser.add_argument("--upload", action="store_true", help="Upload receipt to probe-receipts branch")
     args = parser.parse_args()
 
-    if not 1 <= args.workers <= 50:
-        raise SystemExit("--workers must be between 1 and 50; start with 5 on phones")
+    if not 1 <= args.workers <= 200:
+        raise SystemExit("--workers must be between 1 and 200; increase gradually on phones")
     if args.max_bytes < 256 * 1024:
         raise SystemExit("--max-bytes must be at least 256 KiB")
 
