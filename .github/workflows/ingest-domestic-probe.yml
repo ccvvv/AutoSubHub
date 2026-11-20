@@ -59,6 +59,13 @@ jobs:
           python ingest_domestic_probe.py | tee "$RUNNER_TEMP/ingest-result.txt"
           grep '^publish_final=' "$RUNNER_TEMP/ingest-result.txt" >> "$GITHUB_OUTPUT"
 
+      - name: Validate final subscription with Mihomo
+        if: steps.receipt.outputs.publish_final == 'true'
+        run: |
+          curl -fsSL https://github.com/MetaCubeX/mihomo/releases/download/v1.19.34/mihomo-linux-amd64-v1.19.34.gz | gunzip -c > mihomo
+          chmod +x mihomo
+          ./mihomo -t -f site/subscription.yaml
+
       - name: Save sanitized receipt
         run: |
           git config user.name "github-actions[bot]"
