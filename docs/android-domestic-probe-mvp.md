@@ -142,9 +142,9 @@ The MVP now uses a scheduled candidate feed and a receipt-only upload. The manua
 6. The final subscription is published to GitHub Pages only after a valid Mi 6 receipt is processed.
 
 Candidate raw file (development branch):
-`https://raw.githubusercontent.com/ccvvv/AutoSubHub/feature/android-domestic-probe-mvp/data/domestic-probe/candidates.yaml`
+`https://ccvvv.github.io/AutoSubHub/candidates.yaml`
 
 Candidate manifest (development branch):
-`https://raw.githubusercontent.com/ccvvv/AutoSubHub/feature/android-domestic-probe-mvp/data/domestic-probe/candidate-manifest.json`
+`https://ccvvv.github.io/AutoSubHub/candidate-manifest.json`
 
 The candidate files are not generated until the next successful GitHub Actions build. The Hiddify candidate-fetch/import UI and real device test are still outstanding. Do not treat a GitHub candidate as domestically verified.
