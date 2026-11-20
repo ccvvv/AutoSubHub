@@ -251,21 +251,21 @@ def protocol_handshake_check(node: dict) -> tuple[dict, bool, str]:
                 raw = None  # wrapped socket now owns the file descriptor
             if is_ws:
                 request = (
-                    f"GET {path} HTTP/1.1\\r\\n"
-                    f"Host: {ws_host}\\r\\n"
-                    "Upgrade: websocket\\r\\n"
-                    "Connection: Upgrade\\r\\n"
-                    "Sec-WebSocket-Key: dGhlIHNhbXBsZSBub25jZQ==\\r\\n"
-                    "Sec-WebSocket-Version: 13\\r\\n\\r\\n"
+                    f"GET {path} HTTP/1.1\r\n"
+                    f"Host: {ws_host}\r\n"
+                    "Upgrade: websocket\r\n"
+                    "Connection: Upgrade\r\n"
+                    "Sec-WebSocket-Key: dGhlIHNhbXBsZSBub25jZQ==\r\n"
+                    "Sec-WebSocket-Version: 13\r\n\r\n"
                 )
                 conn.sendall(request.encode("utf-8"))
                 response = b""
-                while b"\\r\\n" not in response and len(response) < 4096:
+                while b"\r\n" not in response and len(response) < 4096:
                     chunk = conn.recv(512)
                     if not chunk:
                         break
                     response += chunk
-                status = response.split(b"\\r\\n", 1)[0]
+                status = response.split(b"\r\n", 1)[0]
                 if b" 101 " not in status and not status.endswith(b" 101"):
                     last_error = "websocket-upgrade-rejected"
                     conn.close()
