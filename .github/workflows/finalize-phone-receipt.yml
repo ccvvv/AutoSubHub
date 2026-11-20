@@ -23,27 +23,34 @@ jobs:
           ref: main
       - name: Install Python dependencies
         run: pip install pyyaml
-      - name: Fetch published candidate and receipt
+      - name: Fetch receipt and its exact candidate snapshot
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          git clone --depth 1 --branch published-subscriptions "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" published
           mkdir -p incoming
+          git clone --depth 1 --branch probe-receipts "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" receipts
           if [ "${GITHUB_EVENT_NAME}" = "push" ]; then
-            # Fetch the immutable event commit, not the moving branch tip.
-            git fetch --no-tags origin "${GITHUB_SHA}"
-            git show "${GITHUB_SHA}:receipts/latest.json" > incoming/receipt.json
+            git -C receipts fetch --no-tags origin "${GITHUB_SHA}"
+            git -C receipts show "${GITHUB_SHA}:receipts/latest.json" > incoming/receipt.json
           else
-            git fetch origin probe-receipts
-            git show "origin/probe-receipts:receipts/latest.json" > incoming/receipt.json
+            git -C receipts show "origin/probe-receipts:receipts/latest.json" > incoming/receipt.json
           fi
+          CANDIDATE_COMMIT="$(python -c 'import json; print(json.load(open("incoming/receipt.json"))["candidate_commit"])')"
+          if ! [[ "${CANDIDATE_COMMIT}" =~ ^[0-9a-f]{40}$ ]]; then
+            echo "Receipt candidate_commit is missing or invalid."
+            exit 1
+          fi
+          git clone --no-checkout --filter=blob:none --branch published-subscriptions "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" published
+          git -C published fetch --no-tags origin "${CANDIDATE_COMMIT}"
+          git -C published show "${CANDIDATE_COMMIT}:candidate/subscription.yaml" > incoming/subscription.yaml
+          git -C published show "${CANDIDATE_COMMIT}:candidate/manifest.json" > incoming/manifest.json
       - name: Validate receipt and build final
         env:
           MIN_SPEED_BPS: "500000"
         run: |
           set -euo pipefail
-          python scripts/finalize_phone_receipt.py published/candidate/subscription.yaml published/candidate/manifest.json incoming/receipt.json incoming/final.yaml
+          python scripts/finalize_phone_receipt.py incoming/subscription.yaml incoming/manifest.json incoming/receipt.json incoming/final.yaml
       - name: Rotate and publish three final versions
         run: |
           set -euo pipefail
