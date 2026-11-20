@@ -139,7 +139,7 @@ def parse_uri(uri: str) -> dict | None:
     return node
 
 
-def parse_source(text: str) -> list[dict]:
+def parse_source(text: str) -> tuple[list[dict], int]:
     text = decode_subscription(text)
     try:
         data = yaml.safe_load(text)
@@ -148,9 +148,10 @@ def parse_source(text: str) -> list[dict]:
     if isinstance(data, dict) and isinstance(data.get("proxies"), list):
         # Normalize common YAML variations and discard incomplete/unsupported entries
         # before they reach TCP and Mihomo testing.
-        valid_types = {"ss", "vmess", "vless", "trojan", "socks5", "http", "snell",
+        valid_types = {"ss", "vmess", "vless", "trojan", "socks5", "snell",
                        "hysteria", "hysteria2", "tuic", "wireguard", "ssh", "anytls"}
         nodes = []
+        http_rejected = 0
         for raw in data["proxies"]:
             if not isinstance(raw, dict) or not raw.get("server"):
                 continue
@@ -160,10 +161,13 @@ def parse_source(text: str) -> list[dict]:
             except (TypeError, ValueError):
                 continue
             node["type"] = str(node.get("type", "")).lower()
+            if node["type"] == "http":
+                http_rejected += 1
+                continue
             if node["type"] not in valid_types or not 1 <= node["port"] <= 65535:
                 continue
             nodes.append(node)
-        return nodes
+        return nodes, http_rejected
     nodes = []
     for line in text.splitlines():
         line = line.strip()
@@ -175,7 +179,7 @@ def parse_source(text: str) -> list[dict]:
                 nodes.append(node)
         except Exception as exc:
             print(f"Skip malformed URI: {type(exc).__name__}")
-    return nodes
+    return nodes, 0
 
 
 def node_key(node: dict) -> tuple:
@@ -384,24 +388,27 @@ def main() -> None:
 
     source_nodes = [[] for _ in urls]
     successes = 0
+    http_type_rejected = 0
 
-    def fetch_source(item: tuple[int, str]) -> tuple[int, list[dict], str | None]:
+    def fetch_source(item: tuple[int, str]) -> tuple[int, list[dict], int, str | None]:
         index, url = item
         try:
             response = requests.get(url, headers={"User-Agent": USER_AGENT}, timeout=25)
             response.raise_for_status()
-            return index, parse_source(response.text), None
+            parsed, rejected_http = parse_source(response.text)
+            return index, parsed, rejected_http, None
         except Exception as exc:
-            return index, [], f"{type(exc).__name__}: {exc}"
+            return index, [], 0, f"{type(exc).__name__}: {exc}"
 
     print(f"Fetching {len(urls)} subscription sources with {min(SOURCE_WORKERS, len(urls))} workers")
     with ThreadPoolExecutor(max_workers=min(SOURCE_WORKERS, len(urls))) as pool:
         futures = [pool.submit(fetch_source, item) for item in enumerate(urls, 1)]
         for future in as_completed(futures):
-            index, parsed, error = future.result()
+            index, parsed, rejected_http, error = future.result()
             source_nodes[index - 1] = parsed
+            http_type_rejected += rejected_http
             if error is None:
-                print(f"Source {index}: {len(parsed)} nodes")
+                print(f"Source {index}: {len(parsed)} usable nodes; excluded {rejected_http} pure HTTP proxies")
                 successes += 1
             else:
                 print(f"Source {index} failed: {error}")
@@ -426,13 +433,9 @@ def main() -> None:
         source_unique.append(bucket)
 
     all_unique_candidates = [node for bucket in source_unique for node in bucket]
-    # Pure Clash HTTP proxies (type: http) are excluded before any network tests.
-    # This does not affect Shadowsocks (ss), SOCKS5, or TCP transports used by
-    # VLESS/VMess/Trojan nodes.
-    http_type_rejected = sum(1 for node in all_unique_candidates
-                             if str(node.get("type", "")).lower() == "http")
-    candidates = [node for node in all_unique_candidates
-                  if str(node.get("type", "")).lower() != "http"]
+    # Pure Clash HTTP proxies were excluded while parsing each source, before
+    # global deduplication and all network tests. TCP transports remain allowed.
+    candidates = all_unique_candidates]
     print(f"Parsed {parsed_total} nodes; globally unique: {unique_total}; "
           f"pure HTTP proxies excluded: {http_type_rejected}; "
           f"remaining candidates: {len(candidates)}")
