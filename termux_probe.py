@@ -167,7 +167,8 @@ def main() -> None:
                             for chunk in response.iter_content(chunk_size=64 * 1024):
                                 if not chunk:
                                     continue
-                                received += len(chunk)
+                                remaining = args.max_bytes - received
+                                received += min(len(chunk), remaining)
                                 if received >= args.max_bytes:
                                     break
                         elapsed = max(time.perf_counter() - start, 0.001)
