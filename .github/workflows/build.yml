@@ -51,6 +51,7 @@ jobs:
           HTTP_TEST_TIMEOUT: ${{ vars.HTTP_TEST_TIMEOUT }}
           DOWNLOAD_BYTES: ${{ vars.DOWNLOAD_BYTES }}
           DOWNLOAD_MIN_KBPS: 500
+          SPEED_TEST_WORKERS: 50
         run: python build.py
 
       - name: Configure Pages
