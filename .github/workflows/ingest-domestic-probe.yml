@@ -8,7 +8,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: domestic-probe-results
+  group: domestic-probe-state
   cancel-in-progress: false
 
 jobs:
@@ -36,6 +36,13 @@ jobs:
           data = json.loads(raw)
           if not isinstance(data, dict):
               raise SystemExit("Payload must be an object")
+
+          task_id = data.get("task_id")
+          if task_id is not None and (
+              not isinstance(task_id, str)
+              or not re.fullmatch(r"mi6-[0-9]{5,}-[0-9]+", task_id)
+          ):
+              raise SystemExit("Invalid task_id")
 
           device_id = data.get("device_id")
           network = data.get("network")
@@ -84,6 +91,7 @@ jobs:
 
           report = {
               "schema_version": 1,
+              "task_id": task_id,
               "device_id": device_id,
               "network": network,
               "tested_at": tested_at,
@@ -93,6 +101,21 @@ jobs:
           out = Path("data/domestic-probe/latest.json")
           out.parent.mkdir(parents=True, exist_ok=True)
           out.write_text(json.dumps(report, ensure_ascii=False, indent=2) + chr(10), encoding="utf-8")
+
+          if task_id is not None:
+              task_path = Path("data/domestic-probe/task.json")
+              if not task_path.exists():
+                  raise SystemExit("No active task manifest")
+              task = json.loads(task_path.read_text(encoding="utf-8"))
+              if task.get("task_id") != task_id or task.get("status") != "pending":
+                  raise SystemExit("Task is stale, already completed, or not pending")
+              expires = datetime.fromisoformat(task["expires_at"].replace("Z", "+00:00"))
+              if expires <= datetime.now(timezone.utc):
+                  raise SystemExit("Task has expired")
+              task["status"] = "completed"
+              task["completed_at"] = datetime.now(timezone.utc).isoformat()
+              task_path.write_text(json.dumps(task, ensure_ascii=False, indent=2) + chr(10), encoding="utf-8")
+
           print(f"Validated {len(clean)} domestic probe results")
           PY
 
@@ -100,7 +123,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/domestic-probe/latest.json
+          git add data/domestic-probe/latest.json data/domestic-probe/task.json
           git diff --cached --quiet || {
             git commit -m "chore: ingest domestic probe results"
             git push
