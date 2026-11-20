@@ -1,69 +1,13 @@
-name: Auto build subscription
+name: Legacy cloud build disabled
 
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
-  schedule:
-    - cron: "17 */6 * * *"
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: publish-pages
-  cancel-in-progress: true
 
 jobs:
-  build:
+  disabled:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-    timeout-minutes: 360
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-          cache: pip
-
-      - name: Install dependencies
-        run: pip install -r requirements.txt
-
-      - name: Install Mihomo core
+      - name: Explain new phone-verified publishing flow
         run: |
-          curl -fsSL https://github.com/MetaCubeX/mihomo/releases/download/v1.19.34/mihomo-linux-amd64-v1.19.34.gz | gunzip -c > mihomo
-          chmod +x mihomo
-          ./mihomo -v
-
-      - name: Build, proxy-test and validate subscription
-        env:
-          SUBSCRIPTION_URLS: ${{ secrets.SUBSCRIPTION_URLS }}
-          MAX_WORKERS: ${{ vars.MAX_WORKERS }}
-          CONNECT_TIMEOUT: ${{ vars.CONNECT_TIMEOUT }}
-          HANDSHAKE_WORKERS: ${{ vars.HANDSHAKE_WORKERS }}
-          HTTP_WORKERS: ${{ vars.HTTP_WORKERS }}
-          HTTP_TEST_TIMEOUT: ${{ vars.HTTP_TEST_TIMEOUT }}
-          DOWNLOAD_BYTES: ${{ vars.DOWNLOAD_BYTES }}
-          DOWNLOAD_MIN_KBPS: 500
-          SPEED_TEST_WORKERS: 50
-        run: python build-final.py
-
-      - name: Configure Pages
-        uses: actions/configure-pages@v5
-        with:
-          enablement: true
-
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: site
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          echo "Cloud-only final publishing is disabled."
+          echo "The final subscription will be generated only from successful Android/Termux probe receipts."
