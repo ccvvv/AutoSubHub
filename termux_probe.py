@@ -153,8 +153,8 @@ def main() -> None:
         candidate_bytes, _, manifest, source_used = download_verified_pair(
             session, pinned_candidate_url, pinned_manifest_url, 30, REPO, candidate_commit
         )
-    except RuntimeError as exc:
-        raise SystemExit(str(exc)) from exc
+    except (RuntimeError, ValueError, requests.RequestException, json.JSONDecodeError) as exc:
+        raise SystemExit(f"Unable to lock and download candidate version: {type(exc).__name__}: {exc}") from exc
     candidate_hash = hashlib.sha256(candidate_bytes).hexdigest()
 
     candidate = yaml.safe_load(candidate_bytes) or {}
