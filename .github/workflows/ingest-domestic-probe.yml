@@ -163,11 +163,15 @@ jobs:
               candidate_config = yaml.safe_load(candidate_path.read_text(encoding="utf-8"))
               candidate_proxies = candidate_config.get("proxies", [])
               selected = []
+              rename = {}
               for proxy in candidate_proxies:
-                  name = str(proxy.get("name", ""))
-                  match = re.match(r"^probe_([a-f0-9]{24})__", name)
+                  old_name = str(proxy.get("name", ""))
+                  match = re.match(r"^probe_([a-f0-9]{24})__(.+)$", old_name)
                   if match and f"probe_{match.group(1)}" in passed_ids:
-                      selected.append(proxy)
+                      clean_proxy = dict(proxy)
+                      clean_proxy["name"] = match.group(2)
+                      selected.append(clean_proxy)
+                      rename[old_name] = match.group(2)
               if not selected:
                   raise SystemExit("No passed receipt IDs matched candidate proxy entries")
 
@@ -176,8 +180,8 @@ jobs:
               group_names = {group.get("name") for group in groups}
               for group in groups:
                   group["proxies"] = [
-                      name for name in group.get("proxies", [])
-                      if name in selected_names or name in group_names
+                      rename.get(name, name) for name in group.get("proxies", [])
+                      if name in rename or name in group_names
                   ]
               final_config = dict(candidate_config)
               final_config["proxies"] = selected
