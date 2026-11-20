@@ -22,8 +22,6 @@ CONNECT_TIMEOUT = float(os.getenv("CONNECT_TIMEOUT", "3") or "3")
 HTTP_TIMEOUT_MS = int(os.getenv("HTTP_TEST_TIMEOUT", "8000") or "8000")
 WORKERS = max(1, int(os.getenv("MAX_WORKERS", "80") or "80"))
 HTTP_WORKERS = max(1, int(os.getenv("HTTP_WORKERS", "40") or "40"))
-MAX_NODES = max(0, int(os.getenv("MAX_NODES", "0") or "0"))
-DOWNLOAD_TEST_NODES = max(0, int(os.getenv("DOWNLOAD_TEST_NODES", "25") or "25"))
 DOWNLOAD_BYTES = max(100000, int(os.getenv("DOWNLOAD_BYTES", "1048576") or "1048576"))
 DOWNLOAD_MIN_KBPS = max(1, int(os.getenv("DOWNLOAD_MIN_KBPS", "500") or "500"))
 LATENCY_URL = os.getenv("LATENCY_URL", "https://www.gstatic.com/generate_204")
@@ -389,8 +387,7 @@ def main() -> None:
     if successes == 0:
         raise RuntimeError("All subscription sources failed; refusing to publish")
 
-    # Deduplicate globally and test every unique node by default.
-    # MAX_NODES=0 means unlimited; a positive value is an optional safety cap.
+    # Deduplicate globally, then test every unique node without a sampling cap.
     source_unique = []
     seen = set()
     parsed_total = 0
@@ -407,11 +404,9 @@ def main() -> None:
             unique_total += 1
         source_unique.append(bucket)
 
-    all_unique = [node for bucket in source_unique for node in bucket]
-    candidates = all_unique if MAX_NODES == 0 else all_unique[:MAX_NODES]
+    candidates = [node for bucket in source_unique for node in bucket]
     print(f"Parsed {parsed_total} nodes; globally unique: {unique_total}; "
-          f"nodes selected for full testing: {len(candidates)} / {unique_total}; "
-          f"limit: {'unlimited' if MAX_NODES == 0 else MAX_NODES}")
+          f"all unique nodes selected for testing: {len(candidates)}")
     if not candidates:
         raise RuntimeError("No supported nodes parsed; refusing to publish")
 
