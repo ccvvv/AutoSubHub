@@ -43,6 +43,11 @@ jobs:
           chmod +x mihomo
           ./mihomo -v
 
+      - name: Test phone receipt finalization and Mihomo config
+        env:
+          MIHOMO_BIN: \${{ github.workspace }}/mihomo
+        run: python -m unittest discover -s tests -p 'test_*.py' -v
+
       - name: Generate candidate files
         env:
           SUBSCRIPTION_URLS: ${{ secrets.SUBSCRIPTION_URLS }}
