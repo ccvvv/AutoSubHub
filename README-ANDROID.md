@@ -19,7 +19,7 @@ APK output after a successful build: app/build/outputs/apk/debug/app-debug.apk
 
 ## GitHub token
 
-Create a fine-grained token limited to this repository. Grant the repository-level Actions permission required by the dispatch endpoint. Never commit the token or paste it into source code. The app keeps it in the password field only for the current process and clears it after a successful HTTP 204 response.
+Create a fine-grained token limited to this repository. Grant **Contents: Read and write** for this repository (the `repository_dispatch` endpoint requires write access). Never commit the token or paste it into source code. The app keeps it in the password field only for the current process and clears it after a successful HTTP 204 response.
 
 ## Report contract
 
