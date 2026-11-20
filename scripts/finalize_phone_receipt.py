@@ -17,6 +17,9 @@ with open(receipt_path, encoding="utf-8") as f:
 
 with open(candidate_path, "rb") as f:
     actual_hash = hashlib.sha256(f.read()).hexdigest()
+candidate_commit = receipt.get("candidate_commit")
+if not isinstance(candidate_commit, str) or len(candidate_commit) != 40 or any(c not in "0123456789abcdef" for c in candidate_commit):
+    raise SystemExit("Receipt candidate_commit is missing or invalid; refusing to publish")
 if receipt.get("candidate_sha256") != actual_hash or manifest.get("candidate_sha256") != actual_hash:
     raise SystemExit("Receipt/candidate hash mismatch; refusing to publish")
 if receipt.get("status") != "completed":
