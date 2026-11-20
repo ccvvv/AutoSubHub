@@ -46,6 +46,7 @@ jobs:
           SUBSCRIPTION_URLS: ${{ secrets.SUBSCRIPTION_URLS }}
           MAX_WORKERS: ${{ vars.MAX_WORKERS }}
           CONNECT_TIMEOUT: ${{ vars.CONNECT_TIMEOUT }}
+          HANDSHAKE_WORKERS: ${{ vars.HANDSHAKE_WORKERS }}
           MAX_NODES: ${{ vars.MAX_NODES }}
           HTTP_WORKERS: ${{ vars.HTTP_WORKERS }}
           HTTP_TEST_TIMEOUT: ${{ vars.HTTP_TEST_TIMEOUT }}
