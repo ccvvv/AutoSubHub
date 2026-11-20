@@ -221,11 +221,35 @@ def main() -> None:
         path = "receipts/latest.json"
         headers = {"Authorization": f"Bearer {token}", "Accept": "application/vnd.github+json",
                    "X-GitHub-Api-Version": "2022-11-28"}
-        api_url = f"https://api.github.com/repos/{REPO}/contents/{path}"
-        current = requests.get(api_url, headers=headers, params={"ref": "probe-receipts"}, timeout=20)
+        api_root = f"https://api.github.com/repos/{REPO}"
+        branch = "probe-receipts"
+
+        # The first upload creates the receipt branch from the current main head.
+        branch_ref = requests.get(f"{api_root}/git/ref/heads/{branch}",
+                                  headers=headers, timeout=20)
+        if branch_ref.status_code == 404:
+            main_ref = requests.get(f"{api_root}/git/ref/heads/main",
+                                    headers=headers, timeout=20)
+            main_ref.raise_for_status()
+            created = requests.post(f"{api_root}/git/refs", headers=headers,
+                                    json={"ref": f"refs/heads/{branch}",
+                                          "sha": main_ref.json()["object"]["sha"]},
+                                    timeout=20)
+            if created.status_code == 422:
+                # Another upload may have created the branch concurrently.
+                branch_ref = requests.get(f"{api_root}/git/ref/heads/{branch}",
+                                          headers=headers, timeout=20)
+                branch_ref.raise_for_status()
+            else:
+                created.raise_for_status()
+        else:
+            branch_ref.raise_for_status()
+
+        api_url = f"{api_root}/contents/{path}"
+        current = requests.get(api_url, headers=headers, params={"ref": branch}, timeout=20)
         payload = {
             "message": "Upload Android phone probe receipt",
-            "branch": "probe-receipts",
+            "branch": branch,
             "content": base64.b64encode(Path(args.output).read_bytes()).decode("ascii"),
         }
         if current.status_code == 200:
