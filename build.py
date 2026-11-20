@@ -436,6 +436,8 @@ def main() -> None:
     os.makedirs("candidates", exist_ok=True)
     candidate_path = os.path.join("candidates", "candidates.yaml")
     write_yaml(candidate_path, {"proxies": candidates})
+    with open(candidate_path, "rb") as candidate_file:
+        candidate_sha256 = hashlib.sha256(candidate_file.read()).hexdigest()
 
     # Stable IDs are hashes of canonical node definitions; credentials are never written
     # into the manifest. The candidate YAML itself may contain credentials and must be
@@ -454,6 +456,7 @@ def main() -> None:
         "successful_sources": successes,
         "parsed_nodes": parsed_total,
         "unique_candidates": len(candidates),
+        "candidate_sha256": candidate_sha256,
         "excluded_http_proxies": http_type_rejected,
         "nodes": manifest_nodes,
     }
