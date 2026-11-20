@@ -63,6 +63,16 @@ def main() -> None:
             "port": int(proxy.get("port", 0)),
         })
 
+    name_map = {
+        str(original.get("name")): str(candidate.get("name"))
+        for original, candidate in zip(proxies, candidate_proxies)
+    }
+    for group in candidate_config.get("proxy-groups", []):
+        if isinstance(group, dict) and isinstance(group.get("proxies"), list):
+            group["proxies"] = [
+                name_map.get(str(name), name) for name in group["proxies"]
+            ]
+
     candidate_config["proxies"] = candidate_proxies
     generated_at = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
     SITE.mkdir(parents=True, exist_ok=True)
