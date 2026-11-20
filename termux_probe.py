@@ -195,9 +195,12 @@ def main() -> None:
             except subprocess.TimeoutExpired:
                 mihomo.kill()
 
+    completed_at = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
     receipt = {
         "schema_version": 1,
-        "created_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        "status": "completed",
+        "created_at": completed_at,
+        "completed_at": completed_at,
         "candidate_sha256": candidate_hash,
         "device": "android-termux",
         "workers": args.workers,
