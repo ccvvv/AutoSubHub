@@ -59,6 +59,7 @@ jobs:
               raise SystemExit("results must contain 1..50 entries")
 
           clean = []
+          seen_node_ids = set()
           for item in results:
               if not isinstance(item, dict):
                   raise SystemExit("Each result must be an object")
@@ -72,6 +73,9 @@ jobs:
               speed = item.get("download_kbps")
               if not isinstance(node_id, str) or not re.fullmatch(r"[A-Za-z0-9_-]{8,80}", node_id):
                   raise SystemExit("Invalid opaque node_id")
+              if node_id in seen_node_ids:
+                  raise SystemExit("Duplicate node_id in report")
+              seen_node_ids.add(node_id)
               if protocol not in {"shadowsocks", "vmess", "vless", "trojan", "hysteria2", "tuic", "other"}:
                   raise SystemExit("Invalid protocol")
               if status not in {"passed", "failed", "inconclusive"}:
@@ -109,6 +113,13 @@ jobs:
               task = json.loads(task_path.read_text(encoding="utf-8"))
               if task.get("task_id") != task_id or task.get("status") != "pending":
                   raise SystemExit("Task is stale, already completed, or not pending")
+              if device_id != task.get("target_device_id"):
+                  raise SystemExit("Report device does not match task target")
+              max_nodes = task.get("max_nodes")
+              if not isinstance(max_nodes, int) or not 1 <= max_nodes <= 50:
+                  raise SystemExit("Task has an invalid max_nodes value")
+              if len(clean) > max_nodes:
+                  raise SystemExit("Report contains more nodes than the task allows")
               expires = datetime.fromisoformat(task["expires_at"].replace("Z", "+00:00"))
               if expires <= datetime.now(timezone.utc):
                   raise SystemExit("Task has expired")
