@@ -6,7 +6,6 @@ import json
 import math
 import os
 import re
-import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -127,7 +126,7 @@ def main() -> None:
         "results": list(accepted.values()),
     }
     (DATA / "latest.json").write_text(
-        json.dumps(report, ensure_ascii=False, indent=2) + "\\n",
+        json.dumps(report, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
     )
 
