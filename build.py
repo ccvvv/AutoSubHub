@@ -6,24 +6,29 @@ import base64
 import json
 import os
 import re
-import socket
-import ssl
 import subprocess
 import tempfile
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from urllib.parse import parse_qs, unquote, urlsplit, quote
+from urllib.parse import parse_qs, unquote, urlsplit, quote, quote
 
 import requests
 import yaml
 
 USER_AGENT = "AutoSubHub/2.0 (+https://github.com/ccvvv/AutoSubHub)"
-CONNECT_TIMEOUT = float(os.getenv("CONNECT_TIMEOUT", "3") or "3")
 HTTP_TIMEOUT_MS = int(os.getenv("HTTP_TEST_TIMEOUT", "8000") or "8000")
-WORKERS = max(1, int(os.getenv("MAX_WORKERS", "80") or "80"))
 HTTP_WORKERS = max(1, int(os.getenv("HTTP_WORKERS", "60") or "60"))
 SOURCE_WORKERS = max(1, int(os.getenv("SOURCE_WORKERS", "10") or "10"))
-LATENCY_URL = os.getenv("LATENCY_URL", "https://www.gstatic.com/generate_204")
+HTTP_TIMEOUT_MS = int(os.getenv("HTTP_TEST_TIMEOUT", "8000") or "8000")
+HTTP_WORKERS = max(1, int(os.getenv("HTTP_WORKERS", "60") or "60"))
+_DEFAULT_LATENCY_URL = "https://www.gstatic.com/generate_204"
+_configured_latency_url = os.getenv("LATENCY_URL", "").strip()
+if _configured_latency_url and urlsplit(_configured_latency_url).scheme.lower() == "https":
+    LATENCY_URL = _configured_latency_url
+else:
+    LATENCY_URL = _DEFAULT_LATENCY_URL
+    if _configured_latency_url:
+        print("Ignoring non-HTTPS LATENCY_URL; plain HTTP captive-portal checks are disabled.")
 CONTROLLER = "http://127.0.0.1:9090"
 PROBE_WORKERS = max(1, min(50, int(os.getenv("CERT_WORKERS", "50") or "50")))
 PROBE_PORT_BASE = 17890
@@ -183,114 +188,6 @@ def node_key(node: dict) -> tuple:
                  ("type", "server", "port", "uuid", "password", "cipher", "username"))
 
 
-UDP_PROTOCOLS = {"hysteria", "hysteria2", "tuic", "wireguard"}
-REALITY_PROTOCOLS = {"vless"}
-
-
-def tcp_check(node: dict) -> tuple[dict, float | None]:
-    # UDP-based protocols must not be rejected by a TCP port probe.
-    if str(node.get("type", "")).lower() in UDP_PROTOCOLS:
-        return node, 0.0
-    try:
-        start = time.perf_counter()
-        with socket.create_connection((str(node["server"]), int(node["port"])), timeout=CONNECT_TIMEOUT):
-            return node, round((time.perf_counter() - start) * 1000, 1)
-    except Exception:
-        return node, None
-
-
-def protocol_handshake_check(node: dict) -> tuple[dict, bool, str]:
-    """FreeNodePanel-style TCP -> TLS -> WebSocket/HTTPUpgrade handshake.
-
-    Reality and UDP transports are deliberately left to Mihomo's native
-    protocol implementation to avoid false negatives from a generic TLS/TCP probe.
-    """
-    kind = str(node.get("type", "")).lower()
-    if kind in UDP_PROTOCOLS:
-        return node, True, "native-udp"
-    reality = isinstance(node.get("reality-opts"), dict) and bool(node.get("reality-opts"))
-    if kind in REALITY_PROTOCOLS and reality:
-        return node, True, "reality-deferred-to-mihomo"
-
-    host = str(node.get("server", ""))
-    port = int(node.get("port", 0) or 0)
-    if not host or not 1 <= port <= 65535:
-        return node, False, "invalid-endpoint"
-
-    use_tls = bool(node.get("tls")) or kind == "trojan"
-    network = str(node.get("network", "tcp")).lower()
-    is_ws = network in {"ws", "httpupgrade"}
-    ws_options = node.get("ws-opts", {}) if network == "ws" else node.get("http-upgrade-opts", {})
-    if not isinstance(ws_options, dict):
-        ws_options = {}
-    path = str(ws_options.get("path") or "/")
-    headers = ws_options.get("headers", {})
-    if not isinstance(headers, dict):
-        headers = {}
-    ws_host = str(headers.get("Host") or headers.get("host") or node.get("servername") or host)
-
-    try:
-        addresses = socket.getaddrinfo(host, port, type=socket.SOCK_STREAM)
-    except Exception:
-        return node, False, "dns-failed"
-    if not addresses:
-        return node, False, "dns-empty"
-
-    last_error = "connect-failed"
-    for family, socktype, proto, _, sockaddr in addresses:
-        raw = None
-        try:
-            raw = socket.socket(family, socktype, proto)
-            raw.settimeout(max(CONNECT_TIMEOUT, 4.0))
-            raw.connect(sockaddr)
-            conn = raw
-            if use_tls:
-                context = ssl.create_default_context()
-                context.check_hostname = False
-                context.verify_mode = ssl.CERT_NONE
-                sni = str(node.get("servername") or host)
-                conn = context.wrap_socket(raw, server_hostname=sni)
-                raw = None  # wrapped socket now owns the file descriptor
-            if is_ws:
-                request = (
-                    f"GET {path} HTTP/1.1\r\n"
-                    f"Host: {ws_host}\r\n"
-                    "Upgrade: websocket\r\n"
-                    "Connection: Upgrade\r\n"
-                    "Sec-WebSocket-Key: dGhlIHNhbXBsZSBub25jZQ==\r\n"
-                    "Sec-WebSocket-Version: 13\r\n\r\n"
-                )
-                conn.sendall(request.encode("utf-8"))
-                response = b""
-                while b"\r\n" not in response and len(response) < 4096:
-                    chunk = conn.recv(512)
-                    if not chunk:
-                        break
-                    response += chunk
-                status = response.split(b"\r\n", 1)[0]
-                if b" 101 " not in status and not status.endswith(b" 101"):
-                    last_error = "websocket-upgrade-rejected"
-                    conn.close()
-                    continue
-                conn.close()
-            elif use_tls:
-                conn.close()
-            else:
-                conn.close()
-            return node, True, "tcp-tls-ws-ok"
-        except ssl.SSLError:
-            last_error = "tls-handshake-failed"
-        except Exception:
-            last_error = "connect-or-upgrade-failed"
-        finally:
-            if raw is not None:
-                try:
-                    raw.close()
-                except Exception:
-                    pass
-    return node, False, last_error
-
-
 def unique_names(nodes: list[dict]) -> list[dict]:
     used, result = set(), []
     for i, source in enumerate(nodes, 1):
@@ -438,39 +335,11 @@ def main() -> None:
     if not candidates:
         raise RuntimeError("No supported non-HTTP nodes parsed; refusing to publish")
 
-    print(f"TCP prefilter: {len(candidates)} candidates, {WORKERS} workers")
-    tcp_ok = []
-    with ThreadPoolExecutor(max_workers=WORKERS) as pool:
-        futures = [pool.submit(tcp_check, n) for n in candidates]
-        for future in as_completed(futures):
-            node, latency = future.result()
-            if latency is not None:
-                tcp_ok.append(node)
-    if not tcp_ok:
-        raise RuntimeError("No node passed TCP/UDP candidate prefilter")
-    tcp_passed_count = len(tcp_ok)
-    print(f"TCP/UDP candidate pass: {tcp_passed_count} / {len(candidates)}")
-
-    handshake_workers = max(1, int(os.getenv("HANDSHAKE_WORKERS", "80") or "80"))
-    print(f"Protocol handshake check: {len(tcp_ok)} candidates, {handshake_workers} workers")
-    handshake_ok = []
-    handshake_failures = {}
-    with ThreadPoolExecutor(max_workers=handshake_workers) as pool:
-        futures = [pool.submit(protocol_handshake_check, n) for n in tcp_ok]
-        for future in as_completed(futures):
-            node, passed, reason = future.result()
-            if passed:
-                handshake_ok.append(node)
-            else:
-                handshake_failures[reason] = handshake_failures.get(reason, 0) + 1
-    handshake_passed_count = len(handshake_ok)
-    print(f"Protocol handshake passed: {handshake_passed_count} / {tcp_passed_count}; "
-          f"rejected: {sum(handshake_failures.values())}; reasons: {handshake_failures}")
-    if not handshake_ok:
-        raise RuntimeError("No node passed protocol handshake prefilter")
-
-    tcp_ok = unique_names(handshake_ok)
-    print(f"Handshake passed: {len(tcp_ok)}; starting Mihomo real proxy tests")
+    # Keep every supported, unique candidate. Do not run standalone TCP or
+    # generic TLS/WS handshake probes here: they can reject usable proxy nodes.
+    tcp_ok = unique_names(candidates)
+    print(f"Format/dedup candidates retained: {len(tcp_ok)}; "
+          "standalone connectivity prefilters disabled.")
     os.makedirs("site", exist_ok=True)
 
     with tempfile.TemporaryDirectory(prefix="autohub-") as tmp:
@@ -516,10 +385,10 @@ def main() -> None:
                         tested.append((delay, node))
             tested.sort(key=lambda x: x[0])
             if not tested:
-                raise RuntimeError("No node passed real HTTP proxy latency test")
+                raise RuntimeError("No node passed HTTPS proxy latency test")
 
-            http_tested_count = len(tested)
-            print(f"HTTP proxy test passed: {http_tested_count} / {len(tcp_ok)}")
+            https_latency_passed_count = len(tested)
+            print(f"Mihomo HTTPS latency passed: {https_latency_passed_count} / {len(tcp_ok)}")
 
             # Validate real HTTPS certificates through each node's isolated Mihomo listener.
             # HTTP status codes are deliberately ignored: 401/403/404 can still prove TLS validity.
@@ -529,7 +398,7 @@ def main() -> None:
             }
             certificate_workers = max(1, min(PROBE_WORKERS,
                 int(os.getenv("CERT_WORKERS", "50") or "50")))
-            print(f"HTTPS certificate validation: {len(tested)} nodes, "
+            print(f"ChatGPT HTTPS certificate validation: {len(tested)} nodes, "
                   f"{len(certificate_targets)} platform targets, {certificate_workers} workers")
             certificate_ok = []
             certificate_rejected = 0
@@ -619,7 +488,7 @@ def main() -> None:
             if not tested:
                 raise RuntimeError("No node passed HTTPS certificate validation")
 
-            # Candidate stage ends after GitHub-side proxy, TLS and HTTPS checks.
+            # Candidate stage ends after ChatGPT HTTPS certificate validation.
             # Download throughput is intentionally reserved for the Android phone.
             import hashlib
             passed_nodes = [dict(node) for delay, node in tested]
@@ -652,9 +521,9 @@ def main() -> None:
                 "parsed_nodes": parsed_total,
                 "unique_candidates": unique_total,
                 "excluded_http_proxies": http_type_rejected,
-                "tcp_passed": tcp_passed_count,
-                "protocol_handshake_passed": handshake_passed_count,
-                "mihomo_http_passed": http_tested_count,
+                "standalone_connectivity_prefilters": "disabled",
+                "plain_http_captive_check": "disabled",
+                "mihomo_https_latency_passed": https_latency_passed_count,
                 "https_certificate_passed": len(passed_nodes),
                 "certificate_invalid_rejected": certificate_rejected,
                 "certificate_inconclusive_rejected": certificate_inconclusive,
@@ -667,9 +536,10 @@ def main() -> None:
             print(
                 "GitHub prefilter complete: "
                 f"parsed={parsed_total}, unique={unique_total}, "
-                f"TCP/handshake={len(handshake_ok)}, "
-                f"Mihomo HTTP={http_tested_count}, "
-                f"HTTPS certificate={len(passed_nodes)}. "
+                f"standalone TCP/handshake checks=disabled, "
+                f"plain HTTP checks=disabled, "
+                f"Mihomo HTTPS latency={https_latency_passed_count}, "
+                f"ChatGPT HTTPS certificate={len(passed_nodes)}. "
                 "Phone download-speed testing remains pending."
             )
         finally:
