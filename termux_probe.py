@@ -69,26 +69,6 @@ def mirror_urls(url: str, repo: str, branch: str) -> list[tuple[str, str]]:
     ]
 
 
-def download_candidate(session: requests.Session, url: str, timeout: int,
-                       repo: str, branch: str) -> tuple[bytes, dict, str]:
-    """Try all configured sources; each attempt is bounded and retried once."""
-    sources = mirror_urls(url, repo, branch)
-    errors = []
-    for source, mirror_url in sources:
-        for attempt in range(1, 3):
-            try:
-                response = session.get(mirror_url, timeout=timeout)
-                response.raise_for_status()
-                if not response.content:
-                    raise ValueError("empty response")
-                print(f"Downloaded {url.rsplit('/', 1)[-1]} via {source}")
-                return response.content, response.headers, source
-            except (requests.RequestException, ValueError) as exc:
-                errors.append(f"{source} attempt {attempt}: {type(exc).__name__}: {exc}")
-                print(f"Download failed via {source} (attempt {attempt}/2): {type(exc).__name__}")
-    raise RuntimeError("All candidate download sources failed: " + " | ".join(errors[-8:]))
-
-
 def download_verified_pair(session: requests.Session, candidate_url: str,
                            manifest_url: str, timeout: int,
                            repo: str, branch: str) -> tuple[bytes, dict, dict, str]:
@@ -265,6 +245,7 @@ def main() -> None:
         "created_at": completed_at,
         "completed_at": completed_at,
         "candidate_sha256": candidate_hash,
+        "candidate_source": source_used,
         "device": "android-termux",
         "workers": args.workers,
         "min_speed_bps": int(args.min_speed_kbps * 1000),
