@@ -5,15 +5,15 @@ This is an additive, opt-in companion workflow. It does not change the existing 
 ## Device and responsibilities
 
 - Device: Xiaomi Mi 6, stock MIUI, no root, mainland-China Wi-Fi.
-- Proxy engine: sing-box Android (SFA) is a separate VPN app. It provides proxy protocol support, but does not expose a ready-made unattended batch-test-and-upload feature to a companion app.
-- Companion app: planned Android 9+ controller. It will fetch a candidate list, ask the proxy engine to test one candidate at a time, run a GPT reachability check through the selected proxy, measure a bounded download sample, and submit sanitized results.
+- Proxy client/engine: use the Hiddify Android app (built on sing-box), not a separate SFA app. Hiddify already contains node selection, URL delay tests, and per-node upload/download tests.
+- Probe implementation: add the domestic-probe feature inside a Hiddify fork. Do not build a second app that tries to control Hiddify from outside: its core-control gRPC channel is an internal app channel protected by app-private mTLS identity, and its Android VPN service is not exported.
 - GitHub Actions: accepts reports and stores a latest snapshot. The normal subscription build remains independent until domestic results have been validated in real use.
 
 ## MVP stages
 
 1. Establish a stable candidate manifest with opaque node IDs and no credentials in the report.
-2. Confirm on the Mi 6 that the chosen sing-box integration can start/stop a single proxy and route test requests through it. SFA itself should not be assumed to provide an automation API; embedding libbox in a dedicated app may be required.
-3. Implement serial testing first (one active proxy at a time). Suggested initial limits: connect/GPT request timeout 15 seconds; download sample 256 KiB; speed threshold 500 KiB/s; one retry for transient errors. These are initial tuning values, not proven device limits.
+2. Fork Hiddify and add a probe screen/service inside its Flutter app, reusing its existing `ProxyRepository` and `HiddifyCoreService` rather than opening a public unauthenticated control port.
+3. Implement serial testing first (one active proxy at a time): select one outbound, wait for the core to settle, make the GPT reachability request through Hiddify's proxy-only HTTP path, record delay, and run a bounded download test. Suggested initial limits: GPT request timeout 15 seconds; download sample 256 KiB; speed threshold 500 KiB/s; one retry for transient errors. These are initial tuning values, not proven device limits.
 4. Submit results using GitHub `repository_dispatch` event type `domestic-probe-results`.
 5. After several successful real-device runs, decide whether domestic-pass results should influence published subscriptions. Do not automatically remove nodes based on a single Wi-Fi probe.
 
