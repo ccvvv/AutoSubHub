@@ -74,3 +74,17 @@ Store a dedicated fine-grained GitHub token using Android Keystore-backed encryp
 - No automatic deletion or publication filtering based on one device report.
 - No separate companion app controlling Hiddify.
 - No changes to the existing six-hour GitHub subscription build.
+
+
+## Updated candidate-feed contract (receipt-only MVP)
+
+The current implementation no longer requires an individual GitHub task for each test run.
+
+- AutoSubHub publishes a versioned candidate profile at `data/domestic-probe/candidates.yaml` and a companion `candidate-manifest.json`.
+- Candidate names are prefixed `probe_<24-hex-id>__`. Hiddify must preserve this tag prefix when importing the candidate profile.
+- The Hiddify fork now has a candidate client that fetches both files with no-cache headers, checks the manifest revision, and verifies that the IDs in the YAML match the manifest.
+- The report builder reads the stable ID from each outbound tag and includes `candidate_revision`, `device_id`, `network`, and sanitized results. It does not require `task_id`.
+- The result client accepts an optional `task_id` for backward compatibility, but the receipt-only flow omits it.
+- AutoSubHub validates the candidate revision and every returned ID against the latest manifest. Only `passed` entries are selected for the final subscription. The original display names are restored before publication.
+
+The candidate downloader and report builder are foundation modules; the Domestic Probe screen still needs to connect candidate import, the actual Hiddify group download test, report creation, and the explicit upload action. No APK build or Mi 6 test has been completed.
