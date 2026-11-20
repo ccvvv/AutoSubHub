@@ -8,9 +8,7 @@ on:
     - cron: "17 */6 * * *"
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
 concurrency:
   group: publish-pages
@@ -19,8 +17,6 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
     timeout-minutes: 360
     steps:
       - name: Check out repository
@@ -54,16 +50,12 @@ jobs:
           SPEED_TEST_WORKERS: 50
         run: python build.py
 
-      - name: Configure Pages
-        uses: actions/configure-pages@v5
-        with:
-          enablement: true
-
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: site
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Commit candidate subscription and manifest
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/domestic-probe/candidates.yaml data/domestic-probe/candidate-manifest.json
+          git diff --cached --quiet || {
+            git commit -m "chore: publish GitHub-screened probe candidates"
+            git push
+          }
