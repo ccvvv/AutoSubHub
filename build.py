@@ -388,7 +388,7 @@ def main() -> None:
                 raise RuntimeError("No node passed HTTPS proxy latency test")
 
             https_latency_passed_count = len(tested)
-            print(f"Mihomo HTTPS latency passed: {http_tested_count} / {len(tcp_ok)}")
+            print(f"Mihomo HTTPS latency passed: {https_latency_passed_count} / {len(tcp_ok)}")
 
             # Validate real HTTPS certificates through each node's isolated Mihomo listener.
             # HTTP status codes are deliberately ignored: 401/403/404 can still prove TLS validity.
@@ -523,7 +523,7 @@ def main() -> None:
                 "excluded_http_proxies": http_type_rejected,
                 "standalone_connectivity_prefilters": "disabled",
                 "plain_http_captive_check": "disabled",
-                "mihomo_https_latency_passed": http_tested_count,
+                "mihomo_https_latency_passed": https_latency_passed_count,
                 "https_certificate_passed": len(passed_nodes),
                 "certificate_invalid_rejected": certificate_rejected,
                 "certificate_inconclusive_rejected": certificate_inconclusive,
@@ -538,7 +538,7 @@ def main() -> None:
                 f"parsed={parsed_total}, unique={unique_total}, "
                 f"standalone TCP/handshake checks=disabled, "
                 f"plain HTTP checks=disabled, "
-                f"Mihomo HTTPS latency={http_tested_count}, "
+                f"Mihomo HTTPS latency={https_latency_passed_count}, "
                 f"ChatGPT HTTPS certificate={len(passed_nodes)}. "
                 "Phone download-speed testing remains pending."
             )
