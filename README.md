@@ -1,18 +1,30 @@
 # AutoSubHub
 
-GitHub performs lightweight subscription parsing and deduplication. Android/Termux probe performs domestic-network reachability, TLS and download-speed tests. Only phone-tested results are eligible for the final subscription.
+GitHub keeps the existing published final subscription workflow separate from the lightweight candidate pipeline. Android/Termux performs domestic-network reachability, TLS and download-speed tests. Only phone-tested results are eligible for future final releases.
 
 ## Directory layout
 
 - `source/`: optional source-list location (legacy root `subscriptions.txt` remains supported).
-- `candidates/`: generated candidate YAML and manifest, delivered as a short-lived Actions artifact in this initial phase.
-- `probe/`: Termux probe runtime and scripts (added in the next phase).
+- `candidates/`: generated candidate YAML and manifest, delivered as a short-lived Actions artifact.
+- `probe/`: Termux probe runtime and scripts (next implementation phase).
 - `probe-results/`: phone test receipts (planned; pushed to a dedicated branch).
-- `final/`: final subscription output (planned; remains separate from candidates).
+- `final/`: final subscription outputs and three-version history (planned; separate from candidates).
 
-## Privacy
+## Workflows
 
-Candidate YAML contains proxy credentials. Do not commit it to a public repository or publish it through public GitHub Pages. The current candidate workflow uploads it as a short-lived Actions artifact. Before the Android App downloads artifacts automatically, authenticated artifact retrieval with a narrowly scoped GitHub token must be implemented.
+- `.github/workflows/build.yml` keeps the existing GitHub Pages final-subscription publishing workflow and calls `build-final.py`.
+- `.github/workflows/build-candidates.yml` independently parses and deduplicates source subscriptions, then uploads the candidate artifact.
+- `build.py` is the lightweight candidate generator. `build-final.py` preserves the existing cloud-side final builder while the phone-probe pipeline is developed.
+
+## Candidate retention
+
+Candidate YAML contains proxy credentials and is never committed to the public repository or published through public Pages. The candidate workflow creates the new candidate first, then deletes older artifacts named `autohub-candidates` and uploads the latest one. If candidate generation fails, the previous artifact is not deleted. Artifacts currently have a 3-day retention period.
+
+Before the Android client downloads artifacts automatically, authenticated artifact retrieval with a narrowly scoped GitHub token must be implemented.
+
+## Final subscription retention
+
+The agreed target is to keep three successful final versions: newest, previous, and two-versions-old. Rotation must happen only after a new final subscription is generated and validated successfully. A failed build or failed phone receipt must leave all three existing versions untouched. This three-version publisher is not implemented yet.
 
 ## Candidate pipeline
 
@@ -20,10 +32,6 @@ Candidate YAML contains proxy credentials. Do not commit it to a public reposito
 2. Parse supported Clash YAML and URI formats.
 3. Exclude pure HTTP proxy entries and malformed/unsupported entries.
 4. Deduplicate nodes and create stable opaque node IDs in `candidates/manifest.json`.
-5. Upload candidate YAML and manifest as a 3-day Actions artifact.
+5. Upload the candidate YAML and manifest as the latest access-controlled Actions artifact.
 
-GitHub no longer runs strict TCP/handshake/ChatGPT certificate/download-speed rejection. Those decisions move to the Android phone's domestic-network probe.
-
-## Existing final subscription
-
-The currently published Pages subscription is not changed by this candidate-only workflow. A separate final publisher will be introduced after phone receipts are validated end to end.
+GitHub candidate generation does not perform strict TCP/handshake/ChatGPT certificate/download-speed rejection. Those decisions move to the Android phone's domestic-network probe.
