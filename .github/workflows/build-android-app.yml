@@ -6,6 +6,7 @@ on:
     branches: [feature/manual-android-app]
     paths:
       - "android-app/**"
+      - "app_control.sh"
       - ".github/workflows/build-android-app.yml"
 
 permissions:
@@ -17,6 +18,8 @@ jobs:
     steps:
       - name: Check out source
         uses: actions/checkout@v4
+      - name: Check Termux dispatcher shell syntax
+        run: bash -n app_control.sh
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
