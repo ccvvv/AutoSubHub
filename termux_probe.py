@@ -114,7 +114,6 @@ def main() -> None:
                         help="First local mixed-listener port")
     parser.add_argument("--mihomo", default=os.getenv("MIHOMO_BIN", "./mihomo"))
     parser.add_argument("--output", default="receipt.json")
-    parser.add_argument("--upload", action="store_true", help="Upload receipt to probe-receipts branch")
     args = parser.parse_args()
 
     if not 1 <= args.workers <= 200:
@@ -257,51 +256,6 @@ def main() -> None:
     passed = sum(r["status"] == "passed" for r in receipt_results)
     print(f"Probe complete: {passed}/{len(receipt_results)} passed; receipt: {args.output}")
 
-    if args.upload:
-        token = os.getenv("GITHUB_TOKEN", "").strip()
-        if not token:
-            raise SystemExit("Set GITHUB_TOKEN with repository Contents: Read and write permission")
-        path = "receipts/latest.json"
-        headers = {"Authorization": f"Bearer {token}", "Accept": "application/vnd.github+json",
-                   "X-GitHub-Api-Version": "2022-11-28"}
-        api_root = f"https://api.github.com/repos/{REPO}"
-        branch = "probe-receipts"
-
-        # The first upload creates the receipt branch from the current main head.
-        branch_ref = requests.get(f"{api_root}/git/ref/heads/{branch}",
-                                  headers=headers, timeout=20)
-        if branch_ref.status_code == 404:
-            main_ref = requests.get(f"{api_root}/git/ref/heads/main",
-                                    headers=headers, timeout=20)
-            main_ref.raise_for_status()
-            created = requests.post(f"{api_root}/git/refs", headers=headers,
-                                    json={"ref": f"refs/heads/{branch}",
-                                          "sha": main_ref.json()["object"]["sha"]},
-                                    timeout=20)
-            if created.status_code == 422:
-                # Another upload may have created the branch concurrently.
-                branch_ref = requests.get(f"{api_root}/git/ref/heads/{branch}",
-                                          headers=headers, timeout=20)
-                branch_ref.raise_for_status()
-            else:
-                created.raise_for_status()
-        else:
-            branch_ref.raise_for_status()
-
-        api_url = f"{api_root}/contents/{path}"
-        current = requests.get(api_url, headers=headers, params={"ref": branch}, timeout=20)
-        payload = {
-            "message": "Upload Android phone probe receipt",
-            "branch": branch,
-            "content": base64.b64encode(Path(args.output).read_bytes()).decode("ascii"),
-        }
-        if current.status_code == 200:
-            payload["sha"] = current.json()["sha"]
-        elif current.status_code != 404:
-            current.raise_for_status()
-        uploaded = requests.put(api_url, headers=headers, json=payload, timeout=30)
-        uploaded.raise_for_status()
-        print("Receipt uploaded to probe-receipts; GitHub finalization workflow should start.")
 
 
 if __name__ == "__main__":
