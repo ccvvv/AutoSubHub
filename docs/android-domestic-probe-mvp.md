@@ -84,6 +84,19 @@ Use a single active task for the MVP to avoid duplicate execution and conflictin
 
 Do not treat a successful GitHub API response as proof that the Actions workflow finished. The phone UI should distinguish “event accepted” from “result stored”. A task must have an expiry and a stable ID so a stale task cannot run forever.
 
+### Low-cost task discovery (MVP decision)
+
+Use the existing direct GitHub task-manifest polling path as the primary and only task-discovery mechanism in the first release. Do not call DeepSeek for every poll.
+
+- The manifest is a small JSON file, so the phone reads it directly from the repository's raw-content endpoint.
+- A missing manifest (HTTP 404) means there is no published task yet; it is not a fatal app error.
+- Network failures, timeouts, HTTP 408/429, and server-side 5xx responses are retried up to three times with short exponential delays. Other HTTP 4xx responses fail immediately.
+- Send no-cache request headers so a stale intermediary response is less likely.
+- Validate the task locally using the existing schema, device ID, status, and expiry checks. Never let an AI-generated interpretation authorize task execution.
+- DeepSeek may be considered later as an optional human-facing diagnostic or fallback experiment, but it is not required for task delivery and must not become a dependency for starting or completing a probe.
+
+This keeps the task loop inexpensive and deterministic: GitHub remains the single source of truth, while local retry and persisted task state handle temporary network interruptions.
+
 ### Polling and reliability policy
 
 - MVP: user opens the probe screen and taps “Check GitHub task”; no hidden background polling is required.
