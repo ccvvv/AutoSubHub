@@ -22,7 +22,8 @@ CONNECT_TIMEOUT = float(os.getenv("CONNECT_TIMEOUT", "3") or "3")
 HTTP_TIMEOUT_MS = int(os.getenv("HTTP_TEST_TIMEOUT", "8000") or "8000")
 WORKERS = max(1, int(os.getenv("MAX_WORKERS", "80") or "80"))
 HTTP_WORKERS = max(1, int(os.getenv("HTTP_WORKERS", "40") or "40"))
-DOWNLOAD_BYTES = max(100000, int(os.getenv("DOWNLOAD_BYTES", "1048576") or "1048576"))
+DOWNLOAD_BYTES = max(524288, int(os.getenv("DOWNLOAD_BYTES", "1048576") or "1048576"))
+SPEED_PREFILTER_BYTES = max(65536, int(os.getenv("SPEED_PREFILTER_BYTES", "262144") or "262144"))
 DOWNLOAD_MIN_KBPS = max(1, int(os.getenv("DOWNLOAD_MIN_KBPS", "500") or "500"))
 LATENCY_URL = os.getenv("LATENCY_URL", "https://www.gstatic.com/generate_204")
 DOWNLOAD_URL = os.getenv("DOWNLOAD_URL", "https://speed.cloudflare.com/__down?bytes=" + str(DOWNLOAD_BYTES))
@@ -491,8 +492,11 @@ def main() -> None:
             print(f"HTTP proxy test passed: {len(tested)} / {len(tcp_ok)}")
             speed_map = {}
             speed_failures = 0
-            print(f"Full download speed test: {len(tested)} nodes; minimum {DOWNLOAD_MIN_KBPS} KB/s")
+            speed_prefilter_rejected = 0
+            print(f"Fast speed prefilter: first {SPEED_PREFILTER_BYTES // 1024} KB; "
+                  f"full test target: {DOWNLOAD_BYTES // 1024} KB; minimum {DOWNLOAD_MIN_KBPS} KB/s")
             for index, (delay, node) in enumerate(tested, 1):
+                response = None
                 try:
                     selected = api.put(CONTROLLER + "/proxies/TEST", json={"name": node["name"]}, timeout=5)
                     selected.raise_for_status()
@@ -503,24 +507,49 @@ def main() -> None:
                     }, stream=True, timeout=(8, 15), headers={"User-Agent": USER_AGENT})
                     response.raise_for_status()
                     total = 0
+                    prefilter_speed = None
+                    for chunk in response.iter_content(65536):
+                        if chunk:
+                            total += len(chunk)
+                        if total >= SPEED_PREFILTER_BYTES:
+                            elapsed_prefilter = max(time.perf_counter() - start, 0.001)
+                            prefilter_speed = total / elapsed_prefilter / 1024
+                            break
+                    if not total or prefilter_speed is None:
+                        speed_failures += 1
+                        print(f"Speed prefilter {index}/{len(tested)}: {node['name']} = no data")
+                        continue
+                    if prefilter_speed < DOWNLOAD_MIN_KBPS:
+                        speed_prefilter_rejected += 1
+                        print(f"Speed prefilter {index}/{len(tested)}: {node['name']} = "
+                              f"{prefilter_speed:.0f} KB/s; rejected")
+                        continue
+
+                    # Only nodes passing the quick 256 KB check continue to the
+                    # full download test. Continue the same stream to avoid a
+                    # second connection and measure the whole transfer.
                     for chunk in response.iter_content(65536):
                         if chunk:
                             total += len(chunk)
                         if total >= DOWNLOAD_BYTES:
                             break
-                    response.close()
-                    elapsed = max(time.perf_counter() - start, 0.001)
-                    if total:
-                        speed_map[node["name"]] = round(total / elapsed / 1024, 1)
+                    elapsed_full = max(time.perf_counter() - start, 0.001)
+                    if total >= SPEED_PREFILTER_BYTES:
+                        speed_map[node["name"]] = round(total / elapsed_full / 1024, 1)
                     else:
                         speed_failures += 1
                 except Exception as exc:
                     speed_failures += 1
                     print(f"Download test failed for {node['name']}: {type(exc).__name__}")
+                finally:
+                    if response is not None:
+                        response.close()
                 if index % 50 == 0 or index == len(tested):
-                    print(f"Speed progress: {index}/{len(tested)}; measured {len(speed_map)}; failed {speed_failures}")
+                    print(f"Speed progress: {index}/{len(tested)}; full-tested {len(speed_map)}; "
+                          f"prefilter-rejected {speed_prefilter_rejected}; failed {speed_failures}")
             print(f"Download speed measured: {len(speed_map)} / {len(tested)}; "
-                  f"speed-test failures: {speed_failures}; threshold: {DOWNLOAD_MIN_KBPS} KB/s")
+                  f"quick-prefilter rejected: {speed_prefilter_rejected}; failures: {speed_failures}; "
+                  f"threshold: {DOWNLOAD_MIN_KBPS} KB/s")
         finally:
             proc.terminate()
             try:
