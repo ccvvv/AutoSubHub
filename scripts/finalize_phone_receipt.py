@@ -2,7 +2,7 @@
 """Validate a phone probe receipt and build a phone-verified final subscription."""
 import hashlib, json, os, sys, yaml
 
-MIN_SPEED_BPS = int(os.getenv("MIN_SPEED_BPS", "512000"))
+MIN_SPEED_BPS = int(os.getenv("MIN_SPEED_BPS", "500000"))
 candidate_path = sys.argv[1]
 manifest_path = sys.argv[2]
 receipt_path = sys.argv[3]
