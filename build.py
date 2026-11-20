@@ -22,9 +22,10 @@ CONNECT_TIMEOUT = float(os.getenv("CONNECT_TIMEOUT", "3") or "3")
 HTTP_TIMEOUT_MS = int(os.getenv("HTTP_TEST_TIMEOUT", "8000") or "8000")
 WORKERS = max(1, int(os.getenv("MAX_WORKERS", "80") or "80"))
 HTTP_WORKERS = max(1, int(os.getenv("HTTP_WORKERS", "40") or "40"))
-MAX_NODES = max(1, int(os.getenv("MAX_NODES", "500") or "500"))
+MAX_NODES = max(0, int(os.getenv("MAX_NODES", "0") or "0"))
 DOWNLOAD_TEST_NODES = max(0, int(os.getenv("DOWNLOAD_TEST_NODES", "25") or "25"))
 DOWNLOAD_BYTES = max(100000, int(os.getenv("DOWNLOAD_BYTES", "1048576") or "1048576"))
+DOWNLOAD_MIN_KBPS = max(1, int(os.getenv("DOWNLOAD_MIN_KBPS", "500") or "500"))
 LATENCY_URL = os.getenv("LATENCY_URL", "https://www.gstatic.com/generate_204")
 DOWNLOAD_URL = os.getenv("DOWNLOAD_URL", "https://speed.cloudflare.com/__down?bytes=" + str(DOWNLOAD_BYTES))
 CONTROLLER = "http://127.0.0.1:9090"
@@ -388,9 +389,8 @@ def main() -> None:
     if successes == 0:
         raise RuntimeError("All subscription sources failed; refusing to publish")
 
-    # Deduplicate globally, but keep each node in the first source that supplied it.
-    # Then take a round-robin sample so early, large subscriptions cannot crowd
-    # every later source out of the MAX_NODES testing budget.
+    # Deduplicate globally and test every unique node by default.
+    # MAX_NODES=0 means unlimited; a positive value is an optional safety cap.
     source_unique = []
     seen = set()
     parsed_total = 0
@@ -407,17 +407,11 @@ def main() -> None:
             unique_total += 1
         source_unique.append(bucket)
 
-    candidates = []
-    while len(candidates) < MAX_NODES:
-        added = False
-        for bucket in source_unique:
-            if bucket and len(candidates) < MAX_NODES:
-                candidates.append(bucket.pop(0))
-                added = True
-        if not added:
-            break
+    all_unique = [node for bucket in source_unique for node in bucket]
+    candidates = all_unique if MAX_NODES == 0 else all_unique[:MAX_NODES]
     print(f"Parsed {parsed_total} nodes; globally unique: {unique_total}; "
-          f"balanced test sample: {len(candidates)} / {unique_total}")
+          f"nodes selected for full testing: {len(candidates)} / {unique_total}; "
+          f"limit: {'unlimited' if MAX_NODES == 0 else MAX_NODES}")
     if not candidates:
         raise RuntimeError("No supported nodes parsed; refusing to publish")
 
@@ -501,7 +495,9 @@ def main() -> None:
 
             print(f"HTTP proxy test passed: {len(tested)} / {len(tcp_ok)}")
             speed_map = {}
-            for delay, node in tested[:DOWNLOAD_TEST_NODES]:
+            speed_failures = 0
+            print(f"Full download speed test: {len(tested)} nodes; minimum {DOWNLOAD_MIN_KBPS} KB/s")
+            for index, (delay, node) in enumerate(tested, 1):
                 try:
                     selected = api.put(CONTROLLER + "/proxies/TEST", json={"name": node["name"]}, timeout=5)
                     selected.raise_for_status()
@@ -509,7 +505,7 @@ def main() -> None:
                     response = requests.get(DOWNLOAD_URL, proxies={
                         "http": f"http://127.0.0.1:{MIXED_PORT}",
                         "https": f"http://127.0.0.1:{MIXED_PORT}",
-                    }, stream=True, timeout=30, headers={"User-Agent": USER_AGENT})
+                    }, stream=True, timeout=(8, 15), headers={"User-Agent": USER_AGENT})
                     response.raise_for_status()
                     total = 0
                     for chunk in response.iter_content(65536):
@@ -517,12 +513,19 @@ def main() -> None:
                             total += len(chunk)
                         if total >= DOWNLOAD_BYTES:
                             break
+                    response.close()
                     elapsed = max(time.perf_counter() - start, 0.001)
                     if total:
-                        speed_map[node["name"]] = round(total / elapsed / 1024 / 1024, 2)
+                        speed_map[node["name"]] = round(total / elapsed / 1024, 1)
+                    else:
+                        speed_failures += 1
                 except Exception as exc:
-                    print(f"Download test unavailable for {node['name']}: {type(exc).__name__}")
-            print(f"Download speed measured: {len(speed_map)} nodes")
+                    speed_failures += 1
+                    print(f"Download test failed for {node['name']}: {type(exc).__name__}")
+                if index % 50 == 0 or index == len(tested):
+                    print(f"Speed progress: {index}/{len(tested)}; measured {len(speed_map)}; failed {speed_failures}")
+            print(f"Download speed measured: {len(speed_map)} / {len(tested)}; "
+                  f"speed-test failures: {speed_failures}; threshold: {DOWNLOAD_MIN_KBPS} KB/s")
         finally:
             proc.terminate()
             try:
@@ -531,12 +534,18 @@ def main() -> None:
                 proc.kill()
 
     output = []
+    speed_rejected = 0
     for delay, original in tested:
+        speed = speed_map.get(original["name"])
+        if speed is None or speed < DOWNLOAD_MIN_KBPS:
+            speed_rejected += 1
+            continue
         node = dict(original)
-        speed = speed_map.get(node["name"])
-        suffix = f" {speed:.2f}MB/s" if speed is not None else ""
-        node["name"] = f"{node['name']} [{delay}ms{suffix}]"
+        node["name"] = f"{node['name']} [{delay}ms {speed:.0f}KB/s]"
         output.append(node)
+    print(f"Speed threshold passed: {len(output)} / {len(tested)}; hidden below {DOWNLOAD_MIN_KBPS} KB/s or unmeasured: {speed_rejected}")
+    if not output:
+        raise RuntimeError(f"No node reached the minimum download speed of {DOWNLOAD_MIN_KBPS} KB/s")
 
     config = final_config(output)
     validate_structure(config)
@@ -556,9 +565,9 @@ def main() -> None:
 <title>AutoSubHub</title><body style="font-family:system-ui;max-width:760px;margin:40px auto;padding:0 16px">
 <h1>AutoSubHub</h1><p>最后构建：{time.strftime('%Y-%m-%d %H:%M:%S UTC', time.gmtime())}</p>
 <ul><li>TCP 初筛通过：{len(tcp_ok)}</li><li>真实 HTTP 代理测试通过：{len(tested)}</li>
-<li>完成下载测速：{len(speed_map)}</li><li>最终节点：{len(output)}</li></ul>
+<li>完成下载测速：{len(speed_map)} / {len(tested)}</li><li>速度门槛：{DOWNLOAD_MIN_KBPS} KB/s</li><li>最终节点：{len(output)}</li></ul>
 <p><a href="subscription.yaml">下载 Clash / Mihomo 订阅</a></p>
-<p>说明：下载速度仅对排名靠前的部分节点抽样测量；没有下载速度标记的节点仍通过了真实 HTTP 代理测试。</p>
+<p>说明：所有通过真实 HTTP 代理测试的节点均进行下载测速；低于速度门槛或测速失败的节点不会发布。</p>
 </body></html>"""
     with open("site/index.html", "w", encoding="utf-8") as f:
         f.write(html)
