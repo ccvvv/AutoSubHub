@@ -7,6 +7,7 @@ import json
 import os
 import re
 import socket
+import ssl
 import subprocess
 import tempfile
 import time
@@ -180,13 +181,112 @@ def node_key(node: dict) -> tuple:
                  ("type", "server", "port", "uuid", "password", "cipher", "username"))
 
 
+UDP_PROTOCOLS = {"hysteria", "hysteria2", "tuic", "wireguard"}
+REALITY_PROTOCOLS = {"vless"}
+
+
 def tcp_check(node: dict) -> tuple[dict, float | None]:
+    # UDP-based protocols must not be rejected by a TCP port probe.
+    if str(node.get("type", "")).lower() in UDP_PROTOCOLS:
+        return node, 0.0
     try:
         start = time.perf_counter()
         with socket.create_connection((str(node["server"]), int(node["port"])), timeout=CONNECT_TIMEOUT):
             return node, round((time.perf_counter() - start) * 1000, 1)
     except Exception:
         return node, None
+
+
+def protocol_handshake_check(node: dict) -> tuple[dict, bool, str]:
+    """FreeNodePanel-style TCP -> TLS -> WebSocket/HTTPUpgrade handshake.
+
+    Reality and UDP transports are deliberately left to Mihomo's native
+    protocol implementation to avoid false negatives from a generic TLS/TCP probe.
+    """
+    kind = str(node.get("type", "")).lower()
+    if kind in UDP_PROTOCOLS:
+        return node, True, "native-udp"
+    reality = isinstance(node.get("reality-opts"), dict) and bool(node.get("reality-opts"))
+    if kind in REALITY_PROTOCOLS and reality:
+        return node, True, "reality-deferred-to-mihomo"
+
+    host = str(node.get("server", ""))
+    port = int(node.get("port", 0) or 0)
+    if not host or not 1 <= port <= 65535:
+        return node, False, "invalid-endpoint"
+
+    use_tls = bool(node.get("tls")) or kind == "trojan"
+    network = str(node.get("network", "tcp")).lower()
+    is_ws = network in {"ws", "httpupgrade"}
+    ws_options = node.get("ws-opts", {}) if network == "ws" else node.get("http-upgrade-opts", {})
+    if not isinstance(ws_options, dict):
+        ws_options = {}
+    path = str(ws_options.get("path") or "/")
+    headers = ws_options.get("headers", {})
+    if not isinstance(headers, dict):
+        headers = {}
+    ws_host = str(headers.get("Host") or headers.get("host") or node.get("servername") or host)
+
+    try:
+        addresses = socket.getaddrinfo(host, port, type=socket.SOCK_STREAM)
+    except Exception:
+        return node, False, "dns-failed"
+    if not addresses:
+        return node, False, "dns-empty"
+
+    last_error = "connect-failed"
+    for family, socktype, proto, _, sockaddr in addresses:
+        raw = None
+        try:
+            raw = socket.socket(family, socktype, proto)
+            raw.settimeout(max(CONNECT_TIMEOUT, 4.0))
+            raw.connect(sockaddr)
+            conn = raw
+            if use_tls:
+                context = ssl.create_default_context()
+                context.check_hostname = False
+                context.verify_mode = ssl.CERT_NONE
+                sni = str(node.get("servername") or host)
+                conn = context.wrap_socket(raw, server_hostname=sni)
+                raw = None  # wrapped socket now owns the file descriptor
+            if is_ws:
+                request = (
+                    f"GET {path} HTTP/1.1\\r\\n"
+                    f"Host: {ws_host}\\r\\n"
+                    "Upgrade: websocket\\r\\n"
+                    "Connection: Upgrade\\r\\n"
+                    "Sec-WebSocket-Key: dGhlIHNhbXBsZSBub25jZQ==\\r\\n"
+                    "Sec-WebSocket-Version: 13\\r\\n\\r\\n"
+                )
+                conn.sendall(request.encode("utf-8"))
+                response = b""
+                while b"\\r\\n" not in response and len(response) < 4096:
+                    chunk = conn.recv(512)
+                    if not chunk:
+                        break
+                    response += chunk
+                status = response.split(b"\\r\\n", 1)[0]
+                if b" 101 " not in status and not status.endswith(b" 101"):
+                    last_error = "websocket-upgrade-rejected"
+                    conn.close()
+                    continue
+                conn.close()
+            elif use_tls:
+                conn.close()
+            else:
+                conn.close()
+            return node, True, "tcp-tls-ws-ok"
+        except ssl.SSLError:
+            last_error = "tls-handshake-failed"
+        except Exception:
+            last_error = "connect-or-upgrade-failed"
+        finally:
+            if raw is not None:
+                try:
+                    raw.close()
+                except Exception:
+                    pass
+    return node, False, last_error
 
 
 def unique_names(nodes: list[dict]) -> list[dict]:
@@ -303,10 +403,28 @@ def main() -> None:
             if latency is not None:
                 tcp_ok.append(node)
     if not tcp_ok:
-        raise RuntimeError("No node passed TCP prefilter")
+        raise RuntimeError("No node passed TCP/UDP candidate prefilter")
+    print(f"TCP/UDP candidate pass: {len(tcp_ok)} / {len(candidates)}")
 
-    tcp_ok = unique_names(tcp_ok)
-    print(f"TCP passed: {len(tcp_ok)}; starting Mihomo real proxy tests")
+    handshake_workers = max(1, int(os.getenv("HANDSHAKE_WORKERS", "60") or "60"))
+    print(f"Protocol handshake check: {len(tcp_ok)} candidates, {handshake_workers} workers")
+    handshake_ok = []
+    handshake_failures = {}
+    with ThreadPoolExecutor(max_workers=handshake_workers) as pool:
+        futures = [pool.submit(protocol_handshake_check, n) for n in tcp_ok]
+        for future in as_completed(futures):
+            node, passed, reason = future.result()
+            if passed:
+                handshake_ok.append(node)
+            else:
+                handshake_failures[reason] = handshake_failures.get(reason, 0) + 1
+    print(f"Protocol handshake passed: {len(handshake_ok)} / {len(tcp_ok)}; "
+          f"rejected: {sum(handshake_failures.values())}; reasons: {handshake_failures}")
+    if not handshake_ok:
+        raise RuntimeError("No node passed protocol handshake prefilter")
+
+    tcp_ok = unique_names(handshake_ok)
+    print(f"Handshake passed: {len(tcp_ok)}; starting Mihomo real proxy tests")
     os.makedirs("site", exist_ok=True)
 
     with tempfile.TemporaryDirectory(prefix="autohub-") as tmp:
