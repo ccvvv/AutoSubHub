@@ -1,37 +1,36 @@
 # AutoSubHub
 
-GitHub keeps the existing published final subscription workflow separate from the lightweight candidate pipeline. Android/Termux performs domestic-network reachability, TLS and download-speed tests. Only phone-tested results are eligible for future final releases.
+AutoSubHub publishes two independent public subscription links. Both are intentionally public, including node credentials contained in the YAML.
 
-## Directory layout
+## Public subscription links
 
-- `source/`: optional source-list location (legacy root `subscriptions.txt` remains supported).
-- `candidates/`: generated candidate YAML and manifest, delivered as a short-lived Actions artifact.
-- `probe/`: Termux probe runtime and scripts (next implementation phase).
-- `probe-results/`: phone test receipts (planned; pushed to a dedicated branch).
-- `final/`: final subscription outputs and three-version history (planned; separate from candidates).
+- **Candidate subscription (phone pending test):** `https://raw.githubusercontent.com/ccvvv/AutoSubHub/published-subscriptions/candidate/subscription.yaml`
+- **Final subscription (phone-tested nodes only):** `https://raw.githubusercontent.com/ccvvv/AutoSubHub/published-subscriptions/final/latest.yaml`
 
-## Workflows
-
-- `.github/workflows/build.yml` keeps the existing GitHub Pages final-subscription publishing workflow and calls `build-final.py`.
-- `.github/workflows/build-candidates.yml` independently parses and deduplicates source subscriptions, then uploads the candidate artifact.
-- `build.py` is the lightweight candidate generator. `build-final.py` preserves the existing cloud-side final builder while the phone-probe pipeline is developed.
-
-## Candidate retention
-
-Candidate YAML contains proxy credentials and is never committed to the public repository or published through public Pages. The candidate workflow generates and uploads the new candidate first, then removes older production artifacts, leaving one latest artifact named `autohub-candidates-latest`. Pull-request validation uses a separate temporary artifact name and cannot replace the production candidate. If generation or upload fails, the previous production artifact remains. GitHub Actions artifacts have a 90-day retention limit; the six-hour schedule normally refreshes the latest artifact well before expiry.
-
-Before the Android client downloads artifacts automatically, authenticated artifact retrieval with a narrowly scoped GitHub token must be implemented.
-
-## Final subscription retention
-
-The agreed target is to keep three successful final versions: newest, previous, and two-versions-old. Rotation must happen only after a new final subscription is generated and validated successfully. A failed build or failed phone receipt must leave all three existing versions untouched. This three-version publisher is not implemented yet.
+The candidate and final URLs are separate and must never be mixed. The final URL is not populated by the candidate workflow; it will be written only by the phone-receipt finalization workflow.
 
 ## Candidate pipeline
 
-1. Fetch configured sources (repository secret `SUBSCRIPTION_URLS`, or legacy root `subscriptions.txt`).
-2. Parse supported Clash YAML and URI formats.
-3. Exclude pure HTTP proxy entries and malformed/unsupported entries.
-4. Deduplicate nodes and create stable opaque node IDs in `candidates/manifest.json`.
-5. Upload the candidate YAML and manifest as the latest access-controlled Actions artifact.
+GitHub Actions fetches configured source subscriptions, parses supported Clash YAML and URI formats, excludes pure HTTP proxy entries, removes duplicates, and generates `candidates/candidates.yaml` plus a credential-free manifest. The candidate workflow publishes the YAML and manifest to the public `published-subscriptions` data branch under `candidate/`. A successful new candidate overwrites the previous candidate at the same stable URL. Pull-request validation does not publish candidate credentials.
 
-GitHub candidate generation does not perform strict TCP/handshake/ChatGPT certificate/download-speed rejection. Those decisions move to the Android phone's domestic-network probe.
+## Phone probe and final pipeline
+
+Android/Termux downloads the public candidate link, tests nodes from the domestic mobile network, and sends a receipt containing tested node IDs and results. GitHub must validate the receipt and build the final subscription exclusively from passed node IDs.
+
+The final publisher will maintain three rolling files:
+- `final/latest.yaml`
+- `final/previous.yaml`
+- `final/older.yaml`
+
+Rotation occurs only after a non-empty final subscription is generated and structurally validated from a successful phone receipt. Failed or incomplete runs leave all three previous versions untouched.
+
+## Security and privacy
+
+The repository is public and the user explicitly chose public subscription links. Anyone who knows or discovers the links can read node server addresses and credentials, use the proxies, and redistribute them. Do not place personal or paid credentials in these sources unless that exposure is intended.
+
+## Development status
+
+- Candidate generation and public candidate publishing: workflow implemented on `feature/termux-probe-v1`; needs a successful Actions run to verify the public URL.
+- Termux probe engine and authenticated receipt upload: not implemented yet.
+- Phone-receipt-based final publisher and three-version rotation: not implemented yet.
+- Legacy cloud-only final publishing is disabled to prevent it from publishing nodes that were not tested by the phone.
