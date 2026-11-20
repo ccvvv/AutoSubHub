@@ -30,12 +30,12 @@ jobs:
           set -euo pipefail
           git clone --depth 1 --branch published-subscriptions "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" published
           mkdir -p incoming
-          git fetch origin probe-receipts
           if [ "${GITHUB_EVENT_NAME}" = "push" ]; then
-            # Read the receipt from the exact commit that triggered this run.
-            # Do not read the moving branch tip: a later upload may have replaced latest.json.
+            # Fetch the immutable event commit, not the moving branch tip.
+            git fetch --no-tags origin "${GITHUB_SHA}"
             git show "${GITHUB_SHA}:receipts/latest.json" > incoming/receipt.json
           else
+            git fetch origin probe-receipts
             git show "origin/probe-receipts:receipts/latest.json" > incoming/receipt.json
           fi
       - name: Validate receipt and build final
