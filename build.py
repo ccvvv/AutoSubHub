@@ -21,7 +21,8 @@ USER_AGENT = "AutoSubHub/2.0 (+https://github.com/ccvvv/AutoSubHub)"
 CONNECT_TIMEOUT = float(os.getenv("CONNECT_TIMEOUT", "3") or "3")
 HTTP_TIMEOUT_MS = int(os.getenv("HTTP_TEST_TIMEOUT", "8000") or "8000")
 WORKERS = max(1, int(os.getenv("MAX_WORKERS", "80") or "80"))
-HTTP_WORKERS = max(1, int(os.getenv("HTTP_WORKERS", "40") or "40"))
+HTTP_WORKERS = max(1, int(os.getenv("HTTP_WORKERS", "60") or "60"))
+SOURCE_WORKERS = max(1, int(os.getenv("SOURCE_WORKERS", "10") or "10"))
 DOWNLOAD_BYTES = max(524288, int(os.getenv("DOWNLOAD_BYTES", "1048576") or "1048576"))
 SPEED_PREFILTER_BYTES = max(65536, int(os.getenv("SPEED_PREFILTER_BYTES", "262144") or "262144"))
 DOWNLOAD_MIN_KBPS = max(1, int(os.getenv("DOWNLOAD_MIN_KBPS", "500") or "500"))
@@ -381,21 +382,29 @@ def main() -> None:
         raise SystemExit("No subscription sources configured")
     print(f"Loaded {len(urls)} sources from {source_mode}")
 
-    session = requests.Session()
-    session.headers.update({"User-Agent": USER_AGENT})
-    source_nodes = []
+    source_nodes = [[] for _ in urls]
     successes = 0
-    for i, url in enumerate(urls, 1):
+
+    def fetch_source(item: tuple[int, str]) -> tuple[int, list[dict], str | None]:
+        index, url = item
         try:
-            response = session.get(url, timeout=25)
+            response = requests.get(url, headers={"User-Agent": USER_AGENT}, timeout=25)
             response.raise_for_status()
-            parsed = parse_source(response.text)
-            print(f"Source {i}: {len(parsed)} nodes")
-            source_nodes.append(parsed)
-            successes += 1
+            return index, parse_source(response.text), None
         except Exception as exc:
-            print(f"Source {i} failed: {type(exc).__name__}: {exc}")
-            source_nodes.append([])
+            return index, [], f"{type(exc).__name__}: {exc}"
+
+    print(f"Fetching {len(urls)} subscription sources with {min(SOURCE_WORKERS, len(urls))} workers")
+    with ThreadPoolExecutor(max_workers=min(SOURCE_WORKERS, len(urls))) as pool:
+        futures = [pool.submit(fetch_source, item) for item in enumerate(urls, 1)]
+        for future in as_completed(futures):
+            index, parsed, error = future.result()
+            source_nodes[index - 1] = parsed
+            if error is None:
+                print(f"Source {index}: {len(parsed)} nodes")
+                successes += 1
+            else:
+                print(f"Source {index} failed: {error}")
     if successes == 0:
         raise RuntimeError("All subscription sources failed; refusing to publish")
 
@@ -434,7 +443,7 @@ def main() -> None:
         raise RuntimeError("No node passed TCP/UDP candidate prefilter")
     print(f"TCP/UDP candidate pass: {len(tcp_ok)} / {len(candidates)}")
 
-    handshake_workers = max(1, int(os.getenv("HANDSHAKE_WORKERS", "60") or "60"))
+    handshake_workers = max(1, int(os.getenv("HANDSHAKE_WORKERS", "80") or "80"))
     print(f"Protocol handshake check: {len(tcp_ok)} candidates, {handshake_workers} workers")
     handshake_ok = []
     handshake_failures = {}
