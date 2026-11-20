@@ -11,7 +11,7 @@ The candidate and final URLs are separate and must never be mixed. The final URL
 
 ## Candidate pipeline
 
-GitHub Actions fetches configured source subscriptions, parses supported Clash YAML and URI formats, excludes pure HTTP proxy entries, and removes duplicates. Standalone TCP-connect and generic TLS/WebSocket handshake prefilters are disabled to avoid false negatives. Plain-HTTP captive-portal checks are disabled; any non-HTTPS LATENCY_URL override is ignored. Candidates are checked with Mihomo using an HTTPS latency target, followed by ChatGPT HTTPS certificate validation. Download throughput is tested on the Android/Termux phone.
+GitHub Actions fetches configured source subscriptions, parses supported Clash YAML and URI formats, excludes pure HTTP proxy entries, and removes duplicates. Standalone TCP-connect and generic TLS/WebSocket handshake prefilters are disabled to avoid false negatives. Plain-HTTP captive-portal checks are disabled; any non-HTTPS LATENCY_URL override is ignored. Candidates are checked with Mihomo using an HTTPS latency target (the default is `https://www.gstatic.com/generate_204`), followed by ChatGPT HTTPS certificate validation. Download throughput is tested on the Android/Termux phone.
 
 The candidate workflow publishes the YAML and credential-free manifest to the public `published-subscriptions` data branch under `candidate/`. A successful new candidate overwrites the previous candidate at the same stable URL. Pull-request validation does not publish candidate credentials.
 
