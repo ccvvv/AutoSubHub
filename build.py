@@ -415,350 +415,55 @@ def main() -> None:
     if successes == 0:
         raise RuntimeError("All subscription sources failed; refusing to publish")
 
-    # Deduplicate globally, then test every unique node without a sampling cap.
-    source_unique = []
+    # Candidate generation only: GitHub performs inexpensive parsing/deduplication.
+    # Domestic reachability, TLS validation and download speed are delegated to the phone probe.
+    unique = []
     seen = set()
     parsed_total = 0
-    unique_total = 0
-    for nodes in source_nodes:
-        parsed_total += len(nodes)
-        bucket = []
-        for node in nodes:
+    for bucket in source_nodes:
+        parsed_total += len(bucket)
+        for node in bucket:
             key = node_key(node)
             if key in seen:
                 continue
             seen.add(key)
-            bucket.append(node)
-            unique_total += 1
-        source_unique.append(bucket)
+            unique.append(node)
 
-    all_unique_candidates = [node for bucket in source_unique for node in bucket]
-    # Pure Clash HTTP proxies were excluded while parsing each source, before
-    # global deduplication and all network tests. TCP transports remain allowed.
-    candidates = all_unique_candidates
-    print(f"Parsed {parsed_total} nodes; globally unique: {unique_total}; "
-          f"pure HTTP proxies excluded: {http_type_rejected}; "
-          f"remaining candidates: {len(candidates)}")
+    candidates = unique_names(unique)
     if not candidates:
-        raise RuntimeError("No supported non-HTTP nodes parsed; refusing to publish")
+        raise RuntimeError("No supported non-HTTP nodes parsed; refusing to publish candidates")
 
-    print(f"TCP prefilter: {len(candidates)} candidates, {WORKERS} workers")
-    tcp_ok = []
-    with ThreadPoolExecutor(max_workers=WORKERS) as pool:
-        futures = [pool.submit(tcp_check, n) for n in candidates]
-        for future in as_completed(futures):
-            node, latency = future.result()
-            if latency is not None:
-                tcp_ok.append(node)
-    if not tcp_ok:
-        raise RuntimeError("No node passed TCP/UDP candidate prefilter")
-    print(f"TCP/UDP candidate pass: {len(tcp_ok)} / {len(candidates)}")
+    os.makedirs("candidates", exist_ok=True)
+    candidate_path = os.path.join("candidates", "candidates.yaml")
+    write_yaml(candidate_path, {"proxies": candidates})
 
-    handshake_workers = max(1, int(os.getenv("HANDSHAKE_WORKERS", "80") or "80"))
-    print(f"Protocol handshake check: {len(tcp_ok)} candidates, {handshake_workers} workers")
-    handshake_ok = []
-    handshake_failures = {}
-    with ThreadPoolExecutor(max_workers=handshake_workers) as pool:
-        futures = [pool.submit(protocol_handshake_check, n) for n in tcp_ok]
-        for future in as_completed(futures):
-            node, passed, reason = future.result()
-            if passed:
-                handshake_ok.append(node)
-            else:
-                handshake_failures[reason] = handshake_failures.get(reason, 0) + 1
-    print(f"Protocol handshake passed: {len(handshake_ok)} / {len(tcp_ok)}; "
-          f"rejected: {sum(handshake_failures.values())}; reasons: {handshake_failures}")
-    if not handshake_ok:
-        raise RuntimeError("No node passed protocol handshake prefilter")
+    # Stable IDs are hashes of canonical node definitions; credentials are never written
+    # into the manifest. The candidate YAML itself may contain credentials and must be
+    # distributed only through an access-controlled channel.
+    import hashlib
+    manifest_nodes = []
+    for node in candidates:
+        canonical = json.dumps(node, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+        node_id = hashlib.sha256(canonical.encode("utf-8")).hexdigest()[:20]
+        manifest_nodes.append({"node_id": node_id, "name": node.get("name", "")})
 
-    tcp_ok = unique_names(handshake_ok)
-    print(f"Handshake passed: {len(tcp_ok)}; starting Mihomo real proxy tests")
-    os.makedirs("site", exist_ok=True)
+    manifest = {
+        "schema_version": 1,
+        "generated_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        "total_sources": len(urls),
+        "successful_sources": successes,
+        "parsed_nodes": parsed_total,
+        "unique_candidates": len(candidates),
+        "excluded_http_proxies": http_type_rejected,
+        "nodes": manifest_nodes,
+    }
+    with open(os.path.join("candidates", "manifest.json"), "w", encoding="utf-8") as f:
+        json.dump(manifest, f, ensure_ascii=False, indent=2)
+        f.write("\\n")
 
-    with tempfile.TemporaryDirectory(prefix="autohub-") as tmp:
-        test_path = os.path.join(tmp, "test.yaml")
-        write_yaml(test_path, test_config(tcp_ok, SPEED_TEST_WORKERS))
-        check = subprocess.run([os.getenv("MIHOMO_BIN", "./mihomo"), "-t", "-f", test_path],
-                               capture_output=True, text=True, timeout=45)
-        if check.returncode:
-            raise RuntimeError("Mihomo rejected test config: " + (check.stderr or check.stdout)[-2500:])
-        proc = subprocess.Popen([os.getenv("MIHOMO_BIN", "./mihomo"), "-d", tmp, "-f", test_path],
-                                stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
-        try:
-            api = requests.Session()
-            api.headers.update({"Authorization": "Bearer autohub-local-test"})
-            for _ in range(40):
-                if proc.poll() is not None:
-                    raise RuntimeError("Mihomo exited before API became ready")
-                try:
-                    if api.get(CONTROLLER + "/version", timeout=1).ok:
-                        break
-                except requests.RequestException:
-                    time.sleep(0.5)
-            else:
-                raise RuntimeError("Mihomo API did not become ready")
-
-            def proxy_delay(node: dict) -> tuple[dict, int | None]:
-                try:
-                    endpoint = CONTROLLER + "/proxies/" + quote(node["name"], safe="") + "/delay"
-                    response = api.get(endpoint, params={"url": LATENCY_URL, "timeout": HTTP_TIMEOUT_MS},
-                                       timeout=HTTP_TIMEOUT_MS / 1000 + 5)
-                    response.raise_for_status()
-                    delay = response.json().get("delay")
-                    return node, int(delay) if delay and int(delay) > 0 else None
-                except Exception:
-                    return node, None
-
-            tested = []
-            with ThreadPoolExecutor(max_workers=HTTP_WORKERS) as pool:
-                futures = [pool.submit(proxy_delay, n) for n in tcp_ok]
-                for future in as_completed(futures):
-                    node, delay = future.result()
-                    if delay is not None:
-                        tested.append((delay, node))
-            tested.sort(key=lambda x: x[0])
-            if not tested:
-                raise RuntimeError("No node passed real HTTP proxy latency test")
-
-            http_tested_count = len(tested)
-            print(f"HTTP proxy test passed: {http_tested_count} / {len(tcp_ok)}")
-
-            # Validate real HTTPS certificates through each node's isolated Mihomo listener.
-            # HTTP status codes are deliberately ignored: 401/403/404 can still prove TLS validity.
-            # Only validate the ChatGPT HTTPS certificate to minimize per-node checks.
-            certificate_targets = {
-                "ChatGPT": "https://chatgpt.com/",
-            }
-            certificate_workers = max(1, min(SPEED_TEST_WORKERS,
-                int(os.getenv("CERT_WORKERS", "50") or "50")))
-            print(f"HTTPS certificate validation: {len(tested)} nodes, "
-                  f"{len(certificate_targets)} platform targets, {certificate_workers} workers")
-            certificate_ok = []
-            certificate_rejected = 0
-            certificate_inconclusive = 0
-            certificate_platform_passes = {platform: 0 for platform in certificate_targets}
-            delay_by_name = {node["name"]: delay for delay, node in tested}
-
-            def certificate_worker(worker_index: int,
-                                   batch: list[tuple[int, dict]]) -> list[tuple[dict, bool, str]]:
-                worker_api = requests.Session()
-                worker_api.headers.update({"Authorization": "Bearer autohub-local-test"})
-                selector = CONTROLLER + f"/proxies/TEST-{worker_index:02d}"
-                proxy_url = f"http://127.0.0.1:{SPEED_PORT_BASE + worker_index}"
-                results = []
-                for delay, node in batch:
-                    try:
-                        selected = worker_api.put(selector, json={"name": node["name"]}, timeout=8)
-                        selected.raise_for_status()
-                    except Exception as exc:
-                        results.append((node, False, f"selector-error:{type(exc).__name__}"))
-                        continue
-
-                    verified = []
-                    cert_errors = []
-                    unreachable = []
-                    # ChatGPT is the sole certificate-validation target.
-                    # This is a TLS sanity check, not an app-compatibility guarantee.
-                    for platform, target_url in certificate_targets.items():
-                        try:
-                            # requests verifies CA chain, hostname and validity dates by default.
-                            # Do not require a 2xx response; a valid TLS session is sufficient.
-                            response = requests.get(target_url, proxies={
-                                "http": proxy_url, "https": proxy_url,
-                            }, timeout=(8, 12), allow_redirects=False,
-                                headers={"User-Agent": USER_AGENT})
-                            verified.append(platform)
-                            response.close()
-                        except requests.exceptions.SSLError as exc:
-                            detail = str(exc).lower()
-                            if any(marker in detail for marker in (
-                                "certificate verify failed", "hostname mismatch",
-                                "certificate has expired", "self-signed certificate",
-                                "unable to get local issuer", "certificate is not yet valid",
-                            )):
-                                cert_errors.append(f"{platform}:{type(exc).__name__}")
-                            else:
-                                unreachable.append(f"{platform}:tls-error")
-                        except requests.RequestException as exc:
-                            unreachable.append(f"{platform}:{type(exc).__name__}")
-
-
-                    if cert_errors:
-                        results.append((node, False, "certificate-invalid:" + ",".join(cert_errors)))
-                    elif verified:
-                        results.append((node, True, "verified:" + ",".join(verified)))
-                    else:
-                        results.append((node, False, "inconclusive:no-platform-tls-verified"))
-                return results
-
-            cert_batches = [tested[i::certificate_workers] for i in range(certificate_workers)]
-            cert_batches = [(i, batch) for i, batch in enumerate(cert_batches) if batch]
-            with ThreadPoolExecutor(max_workers=certificate_workers) as pool:
-                futures = {pool.submit(certificate_worker, worker_index, batch): worker_index
-                           for worker_index, batch in cert_batches}
-                completed_cert = 0
-                for future in as_completed(futures):
-                    results = future.result()
-                    completed_cert += len(results)
-                    for node, passed, reason in results:
-                        if passed:
-                            certificate_ok.append((delay_by_name[node["name"]], node))
-                            for platform in reason.removeprefix("verified:").split(","):
-                                if platform in certificate_platform_passes:
-                                    certificate_platform_passes[platform] += 1
-                        elif reason.startswith("certificate-invalid:"):
-                            certificate_rejected += 1
-                        else:
-                            certificate_inconclusive += 1
-                    print(f"Certificate progress: {completed_cert}/{len(tested)}; "
-                          f"passed {len(certificate_ok)}; invalid {certificate_rejected}; "
-                          f"inconclusive {certificate_inconclusive}")
-            tested = certificate_ok
-            print(f"HTTPS certificate stage passed: {len(tested)}; "
-                  f"certificate-invalid rejected: {certificate_rejected}; "
-                  f"inconclusive rejected: {certificate_inconclusive}; "
-                  f"platform TLS verified: {certificate_platform_passes}")
-            if not tested:
-                raise RuntimeError("No node passed HTTPS certificate validation")
-
-            speed_map = {}
-            speed_failures = 0
-            speed_prefilter_rejected = 0
-            print(f"Parallel download speed test: {SPEED_TEST_WORKERS} isolated workers; "
-                  f"first {SPEED_PREFILTER_BYTES // 1024} KB prefilter; "
-                  f"full target {DOWNLOAD_BYTES // 1024} KB; minimum {DOWNLOAD_MIN_KBPS} KB/s; "
-                  "one retry for transient/slow results")
-
-            def speed_worker(worker_index: int, batch: list[tuple[int, dict]]) -> list[tuple[dict, float | None, str]]:
-                # Each worker owns a distinct Mihomo selector group and listener port.
-                # No two threads can change the route used by another worker.
-                worker_api = requests.Session()
-                worker_api.headers.update({"Authorization": "Bearer autohub-local-test"})
-                selector = CONTROLLER + f"/proxies/TEST-{worker_index:02d}"
-                proxy_url = f"http://127.0.0.1:{SPEED_PORT_BASE + worker_index}"
-                worker_results = []
-                for delay, node in batch:
-                    measured = None
-                    reason = "request-failed"
-                    for attempt in range(2):
-                        response = None
-                        try:
-                            selected = worker_api.put(selector, json={"name": node["name"]}, timeout=8)
-                            selected.raise_for_status()
-                            start_time = time.perf_counter()
-                            response = requests.get(DOWNLOAD_URL, proxies={
-                                "http": proxy_url, "https": proxy_url,
-                            }, stream=True, timeout=(10, 20),
-                                headers={"User-Agent": USER_AGENT})
-                            response.raise_for_status()
-                            total = 0
-                            prefilter_speed = None
-                            for chunk in response.iter_content(65536):
-                                if chunk:
-                                    total += len(chunk)
-                                if total >= SPEED_PREFILTER_BYTES:
-                                    elapsed = max(time.perf_counter() - start_time, 0.001)
-                                    prefilter_speed = total / elapsed / 1024
-                                    break
-                            if not total or prefilter_speed is None:
-                                reason = "no-data"
-                                continue
-                            if prefilter_speed < DOWNLOAD_MIN_KBPS:
-                                reason = f"prefilter-slow-{prefilter_speed:.0f}"
-                                continue
-
-                            for chunk in response.iter_content(65536):
-                                if chunk:
-                                    total += len(chunk)
-                                if total >= DOWNLOAD_BYTES:
-                                    break
-                            elapsed_full = max(time.perf_counter() - start_time, 0.001)
-                            measured = round(total / elapsed_full / 1024, 1)
-                            if measured < DOWNLOAD_MIN_KBPS:
-                                reason = f"full-test-slow-{measured:.0f}"
-                                measured = None
-                                continue
-                            reason = "passed"
-                            break
-                        except Exception as exc:
-                            reason = type(exc).__name__
-                        finally:
-                            if response is not None:
-                                response.close()
-                    worker_results.append((node, measured, reason))
-                return worker_results
-
-            batches = [tested[i::SPEED_TEST_WORKERS] for i in range(SPEED_TEST_WORKERS)]
-            batches = [(i, batch) for i, batch in enumerate(batches) if batch]
-            completed_nodes = 0
-            with ThreadPoolExecutor(max_workers=SPEED_TEST_WORKERS) as pool:
-                futures = {pool.submit(speed_worker, worker_index, batch): (worker_index, len(batch))
-                           for worker_index, batch in batches}
-                for future in as_completed(futures):
-                    worker_index, batch_size = futures[future]
-                    results = future.result()
-                    completed_nodes += batch_size
-                    for node, speed, reason in results:
-                        if speed is not None:
-                            speed_map[node["name"]] = speed
-                        elif reason.startswith(("prefilter-slow-", "full-test-slow-")):
-                            speed_prefilter_rejected += 1
-                        else:
-                            speed_failures += 1
-                    print(f"Speed progress: {completed_nodes}/{len(tested)}; "
-                          f"full-tested {len(speed_map)}; slow-rejected {speed_prefilter_rejected}; "
-                          f"failed {speed_failures}; finished worker {worker_index + 1}/{len(batches)}")
-
-            print(f"Download speed measured: {len(speed_map)} / {len(tested)}; "
-                  f"slow/retry-rejected: {speed_prefilter_rejected}; failures after retry: {speed_failures}; "
-                  f"parallel workers: {SPEED_TEST_WORKERS}; threshold: {DOWNLOAD_MIN_KBPS} KB/s")
-        finally:
-            proc.terminate()
-            try:
-                proc.wait(timeout=5)
-            except subprocess.TimeoutExpired:
-                proc.kill()
-
-    output = []
-    speed_rejected = 0
-    for delay, original in tested:
-        speed = speed_map.get(original["name"])
-        if speed is None or speed < DOWNLOAD_MIN_KBPS:
-            speed_rejected += 1
-            continue
-        node = dict(original)
-        node["name"] = f"{node['name']} [{delay}ms {speed:.0f}KB/s]"
-        output.append(node)
-    print(f"Speed threshold passed: {len(output)} / {len(tested)}; hidden below {DOWNLOAD_MIN_KBPS} KB/s or unmeasured: {speed_rejected}")
-    if not output:
-        raise RuntimeError(f"No node reached the minimum download speed of {DOWNLOAD_MIN_KBPS} KB/s")
-
-    config = final_config(output)
-    validate_structure(config)
-    final_path = os.path.join("site", "subscription.yaml")
-    write_yaml(final_path, config)
-    # Parse our own output again and ask Mihomo to validate the exact published file.
-    with open(final_path, encoding="utf-8") as f:
-        roundtrip = yaml.safe_load(f)
-    validate_structure(roundtrip)
-    final_check = subprocess.run([os.getenv("MIHOMO_BIN", "./mihomo"), "-t", "-f", final_path],
-                                 capture_output=True, text=True, timeout=45)
-    if final_check.returncode:
-        raise RuntimeError("Mihomo rejected final subscription: " + (final_check.stderr or final_check.stdout)[-2500:])
-
-    html = f"""<!doctype html>
-<html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width">
-<title>AutoSubHub</title><body style="font-family:system-ui;max-width:760px;margin:40px auto;padding:0 16px">
-<h1>AutoSubHub</h1><p>最后构建：{time.strftime('%Y-%m-%d %H:%M:%S UTC', time.gmtime())}</p>
-<ul><li>去重节点：{unique_total}</li><li>纯 HTTP 代理类型排除：{http_type_rejected}</li><li>TCP / 协议握手通过：{len(tcp_ok)}</li><li>Mihomo HTTP 测试通过：{http_tested_count}</li><li>HTTPS 证书检测通过：{len(tested)}</li>
-<li>证书异常淘汰：{certificate_rejected}</li><li>证书检测无结论淘汰：{certificate_inconclusive}</li>
-<li>完成下载测速：{len(speed_map)} / {len(tested)}</li><li>速度门槛：{DOWNLOAD_MIN_KBPS} KB/s</li><li>下载测速并发：{SPEED_TEST_WORKERS}</li><li>最终节点：{len(output)}</li></ul>
-<p><a href="subscription.yaml">下载 Clash / Mihomo 订阅</a></p>
-<p>说明：所有通过真实 HTTP 代理测试的节点均进行下载测速；低于速度门槛或测速失败的节点不会发布。</p>
-</body></html>"""
-    with open("site/index.html", "w", encoding="utf-8") as f:
-        f.write(html)
-    print(f"Validated and prepared {len(output)} nodes for Pages deployment")
+    print(f"Candidate generation complete: {len(candidates)} unique nodes")
+    print(f"Pure HTTP proxies excluded during parsing: {http_type_rejected}")
+    print(f"Candidate files: {candidate_path}, candidates/manifest.json")
 
 
 if __name__ == "__main__":
