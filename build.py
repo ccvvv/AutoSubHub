@@ -525,11 +525,9 @@ def main() -> None:
 
             # Validate real HTTPS certificates through each node's isolated Mihomo listener.
             # HTTP status codes are deliberately ignored: 401/403/404 can still prove TLS validity.
+            # Only validate the ChatGPT HTTPS certificate to minimize per-node checks.
             certificate_targets = {
                 "ChatGPT": "https://chatgpt.com/",
-                "OpenAI API": "https://api.openai.com/",
-                "X": "https://x.com/",
-                "Telegram": "https://telegram.org/",
             }
             certificate_workers = max(1, min(SPEED_TEST_WORKERS,
                 int(os.getenv("CERT_WORKERS", "50") or "50")))
@@ -559,11 +557,8 @@ def main() -> None:
                     verified = []
                     cert_errors = []
                     unreachable = []
-                    # Check the two OpenAI endpoints first. If at least one completes
-                    # verified TLS and neither reports a certificate error, treat the
-                    # certificate stage as passed without probing the other platforms.
-                    # X and Telegram remain fallback checks when both primary endpoints
-                    # are inconclusive; this is a TLS sanity check, not an app-compatibility guarantee.
+                    # ChatGPT is the sole certificate-validation target.
+                    # This is a TLS sanity check, not an app-compatibility guarantee.
                     for platform, target_url in certificate_targets.items():
                         try:
                             # requests verifies CA chain, hostname and validity dates by default.
@@ -587,10 +582,6 @@ def main() -> None:
                         except requests.RequestException as exc:
                             unreachable.append(f"{platform}:{type(exc).__name__}")
 
-                        # The first two entries are ChatGPT and OpenAI API.
-                        # A successful verified TLS connection is enough to stop early.
-                        if platform == "OpenAI API" and verified and not cert_errors:
-                            break
 
                     if cert_errors:
                         results.append((node, False, "certificate-invalid:" + ",".join(cert_errors)))
