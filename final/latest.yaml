@@ -4,22 +4,47 @@ mode: rule
 log-level: warning
 ipv6: false
 proxies:
-- name: 🇮🇹IT_8|1.5MB/s
-  password: JdFlrZhqHP
-  port: 1080
-  server: 69.16.157.244
-  skip-cert-verify: true
-  type: socks5
-  username: ufCobhydz4Wd
-- name: 🇯🇵JP_23|468KB/s|P002-260618
-  password: EGJDy5Kg
-  port: 42000
-  server: 103.248.150.50
-  skip-cert-verify: true
-  sub_tag: P002-260618
-  type: socks5
-  username: paZFN3JA
+- name: 🇩🇪 德国 | DEU 13
+  server: 13.143.187.220
+  port: 443
+  type: vless
+  uuid: 66c78912-4e2d-41dc-8742-aaae2590804e
+  tls: true
+  flow: xtls-rprx-vision
+  reality-opts:
+    public-key: eDzVz3bxkv3IoN3BUCa_aA-RicoeG7ACylYSnmS2Pgg
+  servername: fi-s1.kadrhub.tech
+  client-fingerprint: firefox
+  network: tcp
   udp: true
+- name: 🇹🇭TH_8|569KB/s|R002-260618
+  password: 1pB7HV6u
+  port: 42000
+  server: 151.246.109.158
+  sub_tag: R002-260618
+  type: socks5
+  username: AJ3d9gJw
+  udp: true
+- ip: 172.16.0.2/32
+  keepalive: '5'
+  mtu: 1280
+  name: 🇨🇳CN_5|1.2MB/s
+  persistent-keepalive: '5'
+  port: 987
+  presharedkey: ''
+  private-key: GJTd46xB/fjfi6vyJmpxUiNrNdjZTW0Qhi7b0PkER1Y=
+  public-key: bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=
+  reserved:
+  - 175
+  - 93
+  - 41
+  server: 188.114.97.6
+  type: wireguard
+  udp: true
+  wnoise: quic
+  wnoisecount: '15'
+  wnoisedelay: 1-2
+  wpayloadsize: 5-10
 - alpn:
   - h3
   auth-str: dongtaiwang.com
@@ -32,27 +57,376 @@ proxies:
   sni: bing.com
   type: hysteria
   up: 11 Mbps
-- name: 🇲🇽MX_3|79KB/s|R002-260618
+- name: 🇲🇽MX_7|610KB/s|R002-260618
+  password: 2j7CCZQb
+  port: 62000
+  server: 94.194.164.203
+  sub_tag: R002-260618
+  type: socks5
+  username: rVkkraqT
+  udp: true
+- name: 🇷🇺 [856.0ms +/-15ms] 🇩🇪
+  server: 176.98.176.60
+  port: 443
+  type: vless
+  uuid: 7ad63b26-bf70-4872-8fab-ebaf73a1e19d
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  servername: mosaic.topp-con.xyz
+  skip-cert-verify: true
+  client-fingerprint: chrome
+- name: 🇲🇽MX_8|527KB/s|P002-260618
   password: sZnD8GTz
   port: 42000
-  server: 144.225.47.106
+  server: 144.225.47.158
+  skip-cert-verify: true
+  sub_tag: P002-260618
+  type: socks5
+  username: DJy1T0dt
+  udp: true
+- name: 🇯🇵JP_23|468KB/s|P002-260618
+  password: EGJDy5Kg
+  port: 42000
+  server: 103.248.150.50
+  skip-cert-verify: true
+  sub_tag: P002-260618
+  type: socks5
+  username: paZFN3JA
+  udp: true
+- name: 🇹🇭TH_7|473KB/s|R002-260618
+  password: Ks4Iab43
+  port: 42000
+  server: 82.47.152.151
+  sub_tag: R002-260618
+  type: socks5
+  username: userLjVB
+  udp: true
+- alterId: 64
+  cipher: auto
+  name: '🇺🇸 美国 | USA #5'
+  network: ws
+  port: 30004
+  server: 192.74.236.148
+  skip-cert-verify: true
+  tls: true
+  type: vmess
+  udp: true
+  uuid: 418048af-a293-4b99-9b0c-98ca3580dd24
+  ws-opts:
+    headers:
+      Host: www.91334565.xyz
+    path: /path/1733477783705
+- type: vless
+  name: 🇸🇨_SC_塞舌尔->🇳🇱_NL_荷兰_IPV4
+  server: 196.196.148.63
+  port: 443
+  uuid: cda0862a-0f87-4be9-8ed8-1d0c9e382839
+  tls: true
+  servername: 717252g.nl8.h1clayd.click
+  sni: 717252g.nl8.h1clayd.click
+  skip-cert-verify: false
+  client-fingerprint: firefox
+  reality-opts:
+    public-key: PD8Jdlg3xB9QY--jwQjp8PFPzCS8-Oryw6-HWBcHMFU
+    short-id: d3bd772514c87d28
+  network: grpc
+  grpc-opts:
+    grpc-service-name: 204adda7e3da
+- client-fingerprint: chrome
+  encryption: none
+  name: 🇳🇱NL_1|2.0MB/s-2
+  network: xhttp
+  port: 8443
+  reality-opts:
+    public-key: QrNs0ew7snHqLfpVXS9RAhlRzgAzzGZK9fXmDcx9xHI
+    short-id: ''
+  server: r3.pythonmakemigreat.wiki
+  servername: assets.study.golangwikito.cfd
+  tls: true
+  type: vless
+  udp: true
+  uuid: f8d52ece-fad4-478d-875d-df6eed3befa7
+  xhttp-opts:
+    mode: packet-up
+    path: /
+    reuse-settings:
+      max-connections: '3'
+    x-padding-bytes: 100-500
+  xudp: true
+- name: 🇺🇸 美国 | USA 13
+  password: 0324fbc29561
+  port: 443
+  server: sdf65h46wr.df6h451rh.xin
+  skip-cert-verify: true
+  sni: images.ctfassets.net
+  type: anytls
+  udp: true
+- name: 🇻🇳VN_4|273KB/s|R002-260618
+  password: jHsK2gqs
+  port: 62000
+  server: 103.184.113.190
+  sub_tag: R002-260618
+  type: socks5
+  username: qT46DZLv
+  udp: true
+- cipher: aes-256-gcm
+  name: '🇮🇹 意大利 | ITA #3'
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 202.50.253.36
+  type: ss
+  udp: true
+- name: Igareck Node 064 | 🇳🇴 Norway， Oslo | [BL]
+  type: vless
+  server: 104.18.137.67
+  port: 443
+  uuid: 0280c276-641b-49af-b699-4931c30ac137
+  udp: true
+  tls: true
+  servername: norway.xn--nlqaa425dbaab446bbabd698meae.online.
+  alpn:
+  - h2
+  client-fingerprint: edge
+  network: xhttp
+  xhttp-opts:
+    path: /api
+    host: norway.xn--nlqaa425dbaab446bbabd698meae.online
+- client-fingerprint: firefox
+  encryption: none
+  name: 🇷🇴RO_99|2.6MB/s|A003-260618
+  network: xhttp
+  port: 443
+  server: 31.6.1.115
+  sub_tag: A003-260618
+  tls: true
+  type: vless
+  udp: true
+  uuid: 0f2dc4af-951f-4690-922e-07c6e8bab26a
+  xhttp-opts:
+    host: cdn.winter-jam.site
+    mode: auto
+    path: /xh
+  xudp: true
+  packet-encoding: xudp
+  servername: cdn.winter-jam.site
+- client-fingerprint: chrome
+  name: '🇳🇱 荷兰 | NLD #6'
+  network: xhttp
+  port: 443
+  server: 201.34.142.108
+  tls: true
+  type: vless
+  udp: true
+  uuid: 4777d90d-265b-4927-a0d1-63f36ed1421c
+  xhttp-opts:
+    mode: auto
+    path: /assets/nlrelay01/
+- name: 🇹🇭TH_10|582KB/s|R002-260618
+  password: fAgE2jqK
+  port: 42000
+  server: 151.246.108.69
+  sub_tag: R002-260618
+  type: socks5
+  username: h87527jJ
+  udp: true
+- name: 🇺🇸US-🚀@VPNine1
+  obfs: salamander
+  obfs-password: 0dRexOATy4t9J1ckKOLpPy9HrNoU5FmN
+  password: HPzKAhFXV5XgEmRSTM33DRuTHeFcB5ON
+  port: 443
+  server: 89.117.172.45
+  sni: eth.todsm.com
+  tls: false
+  type: hysteria2
+- cipher: aes-256-gcm
+  name: '🇮🇹[www.v2nodes.com] ss-IT-1619... #2'
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 202.50.253.81
+  type: ss
+- name: 🇲🇽MX_6|726KB/s|R002-260618
+  password: VvUAFi2E
+  port: 62000
+  server: 72.57.228.30
+  sub_tag: R002-260618
+  type: socks5
+  username: UBXich0K
+  udp: true
+- name: 🇹🇭TH_2|573KB/s|R002-260618
+  password: 1pB7HV6u
+  port: 42000
+  server: 151.246.109.86
+  sub_tag: R002-260618
+  type: socks5
+  username: AJ3d9gJw
+  udp: true
+- http-opts:
+    headers:
+      Host:
+      - ajax.googleapis.com
+    method: GET
+    path:
+    - /
+  name: '🇸🇪 瑞典 | SWE #1'
+  network: http
+  port: 2222
+  server: swe4.mlbaz.ir
+  tls: false
+  type: vless
+  udp: true
+  uuid: f4e7fdb5-9b1b-44e7-990a-40ee7da9cdc5
+- name: 🇲🇽MX_1|3.6MB/s
+  password: VvUAFi2E
+  port: 62000
+  server: 72.57.228.87
+  skip-cert-verify: true
+  type: socks5
+  username: UBXich0K
+- name: 🇲🇽MX_5|278KB/s|R002-260618
+  password: sZnD8GTz
+  port: 42000
+  server: 144.225.47.68
   sub_tag: R002-260618
   type: socks5
   username: DJy1T0dt
+  udp: true
+- name: 🇺🇸US_495|618KB/s|R002-260618
+  password: kingstar123++
+  port: 62000
+  server: 23.230.200.250
+  sub_tag: R002-260618
+  type: socks5
+  username: kingstar123
+  udp: true
+- name: 🇹🇭TH_13|570KB/s|R002-260618
+  password: YlRoWvE0dL_cUqS94wPeKnA4
+  port: 62000
+  server: 87.84.49.245
+  sub_tag: R002-260618
+  type: socks5
+  username: ks878449260d
+  udp: true
+- encryption: none
+  http-opts:
+    headers:
+      Host:
+      - fast.com
+    path:
+    - /
+  name: 🇳🇱NL_2|3.0MB/s
+  network: http
+  port: 443
+  server: 146.190.21.145
+  type: vless
+  udp: true
+  uuid: 40992c2a-513e-4837-9594-23411fd42afd
+  xudp: true
+- alterId: 0
+  cipher: auto
+  http-opts:
+    headers:
+      Host:
+      - mmsc.vnet.mobi
+    path:
+    - /3x
+  name: 🇺🇸US_11|3.4MB/s
+  network: http
+  port: 52080
+  server: 192.204.58.87
+  type: vmess
+  udp: true
+  uuid: 700dc5c3-9b7b-4ac8-8ee5-010ca3d03789
+  xudp: true
+- client-fingerprint: firefox
+  name: '🇩🇪 德国 | DEU #4'
+  network: xhttp
+  port: 443
+  server: 193.160.208.240
+  servername: 193.160.208.240
+  tls: true
+  type: vless
+  udp: true
+  uuid: 4777d90d-265b-4927-a0d1-63f36ed1421c
+  xhttp-opts:
+    mode: auto
+    path: /assets/twru01/
+- name: '[1073.4ms +/-3ms] 4Kian-c113c02c2e'
+  server: 141.148.243.126
+  port: 45819
+  type: ss
+  cipher: 2022-blake3-chacha20-poly1305
+  password: 7mxLVm0/qr6Fq1P7IXBvCJ9PUzdNkuUIQkiBWnz8EpA=
+  udp: true
+- cipher: aes-256-gcm
+  name: '🇮🇹 意大利 | ITA #1'
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 202.50.253.18
+  type: ss
+  udp: true
+- name: 🇹🇭TH_3|552KB/s|R002-260618
+  password: mpbK00Pl
+  port: 42000
+  server: 192.204.15.135
+  sub_tag: R002-260618
+  type: socks5
+  username: X3s3JteD
+  udp: true
+- ip: 172.16.0.2/32
+  keepalive: '5'
+  mtu: 1280
+  name: 🇨🇳CN_3|1.8MB/s
+  persistent-keepalive: '5'
+  port: 2408
+  private-key: oDBa7PDoBqN5gYRO5pL59noH6dQpXt40AETlDNlNtl8=
+  public-key: bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=
+  reserved:
+  - 121
+  - 1
+  - 112
+  server: 162.159.192.2
+  type: wireguard
+  udp: true
+  wnoise: quic
+  wnoisecount: '5'
+  wnoisedelay: '5'
+  wpayloadsize: 40-90
+- cipher: aes-256-gcm
+  name: '🇮🇹 意大利 | ITA #2'
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 202.50.253.27
+  type: ss
+  udp: true
+- cipher: aes-256-gcm
+  name: '🇮🇹 意大利 | ITA #5'
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 202.50.253.63
+  type: ss
   udp: true
 - client-fingerprint: firefox
   grpc-opts:
     grpc-mode: gun
     grpc-service-name: mobile.api.Event
-  name: 🇷🇺 俄罗斯 | RUS
+  name: 🇷🇺 俄罗斯 | RUS 2
   network: grpc
   port: 443
-  server: 201.24.116.192
+  server: 201.51.12.98
   servername: vps3.nemnogogo.com
   tls: true
   type: vless
   udp: true
   uuid: 38308ff1-5aa9-494f-a25a-0f2870d56b3e
+- name: 🇹🇭TH_5|591KB/s|R002-260618
+  password: zdnivBaI
+  port: 62000
+  server: 109.66.136.194
+  sub_tag: R002-260618
+  type: socks5
+  username: r3ZzP8WW
+  udp: true
 - alpn:
   - h2
   client-fingerprint: firefox
@@ -68,76 +442,9 @@ proxies:
   type: vless
   udp: true
   uuid: 38308ff1-5aa9-494f-a25a-0f2870d56b3e
-- name: 🇹🇭TH_8|569KB/s|R002-260618
-  password: 1pB7HV6u
-  port: 42000
-  server: 151.246.109.158
-  sub_tag: R002-260618
-  type: socks5
-  username: AJ3d9gJw
-  udp: true
-- name: 🇹🇭TH_6|587KB/s|R002-260618
-  password: zdnivBaI
-  port: 62000
-  server: 109.66.136.42
-  sub_tag: R002-260618
-  type: socks5
-  username: r3ZzP8WW
-  udp: true
-- name: 🇻🇳VN_4|273KB/s|R002-260618
-  password: jHsK2gqs
-  port: 62000
-  server: 103.184.113.190
-  sub_tag: R002-260618
-  type: socks5
-  username: qT46DZLv
-  udp: true
-- client-fingerprint: firefox
-  grpc-opts:
-    grpc-mode: gun
-    grpc-service-name: mobile.api.Event
-  name: 🇷🇺 俄罗斯 | RUS 2
-  network: grpc
-  port: 443
-  server: 201.51.12.98
-  servername: vps3.nemnogogo.com
-  tls: true
+- name: Igareck Node 084 | 🇳🇴 Norway， Oslo | [BL]
   type: vless
-  udp: true
-  uuid: 38308ff1-5aa9-494f-a25a-0f2870d56b3e
-- client-fingerprint: qq
-  name: 🇪🇪[www.v2nodes.com] vless-EE-1...
-  port: 443
-  server: 136.148.83.69
-  servername: szqbx-ru-77dc.my-fade.cloud
-  tls: true
-  type: vless
-  uuid: 666821a2-5c3d-0001-a56f-5a3a562d7324
-- cipher: aes-256-gcm
-  name: '🇮🇹 意大利 | ITA #6'
-  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
-  port: 19999
-  server: 202.50.253.72
-  type: ss
-  udp: true
-- name: 🇵🇭PH_1|399KB/s|R002-260618
-  password: s6a1j38q
-  port: 42000
-  server: 103.18.230.88
-  sub_tag: R002-260618
-  type: socks5
-  username: uv4oakg5
-  udp: true
-- cipher: aes-256-gcm
-  name: '🇮🇹 意大利 | ITA #8'
-  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
-  port: 19999
-  server: 202.50.253.99
-  type: ss
-  udp: true
-- name: Igareck Node 066 | 🇳🇴 Norway， Oslo | [BL]
-  type: vless
-  server: 104.18.138.67
+  server: chess.com
   port: 443
   uuid: 0280c276-641b-49af-b699-4931c30ac137
   udp: true
@@ -151,32 +458,168 @@ proxies:
     path: /api
     host: norway.xn--nlqaa425dbaab446bbabd698meae.online
     mode: auto
-- name: 🇺🇸US-🚀@VPNine1
-  obfs: salamander
-  obfs-password: 0dRexOATy4t9J1ckKOLpPy9HrNoU5FmN
-  password: HPzKAhFXV5XgEmRSTM33DRuTHeFcB5ON
-  port: 443
-  server: 89.117.172.45
-  sni: eth.todsm.com
-  tls: false
-  type: hysteria2
-- name: 🇺🇸US_477|964KB/s|R002-260618
-  password: 7i1dheg6
+- name: 🇹🇭TH_6|587KB/s|R002-260618
+  password: zdnivBaI
   port: 62000
-  server: 216.132.114.194
+  server: 109.66.136.42
   sub_tag: R002-260618
   type: socks5
-  username: utdr8wvs
+  username: r3ZzP8WW
   udp: true
-- name: 🇺🇸US_479|336KB/s|S001-260618
-  password: ''
-  port: 38182
-  server: 69.55.49.177
-  skip-cert-verify: true
-  sub_tag: S001-260618
+- name: 🇹🇭TH_4|551KB/s|R002-260618
+  password: mpbK00Pl
+  port: 42000
+  server: 192.204.15.192
+  sub_tag: R002-260618
   type: socks5
-  username: ''
+  username: X3s3JteD
   udp: true
+- name: 🇹🇭TH_1|2.0MB/s
+  password: VAwyJQX0iKMJiyCw5UVK9wGH
+  port: 42000
+  server: 103.14.164.30
+  type: socks5
+  username: route164JIa2CBPxfy
+- cipher: aes-256-gcm
+  name: '🇮🇹[www.v2nodes.com] ss-IT-1619... #5'
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 202.50.253.45
+  type: ss
+- name: Igareck Node 073 | 🇳🇴 Norway， Oslo | [BL]
+  type: vless
+  server: 104.18.139.67
+  port: 443
+  uuid: 0280c276-641b-49af-b699-4931c30ac137
+  udp: true
+  tls: true
+  servername: norway.xn--nlqaa425dbaab446bbabd698meae.online.
+  alpn:
+  - h2
+  client-fingerprint: chrome
+  network: xhttp
+  xhttp-opts:
+    path: /api
+    host: norway.xn--nlqaa425dbaab446bbabd698meae.online
+- cipher: aes-256-gcm
+  name: '🇮🇹 意大利 | ITA #7'
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 202.50.253.90
+  type: ss
+  udp: true
+- name: Igareck Node 075 | 🇳🇴 Norway， Oslo | [BL]
+  type: vless
+  server: 104.18.140.67
+  port: 443
+  uuid: 0280c276-641b-49af-b699-4931c30ac137
+  udp: true
+  tls: true
+  servername: norway.xn--nlqaa425dbaab446bbabd698meae.online.
+  alpn:
+  - h2
+  client-fingerprint: edge
+  network: xhttp
+  xhttp-opts:
+    path: /api
+    host: norway.xn--nlqaa425dbaab446bbabd698meae.online
+- client-fingerprint: firefox
+  grpc-opts:
+    grpc-mode: gun
+    grpc-service-name: mobile.api.Event
+  name: 🇷🇺 俄罗斯 | RUS
+  network: grpc
+  port: 443
+  server: 201.24.116.192
+  servername: vps3.nemnogogo.com
+  tls: true
+  type: vless
+  udp: true
+  uuid: 38308ff1-5aa9-494f-a25a-0f2870d56b3e
+- name: 🇹🇭TH_14|429KB/s|R002-260618
+  password: ao3W5ZML
+  port: 42000
+  server: 168.222.8.119
+  sub_tag: R002-260618
+  type: socks5
+  username: JPjarpW3
+  udp: true
+- ip: 172.16.0.2/32
+  mtu: 1280
+  name: 🇨🇳CN_7|1.6MB/s
+  port: 500
+  presharedkey: ''
+  private-key: 2D+QMolgGWVRVGdJJvsQ4VBDCcZTym0c1sFN00PeMUs=
+  public-key: bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=
+  reserved:
+  - 213
+  - 74
+  - 19
+  server: 162.159.192.3
+  type: wireguard
+  udp: true
+- name: 🇳🇱 荷兰 | NLD 4
+  server: 104.171.135.229
+  port: 443
+  type: vless
+  uuid: Fluffy_VPN-Oth8rOq3
+  tls: true
+  flow: xtls-rprx-vision
+  reality-opts:
+    public-key: mpo4BIcoWiMXAQGt5a8IJ4MFkPJQyLC50dO_bXzC7z0
+  servername: absolute-disaster.org
+  client-fingerprint: chrome
+  network: tcp
+  udp: true
+- name: 🇵🇭PH_1|399KB/s|R002-260618
+  password: s6a1j38q
+  port: 42000
+  server: 103.18.230.88
+  sub_tag: R002-260618
+  type: socks5
+  username: uv4oakg5
+  udp: true
+- name: 🇲🇽MX_2|248KB/s|R002-260618
+  password: DJy1T0dt
+  port: 42000
+  server: 144.225.47.8
+  sub_tag: R002-260618
+  type: socks5
+  username: Tek2x6av
+  udp: true
+- ip: 172.16.0.2/32
+  keepalive: '5'
+  mtu: 1280
+  name: ❓Other_1|1.0MB/s
+  persistent-keepalive: '5'
+  port: 2408
+  private-key: iP43+YO4O28eA8W6YRhSasNI0fggDS6efGoSL4AAIU4=
+  public-key: bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=
+  reserved:
+  - 213
+  - 69
+  - 137
+  server: 162.159.192.3
+  type: wireguard
+  udp: true
+  wnoise: quic
+  wnoisecount: '5'
+  wnoisedelay: '5'
+  wpayloadsize: 40-90
+- type: hysteria
+  name: 🇫🇷_FR_法国_IPV4
+  server: 62.210.124.132
+  port: 24667
+  password: dongtaiwang.com
+  tls: true
+  servername: bing.com
+  sni: bing.com
+  skip-cert-verify: true
+  alpn:
+  - h3
+  up: '11'
+  down: '55'
+  auth-str: dongtaiwang.com
 - encryption: none
   http-opts:
     headers:
@@ -194,274 +637,15 @@ proxies:
   uuid: 40992c2a-513e-4837-9594-23411fd42afd
   xudp: true
   packet-encoding: xudp
-- name: 🇩🇪 德国 | DEU 13
-  server: 13.143.187.220
-  port: 443
-  type: vless
-  uuid: 66c78912-4e2d-41dc-8742-aaae2590804e
-  tls: true
-  flow: xtls-rprx-vision
-  reality-opts:
-    public-key: eDzVz3bxkv3IoN3BUCa_aA-RicoeG7ACylYSnmS2Pgg
-  servername: fi-s1.kadrhub.tech
-  client-fingerprint: firefox
-  network: tcp
-  udp: true
-- client-fingerprint: firefox
-  name: '🇩🇪 德国 | DEU #4'
-  network: xhttp
-  port: 443
-  server: 193.160.208.240
-  servername: 193.160.208.240
-  tls: true
-  type: vless
-  udp: true
-  uuid: 4777d90d-265b-4927-a0d1-63f36ed1421c
-  xhttp-opts:
-    mode: auto
-    path: /assets/twru01/
-- name: 🇹🇭TH_2|573KB/s|R002-260618
-  password: 1pB7HV6u
-  port: 42000
-  server: 151.246.109.86
-  sub_tag: R002-260618
-  type: socks5
-  username: AJ3d9gJw
-  udp: true
-- cipher: aes-256-gcm
-  name: '🇮🇹 意大利 | ITA #3'
-  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
-  port: 19999
-  server: 202.50.253.36
-  type: ss
-  udp: true
-- name: 🇹🇭TH_7|473KB/s|R002-260618
-  password: Ks4Iab43
-  port: 42000
-  server: 82.47.152.151
-  sub_tag: R002-260618
-  type: socks5
-  username: userLjVB
-  udp: true
-- name: 🇹🇭TH_1|2.0MB/s
-  password: VAwyJQX0iKMJiyCw5UVK9wGH
-  port: 42000
-  server: 103.14.164.30
-  type: socks5
-  username: route164JIa2CBPxfy
-- name: 🇹🇭TH_5|591KB/s|R002-260618
-  password: zdnivBaI
-  port: 62000
-  server: 109.66.136.194
-  sub_tag: R002-260618
-  type: socks5
-  username: r3ZzP8WW
-  udp: true
-- name: Igareck Node 079 | 🇳🇴 Norway， Oslo | [BL]
-  type: vless
-  server: chess.com
-  port: 443
-  uuid: 0280c276-641b-49af-b699-4931c30ac137
-  udp: true
-  tls: true
-  servername: norway.xn--nlqaa425dbaab446bbabd698meae.online.
-  alpn:
-  - h2
-  client-fingerprint: edge
-  network: xhttp
-  xhttp-opts:
-    path: /api
-    host: norway.xn--nlqaa425dbaab446bbabd698meae.online
-    mode: auto
-- name: 🇺🇸US_3|3.3MB/s
-  password: l1tlrdx52v
-  port: 62000
-  server: 66.253.2.69
-  type: socks5
-  username: u_rb1dba2
-- cipher: aes-256-gcm
-  name: '🇮🇹 意大利 | ITA #7'
-  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
-  port: 19999
-  server: 202.50.253.90
-  type: ss
-  udp: true
-- name: 🇲🇽MX_2|248KB/s|R002-260618
-  password: DJy1T0dt
-  port: 42000
-  server: 144.225.47.8
-  sub_tag: R002-260618
-  type: socks5
-  username: Tek2x6av
-  udp: true
-- name: Igareck Node 063 | 🇳🇴 Norway， Oslo | [BL]
-  type: vless
-  server: 104.18.137.67
-  port: 443
-  uuid: 0280c276-641b-49af-b699-4931c30ac137
-  udp: true
-  tls: true
-  servername: norway.xn--nlqaa425dbaab446bbabd698meae.online.
-  alpn:
-  - h2
-  client-fingerprint: edge
-  network: xhttp
-  xhttp-opts:
-    path: /api
-    host: norway.xn--nlqaa425dbaab446bbabd698meae.online
-- name: 🇹🇭TH_3|552KB/s|R002-260618
-  password: mpbK00Pl
-  port: 42000
-  server: 192.204.15.135
-  sub_tag: R002-260618
-  type: socks5
-  username: X3s3JteD
-  udp: true
-- name: 🇻🇳VN_5|479KB/s|R002-260618
-  password: jHsK2gqs
-  port: 62000
-  server: 103.184.113.236
-  sub_tag: R002-260618
-  type: socks5
-  username: qT46DZLv
-  udp: true
-- cipher: aes-256-gcm
-  name: '🇮🇹[www.v2nodes.com] ss-IT-1619... #2'
-  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
-  port: 19999
-  server: 202.50.253.81
-  type: ss
-- name: Igareck Node 070 | 🇳🇴 Norway， Oslo | [BL]
-  type: vless
-  server: 104.18.139.67
-  port: 443
-  uuid: 0280c276-641b-49af-b699-4931c30ac137
-  udp: true
-  tls: true
-  servername: norway.xn--nlqaa425dbaab446bbabd698meae.online.
-  alpn:
-  - h2
-  client-fingerprint: chrome
-  network: xhttp
-  xhttp-opts:
-    path: /api
-    host: norway.xn--nlqaa425dbaab446bbabd698meae.online
-- name: 🇹🇭TH_12|589KB/s|R002-260618
-  password: KT5hiU8o
-  port: 42000
-  server: 104.234.70.82
-  sub_tag: R002-260618
-  type: socks5
-  username: rnt2L4XO
-  udp: true
-- name: 🇲🇽MX_5|278KB/s|R002-260618
+- name: 🇲🇽MX_3|79KB/s|R002-260618
   password: sZnD8GTz
   port: 42000
-  server: 144.225.47.68
+  server: 144.225.47.106
   sub_tag: R002-260618
   type: socks5
   username: DJy1T0dt
   udp: true
-- cipher: aes-256-gcm
-  name: '🇮🇹 意大利 | ITA #2'
-  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
-  port: 19999
-  server: 202.50.253.27
-  type: ss
-  udp: true
-- alterId: 64
-  cipher: auto
-  name: '🇺🇸 美国 | USA #5'
-  network: ws
-  port: 30004
-  server: 192.74.236.148
-  skip-cert-verify: true
-  tls: true
-  type: vmess
-  udp: true
-  uuid: 418048af-a293-4b99-9b0c-98ca3580dd24
-  ws-opts:
-    headers:
-      Host: www.91334565.xyz
-    path: /path/1733477783705
-- client-fingerprint: chrome
-  name: '🇳🇱 荷兰 | NLD #6'
-  network: xhttp
-  port: 443
-  server: 201.34.142.108
-  tls: true
-  type: vless
-  udp: true
-  uuid: 4777d90d-265b-4927-a0d1-63f36ed1421c
-  xhttp-opts:
-    mode: auto
-    path: /assets/nlrelay01/
-- name: end-gfw-kr64-SS
-  type: ss
-  server: 15.165.75.243
-  port: 8443
-  cipher: chacha20-ietf-poly1305
-  password: 7e68e32f-8015-4f37-9082-70e8b0b58043
-  udp: true
-- type: hysteria
-  name: 🇫🇷_FR_法国_IPV4
-  server: 62.210.124.132
-  port: 24667
-  password: dongtaiwang.com
-  tls: true
-  servername: bing.com
-  sni: bing.com
-  skip-cert-verify: true
-  alpn:
-  - h3
-  up: '11'
-  down: '55'
-  auth-str: dongtaiwang.com
-- cipher: aes-256-gcm
-  name: '🇮🇹 意大利 | ITA #1'
-  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
-  port: 19999
-  server: 202.50.253.18
-  type: ss
-  udp: true
-- cipher: aes-256-gcm
-  name: '🇮🇹[www.v2nodes.com] ss-IT-1619... #5'
-  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
-  port: 19999
-  server: 202.50.253.45
-  type: ss
-- name: 🇹🇭TH_13|570KB/s|R002-260618
-  password: YlRoWvE0dL_cUqS94wPeKnA4
-  port: 62000
-  server: 87.84.49.245
-  sub_tag: R002-260618
-  type: socks5
-  username: ks878449260d
-  udp: true
-- name: 🇹🇭TH_10|582KB/s|R002-260618
-  password: fAgE2jqK
-  port: 42000
-  server: 151.246.108.69
-  sub_tag: R002-260618
-  type: socks5
-  username: h87527jJ
-  udp: true
-- http-opts:
-    headers:
-      Host:
-      - ajax.googleapis.com
-    method: GET
-    path:
-    - /
-  name: '🇸🇪 瑞典 | SWE #1'
-  network: http
-  port: 2222
-  server: swe4.mlbaz.ir
-  tls: false
-  type: vless
-  udp: true
-  uuid: f4e7fdb5-9b1b-44e7-990a-40ee7da9cdc5
-- name: Igareck Node 075 | 🇳🇴 Norway， Oslo | [BL]
+- name: Igareck Node 078 | 🇳🇴 Norway， Oslo | [BL]
   type: vless
   server: 104.18.141.67
   port: 443
@@ -476,6 +660,43 @@ proxies:
   xhttp-opts:
     path: /api
     host: norway.xn--nlqaa425dbaab446bbabd698meae.online
+- cipher: aes-256-gcm
+  name: '🇮🇹 意大利 | ITA #6'
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 202.50.253.72
+  type: ss
+  udp: true
+- cipher: aes-256-gcm
+  name: '🇮🇹 意大利 | ITA #8'
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 202.50.253.99
+  type: ss
+  udp: true
+- name: Igareck Node 068 | 🇳🇴 Norway， Oslo | [BL]
+  type: vless
+  server: 104.18.138.67
+  port: 443
+  uuid: 0280c276-641b-49af-b699-4931c30ac137
+  udp: true
+  tls: true
+  servername: norway.xn--nlqaa425dbaab446bbabd698meae.online.
+  alpn:
+  - h2
+  client-fingerprint: edge
+  network: xhttp
+  xhttp-opts:
+    path: /api
+    host: norway.xn--nlqaa425dbaab446bbabd698meae.online
+    mode: auto
+- name: 🇮🇹IT_8|1.5MB/s
+  password: JdFlrZhqHP
+  port: 1080
+  server: 69.16.157.244
+  skip-cert-verify: true
+  type: socks5
+  username: ufCobhydz4Wd
 - name: 🇹🇭TH_15|553KB/s|K001-260618
   password: VAwyJQX0iKMJiyCw5UVK9wGH
   port: 42000
@@ -485,116 +706,124 @@ proxies:
   type: socks5
   username: route164JIa2CBPxfy
   udp: true
-- alpn:
-  - http/1.1
-  client-fingerprint: firefox
-  name: '🇵🇱[www.v2nodes.com] vless-PL-1... #2'
-  network: ws
-  port: 443
-  server: r0xnfzk9ud.newwl.pro
-  servername: r0xnfzk9ud.newwl.pro
-  tls: true
-  type: vless
-  uuid: 7955bf18-35c4-412d-aabd-c0b36c793063
-  ws-opts:
-    headers:
-      Host: r0xnfzk9ud.newwl.pro
-    path: /service/telemetry/045d381f1166/
-- cipher: aes-256-gcm
-  name: '🇮🇹 意大利 | ITA #4'
-  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
-  port: 19999
-  server: 202.50.253.54
-  type: ss
-  udp: true
-- name: 🇩🇪DE_10|3.5MB/s
-  port: 1080
-  server: 92.5.68.29
-  skip-cert-verify: true
-  type: socks5
-- cipher: aes-256-gcm
-  name: '🇮🇹 意大利 | ITA #5'
-  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
-  port: 19999
-  server: 202.50.253.63
-  type: ss
-  udp: true
-- name: 🇫🇷FR_77|932KB/s|K001-260618
-  password: Zn5mR7vA
-  port: 42000
-  server: 144.56.22.78
-  skip-cert-verify: true
-  sub_tag: K001-260618
-  type: socks5
-  username: L8wP3kQx
-  udp: true
-- name: 🇹🇭TH_4|551KB/s|R002-260618
-  password: mpbK00Pl
-  port: 42000
-  server: 192.204.15.192
+- name: 🇮🇩ID_5|440KB/s|R002-260618
+  password: RRWtX6XP
+  port: 62000
+  server: 203.84.138.59
   sub_tag: R002-260618
   type: socks5
-  username: X3s3JteD
+  username: 9tcjLp2W
+  udp: true
+- alpn:
+  - http/1.1
+  client-fingerprint: android
+  name: '🇷🇺 俄罗斯 | RUS #3'
+  network: ws
+  port: 443
+  server: 201.51.2.188
+  servername: sequoia.merlano.monster
+  tls: true
+  type: vless
+  udp: true
+  uuid: 25ac78e7-6d1d-4c9a-a450-c01a4871769f
+  ws-opts:
+    headers:
+      Host: vellum.merlano.monster
+    path: /api/de1/stream
+- ip: 172.16.0.2/32
+  mtu: 1380
+  name: 🇨🇳CN_4|2.6MB/s
+  port: 3581
+  presharedkey: ''
+  private-key: 2FaqTm+aXdVK00dvbeuMW/t741BWYu9lNOOVtMI4R3Y=
+  public-key: bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=
+  reserved:
+  - 80
+  - 103
+  - 64
+  server: 162.159.192.11
+  type: wireguard
+  udp: true
+- name: 🇹🇭TH_12|589KB/s|R002-260618
+  password: KT5hiU8o
+  port: 42000
+  server: 104.234.70.82
+  sub_tag: R002-260618
+  type: socks5
+  username: rnt2L4XO
   udp: true
 proxy-groups:
 - name: AUTO
   type: url-test
   proxies:
-  - 🇮🇹IT_8|1.5MB/s
-  - 🇯🇵JP_23|468KB/s|P002-260618
-  - https://alvin9999.com
-  - 🇲🇽MX_3|79KB/s|R002-260618
-  - 🇷🇺 俄罗斯 | RUS
-  - 🇷🇺 俄罗斯 | RUS 5
-  - 🇹🇭TH_8|569KB/s|R002-260618
-  - 🇹🇭TH_6|587KB/s|R002-260618
-  - 🇻🇳VN_4|273KB/s|R002-260618
-  - 🇷🇺 俄罗斯 | RUS 2
-  - 🇪🇪[www.v2nodes.com] vless-EE-1...
-  - '🇮🇹 意大利 | ITA #6'
-  - 🇵🇭PH_1|399KB/s|R002-260618
-  - '🇮🇹 意大利 | ITA #8'
-  - Igareck Node 066 | 🇳🇴 Norway， Oslo | [BL]
-  - 🇺🇸US-🚀@VPNine1
-  - 🇺🇸US_477|964KB/s|R002-260618
-  - 🇺🇸US_479|336KB/s|S001-260618
-  - 🇬🇧GB_31|5.4MB/s|A003-260618
   - 🇩🇪 德国 | DEU 13
-  - '🇩🇪 德国 | DEU #4'
-  - 🇹🇭TH_2|573KB/s|R002-260618
-  - '🇮🇹 意大利 | ITA #3'
+  - 🇹🇭TH_8|569KB/s|R002-260618
+  - 🇨🇳CN_5|1.2MB/s
+  - https://alvin9999.com
+  - 🇲🇽MX_7|610KB/s|R002-260618
+  - 🇷🇺 [856.0ms +/-15ms] 🇩🇪
+  - 🇲🇽MX_8|527KB/s|P002-260618
+  - 🇯🇵JP_23|468KB/s|P002-260618
   - 🇹🇭TH_7|473KB/s|R002-260618
-  - 🇹🇭TH_1|2.0MB/s
-  - 🇹🇭TH_5|591KB/s|R002-260618
-  - Igareck Node 079 | 🇳🇴 Norway， Oslo | [BL]
-  - 🇺🇸US_3|3.3MB/s
-  - '🇮🇹 意大利 | ITA #7'
-  - 🇲🇽MX_2|248KB/s|R002-260618
-  - Igareck Node 063 | 🇳🇴 Norway， Oslo | [BL]
-  - 🇹🇭TH_3|552KB/s|R002-260618
-  - 🇻🇳VN_5|479KB/s|R002-260618
-  - '🇮🇹[www.v2nodes.com] ss-IT-1619... #2'
-  - Igareck Node 070 | 🇳🇴 Norway， Oslo | [BL]
-  - 🇹🇭TH_12|589KB/s|R002-260618
-  - 🇲🇽MX_5|278KB/s|R002-260618
-  - '🇮🇹 意大利 | ITA #2'
   - '🇺🇸 美国 | USA #5'
+  - 🇸🇨_SC_塞舌尔->🇳🇱_NL_荷兰_IPV4
+  - 🇳🇱NL_1|2.0MB/s-2
+  - 🇺🇸 美国 | USA 13
+  - 🇻🇳VN_4|273KB/s|R002-260618
+  - '🇮🇹 意大利 | ITA #3'
+  - Igareck Node 064 | 🇳🇴 Norway， Oslo | [BL]
+  - 🇷🇴RO_99|2.6MB/s|A003-260618
   - '🇳🇱 荷兰 | NLD #6'
-  - end-gfw-kr64-SS
-  - 🇫🇷_FR_法国_IPV4
-  - '🇮🇹 意大利 | ITA #1'
-  - '🇮🇹[www.v2nodes.com] ss-IT-1619... #5'
-  - 🇹🇭TH_13|570KB/s|R002-260618
   - 🇹🇭TH_10|582KB/s|R002-260618
+  - 🇺🇸US-🚀@VPNine1
+  - '🇮🇹[www.v2nodes.com] ss-IT-1619... #2'
+  - 🇲🇽MX_6|726KB/s|R002-260618
+  - 🇹🇭TH_2|573KB/s|R002-260618
   - '🇸🇪 瑞典 | SWE #1'
-  - Igareck Node 075 | 🇳🇴 Norway， Oslo | [BL]
-  - 🇹🇭TH_15|553KB/s|K001-260618
-  - '🇵🇱[www.v2nodes.com] vless-PL-1... #2'
-  - '🇮🇹 意大利 | ITA #4'
-  - 🇩🇪DE_10|3.5MB/s
+  - 🇲🇽MX_1|3.6MB/s
+  - 🇲🇽MX_5|278KB/s|R002-260618
+  - 🇺🇸US_495|618KB/s|R002-260618
+  - 🇹🇭TH_13|570KB/s|R002-260618
+  - 🇳🇱NL_2|3.0MB/s
+  - 🇺🇸US_11|3.4MB/s
+  - '🇩🇪 德国 | DEU #4'
+  - '[1073.4ms +/-3ms] 4Kian-c113c02c2e'
+  - '🇮🇹 意大利 | ITA #1'
+  - 🇹🇭TH_3|552KB/s|R002-260618
+  - 🇨🇳CN_3|1.8MB/s
+  - '🇮🇹 意大利 | ITA #2'
   - '🇮🇹 意大利 | ITA #5'
-  - 🇫🇷FR_77|932KB/s|K001-260618
+  - 🇷🇺 俄罗斯 | RUS 2
+  - 🇹🇭TH_5|591KB/s|R002-260618
+  - 🇷🇺 俄罗斯 | RUS 5
+  - Igareck Node 084 | 🇳🇴 Norway， Oslo | [BL]
+  - 🇹🇭TH_6|587KB/s|R002-260618
   - 🇹🇭TH_4|551KB/s|R002-260618
+  - 🇹🇭TH_1|2.0MB/s
+  - '🇮🇹[www.v2nodes.com] ss-IT-1619... #5'
+  - Igareck Node 073 | 🇳🇴 Norway， Oslo | [BL]
+  - '🇮🇹 意大利 | ITA #7'
+  - Igareck Node 075 | 🇳🇴 Norway， Oslo | [BL]
+  - 🇷🇺 俄罗斯 | RUS
+  - 🇹🇭TH_14|429KB/s|R002-260618
+  - 🇨🇳CN_7|1.6MB/s
+  - 🇳🇱 荷兰 | NLD 4
+  - 🇵🇭PH_1|399KB/s|R002-260618
+  - 🇲🇽MX_2|248KB/s|R002-260618
+  - ❓Other_1|1.0MB/s
+  - 🇫🇷_FR_法国_IPV4
+  - 🇬🇧GB_31|5.4MB/s|A003-260618
+  - 🇲🇽MX_3|79KB/s|R002-260618
+  - Igareck Node 078 | 🇳🇴 Norway， Oslo | [BL]
+  - '🇮🇹 意大利 | ITA #6'
+  - '🇮🇹 意大利 | ITA #8'
+  - Igareck Node 068 | 🇳🇴 Norway， Oslo | [BL]
+  - 🇮🇹IT_8|1.5MB/s
+  - 🇹🇭TH_15|553KB/s|K001-260618
+  - 🇮🇩ID_5|440KB/s|R002-260618
+  - '🇷🇺 俄罗斯 | RUS #3'
+  - 🇨🇳CN_4|2.6MB/s
+  - 🇹🇭TH_12|589KB/s|R002-260618
   url: https://www.gstatic.com/generate_204
   interval: 300
   tolerance: 80
@@ -602,60 +831,73 @@ proxy-groups:
   type: select
   proxies:
   - AUTO
-  - 🇮🇹IT_8|1.5MB/s
-  - 🇯🇵JP_23|468KB/s|P002-260618
-  - https://alvin9999.com
-  - 🇲🇽MX_3|79KB/s|R002-260618
-  - 🇷🇺 俄罗斯 | RUS
-  - 🇷🇺 俄罗斯 | RUS 5
-  - 🇹🇭TH_8|569KB/s|R002-260618
-  - 🇹🇭TH_6|587KB/s|R002-260618
-  - 🇻🇳VN_4|273KB/s|R002-260618
-  - 🇷🇺 俄罗斯 | RUS 2
-  - 🇪🇪[www.v2nodes.com] vless-EE-1...
-  - '🇮🇹 意大利 | ITA #6'
-  - 🇵🇭PH_1|399KB/s|R002-260618
-  - '🇮🇹 意大利 | ITA #8'
-  - Igareck Node 066 | 🇳🇴 Norway， Oslo | [BL]
-  - 🇺🇸US-🚀@VPNine1
-  - 🇺🇸US_477|964KB/s|R002-260618
-  - 🇺🇸US_479|336KB/s|S001-260618
-  - 🇬🇧GB_31|5.4MB/s|A003-260618
   - 🇩🇪 德国 | DEU 13
-  - '🇩🇪 德国 | DEU #4'
-  - 🇹🇭TH_2|573KB/s|R002-260618
-  - '🇮🇹 意大利 | ITA #3'
+  - 🇹🇭TH_8|569KB/s|R002-260618
+  - 🇨🇳CN_5|1.2MB/s
+  - https://alvin9999.com
+  - 🇲🇽MX_7|610KB/s|R002-260618
+  - 🇷🇺 [856.0ms +/-15ms] 🇩🇪
+  - 🇲🇽MX_8|527KB/s|P002-260618
+  - 🇯🇵JP_23|468KB/s|P002-260618
   - 🇹🇭TH_7|473KB/s|R002-260618
-  - 🇹🇭TH_1|2.0MB/s
-  - 🇹🇭TH_5|591KB/s|R002-260618
-  - Igareck Node 079 | 🇳🇴 Norway， Oslo | [BL]
-  - 🇺🇸US_3|3.3MB/s
-  - '🇮🇹 意大利 | ITA #7'
-  - 🇲🇽MX_2|248KB/s|R002-260618
-  - Igareck Node 063 | 🇳🇴 Norway， Oslo | [BL]
-  - 🇹🇭TH_3|552KB/s|R002-260618
-  - 🇻🇳VN_5|479KB/s|R002-260618
-  - '🇮🇹[www.v2nodes.com] ss-IT-1619... #2'
-  - Igareck Node 070 | 🇳🇴 Norway， Oslo | [BL]
-  - 🇹🇭TH_12|589KB/s|R002-260618
-  - 🇲🇽MX_5|278KB/s|R002-260618
-  - '🇮🇹 意大利 | ITA #2'
   - '🇺🇸 美国 | USA #5'
+  - 🇸🇨_SC_塞舌尔->🇳🇱_NL_荷兰_IPV4
+  - 🇳🇱NL_1|2.0MB/s-2
+  - 🇺🇸 美国 | USA 13
+  - 🇻🇳VN_4|273KB/s|R002-260618
+  - '🇮🇹 意大利 | ITA #3'
+  - Igareck Node 064 | 🇳🇴 Norway， Oslo | [BL]
+  - 🇷🇴RO_99|2.6MB/s|A003-260618
   - '🇳🇱 荷兰 | NLD #6'
-  - end-gfw-kr64-SS
-  - 🇫🇷_FR_法国_IPV4
-  - '🇮🇹 意大利 | ITA #1'
-  - '🇮🇹[www.v2nodes.com] ss-IT-1619... #5'
-  - 🇹🇭TH_13|570KB/s|R002-260618
   - 🇹🇭TH_10|582KB/s|R002-260618
+  - 🇺🇸US-🚀@VPNine1
+  - '🇮🇹[www.v2nodes.com] ss-IT-1619... #2'
+  - 🇲🇽MX_6|726KB/s|R002-260618
+  - 🇹🇭TH_2|573KB/s|R002-260618
   - '🇸🇪 瑞典 | SWE #1'
-  - Igareck Node 075 | 🇳🇴 Norway， Oslo | [BL]
-  - 🇹🇭TH_15|553KB/s|K001-260618
-  - '🇵🇱[www.v2nodes.com] vless-PL-1... #2'
-  - '🇮🇹 意大利 | ITA #4'
-  - 🇩🇪DE_10|3.5MB/s
+  - 🇲🇽MX_1|3.6MB/s
+  - 🇲🇽MX_5|278KB/s|R002-260618
+  - 🇺🇸US_495|618KB/s|R002-260618
+  - 🇹🇭TH_13|570KB/s|R002-260618
+  - 🇳🇱NL_2|3.0MB/s
+  - 🇺🇸US_11|3.4MB/s
+  - '🇩🇪 德国 | DEU #4'
+  - '[1073.4ms +/-3ms] 4Kian-c113c02c2e'
+  - '🇮🇹 意大利 | ITA #1'
+  - 🇹🇭TH_3|552KB/s|R002-260618
+  - 🇨🇳CN_3|1.8MB/s
+  - '🇮🇹 意大利 | ITA #2'
   - '🇮🇹 意大利 | ITA #5'
-  - 🇫🇷FR_77|932KB/s|K001-260618
+  - 🇷🇺 俄罗斯 | RUS 2
+  - 🇹🇭TH_5|591KB/s|R002-260618
+  - 🇷🇺 俄罗斯 | RUS 5
+  - Igareck Node 084 | 🇳🇴 Norway， Oslo | [BL]
+  - 🇹🇭TH_6|587KB/s|R002-260618
   - 🇹🇭TH_4|551KB/s|R002-260618
+  - 🇹🇭TH_1|2.0MB/s
+  - '🇮🇹[www.v2nodes.com] ss-IT-1619... #5'
+  - Igareck Node 073 | 🇳🇴 Norway， Oslo | [BL]
+  - '🇮🇹 意大利 | ITA #7'
+  - Igareck Node 075 | 🇳🇴 Norway， Oslo | [BL]
+  - 🇷🇺 俄罗斯 | RUS
+  - 🇹🇭TH_14|429KB/s|R002-260618
+  - 🇨🇳CN_7|1.6MB/s
+  - 🇳🇱 荷兰 | NLD 4
+  - 🇵🇭PH_1|399KB/s|R002-260618
+  - 🇲🇽MX_2|248KB/s|R002-260618
+  - ❓Other_1|1.0MB/s
+  - 🇫🇷_FR_法国_IPV4
+  - 🇬🇧GB_31|5.4MB/s|A003-260618
+  - 🇲🇽MX_3|79KB/s|R002-260618
+  - Igareck Node 078 | 🇳🇴 Norway， Oslo | [BL]
+  - '🇮🇹 意大利 | ITA #6'
+  - '🇮🇹 意大利 | ITA #8'
+  - Igareck Node 068 | 🇳🇴 Norway， Oslo | [BL]
+  - 🇮🇹IT_8|1.5MB/s
+  - 🇹🇭TH_15|553KB/s|K001-260618
+  - 🇮🇩ID_5|440KB/s|R002-260618
+  - '🇷🇺 俄罗斯 | RUS #3'
+  - 🇨🇳CN_4|2.6MB/s
+  - 🇹🇭TH_12|589KB/s|R002-260618
 rules:
 - MATCH,手动选择
