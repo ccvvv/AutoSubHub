@@ -85,12 +85,12 @@ Do not treat a successful GitHub API response as proof that the Actions workflow
 
 ### ADB / MIUI assistance (no root)
 
-ADB can improve the chance that the probe app survives Doze/background restrictions, but cannot guarantee that MIUI will never kill it. Replace <PACKAGE> with the installed probe app's actual Android application ID:
+ADB can improve the chance that Hiddify survives Doze/background restrictions, but cannot guarantee that MIUI will never kill it. The current Hiddify Android application ID is `app.hiddify.com`. Run these commands from a computer with USB debugging enabled and the phone authorized:
 
 ```sh
-adb shell dumpsys deviceidle whitelist +<PACKAGE>
-adb shell cmd appops set <PACKAGE> RUN_IN_BACKGROUND allow
-adb shell cmd appops set <PACKAGE> RUN_ANY_IN_BACKGROUND allow
+adb shell dumpsys deviceidle whitelist +app.hiddify.com
+adb shell cmd appops set app.hiddify.com RUN_IN_BACKGROUND allow
+adb shell cmd appops set app.hiddify.com RUN_ANY_IN_BACKGROUND allow
 ```
 
 These commands are best-effort and may vary by Android/MIUI version. They do not bypass MIUI's own Autostart and battery-management controls. Configure those in MIUI Settings as well, and keep the app's foreground service notification visible during an active probe. Do not disable Doze globally or use undocumented force-stop workarounds.
