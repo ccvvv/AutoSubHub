@@ -35,12 +35,12 @@ def write_yaml(path: Path, data: dict) -> None:
     path.write_text(yaml.safe_dump(data, allow_unicode=True, sort_keys=False), encoding="utf-8")
 
 
-def make_config(proxies: list[dict], workers: int, api_port: int) -> dict:
+def make_config(proxies: list[dict], workers: int, api_port: int, port_base: int) -> dict:
     names = [p["name"] for p in proxies]
     groups = [{"name": f"PHONE-{i:02d}", "type": "select", "proxies": names}
               for i in range(workers)]
     listeners = [{"name": f"phone-{i:02d}", "type": "mixed",
-                  "listen": "127.0.0.1", "port": PORT_BASE + i,
+                  "listen": "127.0.0.1", "port": port_base + i,
                   "proxy": f"PHONE-{i:02d}"} for i in range(workers)]
     return {
         "allow-lan": False, "mode": "rule", "log-level": "error", "ipv6": False,
@@ -114,7 +114,7 @@ def main() -> None:
 
     with tempfile.TemporaryDirectory(prefix="autohub-phone-") as temp:
         config_path = Path(temp) / "config.yaml"
-        write_yaml(config_path, make_config(proxies, args.workers, args.api_port))
+        write_yaml(config_path, make_config(proxies, args.workers, args.api_port, args.port_base))
         check = subprocess.run([args.mihomo, "-t", "-f", str(config_path)],
                                capture_output=True, text=True, timeout=30)
         if check.returncode:
