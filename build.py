@@ -459,7 +459,7 @@ def main() -> None:
     }
     with open(os.path.join("candidates", "manifest.json"), "w", encoding="utf-8") as f:
         json.dump(manifest, f, ensure_ascii=False, indent=2)
-        f.write("\\n")
+        f.write("\n")
 
     print(f"Candidate generation complete: {len(candidates)} unique nodes")
     print(f"Pure HTTP proxies excluded during parsing: {http_type_rejected}")
