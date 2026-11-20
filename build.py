@@ -435,7 +435,7 @@ def main() -> None:
     all_unique_candidates = [node for bucket in source_unique for node in bucket]
     # Pure Clash HTTP proxies were excluded while parsing each source, before
     # global deduplication and all network tests. TCP transports remain allowed.
-    candidates = all_unique_candidates]
+    candidates = all_unique_candidates
     print(f"Parsed {parsed_total} nodes; globally unique: {unique_total}; "
           f"pure HTTP proxies excluded: {http_type_rejected}; "
           f"remaining candidates: {len(candidates)}")
