@@ -63,6 +63,16 @@ The first deployment is intentionally hard-wired to the owner's repositories; it
 
 ### Task delivery model
 
+### Current GitHub task endpoint
+
+- Create a task from Actions -> Create Xiaomi Mi 6 probe task -> Run workflow. Choose the node limit and expiry.
+- The workflow writes the current task to `data/domestic-probe/task.json` with status `pending`, target `mi6-probe-01`, and scope `active-hiddify-profile`.
+- The phone polls that JSON file and checks `task_id`, `status`, and `expires_at` before doing anything.
+- For this development branch, the raw read URL is `https://raw.githubusercontent.com/ccvvv/AutoSubHub/feature/android-domestic-probe-mvp/data/domestic-probe/task.json`. After the PR is merged, the app should use the repository's main branch URL.
+- The result upload must include the exact `task_id`. The ingest workflow rejects expired, mismatched, or already-completed task IDs, stores the sanitized result, and changes the task status to `completed`.
+- Task creation and result ingestion share a GitHub Actions concurrency group to reduce simultaneous Git pushes.
+
+GPT reachability is an optional diagnostic and may be null; it does not decide whether a node passes the download probe.
 Use a single active task for the MVP to avoid duplicate execution and conflicting writes:
 
 1. A manual GitHub Actions workflow_dispatch creates a task with a unique task_id, candidate-manifest revision, creation time, and expiry.
