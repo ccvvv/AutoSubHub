@@ -1,6 +1,6 @@
 # Termux phone probe (initial implementation)
 
-This script runs the download-speed stage on the phone's own network. GitHub-side parsing, TCP/UDP prefilters, protocol checks, Mihomo HTTP checks, and ChatGPT HTTPS certificate checks remain on GitHub.
+This script runs the download-speed stage on the phone's own network. GitHub performs format filtering and deduplication, then HTTPS-only Mihomo latency checks and ChatGPT HTTPS certificate checks. Standalone TCP/UDP and generic TLS/WebSocket handshake prefilters are disabled to avoid false negatives. Plain-HTTP captive-portal checks are disabled.
 
 ## Install in Termux
 
