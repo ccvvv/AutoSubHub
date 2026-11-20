@@ -1,0 +1,80 @@
+name: Create Xiaomi Mi 6 probe task
+
+on:
+  workflow_dispatch:
+    inputs:
+      max_nodes:
+        description: Maximum number of nodes for this probe run
+        required: true
+        default: "50"
+        type: choice
+        options:
+          - "10"
+          - "25"
+          - "50"
+      expires_minutes:
+        description: Task expiry in minutes
+        required: true
+        default: "360"
+        type: choice
+        options:
+          - "60"
+          - "180"
+          - "360"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: domestic-probe-task
+  cancel-in-progress: false
+
+jobs:
+  create-task:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+
+      - name: Create pending task
+        env:
+          RUN_ID: ${{ github.run_id }}
+          RUN_ATTEMPT: ${{ github.run_attempt }}
+          MAX_NODES: ${{ inputs.max_nodes }}
+          EXPIRES_MINUTES: ${{ inputs.expires_minutes }}
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          from datetime import datetime, timedelta, timezone
+          from pathlib import Path
+
+          now = datetime.now(timezone.utc)
+          expires = now + timedelta(minutes=int(os.environ['EXPIRES_MINUTES']))
+          task_id = f"mi6-{os.environ['RUN_ID']}-{os.environ['RUN_ATTEMPT']}"
+          task = {
+              "schema_version": 1,
+              "task_id": task_id,
+              "status": "pending",
+              "target_device_id": "mi6-probe-01",
+              "scope": "active-hiddify-profile",
+              "max_nodes": int(os.environ['MAX_NODES']),
+              "created_at": now.isoformat(),
+              "expires_at": expires.isoformat(),
+          }
+          out = Path("data/domestic-probe/task.json")
+          out.parent.mkdir(parents=True, exist_ok=True)
+          out.write_text(json.dumps(task, indent=2) + chr(10), encoding="utf-8")
+          print(f"Created task {task_id}, expires {task['expires_at']}")
+          PY
+
+      - name: Commit task manifest
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/domestic-probe/task.json
+          git commit -m "chore: create Xiaomi Mi 6 probe task"
+          git push
