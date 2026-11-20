@@ -52,7 +52,7 @@ jobs:
           DOWNLOAD_BYTES: ${{ vars.DOWNLOAD_BYTES }}
           DOWNLOAD_MIN_KBPS: 500
           SPEED_TEST_WORKERS: 50
-        run: python build.py
+        run: python build-final.py
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
