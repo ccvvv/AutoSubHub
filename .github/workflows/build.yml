@@ -9,6 +9,8 @@ on:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 concurrency:
   group: domestic-probe-state
@@ -17,6 +19,8 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
     timeout-minutes: 360
     steps:
       - name: Check out repository
@@ -59,3 +63,26 @@ jobs:
             git commit -m "chore: publish GitHub-screened probe candidates"
             git push
           }
+
+      - name: Preserve previously published final subscription
+        run: |
+          mkdir -p site
+          if curl -fsSL "https://ccvvv.github.io/AutoSubHub/subscription.yaml" -o site/subscription.yaml; then
+            echo "Preserved the last Mi 6-verified subscription."
+          else
+            echo "No previous final subscription exists yet; candidate feed will be published first."
+          fi
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - name: Upload candidate feed and preserved final subscription
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+      - name: Deploy candidate feed
+        id: deployment
+        uses: actions/deploy-pages@v4
