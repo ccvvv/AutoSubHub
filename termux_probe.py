@@ -100,9 +100,14 @@ def main() -> None:
     if not isinstance(proxies, list) or not proxies or not isinstance(manifest_nodes, list):
         raise SystemExit("Candidate or manifest structure is invalid")
     by_name = {p.get("name"): p for p in proxies if isinstance(p, dict) and p.get("name")}
-    id_by_name = {n.get("name"): n.get("node_id") for n in manifest_nodes if isinstance(n, dict)}
-    if set(by_name) != set(id_by_name) or any(not value for value in id_by_name.values()):
-        raise SystemExit("Manifest node IDs do not match candidate proxy names")
+    valid_manifest_nodes = [n for n in manifest_nodes if isinstance(n, dict)]
+    id_by_name = {n.get("name"): n.get("node_id") for n in valid_manifest_nodes}
+    node_ids = list(id_by_name.values())
+    if (len(by_name) != len(proxies) or len(valid_manifest_nodes) != len(manifest_nodes)
+            or len(id_by_name) != len(manifest_nodes) or len(set(node_ids)) != len(node_ids)
+            or set(by_name) != set(id_by_name)
+            or any(not isinstance(value, str) or not value for value in node_ids)):
+        raise SystemExit("Manifest node IDs do not exactly match candidate proxy names")
     proxies = list(by_name.values())
     print(f"Candidate loaded: {len(proxies)} nodes; SHA256 {candidate_hash[:16]}…")
 
