@@ -44,6 +44,10 @@ for item in results:
     if item.get("status") == "passed" and isinstance(speed, (int, float)) and speed >= MIN_SPEED_BPS:
         passed_ids.add(node_id)
 
+if seen != set(id_to_name):
+    missing = len(set(id_to_name) - seen)
+    raise SystemExit(f"Incomplete receipt: {missing} candidate nodes were not tested")
+
 final_nodes = [proxy_by_name[id_to_name[nid]] for nid in id_to_name if nid in passed_ids]
 if not final_nodes:
     raise SystemExit("No phone-tested nodes met the minimum download speed; existing final versions remain untouched")
