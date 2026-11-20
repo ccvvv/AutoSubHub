@@ -1,55 +1,38 @@
 # AutoSubHub
 
-Automatically aggregates public Clash-compatible subscription sources, filters unreachable nodes, tests real proxy connectivity with the Mihomo core, samples download speed, validates the final configuration, and publishes it with GitHub Actions + GitHub Pages.
+AutoSubHub publishes two independent public subscription links. Both are intentionally public, including node credentials contained in the YAML.
 
-## Important privacy warning
+## Public subscription links
 
-This repository and the generated Pages output are public. Anyone who knows the published URL can download the generated proxy configuration and use the included nodes. Only add subscription sources that you are allowed and willing to expose. Do not commit private subscription URLs or credentials.
+- **Candidate subscription (phone pending test):** `https://raw.githubusercontent.com/ccvvv/AutoSubHub/published-subscriptions/candidate/subscription.yaml`
+- **Final subscription (phone-tested nodes only):** `https://raw.githubusercontent.com/ccvvv/AutoSubHub/published-subscriptions/final/latest.yaml`
 
-## Setup
+The candidate and final URLs are separate and must never be mixed. The final URL is not populated by the candidate workflow; it will be written only by the phone-receipt finalization workflow.
 
-1. Open **Settings → Secrets and variables → Actions**.
-2. Optionally add a repository secret named `SUBSCRIPTION_URLS`, with one source URL per line. If absent, `subscriptions.txt` is used.
-3. Open **Settings → Pages** and choose **GitHub Actions** as the build source if it is not already configured. The workflow also asks the Pages action to enablement-check/enable Pages; repository administration permission may still be required.
-4. Open **Actions**, enable workflows if prompted, and run **Auto build subscription** manually once.
+## Candidate pipeline
 
-Published subscription (after a successful deployment):
+GitHub Actions fetches configured source subscriptions, parses supported Clash YAML and URI formats, excludes pure HTTP proxy entries, removes duplicates, and generates candidates after GitHub-side TCP/UDP prefiltering, protocol handshake checks, Mihomo HTTP proxy tests, and HTTPS certificate validation against ChatGPT. Download throughput is deliberately not tested on GitHub; that stage belongs to the Android/Termux phone.
 
-`https://ccvvv.github.io/AutoSubHub/subscription.yaml`
+The candidate workflow publishes the YAML and credential-free manifest to the public `published-subscriptions` data branch under `candidate/`. A successful new candidate overwrites the previous candidate at the same stable URL. Pull-request validation does not publish candidate credentials.
 
-## Build pipeline
+## Phone probe and final pipeline
 
-1. Fetch and parse subscription sources (Clash YAML and common VMess, VLESS, Trojan, Shadowsocks and SOCKS URI formats).
-2. Deduplicate nodes and perform a concurrent TCP-connect prefilter. UDP-based protocols (Hysteria, Hysteria2, TUIC and WireGuard) bypass this TCP-only check so they are not incorrectly discarded.
-3. Run a FreeNodePanel-style protocol handshake prefilter for TCP transports: DNS resolution, TCP connection, TLS handshake (certificate verification is disabled for reachability testing), and WebSocket/HTTPUpgrade `101` validation where applicable. Reality and UDP protocols are deliberately deferred to Mihomo to avoid false negatives from generic TLS/TCP probes.
-4. Start the pinned Mihomo core in the GitHub Actions runner.
-5. Ask Mihomo to test each proxy against `LATENCY_URL`; nodes that cannot make a real HTTP request through the proxy are excluded.
-6. Sample download throughput for the fastest `DOWNLOAD_TEST_NODES` candidates. Download speed is informational; a node remains eligible if the speed-test endpoint is unavailable but its proxy latency test passed.
-7. Validate YAML structure, proxy-group references, and the exact output with Mihomo's config checker.
-8. Only after all build steps succeed does the Pages deployment run. A failed build does not deploy a replacement artifact, leaving the previous published Pages version untouched.
+Android/Termux downloads the public candidate link, tests nodes from the phone's network through isolated Mihomo listeners, and writes a receipt containing tested node IDs and measured download speeds. An initial `termux_probe.py` script and setup guide are available in `docs/TERMUX_PROBE.md`. Receipt upload uses a user-supplied repository token; the token must never be committed or embedded in an APK. The complete phone-to-GitHub flow has not yet been tested.
 
-## Measurement notes
+The final publisher is designed to maintain three rolling files:
+- `final/latest.yaml`
+- `final/previous.yaml`
+- `final/older.yaml`
 
-- TCP connect latency is only a cheap first filter.
-- Mihomo delay is a real HTTP request through the proxy, but it measures the GitHub Actions runner's network route, not the user's phone or local ISP.
-- Download speeds are measured from GitHub Actions and can differ substantially from Karing/FlClash results on Android.
-- Download tests are limited to a small candidate sample to avoid wasting runner time and bandwidth.
-- The workflow uses the Mihomo Linux AMD64 release binary pinned to v1.19.34.
+Rotation should occur only after a non-empty final subscription is generated and structurally validated from a successful phone receipt. Failed or incomplete runs must leave all three previous versions untouched.
 
-## Optional repository variables
+## Security and privacy
 
-- `MAX_WORKERS`: TCP prefilter concurrency (default 80).
-- `CONNECT_TIMEOUT`: TCP/TLS/WS connection timeout in seconds (default 3; handshake stage uses at least 4 seconds).\n- `HANDSHAKE_WORKERS`: concurrent protocol-handshake checks (default 60).
-- `MAX_NODES`: maximum candidates entering TCP prefilter (default 500).
-- `HTTP_WORKERS`: concurrent Mihomo proxy delay requests (default 40).
-- `HTTP_TEST_TIMEOUT`: HTTP delay test timeout in milliseconds (default 8000).
-- `DOWNLOAD_TEST_NODES`: number of top latency nodes to sample for download speed (default 25).
-- `DOWNLOAD_BYTES`: target download sample size in bytes (default 1048576).
+The repository and the published data branch are public. Anyone who knows or discovers the subscription URLs can read node server addresses and credentials, use the proxies, and redistribute them. Do not place personal or paid credentials in these sources unless that exposure is intended. The phone receipt upload must be authenticated before the final publisher is enabled for routine use.
 
-## Schedule
+## Development status
 
-Runs every 6 hours at minute 17 (UTC). GitHub scheduled workflows may be delayed during high load. A manual run is also available.
-
-## License
-
-MIT
+- Candidate generation and public candidate publishing: implemented on `feature/termux-probe-v1`; the PR validation run succeeded, but the public publishing step was skipped because it was a pull-request run.
+- Termux probe engine and token-based receipt uploader: initial implementation committed; Android binary compatibility and end-to-end upload are not yet tested.
+- Phone-receipt validator and three-version final publisher: initial implementation exists on the development branch; end-to-end validation remains outstanding.
+- Legacy cloud-only final publishing is disabled to prevent it from publishing nodes that were not tested by the phone.
