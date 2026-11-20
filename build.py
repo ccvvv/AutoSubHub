@@ -559,6 +559,11 @@ def main() -> None:
                     verified = []
                     cert_errors = []
                     unreachable = []
+                    # Check the two OpenAI endpoints first. If at least one completes
+                    # verified TLS and neither reports a certificate error, treat the
+                    # certificate stage as passed without probing the other platforms.
+                    # X and Telegram remain fallback checks when both primary endpoints
+                    # are inconclusive; this is a TLS sanity check, not an app-compatibility guarantee.
                     for platform, target_url in certificate_targets.items():
                         try:
                             # requests verifies CA chain, hostname and validity dates by default.
@@ -581,6 +586,11 @@ def main() -> None:
                                 unreachable.append(f"{platform}:tls-error")
                         except requests.RequestException as exc:
                             unreachable.append(f"{platform}:{type(exc).__name__}")
+
+                        # The first two entries are ChatGPT and OpenAI API.
+                        # A successful verified TLS connection is enough to stop early.
+                        if platform == "OpenAI API" and verified and not cert_errors:
+                            break
 
                     if cert_errors:
                         results.append((node, False, "certificate-invalid:" + ",".join(cert_errors)))
