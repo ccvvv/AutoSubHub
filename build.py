@@ -509,7 +509,8 @@ def main() -> None:
             if not tested:
                 raise RuntimeError("No node passed real HTTP proxy latency test")
 
-            print(f"HTTP proxy test passed: {len(tested)} / {len(tcp_ok)}")
+            http_tested_count = len(tested)
+            print(f"HTTP proxy test passed: {http_tested_count} / {len(tcp_ok)}")
 
             # Validate real HTTPS certificates through each node's isolated Mihomo listener.
             # HTTP status codes are deliberately ignored: 401/403/404 can still prove TLS validity.
@@ -526,6 +527,8 @@ def main() -> None:
             certificate_ok = []
             certificate_rejected = 0
             certificate_inconclusive = 0
+            certificate_platform_passes = {platform: 0 for platform in certificate_targets}
+            delay_by_name = {node["name"]: delay for delay, node in tested}
 
             def certificate_worker(worker_index: int,
                                    batch: list[tuple[int, dict]]) -> list[tuple[dict, bool, str]]:
@@ -587,7 +590,10 @@ def main() -> None:
                     completed_cert += len(results)
                     for node, passed, reason in results:
                         if passed:
-                            certificate_ok.append(next(item for item in tested if item[1] is node))
+                            certificate_ok.append((delay_by_name[node["name"]], node))
+                            for platform in reason.removeprefix("verified:").split(","):
+                                if platform in certificate_platform_passes:
+                                    certificate_platform_passes[platform] += 1
                         elif reason.startswith("certificate-invalid:"):
                             certificate_rejected += 1
                         else:
@@ -598,7 +604,8 @@ def main() -> None:
             tested = certificate_ok
             print(f"HTTPS certificate stage passed: {len(tested)}; "
                   f"certificate-invalid rejected: {certificate_rejected}; "
-                  f"inconclusive rejected: {certificate_inconclusive}")
+                  f"inconclusive rejected: {certificate_inconclusive}; "
+                  f"platform TLS verified: {certificate_platform_passes}")
             if not tested:
                 raise RuntimeError("No node passed HTTPS certificate validation")
 
@@ -731,7 +738,7 @@ def main() -> None:
 <html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width">
 <title>AutoSubHub</title><body style="font-family:system-ui;max-width:760px;margin:40px auto;padding:0 16px">
 <h1>AutoSubHub</h1><p>最后构建：{time.strftime('%Y-%m-%d %H:%M:%S UTC', time.gmtime())}</p>
-<ul><li>TCP / 协议握手通过：{len(tcp_ok)}</li><li>HTTPS 证书检测通过：{len(tested)}</li>
+<ul><li>TCP / 协议握手通过：{len(tcp_ok)}</li><li>Mihomo HTTP 测试通过：{http_tested_count}</li><li>HTTPS 证书检测通过：{len(tested)}</li>
 <li>证书异常淘汰：{certificate_rejected}</li><li>证书检测无结论淘汰：{certificate_inconclusive}</li>
 <li>完成下载测速：{len(speed_map)} / {len(tested)}</li><li>速度门槛：{DOWNLOAD_MIN_KBPS} KB/s</li><li>下载测速并发：{SPEED_TEST_WORKERS}</li><li>最终节点：{len(output)}</li></ul>
 <p><a href="subscription.yaml">下载 Clash / Mihomo 订阅</a></p>
