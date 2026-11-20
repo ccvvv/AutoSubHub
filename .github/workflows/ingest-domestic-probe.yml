@@ -6,6 +6,8 @@ on:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 concurrency:
   group: domestic-probe-state
@@ -14,12 +16,23 @@ concurrency:
 jobs:
   validate-and-store:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    environment:
+      name: github-pages
+    timeout-minutes: 10
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Validate and store sanitized report
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install YAML parser
+        run: pip install "PyYAML>=6,<7"
+
+      - name: Validate report and build final domestic subscription
+        id: report
         env:
           PAYLOAD: ${{ toJSON(github.event.client_payload) }}
         run: |
@@ -27,6 +40,7 @@ jobs:
           import json
           import os
           import re
+          import yaml
           from datetime import datetime, timezone
           from pathlib import Path
 
@@ -93,6 +107,20 @@ jobs:
                   "download_kbps": speed,
               })
 
+          # Match every returned ID against the exact GitHub candidate batch.
+          manifest_path = Path("data/domestic-probe/candidate-manifest.json")
+          candidate_path = Path("data/domestic-probe/candidates.yaml")
+          if not manifest_path.exists() or not candidate_path.exists():
+              raise SystemExit("No GitHub candidate batch exists; refusing to publish")
+          manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+          manifest_ids = {
+              item.get("node_id") for item in manifest.get("nodes", [])
+              if isinstance(item, dict) and isinstance(item.get("node_id"), str)
+          }
+          returned_ids = {item["node_id"] for item in clean}
+          if not returned_ids or not returned_ids.issubset(manifest_ids):
+              raise SystemExit("Receipt contains node IDs outside the current candidate batch")
+
           report = {
               "schema_version": 1,
               "task_id": task_id,
@@ -127,6 +155,65 @@ jobs:
               task["completed_at"] = datetime.now(timezone.utc).isoformat()
               task_path.write_text(json.dumps(task, ensure_ascii=False, indent=2) + chr(10), encoding="utf-8")
 
+          # Only passed domestic tests enter the final published subscription.
+          passed_ids = {
+              item["node_id"] for item in clean if item["status"] == "passed"
+          }
+          if passed_ids:
+              candidate_config = yaml.safe_load(candidate_path.read_text(encoding="utf-8"))
+              candidate_proxies = candidate_config.get("proxies", [])
+              selected = []
+              for proxy in candidate_proxies:
+                  name = str(proxy.get("name", ""))
+                  match = re.match(r"^probe_([a-f0-9]{24})__", name)
+                  if match and f"probe_{match.group(1)}" in passed_ids:
+                      selected.append(proxy)
+              if not selected:
+                  raise SystemExit("No passed receipt IDs matched candidate proxy entries")
+
+              selected_names = {proxy["name"] for proxy in selected}
+              groups = candidate_config.get("proxy-groups", [])
+              group_names = {group.get("name") for group in groups}
+              for group in groups:
+                  group["proxies"] = [
+                      name for name in group.get("proxies", [])
+                      if name in selected_names or name in group_names
+                  ]
+              final_config = dict(candidate_config)
+              final_config["proxies"] = selected
+              final_config["proxy-groups"] = groups
+              site = Path("site")
+              site.mkdir(parents=True, exist_ok=True)
+              final_path = site / "subscription.yaml"
+              final_path.write_text(
+                  yaml.safe_dump(final_config, allow_unicode=True, sort_keys=False),
+                  encoding="utf-8",
+              )
+              # Validate that all final group references resolve.
+              available = selected_names | group_names | {"DIRECT", "REJECT"}
+              for group in groups:
+                  missing = set(group.get("proxies", [])) - available
+                  if missing:
+                      raise SystemExit(f"Final group {group.get('name')} has missing refs: {sorted(missing)}")
+              html = (
+                  "<!doctype html><html lang='zh-CN'><meta charset='utf-8'>"
+                  "<meta name='viewport' content='width=device-width'>"
+                  "<title>AutoSubHub 国内实测最终订阅</title>"
+                  "<body style='font-family:system-ui;max-width:760px;margin:40px auto;padding:0 16px'>"
+                  "<h1>AutoSubHub 国内实测最终订阅</h1>"
+                  f"<p>国内实测通过节点：{len(selected)}</p>"
+                  f"<p>回执时间：{tested_at}</p>"
+                  "<p><a href='subscription.yaml'>下载最终 Clash / Mihomo 订阅</a></p>"
+                  "</body></html>"
+              )
+              (site / "index.html").write_text(html, encoding="utf-8")
+              with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output_file:
+                  output_file.write("publish_final=true\\n")
+          else:
+              print("No node passed the domestic test; keeping the previous published subscription.")
+              with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output_file:
+                  output_file.write("publish_final=false\\n")
+
           print(f"Validated {len(clean)} domestic probe results")
           PY
 
@@ -139,3 +226,21 @@ jobs:
             git commit -m "chore: ingest domestic probe results"
             git push
           }
+          }
+
+      - name: Configure Pages
+        if: steps.report.outputs.publish_final == 'true'
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - name: Upload final subscription artifact
+        if: steps.report.outputs.publish_final == 'true'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+      - name: Deploy final subscription
+        if: steps.report.outputs.publish_final == 'true'
+        id: deployment
+        uses: actions/deploy-pages@v4
