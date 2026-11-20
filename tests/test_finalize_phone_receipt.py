@@ -62,9 +62,9 @@ class FinalizePhoneReceiptTests(unittest.TestCase):
         self.assertEqual(final["proxy-groups"][0]["name"], "AUTO")
         self.assertEqual(final["proxy-groups"][1]["name"], "手动选择")
         self.assertEqual(final["rules"], ["MATCH,手动选择"])
-        if MIHOMO.exists():
-            checked = subprocess.run([str(MIHOMO), "-t", "-f", str(self.output)], cwd=ROOT, text=True, capture_output=True)
-            self.assertEqual(checked.returncode, 0, checked.stderr + checked.stdout)
+        self.assertTrue(MIHOMO.exists(), f"Mihomo binary not found: {MIHOMO}")
+        checked = subprocess.run([str(MIHOMO), "-t", "-f", str(self.output)], cwd=ROOT, text=True, capture_output=True)
+        self.assertEqual(checked.returncode, 0, checked.stderr + checked.stdout)
 
     def test_incomplete_receipt_is_rejected(self):
         receipt = dict(self.base_receipt)
