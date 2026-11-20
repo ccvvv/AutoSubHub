@@ -195,6 +195,8 @@ jobs:
               final_config["proxy-groups"] = groups
               site = Path("site")
               site.mkdir(parents=True, exist_ok=True)
+              (site / "candidates.yaml").write_text(candidate_path.read_text(encoding="utf-8"), encoding="utf-8")
+              (site / "candidate-manifest.json").write_text(manifest_path.read_text(encoding="utf-8"), encoding="utf-8")
               final_path = site / "subscription.yaml"
               final_path.write_text(
                   yaml.safe_dump(final_config, allow_unicode=True, sort_keys=False),
@@ -215,6 +217,7 @@ jobs:
                   f"<p>国内实测通过节点：{len(selected)}</p>"
                   f"<p>回执时间：{tested_at}</p>"
                   "<p><a href='subscription.yaml'>下载最终 Clash / Mihomo 订阅</a></p>"
+                  "<p><a href='candidates.yaml'>当前 GitHub 粗筛候选订阅</a></p>"
                   "</body></html>"
               )
               (site / "index.html").write_text(html, encoding="utf-8")
