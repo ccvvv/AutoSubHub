@@ -92,7 +92,7 @@ jobs:
           }
           out = Path("data/domestic-probe/latest.json")
           out.parent.mkdir(parents=True, exist_ok=True)
-          out.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\\n", encoding="utf-8")
+          out.write_text(json.dumps(report, ensure_ascii=False, indent=2) + chr(10), encoding="utf-8")
           print(f"Validated {len(clean)} domestic probe results")
           PY
 
