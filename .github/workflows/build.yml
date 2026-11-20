@@ -41,6 +41,23 @@ jobs:
           chmod +x mihomo
           ./mihomo -v
 
+      - name: Preserve last published final subscription
+        id: preserve-final
+        run: |
+          mkdir -p "$RUNNER_TEMP"
+          status=$(curl -sSL --retry 3 --retry-all-errors --max-time 30 \
+            -o "$RUNNER_TEMP/previous-subscription.yaml" -w "%{http_code}" \
+            "https://ccvvv.github.io/AutoSubHub/subscription.yaml")
+          if [ "$status" = "200" ]; then
+            echo "has_previous=true" >> "$GITHUB_OUTPUT"
+          elif [ "$status" = "404" ]; then
+            rm -f "$RUNNER_TEMP/previous-subscription.yaml"
+            echo "has_previous=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "Could not safely read the previous final subscription (HTTP $status)." >&2
+            exit 1
+          fi
+
       - name: Build, proxy-test and validate subscription
         env:
           SUBSCRIPTION_URLS: ${{ secrets.SUBSCRIPTION_URLS }}
@@ -52,7 +69,9 @@ jobs:
           DOWNLOAD_BYTES: ${{ vars.DOWNLOAD_BYTES }}
           DOWNLOAD_MIN_KBPS: 500
           SPEED_TEST_WORKERS: 50
-        run: python build.py
+        run: |
+          python build.py
+          PREVIOUS_SUBSCRIPTION="$RUNNER_TEMP/previous-subscription.yaml" python prepare_candidates.py
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
