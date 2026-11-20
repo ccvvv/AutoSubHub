@@ -10,7 +10,7 @@ on:
     - cron: "17 */6 * * *"
 
 permissions:
-  contents: read
+  contents: write
   actions: write
 
 concurrency:
@@ -68,3 +68,35 @@ jobs:
                 artifact_id: artifact.id
               });
             }
+
+      # Public subscription URLs are stored on a dedicated data branch.
+      # PR validation never publishes credentials; main pushes and manual runs do.
+      - name: Publish public candidate subscription
+        if: github.event_name != 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/published
+          if git ls-remote --exit-code --heads origin published-subscriptions >/dev/null 2>&1; then
+            git clone --depth 1 --branch published-subscriptions "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" /tmp/published
+          else
+            git clone --depth 1 "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" /tmp/published
+            cd /tmp/published
+            git checkout --orphan published-subscriptions
+            git rm -rf . >/dev/null 2>&1 || true
+            cd -
+          fi
+          mkdir -p /tmp/published/candidate
+          cp candidates/candidates.yaml /tmp/published/candidate/subscription.yaml
+          cp candidates/manifest.json /tmp/published/candidate/manifest.json
+          cd /tmp/published
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add candidate/subscription.yaml candidate/manifest.json
+          if git diff --cached --quiet; then
+            echo "Candidate unchanged; public URL already serves this version."
+          else
+            git commit -m "Publish latest public candidate subscription"
+            git push origin HEAD:published-subscriptions
+          fi
