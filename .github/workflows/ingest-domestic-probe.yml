@@ -61,6 +61,7 @@ jobs:
           device_id = data.get("device_id")
           network = data.get("network")
           tested_at = data.get("tested_at")
+          candidate_revision = data.get("candidate_revision")
           results = data.get("results")
           if not isinstance(device_id, str) or not re.fullmatch(r"[A-Za-z0-9_-]{1,40}", device_id):
               raise SystemExit("Invalid device_id")
@@ -69,6 +70,9 @@ jobs:
           if not isinstance(tested_at, str) or len(tested_at) > 40:
               raise SystemExit("Invalid tested_at")
           datetime.fromisoformat(tested_at.replace("Z", "+00:00"))
+          if not isinstance(candidate_revision, str) or len(candidate_revision) > 40:
+              raise SystemExit("Invalid candidate_revision")
+          datetime.fromisoformat(candidate_revision.replace("Z", "+00:00"))
           if not isinstance(results, list) or not 1 <= len(results) <= 50:
               raise SystemExit("results must contain 1..50 entries")
 
@@ -118,12 +122,15 @@ jobs:
               if isinstance(item, dict) and isinstance(item.get("node_id"), str)
           }
           returned_ids = {item["node_id"] for item in clean}
+          if candidate_revision != manifest.get("generated_at"):
+              raise SystemExit("Receipt belongs to a stale candidate batch")
           if not returned_ids or not returned_ids.issubset(manifest_ids):
               raise SystemExit("Receipt contains node IDs outside the current candidate batch")
 
           report = {
               "schema_version": 1,
               "task_id": task_id,
+              "candidate_revision": candidate_revision,
               "device_id": device_id,
               "network": network,
               "tested_at": tested_at,
