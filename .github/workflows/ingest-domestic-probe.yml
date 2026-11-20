@@ -67,6 +67,8 @@ jobs:
               status = item.get("status")
               gpt_ok = item.get("gpt_ok")
               latency = item.get("latency_ms")
+              if gpt_ok is not None and not isinstance(gpt_ok, bool):
+                  raise SystemExit("gpt_ok must be boolean or null")
               speed = item.get("download_kbps")
               if not isinstance(node_id, str) or not re.fullmatch(r"[A-Za-z0-9_-]{8,80}", node_id):
                   raise SystemExit("Invalid opaque node_id")
@@ -74,8 +76,6 @@ jobs:
                   raise SystemExit("Invalid protocol")
               if status not in {"passed", "failed", "inconclusive"}:
                   raise SystemExit("Invalid status")
-              if not isinstance(gpt_ok, bool):
-                  raise SystemExit("gpt_ok must be boolean")
               if latency is not None and (not isinstance(latency, (int, float)) or not 0 <= latency <= 600000):
                   raise SystemExit("Invalid latency_ms")
               if speed is not None and (not isinstance(speed, (int, float)) or not 0 <= speed <= 1000000):
