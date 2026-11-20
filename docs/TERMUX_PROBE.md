@@ -11,12 +11,23 @@ python -m pip install --upgrade pip
 python -m pip install requests pyyaml
 ```
 
-Install a Mihomo binary built for the phone's Android ABI and make it executable as `./mihomo` (or set `MIHOMO_BIN` to its path). Do not use the Linux amd64 binary from the GitHub Actions workflow on Android. Verify it with:
+First check the phone ABI:
 
 ```sh
-chmod +x ./mihomo
+uname -m
+```
+
+For `aarch64` (64-bit ARM, expected on most recent Android phones), install the official Android ARM64 Mihomo release:
+
+```sh
+pkg install -y gzip
+curl -fL -o mihomo.gz https://github.com/MetaCubeX/mihomo/releases/download/v1.19.34/mihomo-android-arm64-v8-v1.19.34.gz
+gzip -dc mihomo.gz > mihomo
+chmod +x mihomo
 ./mihomo -v
 ```
+
+If `uname -m` returns something other than `aarch64`, do not use that ARM64 file; choose the matching Android asset from the [official Mihomo releases](https://github.com/MetaCubeX/mihomo/releases). Do not use the Linux amd64 binary from the GitHub Actions workflow on Android.
 
 ## Run a local test first
 
