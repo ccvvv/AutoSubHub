@@ -11,8 +11,8 @@ permissions:
   contents: write
 
 concurrency:
-  group: publish-pages
-  cancel-in-progress: true
+  group: domestic-probe-state
+  cancel-in-progress: false
 
 jobs:
   build:
