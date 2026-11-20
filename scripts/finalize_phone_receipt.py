@@ -19,6 +19,8 @@ with open(candidate_path, "rb") as f:
     actual_hash = hashlib.sha256(f.read()).hexdigest()
 if receipt.get("candidate_sha256") != actual_hash or manifest.get("candidate_sha256") != actual_hash:
     raise SystemExit("Receipt/candidate hash mismatch; refusing to publish")
+if receipt.get("status") != "completed":
+    raise SystemExit("Phone receipt is not marked completed; refusing to publish")
 
 proxies = candidate.get("proxies")
 nodes = manifest.get("nodes")
