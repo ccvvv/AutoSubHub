@@ -26,6 +26,7 @@ REPO = os.getenv("GITHUB_REPOSITORY", "ccvvv/AutoSubHub")
 BRANCH = "published-subscriptions"
 CANDIDATE_URL = f"https://raw.githubusercontent.com/{REPO}/{BRANCH}/candidate/subscription.yaml"
 MANIFEST_URL = f"https://raw.githubusercontent.com/{REPO}/{BRANCH}/candidate/manifest.json"
+API_COMMIT_URL = f"https://api.github.com/repos/{REPO}/commits/{BRANCH}"
 PORT_BASE = int(os.getenv("PROBE_PORT_BASE", "17890"))
 SECRET = "autohub-phone-probe"
 USER_AGENT = "AutoSubHub-Termux-Probe/1.0"
@@ -67,6 +68,16 @@ def mirror_urls(url: str, repo: str, branch: str) -> list[tuple[str, str]]:
         ("GH-Proxy", f"https://gh-proxy.com/{url}"),
         ("jsDelivr", f"https://cdn.jsdelivr.net/gh/{repo}@{branch}/{relative}"),
     ]
+
+
+def pin_raw_url(url: str, repo: str, commit: str) -> str:
+    prefix = f"https://raw.githubusercontent.com/{repo}/"
+    if not url.startswith(prefix):
+        raise ValueError("Candidate URLs must be raw.githubusercontent.com files in the configured repository")
+    remainder = url[len(prefix):].split("/", 1)
+    if len(remainder) != 2 or not remainder[1]:
+        raise ValueError("Invalid candidate URL path")
+    return prefix + commit + "/" + remainder[1]
 
 
 def download_verified_pair(session: requests.Session, candidate_url: str,
@@ -131,8 +142,16 @@ def main() -> None:
     session = requests.Session()
     session.headers.update({"User-Agent": USER_AGENT})
     try:
+        commit_response = session.get(API_COMMIT_URL, timeout=30)
+        commit_response.raise_for_status()
+        candidate_commit = commit_response.json().get("sha")
+        if not isinstance(candidate_commit, str) or len(candidate_commit) != 40 or any(c not in "0123456789abcdef" for c in candidate_commit):
+            raise ValueError("GitHub returned an invalid candidate commit SHA")
+        pinned_candidate_url = pin_raw_url(args.candidate_url, REPO, candidate_commit)
+        pinned_manifest_url = pin_raw_url(args.manifest_url, REPO, candidate_commit)
+        print(f"Candidate version locked: {candidate_commit}")
         candidate_bytes, _, manifest, source_used = download_verified_pair(
-            session, args.candidate_url, args.manifest_url, 30, REPO, BRANCH
+            session, pinned_candidate_url, pinned_manifest_url, 30, REPO, candidate_commit
         )
     except RuntimeError as exc:
         raise SystemExit(str(exc)) from exc
@@ -247,6 +266,7 @@ def main() -> None:
         "created_at": completed_at,
         "completed_at": completed_at,
         "candidate_sha256": candidate_hash,
+        "candidate_commit": candidate_commit,
         "candidate_source": source_used,
         "device": "android-termux",
         "workers": args.workers,
