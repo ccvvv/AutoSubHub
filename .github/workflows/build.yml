@@ -1,9 +1,7 @@
-name: Build candidate subscription
+name: Auto build subscription
 
 on:
   push:
-    branches: [main]
-  pull_request:
     branches: [main]
   workflow_dispatch:
   schedule:
@@ -11,15 +9,19 @@ on:
 
 permissions:
   contents: read
+  pages: write
+  id-token: write
 
 concurrency:
-  group: build-candidates
+  group: publish-pages
   cancel-in-progress: true
 
 jobs:
-  build-candidates:
+  build:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    environment:
+      name: github-pages
+    timeout-minutes: 360
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -33,16 +35,35 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Generate candidate files (no strict proxy/speed rejection)
+      - name: Install Mihomo core
+        run: |
+          curl -fsSL https://github.com/MetaCubeX/mihomo/releases/download/v1.19.34/mihomo-linux-amd64-v1.19.34.gz | gunzip -c > mihomo
+          chmod +x mihomo
+          ./mihomo -v
+
+      - name: Build, proxy-test and validate subscription
         env:
           SUBSCRIPTION_URLS: ${{ secrets.SUBSCRIPTION_URLS }}
-          SOURCE_WORKERS: "10"
+          MAX_WORKERS: ${{ vars.MAX_WORKERS }}
+          CONNECT_TIMEOUT: ${{ vars.CONNECT_TIMEOUT }}
+          HANDSHAKE_WORKERS: ${{ vars.HANDSHAKE_WORKERS }}
+          HTTP_WORKERS: ${{ vars.HTTP_WORKERS }}
+          HTTP_TEST_TIMEOUT: ${{ vars.HTTP_TEST_TIMEOUT }}
+          DOWNLOAD_BYTES: ${{ vars.DOWNLOAD_BYTES }}
+          DOWNLOAD_MIN_KBPS: 500
+          SPEED_TEST_WORKERS: 50
         run: python build.py
 
-      - name: Upload candidate artifact
-        uses: actions/upload-artifact@v4
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
         with:
-          name: autohub-candidates
-          path: candidates/
-          if-no-files-found: error
-          retention-days: 3
+          enablement: true
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
