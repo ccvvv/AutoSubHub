@@ -90,6 +90,16 @@ def main() -> None:
         encoding="utf-8",
     )
 
+    index_path = SITE / "index.html"
+    if index_path.is_file():
+        page = index_path.read_text(encoding="utf-8")
+        links = (
+            '<p><a href="candidates.yaml">下载国内复测候选订阅</a> · '
+            '<a href="candidate-manifest.json">候选节点清单</a></p>'
+        )
+        page = page.replace("</body>", links + "</body>") if "</body>" in page else page + links
+        index_path.write_text(page, encoding="utf-8")
+
     if PREVIOUS and PREVIOUS.is_file():
         GENERATED.write_bytes(PREVIOUS.read_bytes())
         print("Restored the previous final subscription after publishing candidates.")
