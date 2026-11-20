@@ -55,7 +55,25 @@ final_nodes = [proxy_by_name[id_to_name[nid]] for nid in id_to_name if nid in pa
 if not final_nodes:
     raise SystemExit("No phone-tested nodes met the minimum download speed; existing final versions remain untouched")
 
-with open(out_path, "w", encoding="utf-8") as f:
-    yaml.safe_dump({"proxies": final_nodes}, f, allow_unicode=True, sort_keys=False)
+# Publish a complete Mihomo/Clash config, not a proxies-only fragment.
+# Keep the same user-facing groups and routing semantics as build.py's final_config().
+node_names = [node["name"] for node in final_nodes]
+final_config = {
+    "mixed-port": 7890,
+    "allow-lan": False,
+    "mode": "rule",
+    "log-level": "warning",
+    "ipv6": False,
+    "proxies": final_nodes,
+    "proxy-groups": [
+        {"name": "AUTO", "type": "url-test", "proxies": node_names,
+         "url": "https://www.gstatic.com/generate_204", "interval": 300, "tolerance": 80},
+        {"name": "手动选择", "type": "select", "proxies": ["AUTO"] + node_names},
+    ],
+    "rules": ["MATCH,手动选择"],
+}
 
-print(f"Phone receipt accepted: {len(final_nodes)}/{len(proxies)} nodes passed at >= {MIN_SPEED_BPS} B/s")
+with open(out_path, "w", encoding="utf-8") as f:
+    yaml.safe_dump(final_config, f, allow_unicode=True, sort_keys=False)
+
+print(f"Phone receipt accepted: {len(final_nodes)}/{len(proxies)} nodes passed at >= {MIN_SPEED_BPS} B/s; full proxy groups and routing rules generated")
