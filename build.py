@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import base64
 import json
+import hashlib
 import os
 import re
 import socket
@@ -329,6 +330,13 @@ def test_config(proxies: list[dict], speed_workers: int) -> dict:
         "proxies": proxies, "proxy-groups": groups, "listeners": listeners,
         "rules": ["MATCH,DIRECT"],
     }
+
+
+def stable_probe_id(node: dict) -> str:
+    """Stable opaque ID for the exact proxy configuration, independent of display name."""
+    identity = {key: value for key, value in node.items() if key != "name"}
+    canonical = json.dumps(identity, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+    return hashlib.sha256(canonical.encode("utf-8")).hexdigest()[:24]
 
 
 def final_config(proxies: list[dict]) -> dict:
@@ -733,32 +741,57 @@ def main() -> None:
     if not output:
         raise RuntimeError(f"No node reached the minimum download speed of {DOWNLOAD_MIN_KBPS} KB/s")
 
-    config = final_config(output)
-    validate_structure(config)
-    final_path = os.path.join("site", "subscription.yaml")
-    write_yaml(final_path, config)
-    # Parse our own output again and ask Mihomo to validate the exact published file.
-    with open(final_path, encoding="utf-8") as f:
-        roundtrip = yaml.safe_load(f)
-    validate_structure(roundtrip)
-    final_check = subprocess.run([os.getenv("MIHOMO_BIN", "./mihomo"), "-t", "-f", final_path],
-                                 capture_output=True, text=True, timeout=45)
-    if final_check.returncode:
-        raise RuntimeError("Mihomo rejected final subscription: " + (final_check.stderr or final_check.stdout)[-2500:])
+    # Stage 1 ends here: publish only the GitHub-runner candidate set.
+    # Stable IDs are embedded in proxy names so the Mi 6 can return a receipt
+    # that AutoSubHub can map back to the exact candidate configuration.
+    candidate_nodes = []
+    manifest_nodes = []
+    for original in output:
+        node = dict(original)
+        node_id = stable_probe_id(node)
+        display_name = str(node.get("name") or "proxy")
+        node["name"] = f"probe_{node_id}__{display_name}"
+        candidate_nodes.append(node)
+        manifest_nodes.append({
+            "node_id": f"probe_{node_id}",
+            "protocol": str(node.get("type", "other")).lower(),
+            "name": display_name,
+        })
 
-    html = f"""<!doctype html>
-<html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width">
-<title>AutoSubHub</title><body style="font-family:system-ui;max-width:760px;margin:40px auto;padding:0 16px">
-<h1>AutoSubHub</h1><p>最后构建：{time.strftime('%Y-%m-%d %H:%M:%S UTC', time.gmtime())}</p>
-<ul><li>去重节点：{unique_total}</li><li>纯 HTTP 代理类型排除：{http_type_rejected}</li><li>TCP / 协议握手通过：{len(tcp_ok)}</li><li>Mihomo HTTP 测试通过：{http_tested_count}</li><li>HTTPS 证书检测通过：{len(tested)}</li>
-<li>证书异常淘汰：{certificate_rejected}</li><li>证书检测无结论淘汰：{certificate_inconclusive}</li>
-<li>完成下载测速：{len(speed_map)} / {len(tested)}</li><li>速度门槛：{DOWNLOAD_MIN_KBPS} KB/s</li><li>下载测速并发：{SPEED_TEST_WORKERS}</li><li>最终节点：{len(output)}</li></ul>
-<p><a href="subscription.yaml">下载 Clash / Mihomo 订阅</a></p>
-<p>说明：所有通过真实 HTTP 代理测试的节点均进行下载测速；低于速度门槛或测速失败的节点不会发布。</p>
-</body></html>"""
-    with open("site/index.html", "w", encoding="utf-8") as f:
-        f.write(html)
-    print(f"Validated and prepared {len(output)} nodes for Pages deployment")
+    candidate_config = final_config(candidate_nodes)
+    validate_structure(candidate_config)
+    os.makedirs("data/domestic-probe", exist_ok=True)
+    candidate_path = os.path.join("data", "domestic-probe", "candidates.yaml")
+    write_yaml(candidate_path, candidate_config)
+    with open(candidate_path, encoding="utf-8") as f:
+        candidate_roundtrip = yaml.safe_load(f)
+    validate_structure(candidate_roundtrip)
+    candidate_check = subprocess.run(
+        [os.getenv("MIHOMO_BIN", "./mihomo"), "-t", "-f", candidate_path],
+        capture_output=True, text=True, timeout=45,
+    )
+    if candidate_check.returncode:
+        raise RuntimeError(
+            "Mihomo rejected candidate subscription: "
+            + (candidate_check.stderr or candidate_check.stdout)[-2500:]
+        )
+
+    manifest = {
+        "schema_version": 1,
+        "generated_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        "source": "github-runner-coarse-filter",
+        "candidate_count": len(manifest_nodes),
+        "nodes": manifest_nodes,
+    }
+    manifest_path = os.path.join("data", "domestic-probe", "candidate-manifest.json")
+    with open(manifest_path, "w", encoding="utf-8") as f:
+        json.dump(manifest, f, ensure_ascii=False, indent=2)
+        f.write("\\n")
+
+    print(
+        f"Validated {len(candidate_nodes)} GitHub-coarse-filtered candidates; "
+        "ready for Mi 6 domestic verification. Final subscription is not changed here."
+    )
 
 
 if __name__ == "__main__":
