@@ -1,0 +1,107 @@
+name: Ingest domestic probe results
+
+on:
+  repository_dispatch:
+    types: [domestic-probe-results]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: domestic-probe-results
+  cancel-in-progress: false
+
+jobs:
+  validate-and-store:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Validate and store sanitized report
+        env:
+          PAYLOAD: ${{ toJSON(github.event.client_payload) }}
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          import re
+          from datetime import datetime, timezone
+          from pathlib import Path
+
+          raw = os.environ.get("PAYLOAD", "")
+          if not raw or len(raw.encode("utf-8")) > 60000:
+              raise SystemExit("Missing or oversized report payload")
+          data = json.loads(raw)
+          if not isinstance(data, dict):
+              raise SystemExit("Payload must be an object")
+
+          device_id = data.get("device_id")
+          network = data.get("network")
+          tested_at = data.get("tested_at")
+          results = data.get("results")
+          if not isinstance(device_id, str) or not re.fullmatch(r"[A-Za-z0-9_-]{1,40}", device_id):
+              raise SystemExit("Invalid device_id")
+          if network not in {"mainland-wifi", "mainland-mobile", "other"}:
+              raise SystemExit("Invalid network")
+          if not isinstance(tested_at, str) or len(tested_at) > 40:
+              raise SystemExit("Invalid tested_at")
+          datetime.fromisoformat(tested_at.replace("Z", "+00:00"))
+          if not isinstance(results, list) or not 1 <= len(results) <= 50:
+              raise SystemExit("results must contain 1..50 entries")
+
+          clean = []
+          for item in results:
+              if not isinstance(item, dict):
+                  raise SystemExit("Each result must be an object")
+              node_id = item.get("node_id")
+              protocol = item.get("protocol")
+              status = item.get("status")
+              gpt_ok = item.get("gpt_ok")
+              latency = item.get("latency_ms")
+              speed = item.get("download_kbps")
+              if not isinstance(node_id, str) or not re.fullmatch(r"[A-Za-z0-9_-]{8,80}", node_id):
+                  raise SystemExit("Invalid opaque node_id")
+              if protocol not in {"shadowsocks", "vmess", "vless", "trojan", "hysteria2", "tuic", "other"}:
+                  raise SystemExit("Invalid protocol")
+              if status not in {"passed", "failed", "inconclusive"}:
+                  raise SystemExit("Invalid status")
+              if not isinstance(gpt_ok, bool):
+                  raise SystemExit("gpt_ok must be boolean")
+              if latency is not None and (not isinstance(latency, (int, float)) or not 0 <= latency <= 600000):
+                  raise SystemExit("Invalid latency_ms")
+              if speed is not None and (not isinstance(speed, (int, float)) or not 0 <= speed <= 1000000):
+                  raise SystemExit("Invalid download_kbps")
+              clean.append({
+                  "node_id": node_id,
+                  "protocol": protocol,
+                  "status": status,
+                  "gpt_ok": gpt_ok,
+                  "latency_ms": latency,
+                  "download_kbps": speed,
+              })
+
+          report = {
+              "schema_version": 1,
+              "device_id": device_id,
+              "network": network,
+              "tested_at": tested_at,
+              "received_at": datetime.now(timezone.utc).isoformat(),
+              "results": clean,
+          }
+          out = Path("data/domestic-probe/latest.json")
+          out.parent.mkdir(parents=True, exist_ok=True)
+          out.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\\n", encoding="utf-8")
+          print(f"Validated {len(clean)} domestic probe results")
+          PY
+
+      - name: Commit report
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/domestic-probe/latest.json
+          git diff --cached --quiet || {
+            git commit -m "chore: ingest domestic probe results"
+            git push
+          }
