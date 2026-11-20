@@ -17,7 +17,7 @@ The candidate workflow publishes the YAML and credential-free manifest to the pu
 
 ## Phone probe and final pipeline
 
-Android/Termux is intended to download the public candidate link, test nodes from the domestic mobile network, and send a receipt containing tested node IDs and results. The initial GitHub receipt validator and publisher workflow are present on the development branch, but the complete phone-to-GitHub flow has not yet been tested. Receipt authentication and the Termux uploader still need to be implemented before treating final publishing as production-ready.
+Android/Termux downloads the public candidate link, tests nodes from the phone's network through isolated Mihomo listeners, and writes a receipt containing tested node IDs and measured download speeds. An initial `termux_probe.py` script and setup guide are available in `docs/TERMUX_PROBE.md`. Receipt upload uses a user-supplied repository token; the token must never be committed or embedded in an APK. The complete phone-to-GitHub flow has not yet been tested.
 
 The final publisher is designed to maintain three rolling files:
 - `final/latest.yaml`
@@ -33,6 +33,6 @@ The repository and the published data branch are public. Anyone who knows or dis
 ## Development status
 
 - Candidate generation and public candidate publishing: implemented on `feature/termux-probe-v1`; the PR validation run succeeded, but the public publishing step was skipped because it was a pull-request run.
-- Termux probe engine and authenticated receipt upload: not implemented yet.
+- Termux probe engine and token-based receipt uploader: initial implementation committed; Android binary compatibility and end-to-end upload are not yet tested.
 - Phone-receipt validator and three-version final publisher: initial implementation exists on the development branch; end-to-end validation remains outstanding.
 - Legacy cloud-only final publishing is disabled to prevent it from publishing nodes that were not tested by the phone.
