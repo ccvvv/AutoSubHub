@@ -37,7 +37,7 @@ All thresholds are configurable constants initially. Do not assume a single Wi-F
 
 ## GPT reachability check
 
-The request must travel through the currently selected Hiddify outbound, not the device's direct network. Use the app's existing proxy-aware HTTP client with proxy-only routing (the same general mechanism used by Hiddify's current-IP lookup). Do not use a plain Dart `HttpClient` that might bypass the selected proxy.
+The request must travel through the currently selected Hiddify outbound, not the device's direct network. Reuse Hiddify's existing `DioHttpClient` and its proxy-aware routing, but first verify the current service mode and that the core/tunnel is active: in VPN mode, the local proxy port may be closed while Android's VPN tunnel carries the request; in local-proxy mode, the proxy port must be open. Do not treat a request that silently falls back to the direct network as a pass. Do not use a plain Dart `HttpClient` that might bypass the selected proxy.
 
 Treat HTTP success/redirect responses as reachable only after checking the final URL host and response behavior. A TLS certificate error, DNS failure, timeout, or connection reset is not a GPT pass. Record HTTP status and a compact failure code, never response bodies, cookies, or user data.
 
