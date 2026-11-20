@@ -39,7 +39,7 @@ Defaults: 5 simultaneous proxy download tests, 5 MiB maximum downloaded per node
 
 ## Upload receipt
 
-Create a fine-grained GitHub token restricted to this repository with Contents read/write permission, create the `probe-receipts` branch, and set the token only in the Termux session:
+Create a fine-grained GitHub token restricted to this repository with Contents read/write permission, then set the token only in the Termux session. The script automatically creates `probe-receipts` from `main` on the first upload:
 
 ```sh
 export GITHUB_TOKEN='YOUR_TOKEN'
@@ -47,7 +47,7 @@ export GITHUB_REPOSITORY='ccvvv/AutoSubHub'
 python termux_probe.py --workers 5 --upload
 ```
 
-Never commit the token or put it in the app source. The initial GitHub finalization workflow currently reads `receipts/latest.json` from the `probe-receipts` branch. Protect the token and rotate it if it is exposed.
+Never commit the token or put it in the app source. The GitHub finalization workflow reads the exact uploaded receipt commit from `receipts/latest.json` on the `probe-receipts` branch. Protect the token and rotate it if it is exposed.
 
 ## Important limitations
 
