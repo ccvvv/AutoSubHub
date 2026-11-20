@@ -372,7 +372,7 @@ def main() -> None:
 
     session = requests.Session()
     session.headers.update({"User-Agent": USER_AGENT})
-    collected = []
+    source_nodes = []
     successes = 0
     for i, url in enumerate(urls, 1):
         try:
@@ -380,17 +380,44 @@ def main() -> None:
             response.raise_for_status()
             parsed = parse_source(response.text)
             print(f"Source {i}: {len(parsed)} nodes")
-            collected.extend(parsed)
+            source_nodes.append(parsed)
             successes += 1
         except Exception as exc:
             print(f"Source {i} failed: {type(exc).__name__}: {exc}")
+            source_nodes.append([])
     if successes == 0:
         raise RuntimeError("All subscription sources failed; refusing to publish")
 
-    deduped = {}
-    for node in collected:
-        deduped.setdefault(node_key(node), node)
-    candidates = list(deduped.values())[:MAX_NODES]
+    # Deduplicate globally, but keep each node in the first source that supplied it.
+    # Then take a round-robin sample so early, large subscriptions cannot crowd
+    # every later source out of the MAX_NODES testing budget.
+    source_unique = []
+    seen = set()
+    parsed_total = 0
+    unique_total = 0
+    for nodes in source_nodes:
+        parsed_total += len(nodes)
+        bucket = []
+        for node in nodes:
+            key = node_key(node)
+            if key in seen:
+                continue
+            seen.add(key)
+            bucket.append(node)
+            unique_total += 1
+        source_unique.append(bucket)
+
+    candidates = []
+    while len(candidates) < MAX_NODES:
+        added = False
+        for bucket in source_unique:
+            if bucket and len(candidates) < MAX_NODES:
+                candidates.append(bucket.pop(0))
+                added = True
+        if not added:
+            break
+    print(f"Parsed {parsed_total} nodes; globally unique: {unique_total}; "
+          f"balanced test sample: {len(candidates)} / {unique_total}")
     if not candidates:
         raise RuntimeError("No supported nodes parsed; refusing to publish")
 
