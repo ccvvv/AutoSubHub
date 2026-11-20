@@ -1,27 +1,24 @@
 #!/usr/bin/env python3
-"""Upload a completed local AutoSubHub phone-probe receipt to GitHub.
+"""Push a completed local AutoSubHub phone-probe receipt over Git SSH.
 
+Requires an SSH key authorized for the target GitHub repository.
 The script never runs a probe and never deletes or modifies the local receipt.
-Set GITHUB_TOKEN in the Termux environment; never hard-code the token here.
 """
 from __future__ import annotations
 
 import argparse
-import base64
 import json
-import os
 import re
+import shutil
+import subprocess
 import sys
-from pathlib import Path
-from urllib.parse import quote
+import tempfile
+from pathlib import Path, PurePosixPath
 
-import requests
 
-DEFAULT_REPO = os.getenv("GITHUB_REPOSITORY", "ccvvv/AutoSubHub")
+DEFAULT_REPO = "ccvvv/AutoSubHub"
 DEFAULT_BRANCH = "probe-receipts"
 DEFAULT_PATH = "receipts/latest.json"
-API_ROOT = os.getenv("GITHUB_API_URL", "https://api.github.com").rstrip("/")
-USER_AGENT = "AutoSubHub-Termux-Receipt-Uploader/1.0"
 
 
 def validate_receipt(path: Path) -> bytes:
@@ -56,61 +53,20 @@ def validate_receipt(path: Path) -> bytes:
     return raw
 
 
-def request(session: requests.Session, method: str, url: str, **kwargs):
-    response = session.request(method, url, timeout=30, **kwargs)
-    if response.status_code >= 400:
-        detail = response.text[:1200].replace("\n", " ")
-        raise RuntimeError(f"GitHub API {method} {url} failed "
-                           f"({response.status_code}): {detail}")
-    return response
-
-
-def ensure_branch(session: requests.Session, repo_api: str, branch: str) -> None:
-    ref_url = f"{repo_api}/git/ref/heads/{quote(branch, safe='')}"
-    check = session.get(ref_url, timeout=20)
-    if check.status_code == 200:
-        return
-    if check.status_code != 404:
-        check.raise_for_status()
-
-    main_ref = request(session, "GET", f"{repo_api}/git/ref/heads/main").json()
-    create_url = f"{repo_api}/git/refs"
-    payload = {"ref": f"refs/heads/{branch}", "sha": main_ref["object"]["sha"]}
-    created = session.post(create_url, json=payload, timeout=30)
-    if created.status_code in (201, 422):
-        # 422 can mean another upload created the branch concurrently.
-        verify = session.get(ref_url, timeout=20)
-        if verify.status_code == 200:
-            return
-    if created.status_code >= 400:
-        detail = created.text[:1200].replace("\n", " ")
-        raise RuntimeError(f"Could not create branch {branch} "
-                           f"({created.status_code}): {detail}")
-
-
-def upload(raw: bytes, session: requests.Session, repo_api: str,
-           branch: str, path: str) -> str:
-    encoded_path = quote(path, safe="/")
-    contents_url = f"{repo_api}/contents/{encoded_path}"
-    params = {"ref": branch}
-    current = session.get(contents_url, params=params, timeout=20)
-    payload = {
-        "message": "Upload Android phone probe receipt",
-        "branch": branch,
-        "content": base64.b64encode(raw).decode("ascii"),
-    }
-    if current.status_code == 200:
-        payload["sha"] = current.json()["sha"]
-    elif current.status_code != 404:
-        current.raise_for_status()
-
-    result = request(session, "PUT", contents_url, json=payload).json()
-    return result["commit"]["sha"]
+def git(*args: str, cwd: Path | None = None, check: bool = True):
+    result = subprocess.run(
+        ["git", *args], cwd=str(cwd) if cwd else None,
+        text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+    )
+    if check and result.returncode:
+        detail = (result.stderr or result.stdout).strip()
+        raise RuntimeError(detail or f"git {' '.join(args)} failed")
+    return result
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(
-        description="Upload an existing local receipt; does not run node tests."
+        description="Upload an existing local receipt over SSH; does not run node tests."
     )
     parser.add_argument("--input", default="receipt.json",
                         help="Local receipt JSON (default: receipt.json)")
@@ -120,36 +76,68 @@ def main() -> int:
     parser.add_argument("--path", default=DEFAULT_PATH)
     args = parser.parse_args()
 
-    token = os.getenv("GITHUB_TOKEN", "").strip()
-    if not token:
-        print("Error: set GITHUB_TOKEN before uploading.", file=sys.stderr)
-        return 2
     if not re.fullmatch(r"[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+", args.repo):
         print("Error: --repo must be owner/repository.", file=sys.stderr)
         return 2
-    if args.path.startswith("/") or ".." in Path(args.path).parts:
+    if (not re.fullmatch(r"[A-Za-z0-9._/-]+", args.branch)
+            or args.branch.startswith("-")
+            or any(part in ("", ".", "..") for part in args.branch.split("/"))):
+        print("Error: invalid branch name.", file=sys.stderr)
+        return 2
+    repo_path = PurePosixPath(args.path)
+    if (repo_path.is_absolute() or not repo_path.parts
+            or any(part in (".", "..") for part in repo_path.parts)):
         print("Error: --path must be a safe repository-relative path.", file=sys.stderr)
         return 2
 
     try:
-        raw = validate_receipt(Path(args.input))
-        session = requests.Session()
-        session.headers.update({
-            "Accept": "application/vnd.github+json",
-            "Authorization": f"Bearer {token}",
-            "X-GitHub-Api-Version": "2022-11-28",
-            "User-Agent": USER_AGENT,
-        })
-        repo_api = f"{API_ROOT}/repos/{args.repo}"
-        ensure_branch(session, repo_api, args.branch)
-        commit = upload(raw, session, repo_api, args.branch, args.path)
+        receipt_path = Path(args.input).expanduser()
+        raw = validate_receipt(receipt_path)
+        owner, name = args.repo.split("/", 1)
+        remote = f"git@github.com:{owner}/{name}.git"
+
+        with tempfile.TemporaryDirectory(prefix="autosubhub-receipt-") as temp:
+            work = Path(temp) / "repo"
+            branch_ref = f"refs/heads/{args.branch}"
+            exists = git("ls-remote", "--exit-code", "--heads", remote,
+                         branch_ref, check=False)
+            if exists.returncode == 0 and exists.stdout.strip():
+                git("clone", "--depth", "1", "--branch", args.branch,
+                    remote, str(work))
+            elif exists.returncode == 2 or not exists.stdout.strip():
+                git("clone", "--depth", "1", "--branch", "main",
+                    remote, str(work))
+                git("checkout", "-b", args.branch, cwd=work)
+            else:
+                raise RuntimeError((exists.stderr or exists.stdout).strip()
+                                   or "Unable to check remote branch")
+
+            destination = work.joinpath(*repo_path.parts)
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            destination.write_bytes(raw)
+            git("add", "--", str(repo_path), cwd=work)
+            changed = git("diff", "--cached", "--quiet", cwd=work, check=False)
+            if changed.returncode == 0:
+                print(f"Already up to date: {args.repo}/{args.path}")
+                print(f"Branch: {args.branch}")
+                print(f"Local receipt kept: {receipt_path.resolve()}")
+                return 0
+            if changed.returncode != 1:
+                raise RuntimeError("Unable to inspect staged receipt changes")
+
+            git("-c", "user.name=AutoSubHub Termux",
+                "-c", "user.email=ccvvv@users.noreply.github.com",
+                "commit", "-m", "Upload Android phone probe receipt", cwd=work)
+            git("push", "origin", args.branch, cwd=work)
+            commit = git("rev-parse", "HEAD", cwd=work).stdout.strip()
+
         print(f"Upload successful: {args.repo}/{args.path}")
         print(f"Branch: {args.branch}")
         print(f"Commit: {commit}")
-        print(f"Local receipt kept: {Path(args.input).resolve()}")
+        print(f"Local receipt kept: {receipt_path.resolve()}")
         return 0
     except (OSError, UnicodeError, json.JSONDecodeError, ValueError,
-            requests.RequestException, RuntimeError, KeyError) as exc:
+            RuntimeError) as exc:
         print(f"Upload failed: {exc}", file=sys.stderr)
         return 1
 
