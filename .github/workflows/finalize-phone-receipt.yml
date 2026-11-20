@@ -1,0 +1,57 @@
+name: Finalize phone-tested subscription
+
+on:
+  push:
+    branches: [probe-receipts]
+    paths: ["receipts/*.json"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: phone-final-publish
+  cancel-in-progress: false
+
+jobs:
+  finalize:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v4
+      - name: Install Python dependencies
+        run: pip install pyyaml
+      - name: Fetch published candidate and receipt
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          git clone --depth 1 --branch published-subscriptions "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" published
+          mkdir -p incoming
+          if [ "${GITHUB_EVENT_NAME}" = "push" ]; then
+            git fetch origin probe-receipts
+            git show "origin/probe-receipts:receipts/latest.json" > incoming/receipt.json
+          else
+            echo "Manual run requires receipts/latest.json on probe-receipts branch"
+            git fetch origin probe-receipts
+            git show "origin/probe-receipts:receipts/latest.json" > incoming/receipt.json
+          fi
+      - name: Validate receipt and build final
+        env:
+          MIN_SPEED_BPS: "512000"
+        run: |
+          set -euo pipefail
+          python scripts/finalize_phone_receipt.py published/candidate/subscription.yaml published/candidate/manifest.json incoming/receipt.json incoming/final.yaml
+      - name: Rotate and publish three final versions
+        run: |
+          set -euo pipefail
+          cd published
+          mkdir -p final
+          if [ -f final/previous.yaml ]; then cp final/previous.yaml final/older.yaml; fi
+          if [ -f final/latest.yaml ]; then cp final/latest.yaml final/previous.yaml; fi
+          cp ../incoming/final.yaml final/latest.yaml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add final/latest.yaml final/previous.yaml final/older.yaml
+          git commit -m "Publish phone-tested final subscription"
+          git push origin HEAD:published-subscriptions
