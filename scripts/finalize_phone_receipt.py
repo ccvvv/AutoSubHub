@@ -28,8 +28,9 @@ if not isinstance(proxies, list) or not isinstance(nodes, list) or not isinstanc
 
 proxy_by_name = {p.get("name"): p for p in proxies if isinstance(p, dict) and p.get("name")}
 id_to_name = {n.get("node_id"): n.get("name") for n in nodes if isinstance(n, dict)}
-if len(id_to_name) != len(nodes) or set(id_to_name.values()) - set(proxy_by_name):
-    raise SystemExit("Manifest does not match candidate nodes")
+if (len(id_to_name) != len(nodes) or len(set(id_to_name.values())) != len(nodes)
+        or set(id_to_name.values()) != set(proxy_by_name)):
+    raise SystemExit("Manifest does not exactly match candidate nodes")
 
 passed_ids = set()
 seen = set()
