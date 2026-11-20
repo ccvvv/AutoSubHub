@@ -510,6 +510,98 @@ def main() -> None:
                 raise RuntimeError("No node passed real HTTP proxy latency test")
 
             print(f"HTTP proxy test passed: {len(tested)} / {len(tcp_ok)}")
+
+            # Validate real HTTPS certificates through each node's isolated Mihomo listener.
+            # HTTP status codes are deliberately ignored: 401/403/404 can still prove TLS validity.
+            certificate_targets = {
+                "ChatGPT": "https://chatgpt.com/",
+                "OpenAI API": "https://api.openai.com/",
+                "X": "https://x.com/",
+                "Telegram": "https://telegram.org/",
+            }
+            certificate_workers = max(1, min(SPEED_TEST_WORKERS,
+                int(os.getenv("CERT_WORKERS", "50") or "50")))
+            print(f"HTTPS certificate validation: {len(tested)} nodes, "
+                  f"{len(certificate_targets)} platform targets, {certificate_workers} workers")
+            certificate_ok = []
+            certificate_rejected = 0
+            certificate_inconclusive = 0
+
+            def certificate_worker(worker_index: int,
+                                   batch: list[tuple[int, dict]]) -> list[tuple[dict, bool, str]]:
+                worker_api = requests.Session()
+                worker_api.headers.update({"Authorization": "Bearer autohub-local-test"})
+                selector = CONTROLLER + f"/proxies/TEST-{worker_index:02d}"
+                proxy_url = f"http://127.0.0.1:{SPEED_PORT_BASE + worker_index}"
+                results = []
+                for delay, node in batch:
+                    try:
+                        selected = worker_api.put(selector, json={"name": node["name"]}, timeout=8)
+                        selected.raise_for_status()
+                    except Exception as exc:
+                        results.append((node, False, f"selector-error:{type(exc).__name__}"))
+                        continue
+
+                    verified = []
+                    cert_errors = []
+                    unreachable = []
+                    for platform, target_url in certificate_targets.items():
+                        try:
+                            # requests verifies CA chain, hostname and validity dates by default.
+                            # Do not require a 2xx response; a valid TLS session is sufficient.
+                            response = requests.get(target_url, proxies={
+                                "http": proxy_url, "https": proxy_url,
+                            }, timeout=(8, 12), allow_redirects=False,
+                                headers={"User-Agent": USER_AGENT})
+                            verified.append(platform)
+                            response.close()
+                        except requests.exceptions.SSLError as exc:
+                            detail = str(exc).lower()
+                            if any(marker in detail for marker in (
+                                "certificate verify failed", "hostname mismatch",
+                                "certificate has expired", "self-signed certificate",
+                                "unable to get local issuer", "certificate is not yet valid",
+                            )):
+                                cert_errors.append(f"{platform}:{type(exc).__name__}")
+                            else:
+                                unreachable.append(f"{platform}:tls-error")
+                        except requests.RequestException as exc:
+                            unreachable.append(f"{platform}:{type(exc).__name__}")
+
+                    if cert_errors:
+                        results.append((node, False, "certificate-invalid:" + ",".join(cert_errors)))
+                    elif verified:
+                        results.append((node, True, "verified:" + ",".join(verified)))
+                    else:
+                        results.append((node, False, "inconclusive:no-platform-tls-verified"))
+                return results
+
+            cert_batches = [tested[i::certificate_workers] for i in range(certificate_workers)]
+            cert_batches = [(i, batch) for i, batch in enumerate(cert_batches) if batch]
+            with ThreadPoolExecutor(max_workers=certificate_workers) as pool:
+                futures = {pool.submit(certificate_worker, worker_index, batch): worker_index
+                           for worker_index, batch in cert_batches}
+                completed_cert = 0
+                for future in as_completed(futures):
+                    results = future.result()
+                    completed_cert += len(results)
+                    for node, passed, reason in results:
+                        if passed:
+                            certificate_ok.append(next(item for item in tested if item[1] is node))
+                        elif reason.startswith("certificate-invalid:"):
+                            certificate_rejected += 1
+                        else:
+                            certificate_inconclusive += 1
+                    print(f"Certificate progress: {completed_cert}/{len(tested)}; "
+                          f"passed {len(certificate_ok)}; invalid {certificate_rejected}; "
+                          f"inconclusive {certificate_inconclusive}")
+            tested = certificate_ok
+            print(f"HTTPS certificate stage passed: {len(tested)}; "
+                  f"certificate-invalid rejected: {certificate_rejected}; "
+                  f"inconclusive rejected: {certificate_inconclusive}")
+            if not tested:
+                raise RuntimeError("No node passed HTTPS certificate validation")
+
             speed_map = {}
             speed_failures = 0
             speed_prefilter_rejected = 0
@@ -639,7 +731,8 @@ def main() -> None:
 <html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width">
 <title>AutoSubHub</title><body style="font-family:system-ui;max-width:760px;margin:40px auto;padding:0 16px">
 <h1>AutoSubHub</h1><p>最后构建：{time.strftime('%Y-%m-%d %H:%M:%S UTC', time.gmtime())}</p>
-<ul><li>TCP 初筛通过：{len(tcp_ok)}</li><li>真实 HTTP 代理测试通过：{len(tested)}</li>
+<ul><li>TCP / 协议握手通过：{len(tcp_ok)}</li><li>HTTPS 证书检测通过：{len(tested)}</li>
+<li>证书异常淘汰：{certificate_rejected}</li><li>证书检测无结论淘汰：{certificate_inconclusive}</li>
 <li>完成下载测速：{len(speed_map)} / {len(tested)}</li><li>速度门槛：{DOWNLOAD_MIN_KBPS} KB/s</li><li>下载测速并发：{SPEED_TEST_WORKERS}</li><li>最终节点：{len(output)}</li></ul>
 <p><a href="subscription.yaml">下载 Clash / Mihomo 订阅</a></p>
 <p>说明：所有通过真实 HTTP 代理测试的节点均进行下载测速；低于速度门槛或测速失败的节点不会发布。</p>
