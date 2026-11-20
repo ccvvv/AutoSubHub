@@ -353,7 +353,7 @@ def validate_structure(config: dict) -> None:
     names = [p.get("name") for p in proxies]
     if len(names) != len(set(names)) or any(not n for n in names):
         raise RuntimeError("Proxy names are missing or duplicated")
-    valid_types = {"ss", "vmess", "vless", "trojan", "socks5", "http", "snell", "hysteria",
+    valid_types = {"ss", "vmess", "vless", "trojan", "socks5", "snell", "hysteria",
                    "hysteria2", "tuic", "wireguard", "ssh", "anytls"}
     for p in proxies:
         if p.get("type") not in valid_types or not p.get("server") or not isinstance(p.get("port"), int):
@@ -425,11 +425,19 @@ def main() -> None:
             unique_total += 1
         source_unique.append(bucket)
 
-    candidates = [node for bucket in source_unique for node in bucket]
+    all_unique_candidates = [node for bucket in source_unique for node in bucket]
+    # Pure Clash HTTP proxies (type: http) are excluded before any network tests.
+    # This does not affect Shadowsocks (ss), SOCKS5, or TCP transports used by
+    # VLESS/VMess/Trojan nodes.
+    http_type_rejected = sum(1 for node in all_unique_candidates
+                             if str(node.get("type", "")).lower() == "http")
+    candidates = [node for node in all_unique_candidates
+                  if str(node.get("type", "")).lower() != "http"]
     print(f"Parsed {parsed_total} nodes; globally unique: {unique_total}; "
-          f"all unique nodes selected for testing: {len(candidates)}")
+          f"pure HTTP proxies excluded: {http_type_rejected}; "
+          f"remaining candidates: {len(candidates)}")
     if not candidates:
-        raise RuntimeError("No supported nodes parsed; refusing to publish")
+        raise RuntimeError("No supported non-HTTP nodes parsed; refusing to publish")
 
     print(f"TCP prefilter: {len(candidates)} candidates, {WORKERS} workers")
     tcp_ok = []
@@ -738,7 +746,7 @@ def main() -> None:
 <html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width">
 <title>AutoSubHub</title><body style="font-family:system-ui;max-width:760px;margin:40px auto;padding:0 16px">
 <h1>AutoSubHub</h1><p>最后构建：{time.strftime('%Y-%m-%d %H:%M:%S UTC', time.gmtime())}</p>
-<ul><li>TCP / 协议握手通过：{len(tcp_ok)}</li><li>Mihomo HTTP 测试通过：{http_tested_count}</li><li>HTTPS 证书检测通过：{len(tested)}</li>
+<ul><li>去重节点：{unique_total}</li><li>纯 HTTP 代理类型排除：{http_type_rejected}</li><li>TCP / 协议握手通过：{len(tcp_ok)}</li><li>Mihomo HTTP 测试通过：{http_tested_count}</li><li>HTTPS 证书检测通过：{len(tested)}</li>
 <li>证书异常淘汰：{certificate_rejected}</li><li>证书检测无结论淘汰：{certificate_inconclusive}</li>
 <li>完成下载测速：{len(speed_map)} / {len(tested)}</li><li>速度门槛：{DOWNLOAD_MIN_KBPS} KB/s</li><li>下载测速并发：{SPEED_TEST_WORKERS}</li><li>最终节点：{len(output)}</li></ul>
 <p><a href="subscription.yaml">下载 Clash / Mihomo 订阅</a></p>
