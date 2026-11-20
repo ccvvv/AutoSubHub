@@ -17,6 +17,13 @@ Published subscription (after a successful deployment):
 
 `https://ccvvv.github.io/AutoSubHub/subscription.yaml`
 
+Domestic probe candidate feed:
+
+- Candidate profile: `https://ccvvv.github.io/AutoSubHub/candidates.yaml`
+- Candidate manifest: `https://ccvvv.github.io/AutoSubHub/candidate-manifest.json`
+
+The candidate profile is the GitHub-side coarse-screened result for the mainland Android probe. It does not replace the final subscription. The manifest assigns stable 24-character node IDs and a `generated_at` revision so a later phone receipt can be matched to exactly the candidate batch it tested. The current final subscription is preserved during candidate-only builds.
+
 ## Build pipeline
 
 1. Fetch and parse subscription sources (Clash YAML and common VMess, VLESS, Trojan, Shadowsocks and SOCKS URI formats).
