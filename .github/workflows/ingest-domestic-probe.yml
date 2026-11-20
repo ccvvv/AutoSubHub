@@ -34,6 +34,9 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+      - name: Check Python syntax
+        run: python -m py_compile ingest_domestic_probe.py
+
       - name: Download current candidate batch
         run: |
           mkdir -p site
