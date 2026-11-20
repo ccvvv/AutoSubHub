@@ -34,6 +34,12 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+      - name: Install Mihomo core
+        run: |
+          curl -fsSL https://github.com/MetaCubeX/mihomo/releases/download/v1.19.34/mihomo-linux-amd64-v1.19.34.gz | gunzip -c > mihomo
+          chmod +x mihomo
+          ./mihomo -v
+
       - name: Generate candidate files
         env:
           SUBSCRIPTION_URLS: ${{ secrets.SUBSCRIPTION_URLS }}
