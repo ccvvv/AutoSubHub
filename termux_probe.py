@@ -50,10 +50,72 @@ def make_config(proxies: list[dict], workers: int, api_port: int, port_base: int
     }
 
 
-def download_candidate(session: requests.Session, url: str, timeout: int) -> tuple[bytes, dict]:
-    r = session.get(url, timeout=timeout)
-    r.raise_for_status()
-    return r.content, r.headers
+def mirror_urls(url: str, repo: str, branch: str) -> list[tuple[str, str]]:
+    """Return ordered direct and mirror URLs for a GitHub Raw file."""
+    prefix = f"https://raw.githubusercontent.com/{repo}/{branch}/"
+    if not url.startswith(prefix):
+        # Custom candidate URLs can still use the two generic GitHub proxy services.
+        return [
+            ("GitHub Raw/custom", url),
+            ("GHFast", f"https://ghfast.top/{url}"),
+            ("GH-Proxy", f"https://gh-proxy.com/{url}"),
+        ]
+    relative = url[len(prefix):]
+    return [
+        ("GitHub Raw", url),
+        ("GHFast", f"https://ghfast.top/{url}"),
+        ("GH-Proxy", f"https://gh-proxy.com/{url}"),
+        ("jsDelivr", f"https://cdn.jsdelivr.net/gh/{repo}@{branch}/{relative}"),
+    ]
+
+
+def download_candidate(session: requests.Session, url: str, timeout: int,
+                       repo: str, branch: str) -> tuple[bytes, dict, str]:
+    """Try all configured sources; each attempt is bounded and retried once."""
+    sources = mirror_urls(url, repo, branch)
+    errors = []
+    for source, mirror_url in sources:
+        for attempt in range(1, 3):
+            try:
+                response = session.get(mirror_url, timeout=timeout)
+                response.raise_for_status()
+                if not response.content:
+                    raise ValueError("empty response")
+                print(f"Downloaded {url.rsplit('/', 1)[-1]} via {source}")
+                return response.content, response.headers, source
+            except (requests.RequestException, ValueError) as exc:
+                errors.append(f"{source} attempt {attempt}: {type(exc).__name__}: {exc}")
+                print(f"Download failed via {source} (attempt {attempt}/2): {type(exc).__name__}")
+    raise RuntimeError("All candidate download sources failed: " + " | ".join(errors[-8:]))
+
+
+def download_verified_pair(session: requests.Session, candidate_url: str,
+                           manifest_url: str, timeout: int,
+                           repo: str, branch: str) -> tuple[bytes, dict, dict, str]:
+    """Try each source as a pair so candidate and manifest come from the same CDN."""
+    candidate_sources = mirror_urls(candidate_url, repo, branch)
+    manifest_sources = dict(mirror_urls(manifest_url, repo, branch))
+    errors = []
+    for source, candidate_mirror in candidate_sources:
+        manifest_mirror = manifest_sources.get(source)
+        if not manifest_mirror:
+            continue
+        for attempt in range(1, 3):
+            try:
+                candidate_response = session.get(candidate_mirror, timeout=timeout)
+                candidate_response.raise_for_status()
+                manifest_response = session.get(manifest_mirror, timeout=timeout)
+                manifest_response.raise_for_status()
+                manifest = manifest_response.json()
+                digest = hashlib.sha256(candidate_response.content).hexdigest()
+                if manifest.get("candidate_sha256") != digest:
+                    raise ValueError("candidate/manifest SHA256 mismatch")
+                print(f"Candidate and manifest downloaded via {source}; SHA256 verified")
+                return candidate_response.content, dict(candidate_response.headers), manifest, source
+            except (requests.RequestException, ValueError, json.JSONDecodeError) as exc:
+                errors.append(f"{source} attempt {attempt}: {type(exc).__name__}: {exc}")
+                print(f"Source {source} failed (attempt {attempt}/2): {type(exc).__name__}")
+    raise RuntimeError("All candidate sources failed verification: " + " | ".join(errors[-8:]))
 
 
 def main() -> None:
@@ -86,13 +148,13 @@ def main() -> None:
 
     session = requests.Session()
     session.headers.update({"User-Agent": USER_AGENT})
-    candidate_bytes, _ = download_candidate(session, args.candidate_url, 30)
-    manifest_response = session.get(args.manifest_url, timeout=30)
-    manifest_response.raise_for_status()
-    manifest = manifest_response.json()
+    try:
+        candidate_bytes, _, manifest, source_used = download_verified_pair(
+            session, args.candidate_url, args.manifest_url, 30, REPO, BRANCH
+        )
+    except RuntimeError as exc:
+        raise SystemExit(str(exc)) from exc
     candidate_hash = hashlib.sha256(candidate_bytes).hexdigest()
-    if manifest.get("candidate_sha256") != candidate_hash:
-        raise SystemExit("Candidate/manifest hash mismatch; candidate may have changed during download")
 
     candidate = yaml.safe_load(candidate_bytes) or {}
     proxies = candidate.get("proxies")
