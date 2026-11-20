@@ -314,7 +314,7 @@ def test_config(proxies: list[dict], speed_workers: int) -> dict:
     ]
     listeners = [
         {"name": f"speed-{worker:02d}", "type": "mixed",
-         "port": SPEED_PORT_BASE + worker, "listen": "127.0.0.1",
+         "port": PROBE_PORT_BASE + worker, "listen": "127.0.0.1",
          "proxy": f"TEST-{worker:02d}"}
         for worker in range(speed_workers)
     ]
@@ -448,7 +448,8 @@ def main() -> None:
                 tcp_ok.append(node)
     if not tcp_ok:
         raise RuntimeError("No node passed TCP/UDP candidate prefilter")
-    print(f"TCP/UDP candidate pass: {len(tcp_ok)} / {len(candidates)}")
+    tcp_passed_count = len(tcp_ok)
+    print(f"TCP/UDP candidate pass: {tcp_passed_count} / {len(candidates)}")
 
     handshake_workers = max(1, int(os.getenv("HANDSHAKE_WORKERS", "80") or "80"))
     print(f"Protocol handshake check: {len(tcp_ok)} candidates, {handshake_workers} workers")
@@ -462,7 +463,8 @@ def main() -> None:
                 handshake_ok.append(node)
             else:
                 handshake_failures[reason] = handshake_failures.get(reason, 0) + 1
-    print(f"Protocol handshake passed: {len(handshake_ok)} / {len(tcp_ok)}; "
+    handshake_passed_count = len(handshake_ok)
+    print(f"Protocol handshake passed: {handshake_passed_count} / {tcp_passed_count}; "
           f"rejected: {sum(handshake_failures.values())}; reasons: {handshake_failures}")
     if not handshake_ok:
         raise RuntimeError("No node passed protocol handshake prefilter")
@@ -650,8 +652,8 @@ def main() -> None:
                 "parsed_nodes": parsed_total,
                 "unique_candidates": unique_total,
                 "excluded_http_proxies": http_type_rejected,
-                "tcp_passed": len(tcp_ok),
-                "protocol_handshake_passed": len(handshake_ok),
+                "tcp_passed": tcp_passed_count,
+                "protocol_handshake_passed": handshake_passed_count,
                 "mihomo_http_passed": http_tested_count,
                 "https_certificate_passed": len(passed_nodes),
                 "certificate_invalid_rejected": certificate_rejected,
@@ -660,7 +662,7 @@ def main() -> None:
             }
             with open(os.path.join("candidates", "manifest.json"), "w", encoding="utf-8") as f:
                 json.dump(manifest, f, ensure_ascii=False, indent=2)
-                f.write("\\n")
+                f.write("\n")
 
             print(
                 "GitHub prefilter complete: "
