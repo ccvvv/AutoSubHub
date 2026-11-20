@@ -107,6 +107,8 @@ def main() -> None:
         if latency is not None and (isinstance(latency, bool) or not isinstance(latency, (int, float))
                                     or not math.isfinite(latency) or latency < 0):
             fail("Invalid latency_ms value")
+        if status == "passed" and (speed is None or speed <= 0):
+            fail("A passed result must include a positive measured speed")
         accepted[node_id] = {
             "node_id": node_id,
             "status": status,
@@ -130,6 +132,9 @@ def main() -> None:
     )
 
     passed_ids = {node_id for node_id, result in accepted.items() if result["status"] == "passed"}
+    passed_names = [display_names[node_id] for node_id in passed_ids]
+    if len(passed_names) != len(set(passed_names)):
+        fail("Passed nodes have duplicate display names; refusing to publish an ambiguous profile")
     if not passed_ids:
         print("publish_final=false")
         print("No node passed; the previous final subscription must remain untouched.")
