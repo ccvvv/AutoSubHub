@@ -54,6 +54,10 @@ jobs:
           cp ../incoming/final.yaml final/latest.yaml
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add final/latest.yaml final/previous.yaml final/older.yaml
+          git add final/
+          if git diff --cached --quiet; then
+            echo "Final subscription is unchanged; nothing to publish."
+            exit 0
+          fi
           git commit -m "Publish phone-tested final subscription"
           git push origin HEAD:published-subscriptions
