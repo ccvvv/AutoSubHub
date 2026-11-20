@@ -1,5 +1,6 @@
 #!/data/data/com.termux/files/usr/bin/bash
 set -u
+set -o pipefail
 cd "$HOME/AutoSubHub" || exit 1
 mkdir -p logs
 ACTION="${1:-}"
