@@ -9,7 +9,6 @@ from __future__ import annotations
 import argparse
 import json
 import re
-import shutil
 import subprocess
 import sys
 import tempfile
@@ -104,7 +103,7 @@ def main() -> int:
             if exists.returncode == 0 and exists.stdout.strip():
                 git("clone", "--depth", "1", "--branch", args.branch,
                     remote, str(work))
-            elif exists.returncode == 2 or not exists.stdout.strip():
+            elif exists.returncode == 2:
                 git("clone", "--depth", "1", "--branch", "main",
                     remote, str(work))
                 git("checkout", "-b", args.branch, cwd=work)
