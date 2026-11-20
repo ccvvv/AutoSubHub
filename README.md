@@ -18,7 +18,7 @@ GitHub keeps the existing published final subscription workflow separate from th
 
 ## Candidate retention
 
-Candidate YAML contains proxy credentials and is never committed to the public repository or published through public Pages. The candidate workflow creates the new candidate first, then deletes older artifacts named `autohub-candidates` and uploads the latest one. If candidate generation fails, the previous artifact is not deleted. Artifacts currently have a 3-day retention period.
+Candidate YAML contains proxy credentials and is never committed to the public repository or published through public Pages. The candidate workflow generates and uploads the new candidate first, then removes older production artifacts, leaving one latest artifact named `autohub-candidates-latest`. Pull-request validation uses a separate temporary artifact name and cannot replace the production candidate. If generation or upload fails, the previous production artifact remains. GitHub Actions artifacts have a 90-day retention limit; the six-hour schedule normally refreshes the latest artifact well before expiry.
 
 Before the Android client downloads artifacts automatically, authenticated artifact retrieval with a narrowly scoped GitHub token must be implemented.
 
