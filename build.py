@@ -790,6 +790,25 @@ def main() -> None:
         json.dump(manifest, f, ensure_ascii=False, indent=2)
         f.write("\n")
 
+    # Publish the candidate feed on GitHub Pages as well as in the repository.
+    # Pages is the preferred endpoint for the Mi 6 mainland network.
+    write_yaml(os.path.join("site", "candidates.yaml"), candidate_config)
+    pages_manifest = os.path.join("site", "candidate-manifest.json")
+    with open(pages_manifest, "w", encoding="utf-8") as f:
+        json.dump(manifest, f, ensure_ascii=False, indent=2)
+        f.write("\\n")
+    with open(os.path.join("site", "index.html"), "w", encoding="utf-8") as f:
+        f.write(
+            "<!doctype html><html lang='zh-CN'><meta charset='utf-8'>"
+            "<meta name='viewport' content='width=device-width'>"
+            "<title>AutoSubHub 候选节点</title><body>"
+            "<h1>AutoSubHub</h1><p>GitHub 粗筛候选节点，等待小米6国内实测。</p>"
+            "<p><a href='candidates.yaml'>下载候选订阅</a></p>"
+            "<p><a href='candidate-manifest.json'>候选清单</a></p>"
+            "<p><a href='subscription.yaml'>最终实测订阅（如已发布）</a></p>"
+            "</body></html>"
+        )
+
     print(
         f"Validated {len(candidate_nodes)} GitHub-coarse-filtered candidates; "
         "ready for Mi 6 domestic verification. Final subscription is not changed here."
