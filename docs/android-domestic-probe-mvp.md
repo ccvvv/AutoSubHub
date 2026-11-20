@@ -126,3 +126,25 @@ The app should provide a diagnostics page showing battery-optimization exemption
 - Use a narrowly scoped user-owned GitHub credential, stored using Android Keystore-backed encrypted storage. Never commit it, include it in task JSON, or write it to logs.
 - Task manifests should contain only task metadata and opaque candidate IDs or a safe manifest reference. Never put UUIDs, passwords, private keys, raw proxy URIs, or private subscription URLs in a public task file.
 - The report remains sanitized and user-owned. Do not automatically modify the published subscription based on one phone's test result in the MVP.
+
+
+## Active two-stage domestic verification flow (no task dispatch)
+
+The MVP now uses a scheduled candidate feed and a receipt-only upload. The manual task workflow and task polling code are retained for possible later use, but they are not required by this flow.
+
+1. The existing six-hour GitHub build runs its normal source parsing, protocol checks, Mihomo HTTP checks, certificate check, and download-speed prefilter.
+2. Instead of replacing the final Pages subscription, the build writes:
+   - `data/domestic-probe/candidates.yaml`: at most 50 candidate proxy configurations for Hiddify.
+   - `data/domestic-probe/candidate-manifest.json`: candidate IDs and basic metadata.
+3. Each candidate proxy name is prefixed with `probe_<24-hex-id>__`. The ID is a SHA-256-derived fingerprint of the proxy configuration and source name, excluding the volatile latency/speed label. The Mi 6 report returns only this stable ID, never the raw proxy tag or credentials.
+4. The Hiddify probe reads the candidate set, tests the candidates on mainland Wi-Fi, and sends a `domestic-probe-results` repository-dispatch receipt. A `task_id` is optional.
+5. The ingest workflow rejects IDs not present in the current candidate manifest. Only entries with `status: passed` are copied from the candidate config into the final subscription. If no node passes, the previous Pages subscription is left untouched.
+6. The final subscription is published to GitHub Pages only after a valid Mi 6 receipt is processed.
+
+Candidate raw file (development branch):
+`https://raw.githubusercontent.com/ccvvv/AutoSubHub/feature/android-domestic-probe-mvp/data/domestic-probe/candidates.yaml`
+
+Candidate manifest (development branch):
+`https://raw.githubusercontent.com/ccvvv/AutoSubHub/feature/android-domestic-probe-mvp/data/domestic-probe/candidate-manifest.json`
+
+The candidate files are not generated until the next successful GitHub Actions build. The Hiddify candidate-fetch/import UI and real device test are still outstanding. Do not treat a GitHub candidate as domestically verified.
