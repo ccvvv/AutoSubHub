@@ -10,7 +10,7 @@ import subprocess
 import tempfile
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from urllib.parse import parse_qs, unquote, urlsplit, quote
+from urllib.parse import parse_qs, unquote, urlsplit, quote, quote
 
 import requests
 import yaml
@@ -19,6 +19,8 @@ USER_AGENT = "AutoSubHub/2.0 (+https://github.com/ccvvv/AutoSubHub)"
 HTTP_TIMEOUT_MS = int(os.getenv("HTTP_TEST_TIMEOUT", "8000") or "8000")
 HTTP_WORKERS = max(1, int(os.getenv("HTTP_WORKERS", "60") or "60"))
 SOURCE_WORKERS = max(1, int(os.getenv("SOURCE_WORKERS", "10") or "10"))
+HTTP_TIMEOUT_MS = int(os.getenv("HTTP_TEST_TIMEOUT", "8000") or "8000")
+HTTP_WORKERS = max(1, int(os.getenv("HTTP_WORKERS", "60") or "60"))
 _DEFAULT_LATENCY_URL = "https://www.gstatic.com/generate_204"
 _configured_latency_url = os.getenv("LATENCY_URL", "").strip()
 if _configured_latency_url and urlsplit(_configured_latency_url).scheme.lower() == "https":
@@ -383,9 +385,9 @@ def main() -> None:
                         tested.append((delay, node))
             tested.sort(key=lambda x: x[0])
             if not tested:
-                raise RuntimeError("No node passed real HTTP proxy latency test")
+                raise RuntimeError("No node passed HTTPS proxy latency test")
 
-            http_tested_count = len(tested)
+            https_latency_passed_count = len(tested)
             print(f"Mihomo HTTPS latency passed: {http_tested_count} / {len(tcp_ok)}")
 
             # Validate real HTTPS certificates through each node's isolated Mihomo listener.
