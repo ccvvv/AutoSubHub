@@ -5,6 +5,7 @@ import json
 import os
 import tempfile
 import unittest
+from unittest import mock
 from pathlib import Path
 
 import yaml
@@ -75,7 +76,7 @@ class IngestReceiptTests(unittest.TestCase):
         Path("event.json").write_text(json.dumps(self.event), encoding="utf-8")
         self.env = contextlib.ExitStack()
         self.env.enter_context(
-            unittest.mock.patch.dict(os.environ, {"GITHUB_EVENT_PATH": "event.json"})
+            mock.patch.dict(os.environ, {"GITHUB_EVENT_PATH": "event.json"})
         )
 
     def tearDown(self):
