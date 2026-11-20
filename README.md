@@ -20,12 +20,13 @@ Published subscription (after a successful deployment):
 ## Build pipeline
 
 1. Fetch and parse subscription sources (Clash YAML and common VMess, VLESS, Trojan, Shadowsocks and SOCKS URI formats).
-2. Deduplicate nodes and perform a concurrent TCP-connect prefilter.
-3. Start the pinned Mihomo core in the GitHub Actions runner.
-4. Ask Mihomo to test each proxy against `LATENCY_URL`; nodes that cannot make a real HTTP request through the proxy are excluded.
-5. Sample download throughput for the fastest `DOWNLOAD_TEST_NODES` candidates. Download speed is informational; a node remains eligible if the speed-test endpoint is unavailable but its proxy latency test passed.
-6. Validate YAML structure, proxy-group references, and the exact output with Mihomo's config checker.
-7. Only after all build steps succeed does the Pages deployment run. A failed build does not deploy a replacement artifact, leaving the previous published Pages version untouched.
+2. Deduplicate nodes and perform a concurrent TCP-connect prefilter. UDP-based protocols (Hysteria, Hysteria2, TUIC and WireGuard) bypass this TCP-only check so they are not incorrectly discarded.
+3. Run a FreeNodePanel-style protocol handshake prefilter for TCP transports: DNS resolution, TCP connection, TLS handshake (certificate verification is disabled for reachability testing), and WebSocket/HTTPUpgrade `101` validation where applicable. Reality and UDP protocols are deliberately deferred to Mihomo to avoid false negatives from generic TLS/TCP probes.
+4. Start the pinned Mihomo core in the GitHub Actions runner.
+5. Ask Mihomo to test each proxy against `LATENCY_URL`; nodes that cannot make a real HTTP request through the proxy are excluded.
+6. Sample download throughput for the fastest `DOWNLOAD_TEST_NODES` candidates. Download speed is informational; a node remains eligible if the speed-test endpoint is unavailable but its proxy latency test passed.
+7. Validate YAML structure, proxy-group references, and the exact output with Mihomo's config checker.
+8. Only after all build steps succeed does the Pages deployment run. A failed build does not deploy a replacement artifact, leaving the previous published Pages version untouched.
 
 ## Measurement notes
 
@@ -38,7 +39,7 @@ Published subscription (after a successful deployment):
 ## Optional repository variables
 
 - `MAX_WORKERS`: TCP prefilter concurrency (default 80).
-- `CONNECT_TIMEOUT`: TCP timeout in seconds (default 3).
+- `CONNECT_TIMEOUT`: TCP/TLS/WS connection timeout in seconds (default 3; handshake stage uses at least 4 seconds).\n- `HANDSHAKE_WORKERS`: concurrent protocol-handshake checks (default 60).
 - `MAX_NODES`: maximum candidates entering TCP prefilter (default 500).
 - `HTTP_WORKERS`: concurrent Mihomo proxy delay requests (default 40).
 - `HTTP_TEST_TIMEOUT`: HTTP delay test timeout in milliseconds (default 8000).
@@ -47,7 +48,7 @@ Published subscription (after a successful deployment):
 
 ## Schedule
 
-Runs at minute 17 of every hour (UTC). GitHub scheduled workflows may be delayed during high load. A manual run is also available.
+Runs every 6 hours at minute 17 (UTC). GitHub scheduled workflows may be delayed during high load. A manual run is also available.
 
 ## License
 
