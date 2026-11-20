@@ -29,30 +29,34 @@ chmod +x mihomo
 
 If `uname -m` returns something other than `aarch64`, do not use that ARM64 file; choose the matching Android asset from the [official Mihomo releases](https://github.com/MetaCubeX/mihomo/releases). Do not use the Linux amd64 binary from the GitHub Actions workflow on Android.
 
-## Run a local test first
+## Run a local test
+
+Run the probe on the phone. It only tests nodes and writes a local JSON receipt; it does not upload to GitHub:
 
 ```sh
-python termux_probe.py --workers 5
+python termux_probe.py --workers 5 --output receipt.json
 ```
 
-Defaults: 5 simultaneous proxy download tests, 5 MiB maximum downloaded per node, and a 500 KB/s minimum. The script writes `receipt.json`. It does not upload anything unless `--upload` is explicitly supplied.
+Increase concurrency gradually after checking device stability. For example, test 10, then 20, then 50 workers; 50 is a target to test, not a guarantee that every phone can sustain it.
 
-## Upload receipt
+## Upload the saved receipt separately
 
-Create a fine-grained GitHub token restricted to this repository with Contents read/write permission, then set the token only in the Termux session. The script automatically creates `probe-receipts` from `main` on the first upload:
+Only after the probe has finished and `receipt.json` exists, upload it in a separate command. Create a fine-grained GitHub token restricted to this repository with **Contents: Read and write** permission, then set it in the current Termux session:
 
 ```sh
 export GITHUB_TOKEN='YOUR_TOKEN'
 export GITHUB_REPOSITORY='ccvvv/AutoSubHub'
-python termux_probe.py --workers 5 --upload
+python upload_receipt.py --input receipt.json
 ```
 
-Never commit the token or put it in the app source. The GitHub finalization workflow reads the exact uploaded receipt commit from `receipts/latest.json` on the `probe-receipts` branch. Protect the token and rotate it if it is exposed.
+The uploader creates the `probe-receipts` branch from `main` if it does not exist, then writes `receipts/latest.json`. If upload fails, keep the local receipt and rerun only the upload command; do not repeat the speed test. The uploader validates the receipt and never deletes or changes the local file.
+
+Never commit the token or put it in the app source. Protect the token and revoke it if it is exposed.
 
 ## Important limitations
 
 - This is an initial test implementation, not a verified Android release. It requires a compatible Android Mihomo binary; the Linux GitHub Actions binary is not suitable.
 - The Cloudflare 5 MiB download endpoint is configurable with `--download-url`; test it on the target domestic network before relying on results.
 - Start with 5 workers. Higher concurrency (10/20/50) must be measured on the actual phone; 50 simultaneous downloads are not assumed stable.
-- The receipt upload currently uses a repository token. A later Android app should store credentials securely and should not embed a long-lived token in the APK.
+- Receipt upload uses a repository token supplied through the Termux environment. Do not embed a long-lived token in an APK.
 - Final publishing must not be enabled for routine use until receipt authentication, candidate version binding, and end-to-end tests have been completed.
