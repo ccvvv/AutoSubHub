@@ -14,7 +14,7 @@ permissions:
   actions: write
 
 concurrency:
-  group: build-candidates
+  group: build-candidates-${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.pull_request.number) || 'main' }}
   cancel-in-progress: true
 
 jobs:
@@ -40,9 +40,10 @@ jobs:
           SOURCE_WORKERS: "10"
         run: python build.py
 
-      # Delete older candidate artifacts only after the new candidate was generated.
-      # If parsing/fetching fails, the previous artifact remains available.
-      - name: Remove previous candidate artifact
+      # Only main-branch runs rotate the single production candidate artifact.
+      # PR validation uploads a separate temporary artifact and cannot replace main's candidate.
+      - name: Remove previous main candidate artifact
+        if: github.ref == 'refs/heads/main'
         uses: actions/github-script@v7
         with:
           script: |
@@ -51,7 +52,7 @@ jobs:
               { owner: context.repo.owner, repo: context.repo.repo, per_page: 100 }
             );
             for (const artifact of artifacts) {
-              if (artifact.name === "autohub-candidates" && !artifact.expired) {
+              if (artifact.name === "autohub-candidates-latest" && !artifact.expired) {
                 await github.rest.actions.deleteArtifact({
                   owner: context.repo.owner,
                   repo: context.repo.repo,
@@ -60,10 +61,10 @@ jobs:
               }
             }
 
-      - name: Upload latest candidate artifact
+      - name: Upload candidate artifact
         uses: actions/upload-artifact@v4
         with:
-          name: autohub-candidates
+          name: ${{ github.ref == 'refs/heads/main' && 'autohub-candidates-latest' || format('autohub-candidates-pr-{0}', github.event.pull_request.number || github.run_id) }}
           path: candidates/
           if-no-files-found: error
           retention-days: 3
