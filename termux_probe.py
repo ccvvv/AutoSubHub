@@ -26,7 +26,6 @@ REPO = os.getenv("GITHUB_REPOSITORY", "ccvvv/AutoSubHub")
 BRANCH = "published-subscriptions"
 CANDIDATE_URL = f"https://raw.githubusercontent.com/{REPO}/{BRANCH}/candidate/subscription.yaml"
 MANIFEST_URL = f"https://raw.githubusercontent.com/{REPO}/{BRANCH}/candidate/manifest.json"
-API = "http://127.0.0.1:9090"
 PORT_BASE = int(os.getenv("PROBE_PORT_BASE", "17890"))
 SECRET = "autohub-phone-probe"
 USER_AGENT = "AutoSubHub-Termux-Probe/1.0"
@@ -36,7 +35,7 @@ def write_yaml(path: Path, data: dict) -> None:
     path.write_text(yaml.safe_dump(data, allow_unicode=True, sort_keys=False), encoding="utf-8")
 
 
-def make_config(proxies: list[dict], workers: int) -> dict:
+def make_config(proxies: list[dict], workers: int, api_port: int) -> dict:
     names = [p["name"] for p in proxies]
     groups = [{"name": f"PHONE-{i:02d}", "type": "select", "proxies": names}
               for i in range(workers)]
@@ -45,7 +44,7 @@ def make_config(proxies: list[dict], workers: int) -> dict:
                   "proxy": f"PHONE-{i:02d}"} for i in range(workers)]
     return {
         "allow-lan": False, "mode": "rule", "log-level": "error", "ipv6": False,
-        "external-controller": "127.0.0.1:9090", "secret": SECRET,
+        "external-controller": f"127.0.0.1:{api_port}", "secret": SECRET,
         "proxies": proxies, "proxy-groups": groups, "listeners": listeners,
         "rules": ["MATCH,DIRECT"],
     }
@@ -67,6 +66,10 @@ def main() -> None:
                         help="Maximum bytes downloaded per node (default 5 MiB)")
     parser.add_argument("--download-url", default="https://speed.cloudflare.com/__down?bytes=5242880")
     parser.add_argument("--timeout", type=int, default=35)
+    parser.add_argument("--api-port", type=int, default=int(os.getenv("PROBE_API_PORT", "19090")),
+                        help="Mihomo controller port; change it if another core uses the default")
+    parser.add_argument("--port-base", type=int, default=PORT_BASE,
+                        help="First local mixed-listener port")
     parser.add_argument("--mihomo", default=os.getenv("MIHOMO_BIN", "./mihomo"))
     parser.add_argument("--output", default="receipt.json")
     parser.add_argument("--upload", action="store_true", help="Upload receipt to probe-receipts branch")
@@ -76,6 +79,10 @@ def main() -> None:
         raise SystemExit("--workers must be between 1 and 50; start with 5 on phones")
     if args.max_bytes < 256 * 1024:
         raise SystemExit("--max-bytes must be at least 256 KiB")
+
+    if not 1024 <= args.api_port <= 65535 or not 1024 <= args.port_base <= 65535 - args.workers:
+        raise SystemExit("API/listener ports must be valid non-privileged TCP ports")
+    api_base = f"http://127.0.0.1:{args.api_port}"
 
     session = requests.Session()
     session.headers.update({"User-Agent": USER_AGENT})
@@ -107,7 +114,7 @@ def main() -> None:
 
     with tempfile.TemporaryDirectory(prefix="autohub-phone-") as temp:
         config_path = Path(temp) / "config.yaml"
-        write_yaml(config_path, make_config(proxies, args.workers))
+        write_yaml(config_path, make_config(proxies, args.workers, args.api_port))
         check = subprocess.run([args.mihomo, "-t", "-f", str(config_path)],
                                capture_output=True, text=True, timeout=30)
         if check.returncode:
@@ -119,7 +126,7 @@ def main() -> None:
                 if mihomo.poll() is not None:
                     raise RuntimeError("Mihomo exited during startup")
                 try:
-                    if api.get(API + "/version", timeout=1).ok:
+                    if api.get(api_base + "/version", timeout=1).ok:
                         break
                 except requests.RequestException:
                     time.sleep(0.5)
@@ -129,8 +136,8 @@ def main() -> None:
             batches = [proxies[i::args.workers] for i in range(args.workers)]
 
             def probe_worker(worker_index: int, batch: list[dict]) -> None:
-                selector = API + f"/proxies/PHONE-{worker_index:02d}"
-                proxy_url = f"http://127.0.0.1:{PORT_BASE + worker_index}"
+                selector = api_base + f"/proxies/PHONE-{worker_index:02d}"
+                proxy_url = f"http://127.0.0.1:{args.port_base + worker_index}"
                 worker_api = requests.Session()
                 worker_api.headers.update({"Authorization": f"Bearer {SECRET}"})
                 for node in batch:
@@ -141,6 +148,10 @@ def main() -> None:
                     try:
                         selected = worker_api.put(selector, json={"name": node["name"]}, timeout=8)
                         selected.raise_for_status()
+                        confirmed = worker_api.get(selector, timeout=8)
+                        confirmed.raise_for_status()
+                        if confirmed.json().get("now") != node["name"]:
+                            raise RuntimeError("Mihomo selector did not switch to requested node")
                         start = time.perf_counter()
                         received = 0
                         with requests.get(args.download_url,
