@@ -107,7 +107,8 @@ def main() -> None:
     parser.add_argument("--max-bytes", type=int, default=5 * 1024 * 1024,
                         help="Maximum bytes downloaded per node (default 5 MiB)")
     parser.add_argument("--download-url", default="https://speed.cloudflare.com/__down?bytes=5242880")
-    parser.add_argument("--timeout", type=int, default=35)
+    parser.add_argument("--timeout", type=int, default=5,
+                        help="Connection and read-inactivity timeout in seconds (default 5)")
     parser.add_argument("--api-port", type=int, default=int(os.getenv("PROBE_API_PORT", "19090")),
                         help="Mihomo controller port; change it if another core uses the default")
     parser.add_argument("--port-base", type=int, default=PORT_BASE,
@@ -118,6 +119,8 @@ def main() -> None:
 
     if not 1 <= args.workers <= 200:
         raise SystemExit("--workers must be between 1 and 200; increase gradually on phones")
+    if args.timeout < 1:
+        raise SystemExit("--timeout must be at least 1 second")
     if args.max_bytes < 256 * 1024:
         raise SystemExit("--max-bytes must be at least 256 KiB")
 
@@ -202,7 +205,7 @@ def main() -> None:
                         received = 0
                         with requests.get(args.download_url,
                                           proxies={"http": proxy_url, "https": proxy_url},
-                                          stream=True, timeout=(10, args.timeout),
+                                          stream=True, timeout=(args.timeout, args.timeout),
                                           headers={"User-Agent": USER_AGENT}) as response:
                             response.raise_for_status()
                             for chunk in response.iter_content(chunk_size=64 * 1024):
