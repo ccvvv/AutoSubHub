@@ -746,7 +746,7 @@ def main() -> None:
     # that AutoSubHub can map back to the exact candidate configuration.
     candidate_nodes = []
     manifest_nodes = []
-    for original in output:
+    for original in output[:50]:
         node = dict(original)
         node_id = stable_probe_id(node)
         display_name = str(node.get("name") or "proxy")
