@@ -67,10 +67,17 @@ jobs:
       - name: Preserve previously published final subscription
         run: |
           mkdir -p site
-          if curl -fsSL "https://ccvvv.github.io/AutoSubHub/subscription.yaml" -o site/subscription.yaml; then
-            echo "Preserved the last Mi 6-verified subscription."
-          else
+          status=$(curl -sSL --retry 3 --retry-all-errors --max-time 30 \
+            -o site/subscription.yaml -w "%{http_code}" \
+            "https://ccvvv.github.io/AutoSubHub/subscription.yaml")
+          if [ "$status" = "200" ]; then
+            echo "Preserved the last published final subscription."
+          elif [ "$status" = "404" ]; then
+            rm -f site/subscription.yaml
             echo "No previous final subscription exists yet; candidate feed will be published first."
+          else
+            echo "Could not safely preserve the previous final subscription (HTTP $status)." >&2
+            exit 1
           fi
 
       - name: Configure Pages
