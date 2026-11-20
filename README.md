@@ -1,55 +1,29 @@
 # AutoSubHub
 
-Automatically aggregates public Clash-compatible subscription sources, filters unreachable nodes, tests real proxy connectivity with the Mihomo core, samples download speed, validates the final configuration, and publishes it with GitHub Actions + GitHub Pages.
+GitHub performs lightweight subscription parsing and deduplication. Android/Termux probe performs domestic-network reachability, TLS and download-speed tests. Only phone-tested results are eligible for the final subscription.
 
-## Important privacy warning
+## Directory layout
 
-This repository and the generated Pages output are public. Anyone who knows the published URL can download the generated proxy configuration and use the included nodes. Only add subscription sources that you are allowed and willing to expose. Do not commit private subscription URLs or credentials.
+- `source/`: optional source-list location (legacy root `subscriptions.txt` remains supported).
+- `candidates/`: generated candidate YAML and manifest, delivered as a short-lived Actions artifact in this initial phase.
+- `probe/`: Termux probe runtime and scripts (added in the next phase).
+- `probe-results/`: phone test receipts (planned; pushed to a dedicated branch).
+- `final/`: final subscription output (planned; remains separate from candidates).
 
-## Setup
+## Privacy
 
-1. Open **Settings → Secrets and variables → Actions**.
-2. Optionally add a repository secret named `SUBSCRIPTION_URLS`, with one source URL per line. If absent, `subscriptions.txt` is used.
-3. Open **Settings → Pages** and choose **GitHub Actions** as the build source if it is not already configured. The workflow also asks the Pages action to enablement-check/enable Pages; repository administration permission may still be required.
-4. Open **Actions**, enable workflows if prompted, and run **Auto build subscription** manually once.
+Candidate YAML contains proxy credentials. Do not commit it to a public repository or publish it through public GitHub Pages. The current candidate workflow uploads it as a short-lived Actions artifact. Before the Android App downloads artifacts automatically, authenticated artifact retrieval with a narrowly scoped GitHub token must be implemented.
 
-Published subscription (after a successful deployment):
+## Candidate pipeline
 
-`https://ccvvv.github.io/AutoSubHub/subscription.yaml`
+1. Fetch configured sources (repository secret `SUBSCRIPTION_URLS`, or legacy root `subscriptions.txt`).
+2. Parse supported Clash YAML and URI formats.
+3. Exclude pure HTTP proxy entries and malformed/unsupported entries.
+4. Deduplicate nodes and create stable opaque node IDs in `candidates/manifest.json`.
+5. Upload candidate YAML and manifest as a 3-day Actions artifact.
 
-## Build pipeline
+GitHub no longer runs strict TCP/handshake/ChatGPT certificate/download-speed rejection. Those decisions move to the Android phone's domestic-network probe.
 
-1. Fetch and parse subscription sources (Clash YAML and common VMess, VLESS, Trojan, Shadowsocks and SOCKS URI formats).
-2. Deduplicate nodes and perform a concurrent TCP-connect prefilter. UDP-based protocols (Hysteria, Hysteria2, TUIC and WireGuard) bypass this TCP-only check so they are not incorrectly discarded.
-3. Run a FreeNodePanel-style protocol handshake prefilter for TCP transports: DNS resolution, TCP connection, TLS handshake (certificate verification is disabled for reachability testing), and WebSocket/HTTPUpgrade `101` validation where applicable. Reality and UDP protocols are deliberately deferred to Mihomo to avoid false negatives from generic TLS/TCP probes.
-4. Start the pinned Mihomo core in the GitHub Actions runner.
-5. Ask Mihomo to test each proxy against `LATENCY_URL`; nodes that cannot make a real HTTP request through the proxy are excluded.
-6. Sample download throughput for the fastest `DOWNLOAD_TEST_NODES` candidates. Download speed is informational; a node remains eligible if the speed-test endpoint is unavailable but its proxy latency test passed.
-7. Validate YAML structure, proxy-group references, and the exact output with Mihomo's config checker.
-8. Only after all build steps succeed does the Pages deployment run. A failed build does not deploy a replacement artifact, leaving the previous published Pages version untouched.
+## Existing final subscription
 
-## Measurement notes
-
-- TCP connect latency is only a cheap first filter.
-- Mihomo delay is a real HTTP request through the proxy, but it measures the GitHub Actions runner's network route, not the user's phone or local ISP.
-- Download speeds are measured from GitHub Actions and can differ substantially from Karing/FlClash results on Android.
-- Download tests are limited to a small candidate sample to avoid wasting runner time and bandwidth.
-- The workflow uses the Mihomo Linux AMD64 release binary pinned to v1.19.34.
-
-## Optional repository variables
-
-- `MAX_WORKERS`: TCP prefilter concurrency (default 80).
-- `CONNECT_TIMEOUT`: TCP/TLS/WS connection timeout in seconds (default 3; handshake stage uses at least 4 seconds).\n- `HANDSHAKE_WORKERS`: concurrent protocol-handshake checks (default 60).
-- `MAX_NODES`: maximum candidates entering TCP prefilter (default 500).
-- `HTTP_WORKERS`: concurrent Mihomo proxy delay requests (default 40).
-- `HTTP_TEST_TIMEOUT`: HTTP delay test timeout in milliseconds (default 8000).
-- `DOWNLOAD_TEST_NODES`: number of top latency nodes to sample for download speed (default 25).
-- `DOWNLOAD_BYTES`: target download sample size in bytes (default 1048576).
-
-## Schedule
-
-Runs every 6 hours at minute 17 (UTC). GitHub scheduled workflows may be delayed during high load. A manual run is also available.
-
-## License
-
-MIT
+The currently published Pages subscription is not changed by this candidate-only workflow. A separate final publisher will be introduced after phone receipts are validated end to end.
