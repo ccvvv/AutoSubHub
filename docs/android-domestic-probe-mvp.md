@@ -53,3 +53,53 @@ The phone will need a dedicated fine-grained GitHub token to call the repository
 - Certificate/TLS checks alone do not prove ChatGPT app compatibility.
 - Android VPN service lifecycle and MIUI background restrictions can interrupt long runs. Keep the first version foreground-driven and serial.
 - The existing GitHub Actions tests run from GitHub-hosted infrastructure and remain a separate measurement column.
+## Two-phone GitHub task loop (personal deployment)
+
+The first deployment is intentionally hard-wired to the owner's repositories; it is not a public multi-tenant feature.
+
+- Daily phone: reads the published subscription and the latest sanitized domestic-probe snapshot from this repository.
+- GitHub: is the durable task mailbox and result store. It does not initiate a direct connection to the Android device.
+- Xiaomi Mi 6: runs the Hiddify-based probe app, checks for a pending task, tests the requested candidate manifest, and uploads a sanitized result report.
+
+### Task delivery model
+
+Use a single active task for the MVP to avoid duplicate execution and conflicting writes:
+
+1. A manual GitHub Actions workflow_dispatch creates a task with a unique task_id, candidate-manifest revision, creation time, and expiry.
+2. The phone polls the task manifest when the probe app is open. Later, a foreground service may poll while the screen is off.
+3. The phone records the task ID locally before starting, so process death does not silently restart a completed task.
+4. The phone posts the result through repository_dispatch using the existing domestic-probe-results event.
+5. The ingest workflow validates the task ID and report, stores the report, and marks that task complete. Expired or already-completed tasks are ignored.
+6. The daily phone reads the updated snapshot; it never receives credentials or raw proxy URIs in the report.
+
+Do not treat a successful GitHub API response as proof that the Actions workflow finished. The phone UI should distinguish “event accepted” from “result stored”. A task must have an expiry and a stable ID so a stale task cannot run forever.
+
+### Polling and reliability policy
+
+- MVP: user opens the probe screen and taps “Check GitHub task”; no hidden background polling is required.
+- Next: foreground service with a persistent notification, conservative polling interval (for example, 5 minutes), network constraints, and exponential backoff after errors.
+- Avoid frequent polling: GitHub API rate limits and Android background execution limits make second-by-second polling inappropriate.
+- Persist task state locally: pending, running, uploading, completed, failed, or expired.
+- On restart, resume only when the task is still valid; never upload the same report twice without an idempotency key (task_id).
+- Keep the first implementation serial and foreground-driven. Only enable screen-off execution after real-device validation.
+
+### ADB / MIUI assistance (no root)
+
+ADB can improve the chance that the probe app survives Doze/background restrictions, but cannot guarantee that MIUI will never kill it. Replace <PACKAGE> with the installed probe app's actual Android application ID:
+
+```sh
+adb shell dumpsys deviceidle whitelist +<PACKAGE>
+adb shell cmd appops set <PACKAGE> RUN_IN_BACKGROUND allow
+adb shell cmd appops set <PACKAGE> RUN_ANY_IN_BACKGROUND allow
+```
+
+These commands are best-effort and may vary by Android/MIUI version. They do not bypass MIUI's own Autostart and battery-management controls. Configure those in MIUI Settings as well, and keep the app's foreground service notification visible during an active probe. Do not disable Doze globally or use undocumented force-stop workarounds.
+
+The app should provide a diagnostics page showing battery-optimization exemption, notification permission, foreground-service state, VPN/core state, last successful GitHub poll, pending task ID, and last upload outcome. ADB cannot grant every vendor-specific MIUI permission; the UI must tell the user when a manual Settings action is required.
+
+### Security and scope
+
+- Pin the app to the owner's repository in this first release; do not build a generic repository picker yet.
+- Use a narrowly scoped user-owned GitHub credential, stored using Android Keystore-backed encrypted storage. Never commit it, include it in task JSON, or write it to logs.
+- Task manifests should contain only task metadata and opaque candidate IDs or a safe manifest reference. Never put UUIDs, passwords, private keys, raw proxy URIs, or private subscription URLs in a public task file.
+- The report remains sanitized and user-owned. Do not automatically modify the published subscription based on one phone's test result in the MVP.
