@@ -28,7 +28,8 @@ DOWNLOAD_MIN_KBPS = max(1, int(os.getenv("DOWNLOAD_MIN_KBPS", "500") or "500"))
 LATENCY_URL = os.getenv("LATENCY_URL", "https://www.gstatic.com/generate_204")
 DOWNLOAD_URL = os.getenv("DOWNLOAD_URL", "https://speed.cloudflare.com/__down?bytes=" + str(DOWNLOAD_BYTES))
 CONTROLLER = "http://127.0.0.1:9090"
-MIXED_PORT = 17890
+SPEED_TEST_WORKERS = max(1, min(50, int(os.getenv("SPEED_TEST_WORKERS", "50") or "50")))
+SPEED_PORT_BASE = 17890
 
 
 def decode_subscription(text: str) -> str:
@@ -304,14 +305,24 @@ def unique_names(nodes: list[dict]) -> list[dict]:
     return result
 
 
-def test_config(proxies: list[dict]) -> dict:
+def test_config(proxies: list[dict], speed_workers: int) -> dict:
+    names = [p["name"] for p in proxies]
+    groups = [
+        {"name": f"TEST-{worker:02d}", "type": "select", "proxies": names}
+        for worker in range(speed_workers)
+    ]
+    listeners = [
+        {"name": f"speed-{worker:02d}", "type": "mixed",
+         "port": SPEED_PORT_BASE + worker, "listen": "127.0.0.1",
+         "proxy": f"TEST-{worker:02d}"}
+        for worker in range(speed_workers)
+    ]
     return {
-        "mixed-port": MIXED_PORT, "allow-lan": False, "mode": "rule",
+        "allow-lan": False, "mode": "rule",
         "log-level": "error", "ipv6": False,
         "external-controller": "127.0.0.1:9090", "secret": "autohub-local-test",
-        "proxies": proxies,
-        "proxy-groups": [{"name": "TEST", "type": "select", "proxies": [p["name"] for p in proxies]}],
-        "rules": ["MATCH,TEST"],
+        "proxies": proxies, "proxy-groups": groups, "listeners": listeners,
+        "rules": ["MATCH,DIRECT"],
     }
 
 
@@ -446,7 +457,7 @@ def main() -> None:
 
     with tempfile.TemporaryDirectory(prefix="autohub-") as tmp:
         test_path = os.path.join(tmp, "test.yaml")
-        write_yaml(test_path, test_config(tcp_ok))
+        write_yaml(test_path, test_config(tcp_ok, SPEED_TEST_WORKERS))
         check = subprocess.run([os.getenv("MIHOMO_BIN", "./mihomo"), "-t", "-f", test_path],
                                capture_output=True, text=True, timeout=45)
         if check.returncode:
@@ -493,63 +504,94 @@ def main() -> None:
             speed_map = {}
             speed_failures = 0
             speed_prefilter_rejected = 0
-            print(f"Fast speed prefilter: first {SPEED_PREFILTER_BYTES // 1024} KB; "
-                  f"full test target: {DOWNLOAD_BYTES // 1024} KB; minimum {DOWNLOAD_MIN_KBPS} KB/s")
-            for index, (delay, node) in enumerate(tested, 1):
-                response = None
-                try:
-                    selected = api.put(CONTROLLER + "/proxies/TEST", json={"name": node["name"]}, timeout=5)
-                    selected.raise_for_status()
-                    start = time.perf_counter()
-                    response = requests.get(DOWNLOAD_URL, proxies={
-                        "http": f"http://127.0.0.1:{MIXED_PORT}",
-                        "https": f"http://127.0.0.1:{MIXED_PORT}",
-                    }, stream=True, timeout=(8, 15), headers={"User-Agent": USER_AGENT})
-                    response.raise_for_status()
-                    total = 0
-                    prefilter_speed = None
-                    for chunk in response.iter_content(65536):
-                        if chunk:
-                            total += len(chunk)
-                        if total >= SPEED_PREFILTER_BYTES:
-                            elapsed_prefilter = max(time.perf_counter() - start, 0.001)
-                            prefilter_speed = total / elapsed_prefilter / 1024
-                            break
-                    if not total or prefilter_speed is None:
-                        speed_failures += 1
-                        print(f"Speed prefilter {index}/{len(tested)}: {node['name']} = no data")
-                        continue
-                    if prefilter_speed < DOWNLOAD_MIN_KBPS:
-                        speed_prefilter_rejected += 1
-                        print(f"Speed prefilter {index}/{len(tested)}: {node['name']} = "
-                              f"{prefilter_speed:.0f} KB/s; rejected")
-                        continue
+            print(f"Parallel download speed test: {SPEED_TEST_WORKERS} isolated workers; "
+                  f"first {SPEED_PREFILTER_BYTES // 1024} KB prefilter; "
+                  f"full target {DOWNLOAD_BYTES // 1024} KB; minimum {DOWNLOAD_MIN_KBPS} KB/s; "
+                  "one retry for transient/slow results")
 
-                    # Only nodes passing the quick 256 KB check continue to the
-                    # full download test. Continue the same stream to avoid a
-                    # second connection and measure the whole transfer.
-                    for chunk in response.iter_content(65536):
-                        if chunk:
-                            total += len(chunk)
-                        if total >= DOWNLOAD_BYTES:
+            def speed_worker(worker_index: int, batch: list[tuple[int, dict]]) -> list[tuple[dict, float | None, str]]:
+                # Each worker owns a distinct Mihomo selector group and listener port.
+                # No two threads can change the route used by another worker.
+                worker_api = requests.Session()
+                worker_api.headers.update({"Authorization": "Bearer autohub-local-test"})
+                selector = CONTROLLER + f"/proxies/TEST-{worker_index:02d}"
+                proxy_url = f"http://127.0.0.1:{SPEED_PORT_BASE + worker_index}"
+                worker_results = []
+                for delay, node in batch:
+                    measured = None
+                    reason = "request-failed"
+                    for attempt in range(2):
+                        response = None
+                        try:
+                            selected = worker_api.put(selector, json={"name": node["name"]}, timeout=8)
+                            selected.raise_for_status()
+                            start_time = time.perf_counter()
+                            response = requests.get(DOWNLOAD_URL, proxies={
+                                "http": proxy_url, "https": proxy_url,
+                            }, stream=True, timeout=(10, 20),
+                                headers={"User-Agent": USER_AGENT})
+                            response.raise_for_status()
+                            total = 0
+                            prefilter_speed = None
+                            for chunk in response.iter_content(65536):
+                                if chunk:
+                                    total += len(chunk)
+                                if total >= SPEED_PREFILTER_BYTES:
+                                    elapsed = max(time.perf_counter() - start_time, 0.001)
+                                    prefilter_speed = total / elapsed / 1024
+                                    break
+                            if not total or prefilter_speed is None:
+                                reason = "no-data"
+                                continue
+                            if prefilter_speed < DOWNLOAD_MIN_KBPS:
+                                reason = f"prefilter-slow-{prefilter_speed:.0f}"
+                                continue
+
+                            for chunk in response.iter_content(65536):
+                                if chunk:
+                                    total += len(chunk)
+                                if total >= DOWNLOAD_BYTES:
+                                    break
+                            elapsed_full = max(time.perf_counter() - start_time, 0.001)
+                            measured = round(total / elapsed_full / 1024, 1)
+                            if measured < DOWNLOAD_MIN_KBPS:
+                                reason = f"full-test-slow-{measured:.0f}"
+                                measured = None
+                                continue
+                            reason = "passed"
                             break
-                    elapsed_full = max(time.perf_counter() - start, 0.001)
-                    if total >= SPEED_PREFILTER_BYTES:
-                        speed_map[node["name"]] = round(total / elapsed_full / 1024, 1)
-                    else:
-                        speed_failures += 1
-                except Exception as exc:
-                    speed_failures += 1
-                    print(f"Download test failed for {node['name']}: {type(exc).__name__}")
-                finally:
-                    if response is not None:
-                        response.close()
-                if index % 50 == 0 or index == len(tested):
-                    print(f"Speed progress: {index}/{len(tested)}; full-tested {len(speed_map)}; "
-                          f"prefilter-rejected {speed_prefilter_rejected}; failed {speed_failures}")
+                        except Exception as exc:
+                            reason = type(exc).__name__
+                        finally:
+                            if response is not None:
+                                response.close()
+                    worker_results.append((node, measured, reason))
+                return worker_results
+
+            batches = [tested[i::SPEED_TEST_WORKERS] for i in range(SPEED_TEST_WORKERS)]
+            batches = [(i, batch) for i, batch in enumerate(batches) if batch]
+            completed_nodes = 0
+            with ThreadPoolExecutor(max_workers=SPEED_TEST_WORKERS) as pool:
+                futures = {pool.submit(speed_worker, worker_index, batch): (worker_index, len(batch))
+                           for worker_index, batch in batches}
+                for future in as_completed(futures):
+                    worker_index, batch_size = futures[future]
+                    results = future.result()
+                    completed_nodes += batch_size
+                    for node, speed, reason in results:
+                        if speed is not None:
+                            speed_map[node["name"]] = speed
+                        elif reason.startswith(("prefilter-slow-", "full-test-slow-")):
+                            speed_prefilter_rejected += 1
+                        else:
+                            speed_failures += 1
+                    print(f"Speed progress: {completed_nodes}/{len(tested)}; "
+                          f"full-tested {len(speed_map)}; slow-rejected {speed_prefilter_rejected}; "
+                          f"failed {speed_failures}; finished worker {worker_index + 1}/{len(batches)}")
+
             print(f"Download speed measured: {len(speed_map)} / {len(tested)}; "
-                  f"quick-prefilter rejected: {speed_prefilter_rejected}; failures: {speed_failures}; "
-                  f"threshold: {DOWNLOAD_MIN_KBPS} KB/s")
+                  f"slow/retry-rejected: {speed_prefilter_rejected}; failures after retry: {speed_failures}; "
+                  f"parallel workers: {SPEED_TEST_WORKERS}; threshold: {DOWNLOAD_MIN_KBPS} KB/s")
         finally:
             proc.terminate()
             try:
@@ -589,7 +631,7 @@ def main() -> None:
 <title>AutoSubHub</title><body style="font-family:system-ui;max-width:760px;margin:40px auto;padding:0 16px">
 <h1>AutoSubHub</h1><p>最后构建：{time.strftime('%Y-%m-%d %H:%M:%S UTC', time.gmtime())}</p>
 <ul><li>TCP 初筛通过：{len(tcp_ok)}</li><li>真实 HTTP 代理测试通过：{len(tested)}</li>
-<li>完成下载测速：{len(speed_map)} / {len(tested)}</li><li>速度门槛：{DOWNLOAD_MIN_KBPS} KB/s</li><li>最终节点：{len(output)}</li></ul>
+<li>完成下载测速：{len(speed_map)} / {len(tested)}</li><li>速度门槛：{DOWNLOAD_MIN_KBPS} KB/s</li><li>下载测速并发：{SPEED_TEST_WORKERS}</li><li>最终节点：{len(output)}</li></ul>
 <p><a href="subscription.yaml">下载 Clash / Mihomo 订阅</a></p>
 <p>说明：所有通过真实 HTTP 代理测试的节点均进行下载测速；低于速度门槛或测速失败的节点不会发布。</p>
 </body></html>"""
