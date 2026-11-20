@@ -24,6 +24,8 @@ Domestic probe candidate feed:
 
 The candidate profile is the GitHub-side coarse-screened result for the mainland Android probe. It does not replace the final subscription. The manifest assigns stable 24-character node IDs and a `generated_at` revision so a later phone receipt can be matched to exactly the candidate batch it tested. The current final subscription is preserved during candidate-only builds.
 
+Android receipt format and token permissions: [Domestic probe receipt contract](docs/domestic-probe-receipt.md).
+
 ## Build pipeline
 
 1. Fetch and parse subscription sources (Clash YAML and common VMess, VLESS, Trojan, Shadowsocks and SOCKS URI formats).
