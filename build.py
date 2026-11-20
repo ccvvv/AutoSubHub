@@ -143,7 +143,24 @@ def parse_source(text: str) -> list[dict]:
     except Exception:
         data = None
     if isinstance(data, dict) and isinstance(data.get("proxies"), list):
-        return [p for p in data["proxies"] if isinstance(p, dict) and p.get("server") and p.get("port")]
+        # Normalize common YAML variations and discard incomplete/unsupported entries
+        # before they reach TCP and Mihomo testing.
+        valid_types = {"ss", "vmess", "vless", "trojan", "socks5", "http", "snell",
+                       "hysteria", "hysteria2", "tuic", "wireguard", "ssh", "anytls"}
+        nodes = []
+        for raw in data["proxies"]:
+            if not isinstance(raw, dict) or not raw.get("server"):
+                continue
+            node = dict(raw)
+            try:
+                node["port"] = int(node.get("port"))
+            except (TypeError, ValueError):
+                continue
+            node["type"] = str(node.get("type", "")).lower()
+            if node["type"] not in valid_types or not 1 <= node["port"] <= 65535:
+                continue
+            nodes.append(node)
+        return nodes
     nodes = []
     for line in text.splitlines():
         line = line.strip()
