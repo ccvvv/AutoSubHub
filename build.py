@@ -10,12 +10,14 @@ import subprocess
 import tempfile
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from urllib.parse import parse_qs, unquote, urlsplit
+from urllib.parse import parse_qs, unquote, urlsplit, quote
 
 import requests
 import yaml
 
 USER_AGENT = "AutoSubHub/2.0 (+https://github.com/ccvvv/AutoSubHub)"
+HTTP_TIMEOUT_MS = int(os.getenv("HTTP_TEST_TIMEOUT", "8000") or "8000")
+HTTP_WORKERS = max(1, int(os.getenv("HTTP_WORKERS", "60") or "60"))
 SOURCE_WORKERS = max(1, int(os.getenv("SOURCE_WORKERS", "10") or "10"))
 _DEFAULT_LATENCY_URL = "https://www.gstatic.com/generate_204"
 _configured_latency_url = os.getenv("LATENCY_URL", "").strip()
@@ -361,9 +363,30 @@ def main() -> None:
             else:
                 raise RuntimeError("Mihomo API did not become ready")
 
-            # The latency target is HTTPS-only. Plain HTTP captive-portal
-            # endpoints (including captive.apple.com) are never used.
-            tested = [(None, node) for node in tcp_ok]
+            def proxy_delay(node: dict) -> tuple[dict, int | None]:
+                try:
+                    endpoint = CONTROLLER + "/proxies/" + quote(node["name"], safe="") + "/delay"
+                    response = api.get(endpoint, params={"url": LATENCY_URL, "timeout": HTTP_TIMEOUT_MS},
+                                       timeout=HTTP_TIMEOUT_MS / 1000 + 5)
+                    response.raise_for_status()
+                    delay = response.json().get("delay")
+                    return node, int(delay) if delay and int(delay) > 0 else None
+                except Exception:
+                    return node, None
+
+            tested = []
+            with ThreadPoolExecutor(max_workers=HTTP_WORKERS) as pool:
+                futures = [pool.submit(proxy_delay, n) for n in tcp_ok]
+                for future in as_completed(futures):
+                    node, delay = future.result()
+                    if delay is not None:
+                        tested.append((delay, node))
+            tested.sort(key=lambda x: x[0])
+            if not tested:
+                raise RuntimeError("No node passed real HTTP proxy latency test")
+
+            http_tested_count = len(tested)
+            print(f"Mihomo HTTPS latency passed: {http_tested_count} / {len(tcp_ok)}")
 
             # Validate real HTTPS certificates through each node's isolated Mihomo listener.
             # HTTP status codes are deliberately ignored: 401/403/404 can still prove TLS validity.
@@ -484,6 +507,7 @@ def main() -> None:
                 manifest_nodes.append({
                     "node_id": node_id,
                     "name": node.get("name", ""),
+                    "github_delay_ms": delay_by_name.get(node.get("name")),
                 })
 
             manifest = {
@@ -497,6 +521,7 @@ def main() -> None:
                 "excluded_http_proxies": http_type_rejected,
                 "standalone_connectivity_prefilters": "disabled",
                 "plain_http_captive_check": "disabled",
+                "mihomo_https_latency_passed": http_tested_count,
                 "https_certificate_passed": len(passed_nodes),
                 "certificate_invalid_rejected": certificate_rejected,
                 "certificate_inconclusive_rejected": certificate_inconclusive,
@@ -511,6 +536,7 @@ def main() -> None:
                 f"parsed={parsed_total}, unique={unique_total}, "
                 f"standalone TCP/handshake checks=disabled, "
                 f"plain HTTP checks=disabled, "
+                f"Mihomo HTTPS latency={http_tested_count}, "
                 f"ChatGPT HTTPS certificate={len(passed_nodes)}. "
                 "Phone download-speed testing remains pending."
             )
