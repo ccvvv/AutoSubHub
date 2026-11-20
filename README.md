@@ -30,8 +30,8 @@ Final subscription (updated only after a valid Mi 6 domestic-probe receipt):
 
 ## Domestic verification
 
-- Candidate profile: `https://raw.githubusercontent.com/ccvvv/AutoSubHub/main/data/domestic-probe/candidates.yaml`.
-- Candidate manifest: `https://raw.githubusercontent.com/ccvvv/AutoSubHub/main/data/domestic-probe/candidate-manifest.json`.
+- Candidate profile: `https://ccvvv.github.io/AutoSubHub/candidates.yaml`.
+- Candidate manifest: `https://ccvvv.github.io/AutoSubHub/candidate-manifest.json`.
 - Candidate node names carry stable `probe_<24-hex-id>__` identifiers. The Mi 6 reports those IDs only; it does not upload proxy URIs or credentials.
 - The final Pages subscription is updated only after the receipt workflow matches the report revision and IDs against the latest candidate batch.
 
