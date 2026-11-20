@@ -34,6 +34,9 @@ def validate_receipt(path: Path) -> bytes:
     digest = data.get("candidate_sha256")
     if not isinstance(digest, str) or not re.fullmatch(r"[0-9a-f]{64}", digest):
         raise ValueError("Receipt candidate_sha256 is missing or invalid")
+    commit = data.get("candidate_commit")
+    if not isinstance(commit, str) or not re.fullmatch(r"[0-9a-f]{40}", commit):
+        raise ValueError("Receipt candidate_commit is missing or invalid; update termux_probe.py and run a new probe")
     results = data.get("results")
     if not isinstance(results, list) or not results:
         raise ValueError("Receipt results must be a non-empty list")
