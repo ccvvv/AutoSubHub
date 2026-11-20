@@ -333,8 +333,10 @@ def test_config(proxies: list[dict], speed_workers: int) -> dict:
 
 
 def stable_probe_id(node: dict) -> str:
-    """Stable opaque ID for the exact proxy configuration, independent of display name."""
+    """Stable ID for a proxy config, independent of volatile latency/speed labels."""
+    display_name = re.sub(r" \\[\\d+ms \\d+KB/s\\]$", "", str(node.get("name", "")))
     identity = {key: value for key, value in node.items() if key != "name"}
+    identity["source_name"] = display_name
     canonical = json.dumps(identity, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
     return hashlib.sha256(canonical.encode("utf-8")).hexdigest()[:24]
 
