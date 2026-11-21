@@ -118,6 +118,8 @@ def main() -> None:
     parser.add_argument("--max-bytes", type=int, default=5 * 1024 * 1024,
                         help="Maximum bytes downloaded per node (default 5 MiB)")
     parser.add_argument("--download-url", default="https://speed.cloudflare.com/__down?bytes=5242880")
+    parser.add_argument("--youtube-url", default="https://www.youtube.com/",
+                        help="YouTube HTTPS reachability check; failure is recorded but does not skip download testing")
     parser.add_argument("--timeout", type=int, default=5,
                         help="Connection and read-inactivity timeout in seconds (default 5)")
     parser.add_argument("--api-port", type=int, default=int(os.getenv("PROBE_API_PORT", "19090")),
@@ -220,6 +222,23 @@ def main() -> None:
                         confirmed.raise_for_status()
                         if confirmed.json().get("now") != node["name"]:
                             raise RuntimeError("Mihomo selector did not switch to requested node")
+                        # Test real HTTPS access to YouTube through this node.
+                        # This is diagnostic only: failure must not discard the node.
+                        try:
+                            yt_start = time.perf_counter()
+                            with requests.get(args.youtube_url,
+                                              proxies={"http": proxy_url, "https": proxy_url},
+                                              stream=True, timeout=(args.timeout, args.timeout),
+                                              headers={"User-Agent": USER_AGENT}) as yt_response:
+                                yt_response.raise_for_status()
+                                next(yt_response.iter_content(chunk_size=1024), b"")
+                                record["youtube_status_code"] = yt_response.status_code
+                            record["youtube_elapsed_ms"] = round((time.perf_counter() - yt_start) * 1000)
+                            record["youtube_status"] = "passed"
+                        except Exception as yt_exc:
+                            record["youtube_status"] = "failed"
+                            record["youtube_error"] = type(yt_exc).__name__
+
                         start = time.perf_counter()
                         received = 0
                         with requests.get(args.download_url,
@@ -245,6 +264,7 @@ def main() -> None:
                         receipt_results.append(record)
                         done = len(receipt_results)
                         print(f"[{done}/{len(proxies)}] {node['name'][:36]}: "
+                              f"YouTube={record.get('youtube_status', 'unknown')} "
                               f"{record['download_speed_bps']/1000:.0f} KB/s "
                               f"{record['status']}")
             with ThreadPoolExecutor(max_workers=args.workers) as pool:
