@@ -40,9 +40,12 @@ class FinalizePhoneReceiptTests(unittest.TestCase):
         self.base_receipt = {
             "status": "completed", "candidate_commit": "a" * 40, "candidate_sha256": digest,
             "results": [
-                {"node_id": "id-fast", "status": "passed", "download_speed_bps": 800000},
-                {"node_id": "id-slow", "status": "passed", "download_speed_bps": 400000},
-                {"node_id": "id-failed", "status": "failed", "download_speed_bps": 0},
+                {"node_id": "id-fast", "status": "passed", "download_speed_bps": 800000,
+                 "application_checks": {app: {"status": "passed"} for app in ("youtube", "telegram", "google", "chatgpt", "github")}},
+                {"node_id": "id-slow", "status": "passed", "download_speed_bps": 400000,
+                 "application_checks": {app: {"status": "passed"} for app in ("youtube", "telegram", "google", "chatgpt", "github")}},
+                {"node_id": "id-failed", "status": "failed", "download_speed_bps": 0,
+                 "application_checks": {app: {"status": "passed"} for app in ("youtube", "telegram", "google", "chatgpt", "github")}},
             ],
         }
 
@@ -57,7 +60,10 @@ class FinalizePhoneReceiptTests(unittest.TestCase):
         result = self.run_validator()
         self.assertEqual(result.returncode, 0, result.stderr + result.stdout)
         final = yaml.safe_load(self.output.read_text(encoding="utf-8"))
-        self.assertEqual([p["name"] for p in final["proxies"]], ["fast-node"])
+        self.assertEqual([p["name"] for p in final["proxies"]], ["fast-node [高速]", "slow-node [普通]"])
+        groups = {g["name"]: g["proxies"] for g in final["proxy-groups"]}
+        self.assertEqual(groups["高速节点"], ["fast-node [高速]"])
+        self.assertEqual(groups["普通节点"], ["slow-node [普通]"])
         self.assertEqual(final["mixed-port"], 7890)
         self.assertEqual(final["proxy-groups"][0]["name"], "AUTO")
         self.assertEqual(final["proxy-groups"][1]["name"], "手动选择")
@@ -85,9 +91,12 @@ class FinalizePhoneReceiptTests(unittest.TestCase):
     def test_no_passing_nodes_is_rejected_without_output(self):
         receipt = dict(self.base_receipt)
         receipt["results"] = [
-            {"node_id": "id-fast", "status": "passed", "download_speed_bps": 499999},
-            {"node_id": "id-slow", "status": "failed", "download_speed_bps": 0},
-            {"node_id": "id-failed", "status": "failed", "download_speed_bps": 0},
+            {"node_id": "id-fast", "status": "passed", "download_speed_bps": 199999,
+             "application_checks": {app: {"status": "passed"} for app in ("youtube", "telegram", "google", "chatgpt", "github")}},
+            {"node_id": "id-slow", "status": "failed", "download_speed_bps": 0,
+             "application_checks": {app: {"status": "passed"} for app in ("youtube", "telegram", "google", "chatgpt", "github")}},
+            {"node_id": "id-failed", "status": "failed", "download_speed_bps": 0,
+             "application_checks": {app: {"status": "passed"} for app in ("youtube", "telegram", "google", "chatgpt", "github")}},
         ]
         result = self.run_validator(receipt)
         self.assertNotEqual(result.returncode, 0)
