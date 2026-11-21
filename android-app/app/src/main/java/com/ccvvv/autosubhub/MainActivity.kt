@@ -192,6 +192,8 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
         try {
             val d=JSONObject(raw.substring(a,b+1))
             val state=d.optString("status","idle")
+            val processRunning=d.optBoolean("process_running",false)
+            val activeTask=processRunning && (state=="running"||state=="preparing"||state=="paused")
             val done=d.optInt("done",0); val total=d.optInt("total",0)
             val passed=d.optInt("passed",0); val failed=d.optInt("failed",0)
             val high=d.optInt("high",0); val normal=d.optInt("normal",0)
@@ -222,10 +224,10 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
                     val ok=checks.optJSONObject(key)?.optString("status")=="passed"
                     serviceName(key)+(if(ok) " ✓" else " ×")
                 }
-            actionButtons["pause"]?.visibility=if(state=="running"||state=="preparing") View.VISIBLE else View.GONE
-            actionButtons["resume"]?.visibility=if(state=="paused") View.VISIBLE else View.GONE
-            actionButtons["stop"]?.visibility=if(state=="running"||state=="preparing"||state=="paused") View.VISIBLE else View.GONE
-            actionButtons["probe"]?.visibility=if(state=="running"||state=="preparing"||state=="paused") View.GONE else View.VISIBLE
+            actionButtons["pause"]?.visibility=if(activeTask && (state=="running"||state=="preparing")) View.VISIBLE else View.GONE
+            actionButtons["resume"]?.visibility=if(activeTask && state=="paused") View.VISIBLE else View.GONE
+            actionButtons["stop"]?.visibility=if(activeTask) View.VISIBLE else View.GONE
+            actionButtons["probe"]?.visibility=if(activeTask) View.GONE else View.VISIBLE
             if(state=="completed"||state=="interrupted"||state=="failed") {
                 prefs.edit().putBoolean("probe_active",false).apply(); handler.removeCallbacks(poll)
             }
