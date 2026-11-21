@@ -58,7 +58,7 @@ def write_progress(path: Path, status: str, done: int, total: int, results: list
     }
     path.parent.mkdir(parents=True, exist_ok=True)
     temp_path = path.with_name(path.name + ".tmp")
-    temp_path.write_text(json.dumps(payload, ensure_ascii=False) + "\\n", encoding="utf-8")
+    temp_path.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
     temp_path.replace(path)
 
 
@@ -162,8 +162,12 @@ def main() -> None:
     parser.add_argument("--port-base", type=int, default=PORT_BASE,
                         help="First local mixed-listener port")
     parser.add_argument("--mihomo", default=os.getenv("MIHOMO_BIN", "./mihomo"))
-    parser.add_argument("--output", default="receipt.json")\n    parser.add_argument("--progress", default="progress.json", help="Live progress snapshot for the Android app")
+    parser.add_argument("--output", default="receipt.json")
+    parser.add_argument("--progress", default="progress.json", help="Live progress snapshot for the Android app")
     args = parser.parse_args()
+    started = time.monotonic()
+    progress_path = Path(args.progress)
+    write_progress(progress_path, "preparing", 0, 0, [], started, stage="正在获取候选节点")
 
     if not 1 <= args.workers <= 200:
         raise SystemExit("--workers must be between 1 and 200; increase gradually on phones")
@@ -211,7 +215,8 @@ def main() -> None:
             or any(not isinstance(value, str) or not value for value in node_ids)):
         raise SystemExit("Manifest node IDs do not exactly match candidate proxy names")
     proxies = list(by_name.values())
-    print(f"Candidate loaded: {len(proxies)} nodes; SHA256 {candidate_hash[:16]}…")\n    write_progress(progress_path, "running", 0, len(proxies), [], started, stage="正在启动 Mihomo")
+    print(f"Candidate loaded: {len(proxies)} nodes; SHA256 {candidate_hash[:16]}…")
+    write_progress(progress_path, "running", 0, len(proxies), [], started, stage="正在启动 Mihomo")
 
     api = requests.Session()
     api.headers.update({"Authorization": f"Bearer {SECRET}"})
@@ -334,6 +339,9 @@ def main() -> None:
                     with result_lock:
                         receipt_results.append(record)
                         done = len(receipt_results)
+                        write_progress(progress_path, "running", done, len(proxies),
+                                       receipt_results, started, node["name"], record,
+                                       stage="节点检测完成")
                         checks = ",".join(f"{k}:{v['status']}" for k, v in record.get("application_checks", {}).items())
                         print(f"[{done}/{len(proxies)}] {node['name'][:36]}: "
                               f"Apps={checks or 'not-run'} "
@@ -379,7 +387,8 @@ def main() -> None:
     normal = sum(r.get("status") == "passed" and r.get("speed_category") == "normal" for r in receipt_results)
     rejected = len(receipt_results) - high - normal
     print(f"Application gates + download: high={high}, normal={normal}, rejected={rejected}")
-    print(f"Download probe: {passed}/{len(receipt_results)} passed; receipt: {args.output}")\n    write_progress(progress_path, "completed", len(receipt_results), len(proxies),\n                   receipt_results, started, stage="测速完成")
+    print(f"Download probe: {passed}/{len(receipt_results)} passed; receipt: {args.output}")
+    write_progress(progress_path, "completed", len(receipt_results), len(proxies),\n                   receipt_results, started, stage="测速完成")
 
 
 
