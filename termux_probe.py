@@ -135,7 +135,7 @@ def save_source_preference(path: Path, source: str) -> None:
         "updated_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
     }
     temp_path = path.with_name(path.name + ".tmp")
-    temp_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\\n",
+    temp_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
                          encoding="utf-8")
     temp_path.replace(path)
 
