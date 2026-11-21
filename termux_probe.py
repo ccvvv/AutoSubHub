@@ -36,6 +36,32 @@ def write_yaml(path: Path, data: dict) -> None:
     path.write_text(yaml.safe_dump(data, allow_unicode=True, sort_keys=False), encoding="utf-8")
 
 
+
+def write_progress(path: Path, status: str, done: int, total: int, results: list[dict],
+                   started: float, current_node: str = "", latest: dict | None = None,
+                   stage: str = "running") -> None:
+    high = sum(r.get("status") == "passed" and r.get("speed_category") == "high" for r in results)
+    normal = sum(r.get("status") == "passed" and r.get("speed_category") == "normal" for r in results)
+    passed = high + normal
+    failed = done - passed
+    latest = latest or {}
+    payload = {
+        "status": status, "stage": stage, "done": done, "total": total,
+        "passed": passed, "failed": failed, "high": high, "normal": normal,
+        "rejected": failed, "success_rate": round(passed / done * 100, 1) if done else 0.0,
+        "elapsed_seconds": round(time.monotonic() - started, 1),
+        "current_node": current_node,
+        "latest_speed_kbps": round(latest.get("download_speed_bps", 0) / 1000, 1),
+        "latest_category": latest.get("speed_category", "checking"),
+        "app_checks": latest.get("application_checks", {}),
+        "updated_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temp_path = path.with_name(path.name + ".tmp")
+    temp_path.write_text(json.dumps(payload, ensure_ascii=False) + "\n", encoding="utf-8")
+    temp_path.replace(path)
+
+
 def make_config(proxies: list[dict], workers: int, api_port: int, port_base: int) -> dict:
     names = [p["name"] for p in proxies]
     groups = [{"name": f"PHONE-{i:02d}", "type": "select", "proxies": names}
@@ -137,7 +163,11 @@ def main() -> None:
                         help="First local mixed-listener port")
     parser.add_argument("--mihomo", default=os.getenv("MIHOMO_BIN", "./mihomo"))
     parser.add_argument("--output", default="receipt.json")
+    parser.add_argument("--progress", default="progress.json", help="Live progress snapshot for the Android app")
     args = parser.parse_args()
+    started = time.monotonic()
+    progress_path = Path(args.progress)
+    write_progress(progress_path, "preparing", 0, 0, [], started, stage="正在获取候选节点")
 
     if not 1 <= args.workers <= 200:
         raise SystemExit("--workers must be between 1 and 200; increase gradually on phones")
@@ -186,6 +216,7 @@ def main() -> None:
         raise SystemExit("Manifest node IDs do not exactly match candidate proxy names")
     proxies = list(by_name.values())
     print(f"Candidate loaded: {len(proxies)} nodes; SHA256 {candidate_hash[:16]}…")
+    write_progress(progress_path, "running", 0, len(proxies), [], started, stage="正在启动 Mihomo")
 
     api = requests.Session()
     api.headers.update({"Authorization": f"Bearer {SECRET}"})
@@ -308,6 +339,9 @@ def main() -> None:
                     with result_lock:
                         receipt_results.append(record)
                         done = len(receipt_results)
+                        write_progress(progress_path, "running", done, len(proxies),
+                                       receipt_results, started, node["name"], record,
+                                       stage="节点检测完成")
                         checks = ",".join(f"{k}:{v['status']}" for k, v in record.get("application_checks", {}).items())
                         print(f"[{done}/{len(proxies)}] {node['name'][:36]}: "
                               f"Apps={checks or 'not-run'} "
@@ -354,6 +388,8 @@ def main() -> None:
     rejected = len(receipt_results) - high - normal
     print(f"Application gates + download: high={high}, normal={normal}, rejected={rejected}")
     print(f"Download probe: {passed}/{len(receipt_results)} passed; receipt: {args.output}")
+    write_progress(progress_path, "completed", len(receipt_results), len(proxies),
+                   receipt_results, started, stage="测速完成")
 
 
 
