@@ -138,20 +138,9 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
                 status.text="● 正在启动测速…"
                 progress.isIndeterminate=true
                 progressInfo.text="正在等待 Termux 启动结果…"
+                // 启动耗时取决于候选文件下载和 Mihomo 就绪时间，不设置固定 5 秒失败阈值。
+                // 由 progress.json 的 preparing/running/completed/failed 状态决定任务状态。
                 startPolling()
-                handler.postDelayed({
-                    if (prefs.getBoolean("probe_active", false)) {
-                        runTermux("progress", false)
-                        handler.postDelayed({
-                            if (prefs.getBoolean("probe_active", false)) {
-                                status.text="! 启动未确认，请查看运行日志"
-                                progress.isIndeterminate=false
-                                prefs.edit().putBoolean("probe_active",false).apply()
-                                handler.removeCallbacks(poll)
-                            }
-                        }, 2500)
-                    }
-                }, 2500)
             }
             if(cmd=="stop") {
                 prefs.edit().putBoolean("probe_active",false).apply()
@@ -176,9 +165,10 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
             val percent=if(total>0) done*100/total else 0
             progress.isIndeterminate=state=="preparing"; progress.progress=percent.coerceIn(0,100)
             progressInfo.text="已检测 "+done+" / "+total+"    ·    耗时 "+elapsed+" 秒"
+            val stage=d.optString("stage","").trim()
             status.text=when(state) {
-                "preparing"->"● 正在准备候选节点"
-                "running"->"● 正在测速 · "+percent+"%"
+                "preparing"->"● 正在准备 · "+stage.ifEmpty { "获取候选节点" }
+                "running"->"● 正在测速 · "+percent+"%"+(if(stage.isNotEmpty()) " · "+stage else "")
                 "completed"->"✓ 测速完成"
                 "interrupted"->"Ⅱ 测速已中断"
                 "failed"->"! 测速失败"
