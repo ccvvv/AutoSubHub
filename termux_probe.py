@@ -252,8 +252,8 @@ def main() -> None:
                         confirmed.raise_for_status()
                         if confirmed.json().get("now") != node["name"]:
                             raise RuntimeError("Mihomo selector did not switch to requested node")
-                        # All application checks are hard gates; stop at first failure.
-                        # Telegram Web check verifies HTTPS reachability, not native MTProto login.
+                        # All application checks are hard gates and run concurrently.
+                        # Telegram Web verifies HTTPS reachability, not native MTProto login.
                         service_targets = {
                             "youtube": args.youtube_url,
                             "telegram": args.telegram_url,
