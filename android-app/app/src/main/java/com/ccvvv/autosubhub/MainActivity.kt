@@ -174,10 +174,10 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
                     startPolling()
                 }
                 if(cmd=="stop") {
-                    prefs.edit().putBoolean("probe_active",false).apply()
-                    handler.removeCallbacks(poll)
-                    status.text="■ 正在停止测速…"
+                    status.text="■ 正在停止：等待当前节点完成并保存结果…"
                     progress.isIndeterminate=false
+                    actionButtons["pause"]?.visibility=View.GONE
+                    actionButtons["resume"]?.visibility=View.GONE
                 }
                 runTermux(cmd, extraArgs=extraArgs)
             }
