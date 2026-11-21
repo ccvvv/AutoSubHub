@@ -35,6 +35,25 @@ def write_yaml(path: Path, data: dict) -> None:
     path.write_text(yaml.safe_dump(data, allow_unicode=True, sort_keys=False), encoding="utf-8")
 
 
+def write_progress(path: Path, status: str, done: int, total: int,
+                   passed: int, failed: int, started: float) -> None:
+    """Atomically publish progress so the Android app can read a consistent snapshot."""
+    payload = {
+        "status": status,
+        "done": done,
+        "total": total,
+        "passed": passed,
+        "failed": failed,
+        "success_rate": round(passed / done * 100, 1) if done else 0.0,
+        "elapsed_seconds": round(time.monotonic() - started, 1),
+        "updated_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temp_path = path.with_name(path.name + ".tmp")
+    temp_path.write_text(json.dumps(payload, ensure_ascii=False) + "\\n", encoding="utf-8")
+    temp_path.replace(path)
+
+
 def make_config(proxies: list[dict], workers: int, api_port: int, port_base: int) -> dict:
     names = [p["name"] for p in proxies]
     groups = [{"name": f"PHONE-{i:02d}", "type": "select", "proxies": names}
@@ -125,6 +144,7 @@ def main() -> None:
                         help="First local mixed-listener port")
     parser.add_argument("--mihomo", default=os.getenv("MIHOMO_BIN", "./mihomo"))
     parser.add_argument("--output", default="receipt.json")
+    parser.add_argument("--progress", default="progress.json", help="Live progress snapshot for the Android app")
     args = parser.parse_args()
 
     if not 1 <= args.workers <= 200:
@@ -137,6 +157,10 @@ def main() -> None:
     if not 1024 <= args.api_port <= 65535 or not 1024 <= args.port_base <= 65535 - args.workers:
         raise SystemExit("API/listener ports must be valid non-privileged TCP ports")
     api_base = f"http://127.0.0.1:{args.api_port}"
+
+    started = time.monotonic()
+    progress_path = Path(args.progress)
+    write_progress(progress_path, "preparing", 0, 0, 0, 0, started)
 
     session = requests.Session()
     session.headers.update({"User-Agent": USER_AGENT})
@@ -181,7 +205,8 @@ def main() -> None:
             or any(not isinstance(value, str) or not value for value in node_ids)):
         raise SystemExit("Manifest node IDs do not exactly match candidate proxy names")
     proxies = list(by_name.values())
-    print(f"Candidate loaded: {len(proxies)} nodes; SHA256 {candidate_hash[:16]}…")
+    print(f"Candidate loaded: {len(proxies)} nodes; SHA256 {candidate_hash[:16]}…", flush=True)
+    write_progress(progress_path, "running", 0, len(proxies), 0, 0, started)
 
     api = requests.Session()
     api.headers.update({"Authorization": f"Bearer {SECRET}"})
@@ -253,9 +278,13 @@ def main() -> None:
                     with result_lock:
                         receipt_results.append(record)
                         done = len(receipt_results)
+                        passed = sum(item["status"] == "passed" for item in receipt_results)
+                        failed = done - passed
+                        write_progress(progress_path, "running", done, len(proxies),
+                                       passed, failed, started)
                         print(f"[{done}/{len(proxies)}] {node['name'][:36]}: "
                               f"{record['download_speed_bps']/1000:.0f} KB/s "
-                              f"{record['status']}")
+                              f"{record['status']}", flush=True)
             with ThreadPoolExecutor(max_workers=args.workers) as pool:
                 futures = [pool.submit(probe_worker, i, batch)
                            for i, batch in enumerate(batches) if batch]
@@ -286,7 +315,10 @@ def main() -> None:
     Path(args.output).write_text(json.dumps(receipt, ensure_ascii=False, indent=2) + "\n",
                                  encoding="utf-8")
     passed = sum(r["status"] == "passed" for r in receipt_results)
-    print(f"Probe complete: {passed}/{len(receipt_results)} passed; receipt: {args.output}")
+    failed = len(receipt_results) - passed
+    write_progress(progress_path, "completed", len(receipt_results), len(proxies),
+                   passed, failed, started)
+    print(f"Probe complete: {passed}/{len(receipt_results)} passed; receipt: {args.output}", flush=True)
 
 
 
