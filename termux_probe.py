@@ -174,8 +174,8 @@ def main() -> None:
     progress_path = Path(args.progress)
     write_progress(progress_path, "preparing", 0, 0, [], started, stage="正在获取候选节点")
 
-    if not 1 <= args.workers <= 200:
-        raise SystemExit("--workers must be between 1 and 200; increase gradually on phones")
+    if not 1 <= args.workers <= 300:
+        raise SystemExit("--workers must be between 1 and 300; increase gradually on phones")
     if args.timeout < 1 or args.service_timeout < 1:
         raise SystemExit("timeouts must be at least 1 second")
     if args.min_speed_kbps <= 0 or args.high_speed_kbps <= args.min_speed_kbps:
@@ -260,6 +260,26 @@ def main() -> None:
     api.headers.update({"Authorization": f"Bearer {SECRET}"})
     receipt_results = []
     result_lock = threading.Lock()
+    pause_lock = threading.Lock()
+    pause_announced = [False]
+    pause_path = progress_path.with_name("probe.pause")
+
+    def wait_if_paused() -> None:
+        while pause_path.exists():
+            with pause_lock:
+                if not pause_announced[0]:
+                    with result_lock:
+                        write_progress(progress_path, "paused", len(receipt_results), len(proxies),
+                                       receipt_results, started, stage="已暂停，等待继续")
+                    pause_announced[0] = True
+            time.sleep(0.5)
+        with pause_lock:
+            if pause_announced[0]:
+                with result_lock:
+                    write_progress(progress_path, "running", len(receipt_results), len(proxies),
+                                   receipt_results, started, stage="继续检测节点")
+                pause_announced[0] = False
+
     mihomo = None
 
     with tempfile.TemporaryDirectory(prefix="autohub-phone-") as temp:
@@ -310,6 +330,7 @@ def main() -> None:
                 worker_api = requests.Session()
                 worker_api.headers.update({"Authorization": f"Bearer {SECRET}"})
                 for node in batch:
+                    wait_if_paused()
                     node_id = next((item.get("node_id") for item in manifest_nodes
                                     if item.get("name") == node["name"]), None)
                     record = {"node_id": node_id, "name": node["name"],
