@@ -28,6 +28,7 @@ case "$ACTION" in
     echo '{"status":"preparing","done":0,"total":0,"passed":0,"failed":0,"success_rate":0,"elapsed_seconds":0}' > progress.json
     python -u termux_probe.py --workers 200 --timeout 5 --output receipt.json --progress progress.json 2>&1 | tee -a "$LOG"
     code=${PIPESTATUS[0]}
+    if [ "$code" -ne 0 ]; then sed -i 's/"status":"preparing"/"status":"failed"/; s/"status":"running"/"status":"failed"/' progress.json 2>/dev/null || true; fi
     say "测速结束，退出码：$code"
     exit "$code"
     ;;
