@@ -54,7 +54,7 @@ try:
 except Exception:
     progress = {"status": "idle", "done": 0, "total": 0}
 try:
-    logs = "\\n".join(Path("logs/app-control.log").read_text(encoding="utf-8", errors="replace").splitlines()[-60:])
+    logs = "\n".join(Path("logs/app-control.log").read_text(encoding="utf-8", errors="replace").splitlines()[-60:])
 except Exception:
     logs = "暂无日志"
 print(json.dumps({"progress": progress, "logs": logs}, ensure_ascii=False))
