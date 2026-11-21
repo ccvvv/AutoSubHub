@@ -47,7 +47,7 @@ class MainActivity : Activity() {
         root.addView(title)
         root.addView(hint)
         addAction(root, "1. 检查候选版本", "check")
-        addAction(root, "2. 开始测速（并发 100 / 超时 5 秒）", "probe")
+        addAction(root, "2. 开始测速（并发 200 / 超时 5 秒）", "probe")
         addAction(root, "3. 上传测速回执（SSH）", "upload")
         addAction(root, "停止当前测速", "stop")
         addAction(root, "刷新运行日志", "logs")
