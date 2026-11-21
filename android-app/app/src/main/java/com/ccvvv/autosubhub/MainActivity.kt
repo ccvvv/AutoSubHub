@@ -24,6 +24,7 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
     private lateinit var nodeInfo: TextView
     private lateinit var speedInfo: TextView
     private lateinit var appsInfo: TextView
+    private lateinit var candidateInfo: TextView
     private lateinit var logPanel: LinearLayout
     private lateinit var logText: TextView
     private val statViews = mutableMapOf<String, TextView>()
@@ -86,7 +87,8 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
         nodeInfo = detailLine("当前节点：等待测速")
         speedInfo = detailLine("最近速度：—")
         appsInfo = detailLine("应用检测：等待检测")
-        detail.addView(nodeInfo); detail.addView(speedInfo); detail.addView(appsInfo)
+        candidateInfo = detailLine("候选版本更新时间：等待获取")
+        detail.addView(candidateInfo); detail.addView(nodeInfo); detail.addView(speedInfo); detail.addView(appsInfo)
         body.addView(detail)
 
         val actions = card()
@@ -160,6 +162,9 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
             }
             setStat("已检测",done.toString()); setStat("可用",passed.toString())
             setStat("失败",failed.toString()); setStat("通过率",rate.toString()+"%")
+            val candidateUpdated=d.optString("candidate_updated_at","")
+            val candidateFetched=d.optString("candidate_fetched_at","")
+            candidateInfo.text=if(candidateUpdated.isNotEmpty()) "候选更新时间（北京时间）："+candidateUpdated+"\n本机获取时间："+(candidateFetched.ifEmpty { "—" }) else "候选版本更新时间：等待获取"
             nodeInfo.text="最近完成："+d.optString("current_node","—")
             speedInfo.text="最近速度："+d.optDouble("latest_speed_kbps",0.0)+" KB/s  ·  高速 "+high+" / 普通 "+normal
             val checks=d.optJSONObject("app_checks")
