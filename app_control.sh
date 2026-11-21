@@ -41,8 +41,13 @@ case "$ACTION" in
     ;;
   probe)
     if pgrep -f '[t]ermux_probe.py' >/dev/null 2>&1; then say "测速任务已经在运行，本次取消"; exit 1; fi
-    say "测速开始：并发5，应用检测超时3秒，下载超时5秒"
-    python -u termux_probe.py --workers 5 --service-timeout 3 --timeout 5 --min-speed-kbps 200 --high-speed-kbps 500 --output receipt.json --progress progress.json 2>&1 | tee -a "$LOG"
+    WORKERS="${2:-200}"
+    if ! [[ "$WORKERS" =~ ^[0-9]+$ ]] || [ "$WORKERS" -lt 1 ] || [ "$WORKERS" -gt 300 ]; then
+      say "测速启动失败：并发必须是 1 到 300 的整数"
+      exit 2
+    fi
+    say "测速开始：并发$WORKERS，应用检测超时3秒，下载超时5秒"
+    python -u termux_probe.py --workers "$WORKERS" --service-timeout 3 --timeout 5 --min-speed-kbps 200 --high-speed-kbps 500 --output receipt.json --progress progress.json 2>&1 | tee -a "$LOG"
     code=${PIPESTATUS[0]}
     if [ "$code" -ne 0 ] && [ -s progress.json ]; then sed -i 's/"status":"running"/"status":"failed"/; s/"status":"preparing"/"status":"failed"/' progress.json; fi
     say "测速结束，退出码：$code"; exit "$code"
