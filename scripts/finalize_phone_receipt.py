@@ -105,7 +105,7 @@ final_config = {
     "proxies": published_nodes,
     "proxy-groups": groups,
     "rules": ["MATCH,手动选择"],
-})
+}
 
 with open(out_path, "w", encoding="utf-8") as f:
     yaml.safe_dump(final_config, f, allow_unicode=True, sort_keys=False)
