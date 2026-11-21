@@ -2,7 +2,9 @@
 """Validate a phone probe receipt and build a phone-verified final subscription."""
 import hashlib, json, os, sys, yaml
 
-MIN_SPEED_BPS = int(os.getenv("MIN_SPEED_BPS", "500000"))
+MIN_SPEED_BPS = int(os.getenv("MIN_SPEED_BPS", "200000"))
+HIGH_SPEED_BPS = int(os.getenv("HIGH_SPEED_BPS", "500000"))
+REQUIRED_APPLICATIONS = ("youtube", "telegram", "google", "chatgpt", "github")
 candidate_path = sys.argv[1]
 manifest_path = sys.argv[2]
 receipt_path = sys.argv[3]
@@ -47,7 +49,13 @@ for item in results:
         raise SystemExit("Unknown or duplicate node_id in receipt")
     seen.add(node_id)
     speed = item.get("download_speed_bps")
-    if item.get("status") == "passed" and isinstance(speed, (int, float)) and speed >= MIN_SPEED_BPS:
+    checks = item.get("application_checks")
+    apps_passed = (isinstance(checks, dict) and all(
+        isinstance(checks.get(app), dict) and checks[app].get("status") == "passed"
+        for app in REQUIRED_APPLICATIONS
+    ))
+    if (item.get("status") == "passed" and apps_passed
+            and isinstance(speed, (int, float)) and speed >= MIN_SPEED_BPS):
         passed_ids.add(node_id)
 
 if seen != set(id_to_name):
@@ -58,25 +66,48 @@ final_nodes = [proxy_by_name[id_to_name[nid]] for nid in id_to_name if nid in pa
 if not final_nodes:
     raise SystemExit("No phone-tested nodes met the minimum download speed; existing final versions remain untouched")
 
-# Publish a complete Mihomo/Clash config, not a proxies-only fragment.
-# Keep the same user-facing groups and routing semantics as build.py's final_config().
-node_names = [node["name"] for node in final_nodes]
+# Keep one subscription, with speed categories exposed as selectable proxy groups.
+high_nodes = []
+normal_nodes = []
+for node in final_nodes:
+    speed = next(item["download_speed_bps"] for item in results
+                 if item.get("node_id") in id_to_name
+                 and id_to_name[item["node_id"]] == node["name"])
+    tagged = dict(node)
+    if speed >= HIGH_SPEED_BPS:
+        tagged["name"] = f'{node["name"]} [高速]'
+        high_nodes.append(tagged)
+    else:
+        tagged["name"] = f'{node["name"]} [普通]'
+        normal_nodes.append(tagged)
+
+published_nodes = high_nodes + normal_nodes
+node_names = [node["name"] for node in published_nodes]
+groups = []
+if high_nodes:
+    groups.append({"name": "高速节点", "type": "select",
+                   "proxies": [node["name"] for node in high_nodes]})
+if normal_nodes:
+    groups.append({"name": "普通节点", "type": "select",
+                   "proxies": [node["name"] for node in normal_nodes]})
+groups.extend([
+    {"name": "AUTO", "type": "url-test", "proxies": node_names,
+     "url": "https://www.gstatic.com/generate_204", "interval": 300, "tolerance": 80},
+    {"name": "手动选择", "type": "select",
+     "proxies": ["AUTO"] + [group["name"] for group in groups] + node_names},
+])
 final_config = {
     "mixed-port": 7890,
     "allow-lan": False,
     "mode": "rule",
     "log-level": "warning",
     "ipv6": False,
-    "proxies": final_nodes,
-    "proxy-groups": [
-        {"name": "AUTO", "type": "url-test", "proxies": node_names,
-         "url": "https://www.gstatic.com/generate_204", "interval": 300, "tolerance": 80},
-        {"name": "手动选择", "type": "select", "proxies": ["AUTO"] + node_names},
-    ],
+    "proxies": published_nodes,
+    "proxy-groups": groups,
     "rules": ["MATCH,手动选择"],
-}
+})
 
 with open(out_path, "w", encoding="utf-8") as f:
     yaml.safe_dump(final_config, f, allow_unicode=True, sort_keys=False)
 
-print(f"Phone receipt accepted: {len(final_nodes)}/{len(proxies)} nodes passed at >= {MIN_SPEED_BPS} B/s; full proxy groups and routing rules generated")
+print(f"Phone receipt accepted: {len(published_nodes)}/{len(proxies)} nodes; high={len(high_nodes)}, normal={len(normal_nodes)}, rejected={len(proxies)-len(published_nodes)}; all five app gates passed and speed >= {MIN_SPEED_BPS} B/s")
