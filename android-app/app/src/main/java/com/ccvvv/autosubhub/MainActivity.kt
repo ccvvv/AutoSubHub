@@ -1,6 +1,5 @@
 package com.ccvvv.autosubhub
 
-import android.Manifest
 import android.app.Activity
 import android.app.PendingIntent
 import android.content.Intent
@@ -96,7 +95,7 @@ class MainActivity : Activity() {
         }
         val callback = Intent(this, CommandResultReceiver::class.java).apply {
             putExtra("command", command)
-            action = "com.ccvvv.autosubhub.RESULT.$command.${System.currentTimeMillis()}"
+            setAction("com.ccvvv.autosubhub.RESULT.$command.${System.currentTimeMillis()}")
         }
         val requestCode = nextId.incrementAndGet()
         val flags = PendingIntent.FLAG_ONE_SHOT or if (Build.VERSION.SDK_INT >= 31) PendingIntent.FLAG_MUTABLE else 0
