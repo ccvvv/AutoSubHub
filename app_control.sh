@@ -46,7 +46,7 @@ case "$ACTION" in
       say "测速启动失败：并发必须是 1 到 300 的整数"
       exit 2
     fi
-    rm -f probe.pause
+    rm -f probe.pause probe.stop
     say "测速开始：并发$WORKERS，应用检测超时3秒，下载超时5秒"
     python -u termux_probe.py --workers "$WORKERS" --service-timeout 3 --timeout 5 --min-speed-kbps 200 --high-speed-kbps 500 --output receipt.json --progress progress.json 2>&1 | tee -a "$LOG"
     code=${PIPESTATUS[0]}
@@ -70,10 +70,10 @@ case "$ACTION" in
     say "已请求继续测速"
     ;;
   stop)
+    if ! pgrep -f '[t]ermux_probe.py' >/dev/null 2>&1; then say "当前没有运行中的测速任务"; exit 1; fi
     rm -f probe.pause
-    pkill -f '[t]ermux_probe.py' 2>/dev/null || true
-    if [ -s progress.json ]; then sed -i 's/"status":"[^"]*"/"status":"interrupted"/' progress.json; fi
-    say "已停止测速任务"
+    touch probe.stop
+    say "已请求停止：当前节点检测结束后停止，并保存已完成结果"
     ;;
   progress) cat progress.json 2>/dev/null || echo '{"status":"idle","done":0,"total":0}' ;;
   logs) tail -n 100 "$LOG" 2>/dev/null || echo "暂无日志" ;;
