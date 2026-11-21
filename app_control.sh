@@ -24,7 +24,17 @@ case "$ACTION" in
   check)
     say "检查候选版本 published-subscriptions"
     SHA="$(git ls-remote origin refs/heads/published-subscriptions 2>>"$LOG" | awk 'NR==1 {print $1}')"
-    if [ -n "$SHA" ]; then say "候选版本 SHA: $SHA"; else say "检查失败：无法读取候选分支"; exit 1; fi
+    if [ -z "$SHA" ]; then say "检查失败：无法读取候选分支"; exit 1; fi
+    if ! git fetch --quiet --depth=1 origin refs/heads/published-subscriptions 2>>"$LOG"; then
+      say "候选版本 SHA: $SHA"
+      say "更新时间获取失败：Git fetch 未成功"
+      exit 1
+    fi
+    RAW_TIME="$(git show -s --format=%cI FETCH_HEAD 2>>"$LOG")"
+    BEIJING_TIME="$(python -c 'from datetime import datetime,timedelta,timezone; import sys; d=datetime.fromisoformat(sys.argv[1].replace("Z","+00:00")); print(d.astimezone(timezone(timedelta(hours=8))).strftime("%Y-%m-%d %H:%M:%S"))' "$RAW_TIME" 2>>"$LOG")"
+    say "候选版本 SHA: $SHA"
+    say "候选版本更新时间（北京时间）: $BEIJING_TIME"
+    say "本机检查时间（北京时间）: $(TZ=Asia/Shanghai date '+%Y-%m-%d %H:%M:%S')"
     ;;
   probe)
     if pgrep -f '[t]ermux_probe.py' >/dev/null 2>&1; then say "测速任务已经在运行，本次取消"; exit 1; fi
