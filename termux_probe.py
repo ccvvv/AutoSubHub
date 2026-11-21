@@ -116,6 +116,29 @@ def mirror_urls(url: str, repo: str, branch: str) -> list[tuple[str, str]]:
     ]
 
 
+
+def load_source_preference(path: Path) -> str:
+    """Read the last source that successfully passed candidate/manifest SHA256 verification."""
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+        source = data.get("last_successful_source") if isinstance(data, dict) else None
+        return source if isinstance(source, str) else ""
+    except (OSError, ValueError, TypeError):
+        return ""
+
+
+def save_source_preference(path: Path, source: str) -> None:
+    """Persist a verified source atomically for the next probe run."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    payload = {
+        "last_successful_source": source,
+        "updated_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+    }
+    temp_path = path.with_name(path.name + ".tmp")
+    temp_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\\n",
+                         encoding="utf-8")
+    temp_path.replace(path)
+
 def pin_raw_url(url: str, repo: str, commit: str) -> str:
     prefix = f"https://raw.githubusercontent.com/{repo}/"
     if not url.startswith(prefix):
@@ -128,10 +151,18 @@ def pin_raw_url(url: str, repo: str, commit: str) -> str:
 
 def download_verified_pair(session: requests.Session, candidate_url: str,
                            manifest_url: str, timeout: int,
-                           repo: str, branch: str) -> tuple[bytes, dict, dict, str]:
-    """Try each source as a pair so candidate and manifest come from the same CDN."""
+                           repo: str, branch: str,
+                           preference_path: Path) -> tuple[bytes, dict, dict, str]:
+    """Try the last verified source first, then fall back through all mirrors."""
     candidate_sources = mirror_urls(candidate_url, repo, branch)
     manifest_sources = dict(mirror_urls(manifest_url, repo, branch))
+    preferred_source = load_source_preference(preference_path)
+    source_names = {name for name, _ in candidate_sources}
+    if preferred_source in source_names:
+        candidate_sources.sort(key=lambda item: item[0] != preferred_source)
+        print(f"Source preference: trying last successful source first ({preferred_source})")
+    else:
+        print("Source preference: no usable history; using default source order")
     errors = []
     for source, candidate_mirror in candidate_sources:
         manifest_mirror = manifest_sources.get(source)
@@ -147,7 +178,9 @@ def download_verified_pair(session: requests.Session, candidate_url: str,
                 digest = hashlib.sha256(candidate_response.content).hexdigest()
                 if manifest.get("candidate_sha256") != digest:
                     raise ValueError("candidate/manifest SHA256 mismatch")
+                save_source_preference(preference_path, source)
                 print(f"Candidate and manifest downloaded via {source}; SHA256 verified")
+                print(f"Next run will prefer this verified source; preference saved to {preference_path}")
                 return candidate_response.content, dict(candidate_response.headers), manifest, source
             except (requests.RequestException, ValueError, json.JSONDecodeError) as exc:
                 errors.append(f"{source} attempt {attempt}: {type(exc).__name__}: {exc}")
@@ -253,8 +286,10 @@ def main() -> None:
         pinned_candidate_url = pin_raw_url(args.candidate_url, REPO, candidate_commit)
         pinned_manifest_url = pin_raw_url(args.manifest_url, REPO, candidate_commit)
         print(f"Candidate version locked via git ls-remote: {candidate_commit}")
+        source_preference_path = Path.home() / "source_preference.json"
         candidate_bytes, _, manifest, source_used = download_verified_pair(
-            session, pinned_candidate_url, pinned_manifest_url, 30, REPO, candidate_commit
+            session, pinned_candidate_url, pinned_manifest_url, 30, REPO, candidate_commit,
+            source_preference_path,
         )
     except (RuntimeError, ValueError, requests.RequestException, json.JSONDecodeError) as exc:
         raise SystemExit(f"Unable to lock and download candidate version: {type(exc).__name__}: {exc}") from exc
