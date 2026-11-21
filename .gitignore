@@ -2,3 +2,11 @@ __pycache__/
 *.py[cod]
 .venv/
 dist/
+
+# Local Mihomo binaries
+/mihomo
+/mihomo.gz
+
+# Runtime files
+/logs/
+/progress.json
