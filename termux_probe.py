@@ -58,7 +58,7 @@ def write_progress(path: Path, status: str, done: int, total: int, results: list
     }
     path.parent.mkdir(parents=True, exist_ok=True)
     temp_path = path.with_name(path.name + ".tmp")
-    temp_path.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
+    temp_path.write_text(json.dumps(payload, ensure_ascii=False) + "\n", encoding="utf-8")
     temp_path.replace(path)
 
 
@@ -388,7 +388,8 @@ def main() -> None:
     rejected = len(receipt_results) - high - normal
     print(f"Application gates + download: high={high}, normal={normal}, rejected={rejected}")
     print(f"Download probe: {passed}/{len(receipt_results)} passed; receipt: {args.output}")
-    write_progress(progress_path, "completed", len(receipt_results), len(proxies),\n                   receipt_results, started, stage="测速完成")
+    write_progress(progress_path, "completed", len(receipt_results), len(proxies),
+                   receipt_results, started, stage="测速完成")
 
 
 
