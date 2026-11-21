@@ -17,9 +17,13 @@ class CommandResultReceiver : BroadcastReceiver() {
             if(err.isNotBlank()) append("\n"+err)
             if(isBlank()) append("exit="+code)
         }
-        context.getSharedPreferences("console",Context.MODE_PRIVATE).edit()
+        val editor = context.getSharedPreferences("console",Context.MODE_PRIVATE).edit()
             .putString("last_command",command)
-            .putString("last_result",if(command=="progress") output else "["+command+"] exit="+code+"\n"+output)
-            .apply()
+        if (command == "snapshot") {
+            editor.putString("last_snapshot", output)
+        } else {
+            editor.putString("last_result", if(command=="progress") output else "["+command+"] exit="+code+"\n"+output)
+        }
+        editor.apply()
     }
 }
