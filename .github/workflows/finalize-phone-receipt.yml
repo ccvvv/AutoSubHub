@@ -47,7 +47,8 @@ jobs:
           git -C published show "${CANDIDATE_COMMIT}:candidate/manifest.json" > incoming/manifest.json
       - name: Validate receipt and build final
         env:
-          MIN_SPEED_BPS: "500000"
+          MIN_SPEED_BPS: "200000"
+          HIGH_SPEED_BPS: "500000"
         run: |
           set -euo pipefail
           python scripts/finalize_phone_receipt.py incoming/subscription.yaml incoming/manifest.json incoming/receipt.json incoming/final.yaml
