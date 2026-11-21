@@ -187,6 +187,8 @@ def main() -> None:
     parser.add_argument("--mihomo", default=os.getenv("MIHOMO_BIN", "./mihomo"))
     parser.add_argument("--output", default="receipt.json")
     parser.add_argument("--progress", default="progress.json", help="Live progress snapshot for the Android app")
+    parser.add_argument("--mihomo-diagnostic", default="diagnostic_mihomo.json",
+                        help="Save Mihomo loaded-proxy and selector membership diagnostics")
     args = parser.parse_args()
     started = time.monotonic()
     progress_path = Path(args.progress)
@@ -328,6 +330,84 @@ def main() -> None:
                     time.sleep(0.5)
             else:
                 raise RuntimeError("Mihomo external controller did not start")
+
+            # Snapshot the live Mihomo API before probing. This is intentionally
+            # written while the temporary Mihomo process is still running.
+            diagnostic_path = Path(args.mihomo_diagnostic)
+            candidate_names = [node["name"] for node in proxies]
+            mihomo_diagnostic = {
+                "created_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+                "api_port": args.api_port,
+                "workers": args.workers,
+                "candidate_count": len(candidate_names),
+                "candidate_names": candidate_names,
+                "status": "unavailable",
+            }
+            try:
+                live_response = api.get(api_base + "/proxies", timeout=8)
+                live_response.raise_for_status()
+                live_proxies = live_response.json().get("proxies", {})
+                if not isinstance(live_proxies, dict):
+                    raise ValueError("Mihomo /proxies response has no valid proxies object")
+                candidate_set = set(candidate_names)
+                selectors = {}
+                for worker_index in range(args.workers):
+                    selector_name = f"PHONE-{worker_index:02d}"
+                    selector_data = live_proxies.get(selector_name)
+                    selector_data = selector_data if isinstance(selector_data, dict) else {}
+                    members = selector_data.get("all", [])
+                    members = members if isinstance(members, list) else []
+                    member_set = set(item for item in members if isinstance(item, str))
+                    missing = sorted(candidate_set - member_set)
+                    selectors[selector_name] = {
+                        "exists": bool(selector_data),
+                        "type": selector_data.get("type"),
+                        "now": selector_data.get("now"),
+                        "member_count": len(members),
+                        "candidate_member_count": len(candidate_set & member_set),
+                        "missing_candidate_count": len(missing),
+                        "missing_candidates": missing,
+                    }
+                missing_from_api = sorted(candidate_set - set(live_proxies))
+                mihomo_diagnostic.update({
+                    "status": "ok",
+                    "api_proxy_count": len(live_proxies),
+                    "api_proxy_names": sorted(live_proxies.keys()),
+                    "missing_candidates_from_api": missing_from_api,
+                    "missing_candidate_count_from_api": len(missing_from_api),
+                    "selectors": selectors,
+                })
+            except Exception as diagnostic_error:
+                mihomo_diagnostic["error"] = {
+                    "type": type(diagnostic_error).__name__,
+                    "message": str(diagnostic_error)[:500],
+                }
+            diagnostic_path.parent.mkdir(parents=True, exist_ok=True)
+            diagnostic_temp = diagnostic_path.with_name(diagnostic_path.name + ".tmp")
+            diagnostic_temp.write_text(
+                json.dumps(mihomo_diagnostic, ensure_ascii=False, indent=2) + "\\n",
+                encoding="utf-8",
+            )
+            diagnostic_temp.replace(diagnostic_path)
+            if mihomo_diagnostic["status"] == "ok":
+                print(
+                    f"Mihomo diagnostic saved: {diagnostic_path}; "
+                    f"API proxies={mihomo_diagnostic['api_proxy_count']}; "
+                    f"candidate names missing from API="
+                    f"{mihomo_diagnostic['missing_candidate_count_from_api']}"
+                )
+                for selector_name, selector_data in mihomo_diagnostic["selectors"].items():
+                    print(
+                        f"  {selector_name}: exists={selector_data['exists']}, "
+                        f"members={selector_data['member_count']}, "
+                        f"candidate members={selector_data['candidate_member_count']}, "
+                        f"missing={selector_data['missing_candidate_count']}"
+                    )
+            else:
+                print(
+                    f"Mihomo diagnostic saved with error: "
+                    f"{mihomo_diagnostic.get('error', {}).get('message', 'unknown error')}"
+                )
 
             batches = [proxies[i::args.workers] for i in range(args.workers)]
 
