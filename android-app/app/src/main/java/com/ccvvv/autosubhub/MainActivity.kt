@@ -200,7 +200,8 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
                     serviceName(key)+(if(ok) " ✓" else " ×")
                 }
             if(state=="completed"||state=="interrupted"||state=="failed") {
-                prefs.edit().putBoolean("probe_active",false).apply(); handler.removeCallbacks(poll)
+                prefs.edit().putBoolean("probe_active",false).apply()
+                if (logPanel.visibility != View.VISIBLE) handler.removeCallbacks(poll)
             }
         } catch (_:Exception) {}
     }
