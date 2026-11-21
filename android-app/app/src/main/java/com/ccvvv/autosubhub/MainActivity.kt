@@ -16,6 +16,7 @@ import android.view.View
 import android.widget.*
 import org.json.JSONObject
 import java.util.concurrent.atomic.AtomicInteger
+import java.util.concurrent.atomic.AtomicBoolean
 
 class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListener {
     private lateinit var status: TextView
@@ -29,11 +30,12 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
     private val statViews = mutableMapOf<String, TextView>()
     private val prefs by lazy { getSharedPreferences("console", MODE_PRIVATE) }
     private val handler = Handler(Looper.getMainLooper())
+    private val snapshotInFlight = AtomicBoolean(false)
     private val poll = object : Runnable {
         override fun run() {
-            if (!prefs.getBoolean("probe_active", false)) return
-            runTermux("progress", false)
-            handler.postDelayed(this, 1200)
+            if (!prefs.getBoolean("probe_active", false) && logPanel.visibility != View.VISIBLE) return
+            requestSnapshot()
+            handler.postDelayed(this, 1800)
         }
     }
 
@@ -47,18 +49,22 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
 
     override fun onResume() {
         super.onResume()
-        logText.text = prefs.getString("last_result", "日志暂时为空")
-        if (prefs.getBoolean("probe_active", false)) startPolling() else runTermux("progress", false)
+        logText.text = prefs.getString("last_logs", "日志暂时为空")
+        requestSnapshot()
+        if (prefs.getBoolean("probe_active", false) || logPanel.visibility == View.VISIBLE) startPolling()
     }
 
     override fun onPause() { handler.removeCallbacks(poll); super.onPause() }
     override fun onDestroy() { prefs.unregisterOnSharedPreferenceChangeListener(this); handler.removeCallbacks(poll); super.onDestroy() }
 
     override fun onSharedPreferenceChanged(p: SharedPreferences, key: String?) {
-        if (key == "last_result") {
+        if (key == "last_snapshot") {
+            snapshotInFlight.set(false)
+            val value = prefs.getString("last_snapshot", "").orEmpty()
+            if (value.isNotBlank()) updateSnapshot(value)
+        } else if (key == "last_result") {
             val value = prefs.getString("last_result", "").orEmpty()
-            logText.text = value
-            updateProgress(value)
+            if (value.isNotBlank()) logText.text = value
         }
     }
 
@@ -103,6 +109,12 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
         val toggle = Button(this).apply { text="展开日志"; setOnClickListener {
             logPanel.visibility=if(logPanel.visibility==View.VISIBLE) View.GONE else View.VISIBLE
             text=if(logPanel.visibility==View.VISIBLE) "收起日志" else "展开日志"
+            if (logPanel.visibility == View.VISIBLE) {
+                requestSnapshot()
+                startPolling()
+            } else if (!prefs.getBoolean("probe_active", false)) {
+                handler.removeCallbacks(poll)
+            }
         } }
         logHeader.addView(toggle); body.addView(logHeader)
         logPanel = LinearLayout(this).apply { orientation=LinearLayout.VERTICAL; visibility=View.GONE; background=rounded(Color.WHITE,14); setPadding(dp(12),dp(10),dp(12),dp(10)) }
@@ -135,6 +147,25 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
             if(cmd=="stop") { prefs.edit().putBoolean("probe_active",false).apply(); handler.removeCallbacks(poll) }
             runTermux(cmd)
         } },LinearLayout.LayoutParams(-1,-2))
+    }
+
+    private fun updateSnapshot(raw: String) {
+        try {
+            val snapshot = JSONObject(raw)
+            val progressData = snapshot.optJSONObject("progress")
+            if (progressData != null) updateProgress(progressData.toString())
+            val logs = snapshot.optString("logs", "")
+            if (logs.isNotBlank()) {
+                prefs.edit().putString("last_logs", logs).apply()
+                if (logPanel.visibility == View.VISIBLE) logText.text = logs
+            }
+        } catch (_: Exception) {}
+    }
+
+    private fun requestSnapshot() {
+        if (!snapshotInFlight.compareAndSet(false, true)) return
+        runTermux("snapshot", false)
+        handler.postDelayed({ snapshotInFlight.set(false) }, 6000)
     }
 
     private fun updateProgress(raw:String) {
