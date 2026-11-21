@@ -38,7 +38,7 @@ class FinalizePhoneReceiptTests(unittest.TestCase):
             "nodes": [{"node_id": nid, "name": name} for name, nid in self.ids.items()],
         }), encoding="utf-8")
         self.base_receipt = {
-            "status": "completed", "candidate_sha256": digest,
+            "status": "completed", "candidate_commit": "a" * 40, "candidate_sha256": digest,
             "results": [
                 {"node_id": "id-fast", "status": "passed", "download_speed_bps": 800000},
                 {"node_id": "id-slow", "status": "passed", "download_speed_bps": 400000},
