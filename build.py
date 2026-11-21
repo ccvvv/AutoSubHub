@@ -23,7 +23,9 @@ HTTP_TIMEOUT_MS = int(os.getenv("HTTP_TEST_TIMEOUT", "8000") or "8000")
 WORKERS = max(1, int(os.getenv("MAX_WORKERS", "80") or "80"))
 HTTP_WORKERS = max(1, int(os.getenv("HTTP_WORKERS", "60") or "60"))
 SOURCE_WORKERS = max(1, int(os.getenv("SOURCE_WORKERS", "10") or "10"))
+# v2rayNG's real-delay test URL (changed from google.com/generate_204 upstream).
 LATENCY_URL = os.getenv("LATENCY_URL", "https://www.gstatic.com/generate_204")
+LATENCY_FALLBACK_URL = os.getenv("LATENCY_FALLBACK_URL", "https://www.apple.com/library/test/success.html")
 CONTROLLER = "http://127.0.0.1:9090"
 PROBE_WORKERS = max(1, min(50, int(os.getenv("CERT_WORKERS", "50") or "50")))
 PROBE_PORT_BASE = 17890
@@ -144,7 +146,7 @@ def parse_source(text: str) -> tuple[list[dict], int]:
     if isinstance(data, dict) and isinstance(data.get("proxies"), list):
         # Normalize common YAML variations and discard incomplete/unsupported entries
         # before they reach TCP and Mihomo testing.
-        valid_types = {"ss", "vmess", "vless", "trojan", "socks5", "snell",
+        valid_types = {"ss", "vmess", "vless", "trojan", "socks5", "http", "snell",
                        "hysteria", "hysteria2", "tuic", "wireguard", "ssh", "anytls"}
         nodes = []
         http_rejected = 0
@@ -157,9 +159,6 @@ def parse_source(text: str) -> tuple[list[dict], int]:
             except (TypeError, ValueError):
                 continue
             node["type"] = str(node.get("type", "")).lower()
-            if node["type"] == "http":
-                http_rejected += 1
-                continue
             if node["type"] not in valid_types or not 1 <= node["port"] <= 65535:
                 continue
             nodes.append(node)
@@ -353,7 +352,7 @@ def validate_structure(config: dict) -> None:
     names = [p.get("name") for p in proxies]
     if len(names) != len(set(names)) or any(not n for n in names):
         raise RuntimeError("Proxy names are missing or duplicated")
-    valid_types = {"ss", "vmess", "vless", "trojan", "socks5", "snell", "hysteria",
+    valid_types = {"ss", "vmess", "vless", "trojan", "socks5", "http", "snell", "hysteria",
                    "hysteria2", "tuic", "wireguard", "ssh", "anytls"}
     for p in proxies:
         if p.get("type") not in valid_types or not p.get("server") or not isinstance(p.get("port"), int):
@@ -438,39 +437,36 @@ def main() -> None:
     if not candidates:
         raise RuntimeError("No supported non-HTTP nodes parsed; refusing to publish")
 
-    print(f"TCP prefilter: {len(candidates)} candidates, {WORKERS} workers")
-    tcp_ok = []
+    # TCP and generic handshake checks are diagnostic only. A generic probe can
+    # misclassify WS/TLS/Reality/UDP transports; Mihomo performs the decisive test.
+    print(f"TCP diagnostic: {len(candidates)} candidates, {WORKERS} workers")
+    tcp_passed_count = 0
     with ThreadPoolExecutor(max_workers=WORKERS) as pool:
         futures = [pool.submit(tcp_check, n) for n in candidates]
         for future in as_completed(futures):
-            node, latency = future.result()
+            _, latency = future.result()
             if latency is not None:
-                tcp_ok.append(node)
-    if not tcp_ok:
-        raise RuntimeError("No node passed TCP/UDP candidate prefilter")
-    tcp_passed_count = len(tcp_ok)
-    print(f"TCP/UDP candidate pass: {tcp_passed_count} / {len(candidates)}")
+                tcp_passed_count += 1
+    print(f"TCP diagnostic passed: {tcp_passed_count} / {len(candidates)}; failures retained for Mihomo")
 
     handshake_workers = max(1, int(os.getenv("HANDSHAKE_WORKERS", "80") or "80"))
-    print(f"Protocol handshake check: {len(tcp_ok)} candidates, {handshake_workers} workers")
-    handshake_ok = []
+    print(f"Protocol handshake diagnostic: {len(candidates)} candidates, {handshake_workers} workers")
+    handshake_passed_count = 0
     handshake_failures = {}
     with ThreadPoolExecutor(max_workers=handshake_workers) as pool:
-        futures = [pool.submit(protocol_handshake_check, n) for n in tcp_ok]
+        futures = [pool.submit(protocol_handshake_check, n) for n in candidates]
         for future in as_completed(futures):
-            node, passed, reason = future.result()
+            _, passed, reason = future.result()
             if passed:
-                handshake_ok.append(node)
+                handshake_passed_count += 1
             else:
                 handshake_failures[reason] = handshake_failures.get(reason, 0) + 1
-    handshake_passed_count = len(handshake_ok)
-    print(f"Protocol handshake passed: {handshake_passed_count} / {tcp_passed_count}; "
-          f"rejected: {sum(handshake_failures.values())}; reasons: {handshake_failures}")
-    if not handshake_ok:
-        raise RuntimeError("No node passed protocol handshake prefilter")
+    handshake_failed_count = sum(handshake_failures.values())
+    print(f"Protocol handshake diagnostic passed: {handshake_passed_count} / {len(candidates)}; "
+          f"failures retained for Mihomo: {handshake_failed_count}; reasons: {handshake_failures}")
 
-    tcp_ok = unique_names(handshake_ok)
-    print(f"Handshake passed: {len(tcp_ok)}; starting Mihomo real proxy tests")
+    tcp_ok = unique_names(candidates)
+    print(f"Starting Mihomo real proxy tests on all {len(tcp_ok)} parsed candidates")
     os.makedirs("site", exist_ok=True)
 
     with tempfile.TemporaryDirectory(prefix="autohub-") as tmp:
@@ -497,15 +493,18 @@ def main() -> None:
                 raise RuntimeError("Mihomo API did not become ready")
 
             def proxy_delay(node: dict) -> tuple[dict, int | None]:
-                try:
-                    endpoint = CONTROLLER + "/proxies/" + quote(node["name"], safe="") + "/delay"
-                    response = api.get(endpoint, params={"url": LATENCY_URL, "timeout": HTTP_TIMEOUT_MS},
-                                       timeout=HTTP_TIMEOUT_MS / 1000 + 5)
-                    response.raise_for_status()
-                    delay = response.json().get("delay")
-                    return node, int(delay) if delay and int(delay) > 0 else None
-                except Exception:
-                    return node, None
+                endpoint = CONTROLLER + "/proxies/" + quote(node["name"], safe="") + "/delay"
+                for target_url in (LATENCY_URL, LATENCY_FALLBACK_URL):
+                    try:
+                        response = api.get(endpoint, params={"url": target_url, "timeout": HTTP_TIMEOUT_MS},
+                                           timeout=HTTP_TIMEOUT_MS / 1000 + 5)
+                        response.raise_for_status()
+                        delay = response.json().get("delay")
+                        if delay and int(delay) > 0:
+                            return node, int(delay)
+                    except Exception:
+                        continue
+                return node, None
 
             tested = []
             with ThreadPoolExecutor(max_workers=HTTP_WORKERS) as pool:
@@ -521,110 +520,15 @@ def main() -> None:
             http_tested_count = len(tested)
             print(f"HTTP proxy test passed: {http_tested_count} / {len(tcp_ok)}")
 
-            # Validate real HTTPS certificates through each node's isolated Mihomo listener.
-            # HTTP status codes are deliberately ignored: 401/403/404 can still prove TLS validity.
-            # Only validate the ChatGPT HTTPS certificate to minimize per-node checks.
-            certificate_targets = {
-                "ChatGPT": "https://chatgpt.com/",
-            }
-            certificate_workers = max(1, min(PROBE_WORKERS,
-                int(os.getenv("CERT_WORKERS", "50") or "50")))
-            print(f"HTTPS certificate validation: {len(tested)} nodes, "
-                  f"{len(certificate_targets)} platform targets, {certificate_workers} workers")
-            certificate_ok = []
-            certificate_rejected = 0
-            certificate_inconclusive = 0
-            certificate_platform_passes = {platform: 0 for platform in certificate_targets}
-            delay_by_name = {node["name"]: delay for delay, node in tested}
-
-            def certificate_worker(worker_index: int,
-                                   batch: list[tuple[int, dict]]) -> list[tuple[dict, bool, str]]:
-                worker_api = requests.Session()
-                worker_api.headers.update({"Authorization": "Bearer autohub-local-test"})
-                selector = CONTROLLER + f"/proxies/TEST-{worker_index:02d}"
-                proxy_url = f"http://127.0.0.1:{PROBE_PORT_BASE + worker_index}"
-                results = []
-                for delay, node in batch:
-                    try:
-                        selected = worker_api.put(selector, json={"name": node["name"]}, timeout=8)
-                        selected.raise_for_status()
-                    except Exception as exc:
-                        results.append((node, False, f"selector-error:{type(exc).__name__}"))
-                        continue
-
-                    verified = []
-                    cert_errors = []
-                    unreachable = []
-                    # ChatGPT is the sole certificate-validation target.
-                    # This is a TLS sanity check, not an app-compatibility guarantee.
-                    for platform, target_url in certificate_targets.items():
-                        try:
-                            # requests verifies CA chain, hostname and validity dates by default.
-                            # Do not require a 2xx response; a valid TLS session is sufficient.
-                            response = requests.get(target_url, proxies={
-                                "http": proxy_url, "https": proxy_url,
-                            }, timeout=(8, 12), allow_redirects=False,
-                                headers={"User-Agent": USER_AGENT})
-                            verified.append(platform)
-                            response.close()
-                        except requests.exceptions.SSLError as exc:
-                            detail = str(exc).lower()
-                            if any(marker in detail for marker in (
-                                "certificate verify failed", "hostname mismatch",
-                                "certificate has expired", "self-signed certificate",
-                                "unable to get local issuer", "certificate is not yet valid",
-                            )):
-                                cert_errors.append(f"{platform}:{type(exc).__name__}")
-                            else:
-                                unreachable.append(f"{platform}:tls-error")
-                        except requests.RequestException as exc:
-                            unreachable.append(f"{platform}:{type(exc).__name__}")
-
-
-                    if cert_errors:
-                        results.append((node, False, "certificate-invalid:" + ",".join(cert_errors)))
-                    elif verified:
-                        results.append((node, True, "verified:" + ",".join(verified)))
-                    else:
-                        results.append((node, False, "inconclusive:no-platform-tls-verified"))
-                return results
-
-            cert_batches = [tested[i::certificate_workers] for i in range(certificate_workers)]
-            cert_batches = [(i, batch) for i, batch in enumerate(cert_batches) if batch]
-            with ThreadPoolExecutor(max_workers=certificate_workers) as pool:
-                futures = {pool.submit(certificate_worker, worker_index, batch): worker_index
-                           for worker_index, batch in cert_batches}
-                completed_cert = 0
-                for future in as_completed(futures):
-                    results = future.result()
-                    completed_cert += len(results)
-                    for node, passed, reason in results:
-                        if passed:
-                            certificate_ok.append((delay_by_name[node["name"]], node))
-                            for platform in reason.removeprefix("verified:").split(","):
-                                if platform in certificate_platform_passes:
-                                    certificate_platform_passes[platform] += 1
-                        elif reason.startswith("certificate-invalid:"):
-                            certificate_rejected += 1
-                        else:
-                            certificate_inconclusive += 1
-                    print(f"Certificate progress: {completed_cert}/{len(tested)}; "
-                          f"passed {len(certificate_ok)}; invalid {certificate_rejected}; "
-                          f"inconclusive {certificate_inconclusive}")
-            tested = certificate_ok
-            print(f"HTTPS certificate stage passed: {len(tested)}; "
-                  f"certificate-invalid rejected: {certificate_rejected}; "
-                  f"inconclusive rejected: {certificate_inconclusive}; "
-                  f"platform TLS verified: {certificate_platform_passes}")
-            if not tested:
-                raise RuntimeError("No node passed HTTPS certificate validation")
-
-            # Candidate stage ends after GitHub-side proxy, TLS and HTTPS checks.
-            # Download throughput is intentionally reserved for the Android phone.
+            # Mihomo's successful real-delay request is the candidate gate.
+            # A separate ChatGPT TLS check is intentionally not a hard requirement:
+            # regional blocking or destination-specific failures must not discard a node.
             import hashlib
             passed_nodes = [dict(node) for delay, node in tested]
             if not passed_nodes:
-                raise RuntimeError("No node passed GitHub-side checks; refusing to publish")
+                raise RuntimeError("No node passed Mihomo real HTTP proxy latency test")
+
+            # Download throughput is intentionally reserved for the Android phone.
 
             os.makedirs("candidates", exist_ok=True)
             candidate_path = os.path.join("candidates", "candidates.yaml")
@@ -652,12 +556,13 @@ def main() -> None:
                 "parsed_nodes": parsed_total,
                 "unique_candidates": unique_total,
                 "excluded_http_proxies": http_type_rejected,
-                "tcp_passed": tcp_passed_count,
-                "protocol_handshake_passed": handshake_passed_count,
+                "tcp_diagnostic_passed": tcp_passed_count,
+                "tcp_diagnostic_failed_retained": len(candidates) - tcp_passed_count,
+                "protocol_handshake_diagnostic_passed": handshake_passed_count,
+                "protocol_handshake_failed_retained": handshake_failed_count,
                 "mihomo_http_passed": http_tested_count,
-                "https_certificate_passed": len(passed_nodes),
-                "certificate_invalid_rejected": certificate_rejected,
-                "certificate_inconclusive_rejected": certificate_inconclusive,
+                "latency_test_url": LATENCY_URL,
+                "latency_fallback_url": LATENCY_FALLBACK_URL,
                 "nodes": manifest_nodes,
             }
             with open(os.path.join("candidates", "manifest.json"), "w", encoding="utf-8") as f:
@@ -667,9 +572,9 @@ def main() -> None:
             print(
                 "GitHub prefilter complete: "
                 f"parsed={parsed_total}, unique={unique_total}, "
-                f"TCP/handshake={len(handshake_ok)}, "
-                f"Mihomo HTTP={http_tested_count}, "
-                f"HTTPS certificate={len(passed_nodes)}. "
+                f"TCP diagnostic={tcp_passed_count}/{len(candidates)}, "
+                f"handshake diagnostic={handshake_passed_count}/{len(candidates)}, "
+                f"Mihomo HTTP={http_tested_count}. "
                 "Phone download-speed testing remains pending."
             )
         finally:
