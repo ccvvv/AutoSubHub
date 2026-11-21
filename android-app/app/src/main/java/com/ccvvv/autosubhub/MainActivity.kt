@@ -26,6 +26,7 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
     private lateinit var appsInfo: TextView
     private lateinit var logPanel: LinearLayout
     private lateinit var logText: TextView
+    private val statViews = mutableMapOf<String, TextView>()
     private val prefs by lazy { getSharedPreferences("console", MODE_PRIVATE) }
     private val handler = Handler(Looper.getMainLooper())
     private val poll = object : Runnable {
@@ -122,7 +123,7 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
     private fun detailLine(t:String)=label(t,13,false,Color.rgb(83,96,113))
     private fun stat(name:String,value:String):LinearLayout {
         val box=LinearLayout(this).apply { orientation=LinearLayout.VERTICAL; background=rounded(Color.WHITE,13); setPadding(dp(9),dp(10),dp(4),dp(10)) }
-        val number=label(value,20,true,Color.rgb(28,45,68)).apply { tag="stat_"+name }
+        val number=label(value,20,true,Color.rgb(28,45,68)).apply { tag="stat_"+name }; statViews[name]=number
         box.addView(number); box.addView(label(name,11,false,Color.GRAY))
         box.layoutParams=LinearLayout.LayoutParams(0,-2,1f).apply { setMargins(dp(3),dp(8),dp(3),dp(8)) }
         return box
@@ -171,17 +172,7 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
             }
         } catch (_:Exception) {}
     }
-    private fun setStat(name:String,value:String) {
-        val body=progressInfo.parent?.parent?.parent as? LinearLayout ?: return
-        for(i in 0 until body.childCount) {
-            val row=body.getChildAt(i) as? LinearLayout ?: continue
-            for(j in 0 until row.childCount) {
-                val box=row.getChildAt(j) as? LinearLayout ?: continue
-                val tv=box.getChildAt(0) as? TextView ?: continue
-                if(tv.tag=="stat_"+name) tv.text=value
-            }
-        }
-    }
+    private fun setStat(name:String,value:String) { statViews[name]?.text=value }
     private fun serviceName(k:String)=when(k) { "youtube"->"YouTube"; "telegram"->"TG"; "google"->"Google"; "chatgpt"->"AI"; else->"GitHub" }
     private fun startPolling(){ handler.removeCallbacks(poll); handler.post(poll) }
 
