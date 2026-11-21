@@ -24,8 +24,8 @@ case "$ACTION" in
       say "测速任务已经在运行；为避免重复启动，本次取消"
       exit 1
     fi
-    say "开始测速：workers=100 timeout=5"
-    python termux_probe.py --workers 100 --timeout 5 --output receipt.json 2>&1 | tee -a "$LOG"
+    say "开始测速：workers=200 timeout=5"
+    python termux_probe.py --workers 200 --timeout 5 --output receipt.json 2>&1 | tee -a "$LOG"
     code=${PIPESTATUS[0]}
     say "测速结束，退出码：$code"
     exit "$code"
