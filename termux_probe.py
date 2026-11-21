@@ -7,6 +7,7 @@ and a Mihomo binary available as ./mihomo or via MIHOMO_BIN.
 from __future__ import annotations
 
 import argparse
+from datetime import datetime, timedelta, timezone
 import base64
 import hashlib
 import json
@@ -29,6 +30,8 @@ MANIFEST_URL = f"https://raw.githubusercontent.com/{REPO}/{BRANCH}/candidate/man
 PORT_BASE = int(os.getenv("PROBE_PORT_BASE", "17890"))
 SECRET = "autohub-phone-probe"
 USER_AGENT = "AutoSubHub-Termux-Probe/1.0"
+CANDIDATE_UPDATED_AT = ""
+CANDIDATE_FETCHED_AT = ""
 
 
 def write_yaml(path: Path, data: dict) -> None:
@@ -46,6 +49,8 @@ def write_progress(path: Path, status: str, done: int, total: int, results: list
     latest = latest or {}
     payload = {
         "status": status, "stage": stage, "done": done, "total": total,
+        "candidate_updated_at": CANDIDATE_UPDATED_AT,
+        "candidate_fetched_at": CANDIDATE_FETCHED_AT,
         "passed": passed, "failed": failed, "high": high, "normal": normal,
         "rejected": failed, "success_rate": round(passed / done * 100, 1) if done else 0.0,
         "elapsed_seconds": round(time.monotonic() - started, 1),
@@ -204,6 +209,24 @@ def main() -> None:
                 break
         if len(candidate_commit) != 40 or any(c not in "0123456789abcdef" for c in candidate_commit):
             raise ValueError("Git remote did not return a valid candidate branch SHA")
+
+        # Fetch only the published branch tip so its commit timestamp can be
+        # read locally without calling GitHub's rate-limited REST API.
+        subprocess.run(
+            ["git", "fetch", "--quiet", "--depth=1", remote, f"refs/heads/{BRANCH}"],
+            check=True, capture_output=True, text=True, timeout=60,
+        )
+        timestamp_result = subprocess.run(
+            ["git", "show", "-s", "--format=%cI", "FETCH_HEAD"],
+            check=True, capture_output=True, text=True, timeout=10,
+        )
+        raw_timestamp = timestamp_result.stdout.strip()
+        parsed_timestamp = datetime.fromisoformat(raw_timestamp.replace("Z", "+00:00"))
+        beijing = parsed_timestamp.astimezone(timezone(timedelta(hours=8)))
+        CANDIDATE_UPDATED_AT = beijing.strftime("%Y-%m-%d %H:%M:%S")
+        CANDIDATE_FETCHED_AT = datetime.now(timezone(timedelta(hours=8))).strftime("%Y-%m-%d %H:%M:%S")
+        print(f"候选版本更新时间（北京时间）：{CANDIDATE_UPDATED_AT}")
+        print(f"本机获取时间（北京时间）：{CANDIDATE_FETCHED_AT}")
         pinned_candidate_url = pin_raw_url(args.candidate_url, REPO, candidate_commit)
         pinned_manifest_url = pin_raw_url(args.manifest_url, REPO, candidate_commit)
         print(f"Candidate version locked via git ls-remote: {candidate_commit}")
@@ -382,6 +405,8 @@ def main() -> None:
         "completed_at": completed_at,
         "candidate_sha256": candidate_hash,
         "candidate_commit": candidate_commit,
+        "candidate_updated_at": CANDIDATE_UPDATED_AT,
+        "candidate_fetched_at": CANDIDATE_FETCHED_AT,
         "candidate_source": source_used,
         "device": "android-termux",
         "workers": args.workers,
