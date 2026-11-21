@@ -29,6 +29,7 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
     private lateinit var logText: TextView
     private lateinit var workersSpinner: Spinner
     private val statViews = mutableMapOf<String, TextView>()
+    private val actionButtons = mutableMapOf<String, Button>()
     private val prefs by lazy { getSharedPreferences("console", MODE_PRIVATE) }
     private val handler = Handler(Looper.getMainLooper())
     private val poll = object : Runnable {
@@ -106,7 +107,12 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
         actions.addView(workersSpinner, LinearLayout.LayoutParams(-1, dp(48)))
         action(actions,"更新工作区","update")
         action(actions,"开始测速","probe")
+        action(actions,"暂停测速","pause")
+        action(actions,"继续测速","resume")
         action(actions,"停止测速","stop")
+        actionButtons["pause"]?.visibility=View.GONE
+        actionButtons["resume"]?.visibility=View.GONE
+        actionButtons["stop"]?.visibility=View.GONE
         action(actions,"上传测速回执","upload")
         action(actions,"检查候选版本","check")
         body.addView(actions)
@@ -143,28 +149,41 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
         return box
     }
     private fun action(parent:LinearLayout,text:String,cmd:String) {
-        parent.addView(Button(this).apply { this.text=text; isAllCaps=false; setOnClickListener {
-            var extraArgs = emptyArray<String>()
-            if(cmd=="probe") {
-                val workers = workersSpinner.selectedItem.toString().toIntOrNull()?.coerceIn(1,300) ?: 200
-                prefs.edit().putInt("probe_workers", workers).apply()
-                extraArgs = arrayOf(workers.toString())
-                prefs.edit().putBoolean("probe_active",true).apply()
-                status.text="● 正在启动测速…"
-                progress.isIndeterminate=true
-                progressInfo.text="正在等待 Termux 启动结果…"
-                // 启动耗时取决于候选文件下载和 Mihomo 就绪时间，不设置固定 5 秒失败阈值。
-                // 由 progress.json 的 preparing/running/completed/failed 状态决定任务状态。
-                startPolling()
+        val button = Button(this).apply {
+            this.text=text
+            isAllCaps=false
+            setOnClickListener {
+                var extraArgs = emptyArray<String>()
+                if(cmd=="probe") {
+                    val workers = workersSpinner.selectedItem.toString().toIntOrNull()?.coerceIn(1,300) ?: 200
+                    prefs.edit().putInt("probe_workers", workers).apply()
+                    extraArgs = arrayOf(workers.toString())
+                    prefs.edit().putBoolean("probe_active",true).apply()
+                    status.text="● 正在启动测速…"
+                    progress.isIndeterminate=true
+                    progressInfo.text="正在等待 Termux 启动结果…"
+                    // 启动耗时取决于候选文件下载和 Mihomo 就绪时间，不设置固定启动超时。
+                    startPolling()
+                }
+                if(cmd=="pause") {
+                    status.text="Ⅱ 正在请求暂停…"
+                }
+                if(cmd=="resume") {
+                    status.text="● 正在继续测速…"
+                    prefs.edit().putBoolean("probe_active",true).apply()
+                    startPolling()
+                }
+                if(cmd=="stop") {
+                    prefs.edit().putBoolean("probe_active",false).apply()
+                    handler.removeCallbacks(poll)
+                    status.text="■ 正在停止测速…"
+                    progress.isIndeterminate=false
+                }
+                runTermux(cmd, extraArgs=extraArgs)
             }
-            if(cmd=="stop") {
-                prefs.edit().putBoolean("probe_active",false).apply()
-                handler.removeCallbacks(poll)
-                status.text="Ⅱ 已请求停止"
-                progress.isIndeterminate=false
-            }
-            runTermux(cmd, extraArgs=extraArgs)
-        } },LinearLayout.LayoutParams(-1,-2))
+        }
+        actionButtons[cmd]=button
+        parent.addView(button,LinearLayout.LayoutParams(-1,-2))
     }
 
     private fun updateProgress(raw:String) {
@@ -184,6 +203,7 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
             status.text=when(state) {
                 "preparing"->"● 正在准备 · "+stage.ifEmpty { "获取候选节点" }
                 "running"->"● 正在测速 · "+percent+"%"+(if(stage.isNotEmpty()) " · "+stage else "")
+                "paused"->"Ⅱ 已暂停测速"
                 "completed"->"✓ 测速完成"
                 "interrupted"->"Ⅱ 测速已中断"
                 "failed"->"! 测速失败"
@@ -202,6 +222,10 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
                     val ok=checks.optJSONObject(key)?.optString("status")=="passed"
                     serviceName(key)+(if(ok) " ✓" else " ×")
                 }
+            actionButtons["pause"]?.visibility=if(state=="running"||state=="preparing") View.VISIBLE else View.GONE
+            actionButtons["resume"]?.visibility=if(state=="paused") View.VISIBLE else View.GONE
+            actionButtons["stop"]?.visibility=if(state=="running"||state=="preparing"||state=="paused") View.VISIBLE else View.GONE
+            actionButtons["probe"]?.visibility=if(state=="running"||state=="preparing"||state=="paused") View.GONE else View.VISIBLE
             if(state=="completed"||state=="interrupted"||state=="failed") {
                 prefs.edit().putBoolean("probe_active",false).apply(); handler.removeCallbacks(poll)
             }
