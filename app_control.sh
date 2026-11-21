@@ -10,9 +10,12 @@ say() { printf '[%s] %s\n' "$(now)" "$*" | tee -a "$LOG"; }
 case "$ACTION" in
   update)
     say "开始更新工作区：git pull --ff-only"
-    if [ -n "$(git status --porcelain)" ]; then
-      say "更新已取消：工作区存在未提交修改，请先处理本地修改"
-      git status --short | tee -a "$LOG"
+    # Runtime output is local state, not source changes; preserve it and
+    # allow workspace updates while still blocking actual source edits.
+    DIRTY="$(git status --porcelain --untracked-files=all | grep -Ev '^\?\? (logs/|progress\.json$)' || true)"
+    if [ -n "$DIRTY" ]; then
+      say "更新已取消：检测到源码文件存在未提交修改，请先处理"
+      printf '%s\n' "$DIRTY" | tee -a "$LOG"
       exit 2
     fi
     if ! git pull --ff-only origin "$(git branch --show-current)" 2>&1 | tee -a "$LOG"; then
