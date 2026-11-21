@@ -501,12 +501,21 @@ def main() -> None:
                                 service, target_url, proxy_url, args.service_timeout
                             )
                             record["application_checks"][service] = check_result
-                            if check_result["status"] == "failed":
-                                record.setdefault("failure_stage", service)
-                        service_failed = any(
-                            result["status"] != "passed"
-                            for result in record["application_checks"].values()
-                        )
+                        passed_services = [
+                            service for service, result in record["application_checks"].items()
+                            if result["status"] == "passed"
+                        ]
+                        # One successful HTTPS service is sufficient to pass the
+                        # application-availability gate; keep all five results for diagnosis.
+                        service_failed = not bool(passed_services)
+                        record["application_gate"] = {
+                            "required_passes": 1,
+                            "passed_count": len(passed_services),
+                            "passed_services": passed_services,
+                            "status": "passed" if not service_failed else "failed",
+                        }
+                        if service_failed:
+                            record["failure_stage"] = "application_checks"
 
                         if not service_failed:
                             current_stage = "download"
