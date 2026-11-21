@@ -3,7 +3,7 @@ name: Build AutoSubHub Android app
 on:
   workflow_dispatch:
   push:
-    branches: [feature/manual-android-app]
+    branches: [feature/android-dashboard]
     paths:
       - "android-app/**"
       - "app_control.sh"
