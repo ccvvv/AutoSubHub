@@ -89,6 +89,16 @@ class FinalizePhoneReceiptTests(unittest.TestCase):
         self.assertIn("hash mismatch", (result.stderr + result.stdout).lower())
         self.assertFalse(self.output.exists())
 
+    def test_failed_application_gate_excludes_node(self):
+        receipt = dict(self.base_receipt)
+        receipt["results"] = [dict(item) for item in self.base_receipt["results"]]
+        receipt["results"][0]["application_checks"] = dict(receipt["results"][0]["application_checks"])
+        receipt["results"][0]["application_checks"]["chatgpt"] = {"status": "failed"}
+        result = self.run_validator(receipt)
+        self.assertEqual(result.returncode, 0, result.stderr + result.stdout)
+        final = yaml.safe_load(self.output.read_text(encoding="utf-8"))
+        self.assertEqual([p["name"] for p in final["proxies"]], ["slow-node [普通]"])
+
     def test_no_passing_nodes_is_rejected_without_output(self):
         receipt = dict(self.base_receipt)
         receipt["results"] = [
