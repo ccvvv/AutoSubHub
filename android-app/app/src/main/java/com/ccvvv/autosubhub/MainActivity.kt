@@ -91,6 +91,7 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
 
         val actions = card()
         actions.addView(label("操作",16,true,Color.rgb(37,49,66)))
+        action(actions,"更新工作区","update")
         action(actions,"开始测速","probe")
         action(actions,"停止测速","stop")
         action(actions,"上传测速回执","upload")
