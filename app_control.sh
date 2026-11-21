@@ -25,7 +25,7 @@ case "$ACTION" in
       exit 1
     fi
     say "开始测速：workers=200 timeout=5"
-    python termux_probe.py --workers 200 --timeout 5 --output receipt.json 2>&1 | tee -a "$LOG"
+    python -u termux_probe.py --workers 200 --timeout 5 --output receipt.json --progress progress.json 2>&1 | tee -a "$LOG"
     code=${PIPESTATUS[0]}
     say "测速结束，退出码：$code"
     exit "$code"
@@ -45,11 +45,14 @@ case "$ACTION" in
     pkill -f '[t]ermux_probe.py' 2>/dev/null || true
     say "已发送停止测速信号"
     ;;
+  progress)
+    cat progress.json 2>/dev/null || echo "{}"
+    ;;
   logs)
     tail -n 100 "$LOG" 2>/dev/null || echo "暂无日志"
     ;;
   *)
-    echo "Usage: app_control.sh {check|probe|upload|stop|logs}"
+    echo "Usage: app_control.sh {check|probe|upload|stop|progress|logs}"
     exit 2
     ;;
 esac
