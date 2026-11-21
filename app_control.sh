@@ -76,19 +76,17 @@ case "$ACTION" in
     say "已请求停止：当前节点检测结束后停止，并保存已完成结果"
     ;;
   progress)
-    # Never report a stale running state after the probe process has died.
-    if pgrep -f '[t]ermux_probe.py' >/dev/null 2>&1; then
-      cat progress.json 2>/dev/null || echo '{"status":"idle","done":0,"total":0}'
-    else
-      python - <<'PY'
-import json, os, tempfile
+    python - <<'PY'
+import json, os, tempfile, subprocess
 path = "progress.json"
+running = subprocess.run(["pgrep", "-f", "[t]ermux_probe.py"], stdout=subprocess.DEVNULL).returncode == 0
 try:
     with open(path, "r", encoding="utf-8") as f:
         data = json.load(f)
 except Exception:
     data = {"status": "idle", "done": 0, "total": 0}
-if data.get("status") in ("running", "preparing", "paused"):
+data["process_running"] = running
+if not running and data.get("status") in ("running", "preparing", "paused"):
     data["status"] = "interrupted"
     data["stage"] = "未检测到运行中的测速进程，已清理残留状态"
     try:
@@ -100,7 +98,6 @@ if data.get("status") in ("running", "preparing", "paused"):
         pass
 print(json.dumps(data, ensure_ascii=False))
 PY
-    fi
     ;;
   logs) tail -n 100 "$LOG" 2>/dev/null || echo "暂无日志" ;;
   *) echo "Usage: app_control.sh {check|probe|pause|resume|stop|upload|progress|logs}"; exit 2 ;;
