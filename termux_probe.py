@@ -161,6 +161,8 @@ def main() -> None:
     parser.add_argument("--candidate-url", default=CANDIDATE_URL)
     parser.add_argument("--manifest-url", default=MANIFEST_URL)
     parser.add_argument("--workers", type=int, default=int(os.getenv("PROBE_WORKERS", "5")))
+    parser.add_argument("--limit", type=int, default=0,
+                        help="Optional maximum number of candidate nodes to probe; 0 means all")
     parser.add_argument("--min-speed-kbps", type=float, default=200.0,
                         help="Minimum accepted download speed in KB/s (default 200)")
     parser.add_argument("--high-speed-kbps", type=float, default=500.0,
@@ -192,6 +194,8 @@ def main() -> None:
 
     if not 1 <= args.workers <= 300:
         raise SystemExit("--workers must be between 1 and 300; increase gradually on phones")
+    if args.limit < 0:
+        raise SystemExit("--limit must be zero (all nodes) or a positive integer")
     if args.timeout < 1 or args.service_timeout < 1:
         raise SystemExit("timeouts must be at least 1 second")
     if args.min_speed_kbps <= 0 or args.high_speed_kbps <= args.min_speed_kbps:
@@ -269,6 +273,10 @@ def main() -> None:
             or any(not isinstance(value, str) or not value for value in node_ids)):
         raise SystemExit("Manifest node IDs do not exactly match candidate proxy names")
     proxies = list(by_name.values())
+    if args.limit:
+        proxies = proxies[:args.limit]
+        selected_names = {p["name"] for p in proxies}
+        manifest_nodes = [n for n in manifest_nodes if n.get("name") in selected_names]
     print(f"Candidate loaded: {len(proxies)} nodes; SHA256 {candidate_hash[:16]}…")
     write_progress(progress_path, "running", 0, len(proxies), [], started, stage="正在启动 Mihomo")
 
