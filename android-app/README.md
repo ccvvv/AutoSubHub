@@ -25,7 +25,7 @@ Then run `termux-reload-settings`. Install the APK, grant its **Run commands in 
 ## Manual controls
 
 - Check candidate: reads the current `published-subscriptions` branch SHA.
-- Start probe: runs the existing probe with 100 workers and 5-second timeout.
+- Start probe: runs the existing probe with **200 workers** and a 5-second timeout.
 - Upload receipt: uploads the existing `receipt.json` over SSH; it does not start a probe.
 - Stop: terminates the active probe process.
 - Logs: shows the last 100 lines from the local dispatcher log.
