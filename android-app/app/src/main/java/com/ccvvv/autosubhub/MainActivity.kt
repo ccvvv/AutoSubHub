@@ -133,8 +133,32 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
     }
     private fun action(parent:LinearLayout,text:String,cmd:String) {
         parent.addView(Button(this).apply { this.text=text; isAllCaps=false; setOnClickListener {
-            if(cmd=="probe") { prefs.edit().putBoolean("probe_active",true).apply(); status.text="● 正在启动测速…"; progress.isIndeterminate=true; startPolling() }
-            if(cmd=="stop") { prefs.edit().putBoolean("probe_active",false).apply(); handler.removeCallbacks(poll) }
+            if(cmd=="probe") {
+                prefs.edit().putBoolean("probe_active",true).apply()
+                status.text="● 正在启动测速…"
+                progress.isIndeterminate=true
+                progressInfo.text="正在等待 Termux 启动结果…"
+                startPolling()
+                handler.postDelayed({
+                    if (prefs.getBoolean("probe_active", false)) {
+                        runTermux("progress", false)
+                        handler.postDelayed({
+                            if (prefs.getBoolean("probe_active", false)) {
+                                status.text="! 启动未确认，请查看运行日志"
+                                progress.isIndeterminate=false
+                                prefs.edit().putBoolean("probe_active",false).apply()
+                                handler.removeCallbacks(poll)
+                            }
+                        }, 2500)
+                    }
+                }, 2500)
+            }
+            if(cmd=="stop") {
+                prefs.edit().putBoolean("probe_active",false).apply()
+                handler.removeCallbacks(poll)
+                status.text="Ⅱ 已请求停止"
+                progress.isIndeterminate=false
+            }
             runTermux(cmd)
         } },LinearLayout.LayoutParams(-1,-2))
     }
