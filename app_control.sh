@@ -25,6 +25,7 @@ case "$ACTION" in
       exit 1
     fi
     say "开始测速：workers=200 timeout=5"
+    echo '{"status":"preparing","done":0,"total":0,"passed":0,"failed":0,"success_rate":0,"elapsed_seconds":0}' > progress.json
     python -u termux_probe.py --workers 200 --timeout 5 --output receipt.json --progress progress.json 2>&1 | tee -a "$LOG"
     code=${PIPESTATUS[0]}
     say "测速结束，退出码：$code"
@@ -43,6 +44,7 @@ case "$ACTION" in
     ;;
   stop)
     pkill -f '[t]ermux_probe.py' 2>/dev/null || true
+    if [ -s progress.json ]; then sed -i 's/"status":"[^"]*"/"status":"interrupted"/' progress.json; fi
     say "已发送停止测速信号"
     ;;
   progress)
