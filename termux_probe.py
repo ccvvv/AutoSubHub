@@ -50,7 +50,7 @@ def write_progress(path: Path, status: str, done: int, total: int,
     }
     path.parent.mkdir(parents=True, exist_ok=True)
     temp_path = path.with_name(path.name + ".tmp")
-    temp_path.write_text(json.dumps(payload, ensure_ascii=False) + "\\n", encoding="utf-8")
+    temp_path.write_text(json.dumps(payload, ensure_ascii=False) + "\n", encoding="utf-8")
     temp_path.replace(path)
 
 
