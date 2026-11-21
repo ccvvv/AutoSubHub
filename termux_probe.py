@@ -216,6 +216,25 @@ def main() -> None:
 
             batches = [proxies[i::args.workers] for i in range(args.workers)]
 
+            def run_service_check(service: str, target_url: str,
+                                  proxy_url: str, timeout: int) -> dict:
+                started = time.perf_counter()
+                try:
+                    with requests.get(target_url,
+                                      proxies={"http": proxy_url, "https": proxy_url},
+                                      stream=True, timeout=(timeout, timeout),
+                                      headers={"User-Agent": USER_AGENT}) as response:
+                        response.raise_for_status()
+                        next(response.iter_content(chunk_size=1024), b"")
+                        status_code = response.status_code
+                    return {"status": "passed", "status_code": status_code,
+                            "elapsed_ms": round((time.perf_counter() - started) * 1000)}
+                except Exception as exc:
+                    return {"status": "failed", "error": type(exc).__name__,
+                            "elapsed_ms": round((time.perf_counter() - started) * 1000)}
+
+            service_pool = ThreadPoolExecutor(max_workers=min(25, max(5, args.workers * 5)))
+
             def probe_worker(worker_index: int, batch: list[dict]) -> None:
                 selector = api_base + f"/proxies/PHONE-{worker_index:02d}"
                 proxy_url = f"http://127.0.0.1:{args.port_base + worker_index}"
@@ -243,32 +262,22 @@ def main() -> None:
                             "github": args.github_url,
                         }
                         record["application_checks"] = {}
-                        service_failed = False
-                        for service, target_url in service_targets.items():
-                            service_start = time.perf_counter()
-                            try:
-                                with requests.get(target_url,
-                                                  proxies={"http": proxy_url, "https": proxy_url},
-                                                  stream=True,
-                                                  timeout=(args.service_timeout, args.service_timeout),
-                                                  headers={"User-Agent": USER_AGENT}) as service_response:
-                                    service_response.raise_for_status()
-                                    next(service_response.iter_content(chunk_size=1024), b"")
-                                    status_code = service_response.status_code
-                                record["application_checks"][service] = {
-                                    "status": "passed",
-                                    "status_code": status_code,
-                                    "elapsed_ms": round((time.perf_counter() - service_start) * 1000),
-                                }
-                            except Exception as service_exc:
-                                record["application_checks"][service] = {
-                                    "status": "failed",
-                                    "error": type(service_exc).__name__,
-                                    "elapsed_ms": round((time.perf_counter() - service_start) * 1000),
-                                }
-                                record["failure_stage"] = service
-                                service_failed = True
-                                break
+                        # Run the five lightweight checks concurrently with a bounded global pool.
+                        service_futures = {
+                            service_pool.submit(run_service_check, service, target_url,
+                                                proxy_url, args.service_timeout): service
+                            for service, target_url in service_targets.items()
+                        }
+                        for future in as_completed(service_futures):
+                            service = service_futures[future]
+                            check_result = future.result()
+                            record["application_checks"][service] = check_result
+                            if check_result["status"] == "failed":
+                                record.setdefault("failure_stage", service)
+                        service_failed = any(
+                            result["status"] != "passed"
+                            for result in record["application_checks"].values()
+                        )
 
                         if not service_failed:
                             start = time.perf_counter()
@@ -309,6 +318,7 @@ def main() -> None:
                            for i, batch in enumerate(batches) if batch]
                 for future in as_completed(futures):
                     future.result()
+            service_pool.shutdown(wait=True)
         finally:
             mihomo.terminate()
             try:
