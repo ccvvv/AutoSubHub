@@ -45,7 +45,7 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
     override fun onResume() {
         super.onResume()
         if (::output.isInitialized) {
-            output.text = prefs.getString("last_result", "等待操作。\\n请先完成 Termux 授权设置。")
+            output.text = prefs.getString("last_result", "等待操作。\n请先完成 Termux 授权设置。")
             updateProgressFromText(output.text.toString())
         }
         if (prefs.getBoolean("probe_active", false)) startProgressPolling()
@@ -94,7 +94,7 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
             progress = 0
         }
         progressStats = TextView(this).apply {
-            text = "已检测：0 / 0\\n可用：0    失败：0\\n通过率：0.0%"
+            text = "已检测：0 / 0\n可用：0    失败：0\n通过率：0.0%"
             textSize = 14f
             setPadding(0, 8, 0, 16)
         }
@@ -144,7 +144,7 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
                 else -> "测速进度：尚未开始"
             }
             progressTitle.text = statusText
-            progressStats.text = "已检测：$done / $total\\n可用：$passed    失败：$failed\\n通过率：$rate%    耗时：${elapsed} 秒"
+            progressStats.text = "已检测：$done / $total\n可用：$passed    失败：$failed\n通过率：$rate%    耗时：${elapsed} 秒"
             if (status == "completed" || status == "interrupted" || status == "failed") {
                 prefs.edit().putBoolean("probe_active", false).apply()
                 handler.removeCallbacks(pollRunnable)
@@ -212,9 +212,9 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
         intent.putExtra("com.termux.RUN_COMMAND_PENDING_INTENT", pending)
         try {
             startService(intent)
-            if (showFeedback) output.text = "已发送命令：$command\\n等待 Termux 返回结果……"
+            if (showFeedback) output.text = "已发送命令：$command\n等待 Termux 返回结果……"
         } catch (e: Exception) {
-            output.text = "调用 Termux 失败：${e.message}\\n请确认已安装 Termux，并开启 allow-external-apps。"
+            output.text = "调用 Termux 失败：${e.message}\n请确认已安装 Termux，并开启 allow-external-apps。"
         }
     }
 
