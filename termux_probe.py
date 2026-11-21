@@ -26,7 +26,6 @@ REPO = os.getenv("GITHUB_REPOSITORY", "ccvvv/AutoSubHub")
 BRANCH = "published-subscriptions"
 CANDIDATE_URL = f"https://raw.githubusercontent.com/{REPO}/{BRANCH}/candidate/subscription.yaml"
 MANIFEST_URL = f"https://raw.githubusercontent.com/{REPO}/{BRANCH}/candidate/manifest.json"
-API_COMMIT_URL = f"https://api.github.com/repos/{REPO}/commits/{BRANCH}"
 PORT_BASE = int(os.getenv("PROBE_PORT_BASE", "17890"))
 SECRET = "autohub-phone-probe"
 USER_AGENT = "AutoSubHub-Termux-Probe/1.0"
@@ -142,18 +141,28 @@ def main() -> None:
     session = requests.Session()
     session.headers.update({"User-Agent": USER_AGENT})
     try:
-        commit_response = session.get(API_COMMIT_URL, timeout=30)
-        commit_response.raise_for_status()
-        candidate_commit = commit_response.json().get("sha")
-        if not isinstance(candidate_commit, str) or len(candidate_commit) != 40 or any(c not in "0123456789abcdef" for c in candidate_commit):
-            raise ValueError("GitHub returned an invalid candidate commit SHA")
+        # Resolve the branch SHA through the already-configured Git remote.
+        # This avoids unauthenticated GitHub REST API rate limits while still
+        # pinning both candidate files to one immutable commit.
+        repo_dir = Path(__file__).resolve().parent
+        commit_result = subprocess.run(
+            ["git", "-C", str(repo_dir), "ls-remote", "origin", f"refs/heads/{BRANCH}"],
+            capture_output=True, text=True, timeout=30,
+        )
+        if commit_result.returncode != 0:
+            detail = (commit_result.stderr or commit_result.stdout).strip()
+            raise RuntimeError(detail or "git ls-remote could not resolve candidate branch")
+        commit_fields = commit_result.stdout.strip().split()
+        candidate_commit = commit_fields[0] if len(commit_fields) >= 2 else ""
+        if len(candidate_commit) != 40 or any(c not in "0123456789abcdef" for c in candidate_commit):
+            raise ValueError("Git remote returned an invalid candidate commit SHA")
         pinned_candidate_url = pin_raw_url(args.candidate_url, REPO, candidate_commit)
         pinned_manifest_url = pin_raw_url(args.manifest_url, REPO, candidate_commit)
-        print(f"Candidate version locked: {candidate_commit}")
+        print(f"Candidate version locked via git remote: {candidate_commit}")
         candidate_bytes, _, manifest, source_used = download_verified_pair(
             session, pinned_candidate_url, pinned_manifest_url, 30, REPO, candidate_commit
         )
-    except (RuntimeError, ValueError, requests.RequestException, json.JSONDecodeError) as exc:
+    except (RuntimeError, ValueError, requests.RequestException, json.JSONDecodeError, subprocess.SubprocessError) as exc:
         raise SystemExit(f"Unable to lock and download candidate version: {type(exc).__name__}: {exc}") from exc
     candidate_hash = hashlib.sha256(candidate_bytes).hexdigest()
 
