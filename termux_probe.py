@@ -38,6 +38,22 @@ def write_yaml(path: Path, data: dict) -> None:
     path.write_text(yaml.safe_dump(data, allow_unicode=True, sort_keys=False), encoding="utf-8")
 
 
+def exception_details(exc: Exception) -> dict:
+    """Return actionable HTTP diagnostics without storing unbounded response bodies."""
+    details = {"error": type(exc).__name__, "message": str(exc)[:500]}
+    response = getattr(exc, "response", None)
+    request = getattr(exc, "request", None)
+    if response is not None:
+        details["http_status"] = response.status_code
+        details["url"] = response.url
+        body = (response.text or "").strip()
+        if body:
+            details["response_body"] = body[:300]
+    elif request is not None and getattr(request, "url", None):
+        details["url"] = request.url
+    return details
+
+
 
 def write_progress(path: Path, status: str, done: int, total: int, results: list[dict],
                    started: float, current_node: str = "", latest: dict | None = None,
@@ -321,7 +337,7 @@ def main() -> None:
                     return {"status": "passed", "status_code": status_code,
                             "elapsed_ms": round((time.perf_counter() - started) * 1000)}
                 except Exception as exc:
-                    return {"status": "failed", "error": type(exc).__name__,
+                    return {"status": "failed", **exception_details(exc),
                             "elapsed_ms": round((time.perf_counter() - started) * 1000)}
 
             service_pool = ThreadPoolExecutor(max_workers=min(25, max(5, args.workers * 5)))
@@ -338,6 +354,7 @@ def main() -> None:
                                     if item.get("name") == node["name"]), None)
                     record = {"node_id": node_id, "name": node["name"],
                               "status": "failed", "download_speed_bps": 0}
+                    current_stage = "mihomo_select"
                     try:
                         selected = worker_api.put(selector, json={"name": node["name"]}, timeout=8)
                         selected.raise_for_status()
@@ -345,6 +362,7 @@ def main() -> None:
                         confirmed.raise_for_status()
                         if confirmed.json().get("now") != node["name"]:
                             raise RuntimeError("Mihomo selector did not switch to requested node")
+                        current_stage = "application_checks"
                         # All application checks are hard gates and run concurrently.
                         # Telegram Web verifies HTTPS reachability, not native MTProto login.
                         service_targets = {
@@ -373,6 +391,7 @@ def main() -> None:
                         )
 
                         if not service_failed:
+                            current_stage = "download"
                             start = time.perf_counter()
                             received = 0
                             with requests.get(args.download_url,
@@ -397,7 +416,8 @@ def main() -> None:
                                            "speed_category": category,
                                            "status": "passed" if category != "rejected" else "failed"})
                     except Exception as exc:
-                        record["error"] = type(exc).__name__
+                        record.update(exception_details(exc))
+                        record["failure_stage"] = current_stage
                     with result_lock:
                         receipt_results.append(record)
                         done = len(receipt_results)
