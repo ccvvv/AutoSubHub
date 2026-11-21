@@ -140,6 +140,7 @@ def download_verified_pair(session: requests.Session, candidate_url: str,
 
 
 def main() -> None:
+    global CANDIDATE_UPDATED_AT, CANDIDATE_FETCHED_AT
     parser = argparse.ArgumentParser(description="AutoSubHub domestic phone download probe")
     parser.add_argument("--candidate-url", default=CANDIDATE_URL)
     parser.add_argument("--manifest-url", default=MANIFEST_URL)
