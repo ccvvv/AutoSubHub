@@ -428,8 +428,6 @@ def main() -> None:
                     return {"status": "failed", **exception_details(exc),
                             "elapsed_ms": round((time.perf_counter() - started) * 1000)}
 
-            service_pool = ThreadPoolExecutor(max_workers=min(25, max(5, args.workers * 5)))
-
             def probe_worker(worker_index: int, batch: list[dict]) -> None:
                 selector = api_base + f"/proxies/PHONE-{worker_index:02d}"
                 proxy_url = f"http://127.0.0.1:{args.port_base + worker_index}"
@@ -461,15 +459,12 @@ def main() -> None:
                             "github": args.github_url,
                         }
                         record["application_checks"] = {}
-                        # Run the five lightweight checks concurrently with a bounded global pool.
-                        service_futures = {
-                            service_pool.submit(run_service_check, service, target_url,
-                                                proxy_url, args.service_timeout): service
-                            for service, target_url in service_targets.items()
-                        }
-                        for future in as_completed(service_futures):
-                            service = service_futures[future]
-                            check_result = future.result()
+                        # Run checks sequentially to isolate failures caused by per-node
+                        # concurrent HTTPS handshakes. Node-level workers remain concurrent.
+                        for service, target_url in service_targets.items():
+                            check_result = run_service_check(
+                                service, target_url, proxy_url, args.service_timeout
+                            )
                             record["application_checks"][service] = check_result
                             if check_result["status"] == "failed":
                                 record.setdefault("failure_stage", service)
@@ -522,7 +517,6 @@ def main() -> None:
                            for i, batch in enumerate(batches) if batch]
                 for future in as_completed(futures):
                     future.result()
-            service_pool.shutdown(wait=True)
         finally:
             mihomo.terminate()
             try:
