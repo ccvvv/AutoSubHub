@@ -385,7 +385,7 @@ def main() -> None:
             diagnostic_path.parent.mkdir(parents=True, exist_ok=True)
             diagnostic_temp = diagnostic_path.with_name(diagnostic_path.name + ".tmp")
             diagnostic_temp.write_text(
-                json.dumps(mihomo_diagnostic, ensure_ascii=False, indent=2) + "\\n",
+                json.dumps(mihomo_diagnostic, ensure_ascii=False, indent=2) + "\n",
                 encoding="utf-8",
             )
             diagnostic_temp.replace(diagnostic_path)
