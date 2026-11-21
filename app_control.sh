@@ -8,6 +8,19 @@ LOG="logs/app-control.log"
 now() { date '+%Y-%m-%d %H:%M:%S'; }
 say() { printf '[%s] %s\n' "$(now)" "$*" | tee -a "$LOG"; }
 case "$ACTION" in
+  update)
+    say "开始更新工作区：git pull --ff-only"
+    if [ -n "$(git status --porcelain)" ]; then
+      say "更新已取消：工作区存在未提交修改，请先处理本地修改"
+      git status --short | tee -a "$LOG"
+      exit 2
+    fi
+    if ! git pull --ff-only origin "$(git branch --show-current)" 2>&1 | tee -a "$LOG"; then
+      say "工作区更新失败：请检查网络、分支跟踪关系或远端冲突"
+      exit 1
+    fi
+    say "工作区更新完成：$(git rev-parse --short HEAD)"
+    ;;
   check)
     say "检查候选版本 published-subscriptions"
     SHA="$(git ls-remote origin refs/heads/published-subscriptions 2>>"$LOG" | awk 'NR==1 {print $1}')"
