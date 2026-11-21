@@ -27,6 +27,7 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
     private lateinit var candidateInfo: TextView
     private lateinit var logPanel: LinearLayout
     private lateinit var logText: TextView
+    private lateinit var workersSpinner: Spinner
     private val statViews = mutableMapOf<String, TextView>()
     private val prefs by lazy { getSharedPreferences("console", MODE_PRIVATE) }
     private val handler = Handler(Looper.getMainLooper())
@@ -93,6 +94,16 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
 
         val actions = card()
         actions.addView(label("操作",16,true,Color.rgb(37,49,66)))
+        actions.addView(label("测速并发（最高 300）",13,false,Color.rgb(83,96,113)))
+        workersSpinner = Spinner(this).apply {
+            val choices = listOf("5","10","20","50","100","150","200","250","300")
+            adapter = ArrayAdapter(this@MainActivity, android.R.layout.simple_spinner_item, choices).also {
+                it.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            }
+            val saved = prefs.getInt("probe_workers", 200)
+            setSelection(choices.indexOf(saved.toString()).takeIf { it >= 0 } ?: 6)
+        }
+        actions.addView(workersSpinner, LinearLayout.LayoutParams(-1, dp(48)))
         action(actions,"更新工作区","update")
         action(actions,"开始测速","probe")
         action(actions,"停止测速","stop")
@@ -133,7 +144,11 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
     }
     private fun action(parent:LinearLayout,text:String,cmd:String) {
         parent.addView(Button(this).apply { this.text=text; isAllCaps=false; setOnClickListener {
+            var extraArgs = emptyArray<String>()
             if(cmd=="probe") {
+                val workers = workersSpinner.selectedItem.toString().toIntOrNull()?.coerceIn(1,300) ?: 200
+                prefs.edit().putInt("probe_workers", workers).apply()
+                extraArgs = arrayOf(workers.toString())
                 prefs.edit().putBoolean("probe_active",true).apply()
                 status.text="● 正在启动测速…"
                 progress.isIndeterminate=true
@@ -148,7 +163,7 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
                 status.text="Ⅱ 已请求停止"
                 progress.isIndeterminate=false
             }
-            runTermux(cmd)
+            runTermux(cmd, extraArgs=extraArgs)
         } },LinearLayout.LayoutParams(-1,-2))
     }
 
@@ -196,7 +211,7 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
     private fun serviceName(k:String)=when(k) { "youtube"->"YouTube"; "telegram"->"TG"; "google"->"Google"; "chatgpt"->"AI"; else->"GitHub" }
     private fun startPolling(){ handler.removeCallbacks(poll); handler.post(poll) }
 
-    private fun runTermux(action:String,showFeedback:Boolean=true) {
+    private fun runTermux(action:String,showFeedback:Boolean=true,extraArgs:Array<String> = emptyArray()) {
         if(Build.VERSION.SDK_INT>=23 && checkSelfPermission("com.termux.permission.RUN_COMMAND")!=PackageManager.PERMISSION_GRANTED) {
             Toast.makeText(this,"请先授予 Termux 命令权限",Toast.LENGTH_LONG).show()
             requestPermissions(arrayOf("com.termux.permission.RUN_COMMAND"),41); return
@@ -204,7 +219,7 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
         val intent=Intent("com.termux.RUN_COMMAND").apply {
             setClassName("com.termux","com.termux.app.RunCommandService")
             putExtra("com.termux.RUN_COMMAND_PATH","/data/data/com.termux/files/usr/bin/bash")
-            putExtra("com.termux.RUN_COMMAND_ARGUMENTS",arrayOf("/data/data/com.termux/files/home/AutoSubHub/app_control.sh",action))
+            putExtra("com.termux.RUN_COMMAND_ARGUMENTS",arrayOf("/data/data/com.termux/files/home/AutoSubHub/app_control.sh",action)+extraArgs)
             putExtra("com.termux.RUN_COMMAND_WORKDIR","/data/data/com.termux/files/home/AutoSubHub")
             putExtra("com.termux.RUN_COMMAND_BACKGROUND",true)
             putExtra("com.termux.RUN_COMMAND_SESSION_ACTION","3")
