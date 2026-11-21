@@ -292,12 +292,16 @@ def main() -> None:
         "workers": args.workers,
         "min_speed_bps": int(args.min_speed_kbps * 1000),
         "download_url": args.download_url,
+        "youtube_url": args.youtube_url,
         "results": receipt_results,
     }
     Path(args.output).write_text(json.dumps(receipt, ensure_ascii=False, indent=2) + "\n",
                                  encoding="utf-8")
     passed = sum(r["status"] == "passed" for r in receipt_results)
-    print(f"Probe complete: {passed}/{len(receipt_results)} passed; receipt: {args.output}")
+    yt_passed = sum(r.get("youtube_status") == "passed" for r in receipt_results)
+    yt_failed = sum(r.get("youtube_status") == "failed" for r in receipt_results)
+    print(f"YouTube HTTPS: passed={yt_passed}, failed={yt_failed} (diagnostic only)")
+    print(f"Download probe: {passed}/{len(receipt_results)} passed; receipt: {args.output}")
 
 
 
