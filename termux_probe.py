@@ -263,9 +263,10 @@ def main() -> None:
     pause_lock = threading.Lock()
     pause_announced = [False]
     pause_path = progress_path.with_name("probe.pause")
+    stop_path = progress_path.with_name("probe.stop")
 
-    def wait_if_paused() -> None:
-        while pause_path.exists():
+    def wait_if_paused() -> bool:
+        while pause_path.exists() and not stop_path.exists():
             with pause_lock:
                 if not pause_announced[0]:
                     with result_lock:
@@ -279,6 +280,7 @@ def main() -> None:
                     write_progress(progress_path, "running", len(receipt_results), len(proxies),
                                    receipt_results, started, stage="继续检测节点")
                 pause_announced[0] = False
+        return not stop_path.exists()
 
     mihomo = None
 
@@ -330,7 +332,8 @@ def main() -> None:
                 worker_api = requests.Session()
                 worker_api.headers.update({"Authorization": f"Bearer {SECRET}"})
                 for node in batch:
-                    wait_if_paused()
+                    if not wait_if_paused():
+                        break
                     node_id = next((item.get("node_id") for item in manifest_nodes
                                     if item.get("name") == node["name"]), None)
                     record = {"node_id": node_id, "name": node["name"],
@@ -420,9 +423,10 @@ def main() -> None:
                 mihomo.kill()
 
     completed_at = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    run_status = "interrupted" if stop_path.exists() else "completed"
     receipt = {
         "schema_version": 1,
-        "status": "completed",
+        "status": run_status,
         "created_at": completed_at,
         "completed_at": completed_at,
         "candidate_sha256": candidate_hash,
@@ -449,8 +453,9 @@ def main() -> None:
     rejected = len(receipt_results) - high - normal
     print(f"Application gates + download: high={high}, normal={normal}, rejected={rejected}")
     print(f"Download probe: {passed}/{len(receipt_results)} passed; receipt: {args.output}")
-    write_progress(progress_path, "completed", len(receipt_results), len(proxies),
-                   receipt_results, started, stage="测速完成")
+    final_stage = "测速已停止，部分结果已保存" if run_status == "interrupted" else "测速完成"
+    write_progress(progress_path, run_status, len(receipt_results), len(proxies),
+                   receipt_results, started, stage=final_stage)
 
 
 
