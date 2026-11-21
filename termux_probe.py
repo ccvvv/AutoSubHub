@@ -26,7 +26,6 @@ REPO = os.getenv("GITHUB_REPOSITORY", "ccvvv/AutoSubHub")
 BRANCH = "published-subscriptions"
 CANDIDATE_URL = f"https://raw.githubusercontent.com/{REPO}/{BRANCH}/candidate/subscription.yaml"
 MANIFEST_URL = f"https://raw.githubusercontent.com/{REPO}/{BRANCH}/candidate/manifest.json"
-API_COMMIT_URL = f"https://api.github.com/repos/{REPO}/commits/{BRANCH}"
 PORT_BASE = int(os.getenv("PROBE_PORT_BASE", "17890"))
 SECRET = "autohub-phone-probe"
 USER_AGENT = "AutoSubHub-Termux-Probe/1.0"
@@ -185,14 +184,29 @@ def main() -> None:
     session = requests.Session()
     session.headers.update({"User-Agent": USER_AGENT})
     try:
-        commit_response = session.get(API_COMMIT_URL, timeout=30)
-        commit_response.raise_for_status()
-        candidate_commit = commit_response.json().get("sha")
-        if not isinstance(candidate_commit, str) or len(candidate_commit) != 40 or any(c not in "0123456789abcdef" for c in candidate_commit):
-            raise ValueError("GitHub returned an invalid candidate commit SHA")
+        # Resolve the data branch through Git's remote-ref protocol instead of
+        # GitHub's REST commits endpoint, which is frequently rate-limited.
+        remote = subprocess.run(
+            ["git", "remote", "get-url", "origin"],
+            check=True, capture_output=True, text=True, timeout=10,
+        ).stdout.strip()
+        if not remote:
+            raise RuntimeError("Git origin URL is empty")
+        ref_result = subprocess.run(
+            ["git", "ls-remote", remote, f"refs/heads/{BRANCH}"],
+            check=True, capture_output=True, text=True, timeout=30,
+        )
+        candidate_commit = ""
+        for line in ref_result.stdout.splitlines():
+            fields = line.split()
+            if len(fields) == 2 and fields[1] == f"refs/heads/{BRANCH}":
+                candidate_commit = fields[0].lower()
+                break
+        if len(candidate_commit) != 40 or any(c not in "0123456789abcdef" for c in candidate_commit):
+            raise ValueError("Git remote did not return a valid candidate branch SHA")
         pinned_candidate_url = pin_raw_url(args.candidate_url, REPO, candidate_commit)
         pinned_manifest_url = pin_raw_url(args.manifest_url, REPO, candidate_commit)
-        print(f"Candidate version locked: {candidate_commit}")
+        print(f"Candidate version locked via git ls-remote: {candidate_commit}")
         candidate_bytes, _, manifest, source_used = download_verified_pair(
             session, pinned_candidate_url, pinned_manifest_url, 30, REPO, candidate_commit
         )
