@@ -35,7 +35,7 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
         override fun run() {
             if (!prefs.getBoolean("probe_active", false) && logPanel.visibility != View.VISIBLE) return
             requestSnapshot()
-            handler.postDelayed(this, 1800)
+            handler.postDelayed(this, 1200)
         }
     }
 
