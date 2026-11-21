@@ -45,6 +45,21 @@ case "$ACTION" in
     if [ -s progress.json ]; then sed -i 's/"status":"[^"]*"/"status":"interrupted"/' progress.json; fi
     say "已发送停止测速信号"
     ;;
+  snapshot)
+    python3 - <<'PY'
+import json
+from pathlib import Path
+try:
+    progress = json.loads(Path("progress.json").read_text(encoding="utf-8"))
+except Exception:
+    progress = {"status": "idle", "done": 0, "total": 0}
+try:
+    logs = "\\n".join(Path("logs/app-control.log").read_text(encoding="utf-8", errors="replace").splitlines()[-60:])
+except Exception:
+    logs = "暂无日志"
+print(json.dumps({"progress": progress, "logs": logs}, ensure_ascii=False))
+PY
+    ;;
   progress) cat progress.json 2>/dev/null || echo '{"status":"idle","done":0,"total":0}' ;;
   logs) tail -n 100 "$LOG" 2>/dev/null || echo "暂无日志" ;;
   *) echo "Usage: app_control.sh {check|probe|upload|progress|logs|stop}"; exit 2 ;;
