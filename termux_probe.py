@@ -114,12 +114,21 @@ def main() -> None:
     parser.add_argument("--candidate-url", default=CANDIDATE_URL)
     parser.add_argument("--manifest-url", default=MANIFEST_URL)
     parser.add_argument("--workers", type=int, default=int(os.getenv("PROBE_WORKERS", "5")))
-    parser.add_argument("--min-speed-kbps", type=float, default=500.0)
+    parser.add_argument("--min-speed-kbps", type=float, default=200.0,
+                        help="Minimum accepted download speed in KB/s (default 200)")
+    parser.add_argument("--high-speed-kbps", type=float, default=500.0,
+                        help="High-speed category threshold in KB/s (default 500)")
     parser.add_argument("--max-bytes", type=int, default=5 * 1024 * 1024,
                         help="Maximum bytes downloaded per node (default 5 MiB)")
     parser.add_argument("--download-url", default="https://speed.cloudflare.com/__down?bytes=5242880")
-    parser.add_argument("--youtube-url", default="https://www.youtube.com/",
-                        help="YouTube HTTPS reachability check; failure is recorded but does not skip download testing")
+    parser.add_argument("--youtube-url", default="https://www.youtube.com/")
+    parser.add_argument("--telegram-url", default="https://web.telegram.org/",
+                        help="Telegram Web HTTPS check; not a native MTProto login test")
+    parser.add_argument("--google-url", default="https://www.google.com/generate_204")
+    parser.add_argument("--chatgpt-url", default="https://chatgpt.com/")
+    parser.add_argument("--github-url", default="https://github.com/")
+    parser.add_argument("--service-timeout", type=int, default=3,
+                        help="Per-application connection/read timeout in seconds (default 3)")
     parser.add_argument("--timeout", type=int, default=5,
                         help="Connection and read-inactivity timeout in seconds (default 5)")
     parser.add_argument("--api-port", type=int, default=int(os.getenv("PROBE_API_PORT", "19090")),
@@ -132,8 +141,10 @@ def main() -> None:
 
     if not 1 <= args.workers <= 200:
         raise SystemExit("--workers must be between 1 and 200; increase gradually on phones")
-    if args.timeout < 1:
-        raise SystemExit("--timeout must be at least 1 second")
+    if args.timeout < 1 or args.service_timeout < 1:
+        raise SystemExit("timeouts must be at least 1 second")
+    if args.min_speed_kbps <= 0 or args.high_speed_kbps <= args.min_speed_kbps:
+        raise SystemExit("speed thresholds must be positive and high-speed must exceed minimum speed")
     if args.max_bytes < 256 * 1024:
         raise SystemExit("--max-bytes must be at least 256 KiB")
 
@@ -222,51 +233,77 @@ def main() -> None:
                         confirmed.raise_for_status()
                         if confirmed.json().get("now") != node["name"]:
                             raise RuntimeError("Mihomo selector did not switch to requested node")
-                        # Test real HTTPS access to YouTube through this node.
-                        # This is diagnostic only: failure must not discard the node.
-                        try:
-                            yt_start = time.perf_counter()
-                            with requests.get(args.youtube_url,
+                        # All application checks are hard gates; stop at first failure.
+                        # Telegram Web check verifies HTTPS reachability, not native MTProto login.
+                        service_targets = {
+                            "youtube": args.youtube_url,
+                            "telegram": args.telegram_url,
+                            "google": args.google_url,
+                            "chatgpt": args.chatgpt_url,
+                            "github": args.github_url,
+                        }
+                        record["application_checks"] = {}
+                        service_failed = False
+                        for service, target_url in service_targets.items():
+                            service_start = time.perf_counter()
+                            try:
+                                with requests.get(target_url,
+                                                  proxies={"http": proxy_url, "https": proxy_url},
+                                                  stream=True,
+                                                  timeout=(args.service_timeout, args.service_timeout),
+                                                  headers={"User-Agent": USER_AGENT}) as service_response:
+                                    service_response.raise_for_status()
+                                    next(service_response.iter_content(chunk_size=1024), b"")
+                                    status_code = service_response.status_code
+                                record["application_checks"][service] = {
+                                    "status": "passed",
+                                    "status_code": status_code,
+                                    "elapsed_ms": round((time.perf_counter() - service_start) * 1000),
+                                }
+                            except Exception as service_exc:
+                                record["application_checks"][service] = {
+                                    "status": "failed",
+                                    "error": type(service_exc).__name__,
+                                    "elapsed_ms": round((time.perf_counter() - service_start) * 1000),
+                                }
+                                record["failure_stage"] = service
+                                service_failed = True
+                                break
+
+                        if not service_failed:
+                            start = time.perf_counter()
+                            received = 0
+                            with requests.get(args.download_url,
                                               proxies={"http": proxy_url, "https": proxy_url},
                                               stream=True, timeout=(args.timeout, args.timeout),
-                                              headers={"User-Agent": USER_AGENT}) as yt_response:
-                                yt_response.raise_for_status()
-                                next(yt_response.iter_content(chunk_size=1024), b"")
-                                record["youtube_status_code"] = yt_response.status_code
-                            record["youtube_elapsed_ms"] = round((time.perf_counter() - yt_start) * 1000)
-                            record["youtube_status"] = "passed"
-                        except Exception as yt_exc:
-                            record["youtube_status"] = "failed"
-                            record["youtube_error"] = type(yt_exc).__name__
-
-                        start = time.perf_counter()
-                        received = 0
-                        with requests.get(args.download_url,
-                                          proxies={"http": proxy_url, "https": proxy_url},
-                                          stream=True, timeout=(args.timeout, args.timeout),
-                                          headers={"User-Agent": USER_AGENT}) as response:
-                            response.raise_for_status()
-                            for chunk in response.iter_content(chunk_size=64 * 1024):
-                                if not chunk:
-                                    continue
-                                remaining = args.max_bytes - received
-                                received += min(len(chunk), remaining)
-                                if received >= args.max_bytes:
-                                    break
-                        elapsed = max(time.perf_counter() - start, 0.001)
-                        speed = int(received / elapsed)
-                        record.update({"download_speed_bps": speed, "downloaded_bytes": received,
-                                       "elapsed_seconds": round(elapsed, 3),
-                                       "status": "passed" if speed >= args.min_speed_kbps * 1000 else "failed"})
+                                              headers={"User-Agent": USER_AGENT}) as response:
+                                response.raise_for_status()
+                                for chunk in response.iter_content(chunk_size=64 * 1024):
+                                    if not chunk:
+                                        continue
+                                    remaining = args.max_bytes - received
+                                    received += min(len(chunk), remaining)
+                                    if received >= args.max_bytes:
+                                        break
+                            elapsed = max(time.perf_counter() - start, 0.001)
+                            speed = int(received / elapsed)
+                            category = ("high" if speed >= args.high_speed_kbps * 1000
+                                        else "normal" if speed >= args.min_speed_kbps * 1000
+                                        else "rejected")
+                            record.update({"download_speed_bps": speed, "downloaded_bytes": received,
+                                           "elapsed_seconds": round(elapsed, 3),
+                                           "speed_category": category,
+                                           "status": "passed" if category != "rejected" else "failed"})
                     except Exception as exc:
                         record["error"] = type(exc).__name__
                     with result_lock:
                         receipt_results.append(record)
                         done = len(receipt_results)
+                        checks = ",".join(f"{k}:{v['status']}" for k, v in record.get("application_checks", {}).items())
                         print(f"[{done}/{len(proxies)}] {node['name'][:36]}: "
-                              f"YouTube={record.get('youtube_status', 'unknown')} "
+                              f"Apps={checks or 'not-run'} "
                               f"{record['download_speed_bps']/1000:.0f} KB/s "
-                              f"{record['status']}")
+                              f"{record.get('speed_category', 'rejected')} {record['status']}")
             with ThreadPoolExecutor(max_workers=args.workers) as pool:
                 futures = [pool.submit(probe_worker, i, batch)
                            for i, batch in enumerate(batches) if batch]
@@ -291,16 +328,21 @@ def main() -> None:
         "device": "android-termux",
         "workers": args.workers,
         "min_speed_bps": int(args.min_speed_kbps * 1000),
+        "high_speed_bps": int(args.high_speed_kbps * 1000),
+        "service_timeout_seconds": args.service_timeout,
+        "service_urls": {"youtube": args.youtube_url, "telegram": args.telegram_url,
+                         "google": args.google_url, "chatgpt": args.chatgpt_url,
+                         "github": args.github_url},
         "download_url": args.download_url,
-        "youtube_url": args.youtube_url,
         "results": receipt_results,
     }
     Path(args.output).write_text(json.dumps(receipt, ensure_ascii=False, indent=2) + "\n",
                                  encoding="utf-8")
     passed = sum(r["status"] == "passed" for r in receipt_results)
-    yt_passed = sum(r.get("youtube_status") == "passed" for r in receipt_results)
-    yt_failed = sum(r.get("youtube_status") == "failed" for r in receipt_results)
-    print(f"YouTube HTTPS: passed={yt_passed}, failed={yt_failed} (diagnostic only)")
+    high = sum(r.get("status") == "passed" and r.get("speed_category") == "high" for r in receipt_results)
+    normal = sum(r.get("status") == "passed" and r.get("speed_category") == "normal" for r in receipt_results)
+    rejected = len(receipt_results) - high - normal
+    print(f"Application gates + download: high={high}, normal={normal}, rejected={rejected}")
     print(f"Download probe: {passed}/{len(receipt_results)} passed; receipt: {args.output}")
 
 
