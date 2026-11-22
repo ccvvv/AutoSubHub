@@ -60,9 +60,10 @@ jobs:
           if [ -f final/previous.yaml ]; then cp final/previous.yaml final/older.yaml; fi
           if [ -f final/latest.yaml ]; then cp final/latest.yaml final/previous.yaml; fi
           cp ../incoming/final.yaml final/latest.yaml
+          python ../scripts/update_lifecycle.py final/latest.yaml lifecycle.json
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add final/
+          git add final/ lifecycle.json
           if git diff --cached --quiet; then
             echo "Final subscription is unchanged; nothing to publish."
             exit 0
