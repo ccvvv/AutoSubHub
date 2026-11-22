@@ -78,7 +78,7 @@ def save_queue_cursor(commits: list[str], receipt_commit: str) -> None:
     }
     state_path.parent.mkdir(parents=True, exist_ok=True)
     temporary_state = state_path.with_name(state_path.name + ".tmp")
-    temporary_state.write_text(json.dumps(state, ensure_ascii=False, indent=2) + "\\n",
+    temporary_state.write_text(json.dumps(state, ensure_ascii=False, indent=2) + "\n",
                                encoding="utf-8")
     temporary_state.replace(state_path)
 
