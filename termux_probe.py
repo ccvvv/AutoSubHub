@@ -23,6 +23,8 @@ from urllib.parse import quote
 import requests
 import yaml
 
+from scripts.candidate_queue import collect_pending_candidate_batches
+
 REPO = os.getenv("GITHUB_REPOSITORY", "ccvvv/AutoSubHub")
 BRANCH = "published-subscriptions"
 CANDIDATE_URL = f"https://raw.githubusercontent.com/{REPO}/{BRANCH}/candidate/subscription.yaml"
@@ -244,34 +246,25 @@ def main() -> None:
 
     session = requests.Session()
     session.headers.update({"User-Agent": USER_AGENT})
+    queue_state_path = Path.home() / ".autosubhub_probe_state.json"
     try:
-        # Resolve the data branch through Git's remote-ref protocol instead of
-        # GitHub's REST commits endpoint, which is frequently rate-limited.
         remote = subprocess.run(
             ["git", "remote", "get-url", "origin"],
             check=True, capture_output=True, text=True, timeout=10,
         ).stdout.strip()
         if not remote:
             raise RuntimeError("Git origin URL is empty")
-        ref_result = subprocess.run(
-            ["git", "ls-remote", remote, f"refs/heads/{BRANCH}"],
-            check=True, capture_output=True, text=True, timeout=30,
+        merged_candidate, manifest, candidate_commits, candidate_commit = (
+            collect_pending_candidate_batches(
+                remote, REPO, BRANCH, session, queue_state_path, bootstrap_limit=20
+            )
         )
-        candidate_commit = ""
-        for line in ref_result.stdout.splitlines():
-            fields = line.split()
-            if len(fields) == 2 and fields[1] == f"refs/heads/{BRANCH}":
-                candidate_commit = fields[0].lower()
-                break
-        if len(candidate_commit) != 40 or any(c not in "0123456789abcdef" for c in candidate_commit):
-            raise ValueError("Git remote did not return a valid candidate branch SHA")
-
-        # Fetch only the published branch tip so its commit timestamp can be
-        # read locally without calling GitHub's rate-limited REST API.
-        subprocess.run(
-            ["git", "fetch", "--quiet", "--depth=1", remote, f"refs/heads/{BRANCH}"],
-            check=True, capture_output=True, text=True, timeout=60,
-        )
+        candidate_bytes = yaml.safe_dump(
+            merged_candidate, allow_unicode=True, sort_keys=False
+        ).encode("utf-8")
+        candidate_hash = hashlib.sha256(candidate_bytes).hexdigest()
+        manifest["candidate_sha256"] = candidate_hash
+        source_used = "cumulative immutable candidate history"
         timestamp_result = subprocess.run(
             ["git", "show", "-s", "--format=%cI", "FETCH_HEAD"],
             check=True, capture_output=True, text=True, timeout=10,
@@ -283,16 +276,10 @@ def main() -> None:
         CANDIDATE_FETCHED_AT = datetime.now(timezone(timedelta(hours=8))).strftime("%Y-%m-%d %H:%M:%S")
         print(f"候选版本更新时间（北京时间）：{CANDIDATE_UPDATED_AT}")
         print(f"本机获取时间（北京时间）：{CANDIDATE_FETCHED_AT}")
-        pinned_candidate_url = pin_raw_url(args.candidate_url, REPO, candidate_commit)
-        pinned_manifest_url = pin_raw_url(args.manifest_url, REPO, candidate_commit)
-        print(f"Candidate version locked via git ls-remote: {candidate_commit}")
-        source_preference_path = Path.home() / "source_preference.json"
-        candidate_bytes, _, manifest, source_used = download_verified_pair(
-            session, pinned_candidate_url, pinned_manifest_url, 30, REPO, candidate_commit,
-            source_preference_path,
-        )
-    except (RuntimeError, ValueError, requests.RequestException, json.JSONDecodeError) as exc:
-        raise SystemExit(f"Unable to lock and download candidate version: {type(exc).__name__}: {exc}") from exc
+        print(f"累计批次：{len(candidate_commits)}；最新版本：{candidate_commit}")
+    except (RuntimeError, ValueError, requests.RequestException, json.JSONDecodeError,
+            subprocess.SubprocessError) as exc:
+        raise SystemExit(f"Unable to collect pending candidate batches: {type(exc).__name__}: {exc}") from exc
     candidate_hash = hashlib.sha256(candidate_bytes).hexdigest()
 
     candidate = yaml.safe_load(candidate_bytes) or {}
@@ -314,7 +301,16 @@ def main() -> None:
         proxies = proxies[:args.limit]
         selected_names = {p["name"] for p in proxies}
         manifest_nodes = [n for n in manifest_nodes if n.get("name") in selected_names]
-    print(f"Candidate loaded: {len(proxies)} nodes; SHA256 {candidate_hash[:16]}…")
+    # The receipt must be validated against the exact tested subset, not the
+    # larger pre-limit candidate list.
+    candidate = {"proxies": proxies}
+    manifest["nodes"] = manifest_nodes
+    candidate_bytes = yaml.safe_dump(
+        candidate, allow_unicode=True, sort_keys=False
+    ).encode("utf-8")
+    candidate_hash = hashlib.sha256(candidate_bytes).hexdigest()
+    manifest["candidate_sha256"] = candidate_hash
+    print(f"累计批次合并后：{len(proxies)} 个唯一节点；SHA256 {candidate_hash[:16]}…")
     write_progress(progress_path, "running", 0, len(proxies), [], started, stage="正在启动 Mihomo")
 
     api = requests.Session()
@@ -577,6 +573,8 @@ def main() -> None:
         "completed_at": completed_at,
         "candidate_sha256": candidate_hash,
         "candidate_commit": candidate_commit,
+        "candidate_commits": candidate_commits,
+        "candidate_batch_count": len(candidate_commits),
         "candidate_updated_at": CANDIDATE_UPDATED_AT,
         "candidate_fetched_at": CANDIDATE_FETCHED_AT,
         "candidate_source": source_used,
@@ -593,6 +591,12 @@ def main() -> None:
     }
     Path(args.output).write_text(json.dumps(receipt, ensure_ascii=False, indent=2) + "\n",
                                  encoding="utf-8")
+    output_path = Path(args.output)
+    output_path.with_suffix(".candidate.yaml").write_bytes(candidate_bytes)
+    output_path.with_suffix(".manifest.json").write_text(
+        json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
+    print("批次快照已随回执保存。")
     passed = sum(r["status"] == "passed" for r in receipt_results)
     high = sum(r.get("status") == "passed" and r.get("speed_category") == "high" for r in receipt_results)
     normal = sum(r.get("status") == "passed" and r.get("speed_category") == "normal" for r in receipt_results)

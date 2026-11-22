@@ -23,7 +23,7 @@ jobs:
           ref: main
       - name: Install Python dependencies
         run: pip install pyyaml
-      - name: Fetch receipt and its exact candidate snapshot
+      - name: Fetch receipt and its exact merged candidate snapshot
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -32,19 +32,29 @@ jobs:
           git clone --depth 1 --branch probe-receipts "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" receipts
           if [ "${GITHUB_EVENT_NAME}" = "push" ]; then
             git -C receipts fetch --no-tags origin "${GITHUB_SHA}"
-            git -C receipts show "${GITHUB_SHA}:receipts/latest.json" > incoming/receipt.json
+            RECEIPT_REF="${GITHUB_SHA}"
           else
-            git -C receipts show "origin/probe-receipts:receipts/latest.json" > incoming/receipt.json
+            RECEIPT_REF="origin/probe-receipts"
           fi
-          CANDIDATE_COMMIT="$(python -c 'import json; print(json.load(open("incoming/receipt.json"))["candidate_commit"])')"
-          if ! [[ "${CANDIDATE_COMMIT}" =~ ^[0-9a-f]{40}$ ]]; then
-            echo "Receipt candidate_commit is missing or invalid."
-            exit 1
+          git -C receipts show "${RECEIPT_REF}:receipts/latest.json" > incoming/receipt.json
+          if git -C receipts cat-file -e "${RECEIPT_REF}:receipts/candidate.yaml" 2>/dev/null; then
+            git -C receipts show "${RECEIPT_REF}:receipts/candidate.yaml" > incoming/subscription.yaml
+            git -C receipts show "${RECEIPT_REF}:receipts/manifest.json" > incoming/manifest.json
+          else
+            # Backward compatibility for receipts uploaded by the earlier single-batch client.
+            CANDIDATE_COMMIT="$(python -c 'import json; print(json.load(open("incoming/receipt.json"))["candidate_commit"])')"
+            if ! [[ "${CANDIDATE_COMMIT}" =~ ^[0-9a-f]{40}$ ]]; then
+              echo "Receipt candidate_commit is missing or invalid."
+              exit 1
+            fi
+            git clone --no-checkout --filter=blob:none --branch published-subscriptions "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" published
+            git -C published fetch --no-tags origin "${CANDIDATE_COMMIT}"
+            git -C published show "${CANDIDATE_COMMIT}:candidate/subscription.yaml" > incoming/subscription.yaml
+            git -C published show "${CANDIDATE_COMMIT}:candidate/manifest.json" > incoming/manifest.json
           fi
-          git clone --no-checkout --filter=blob:none --branch published-subscriptions "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" published
-          git -C published fetch --no-tags origin "${CANDIDATE_COMMIT}"
-          git -C published show "${CANDIDATE_COMMIT}:candidate/subscription.yaml" > incoming/subscription.yaml
-          git -C published show "${CANDIDATE_COMMIT}:candidate/manifest.json" > incoming/manifest.json
+          if [ ! -d published ]; then
+            git clone --no-checkout --filter=blob:none --branch published-subscriptions "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" published
+          fi
       - name: Validate receipt and build final
         env:
           MIN_SPEED_BPS: "200000"

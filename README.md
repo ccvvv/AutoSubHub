@@ -17,7 +17,7 @@ The candidate workflow publishes only the pending-test YAML and credential-free 
 
 ## Phone probe and final pipeline
 
-Android/Termux downloads the public candidate link, tests nodes from the phone's network through isolated Mihomo listeners, and writes a receipt containing tested node IDs and measured download speeds. An initial `termux_probe.py` script and setup guide are available in `docs/TERMUX_PROBE.md`. Receipt upload uses a user-supplied repository token; the token must never be committed or embedded in an APK. The complete phone-to-GitHub flow has not yet been tested.
+Android/Termux reads the immutable history of the public candidate branch, collects every batch newer than the last successfully uploaded phone receipt (from the latest previously uploaded phone receipt on first use (or up to 20 recent batches if no earlier receipt exists)), merges them, and deduplicates nodes by proxy configuration rather than display name. It tests the combined unique set from the phone's network through isolated Mihomo listeners and writes a receipt plus the exact merged candidate/manifest snapshots. An initial `termux_probe.py` script and setup guide are available in `docs/TERMUX_PROBE.md`. Receipt upload uses a user-supplied repository token; the token must never be committed or embedded in an APK. The local queue cursor advances only after the receipt and its exact merged snapshots have been uploaded successfully. Interrupted or failed uploads therefore leave the same batches pending. The complete phone-to-GitHub flow has not yet been tested.
 
 The final publisher is designed to maintain three rolling files:
 - `final/latest.yaml`

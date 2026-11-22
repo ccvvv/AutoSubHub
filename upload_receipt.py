@@ -7,6 +7,7 @@ The script never runs a probe and never deletes or modifies the local receipt.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import re
 import subprocess
@@ -66,6 +67,22 @@ def git(*args: str, cwd: Path | None = None, check: bool = True):
     return result
 
 
+def save_queue_cursor(commits: list[str], receipt_commit: str) -> None:
+    """Advance the local batch cursor after the receipt bundle is present on GitHub."""
+    from datetime import datetime, timezone
+    state_path = Path.home() / ".autosubhub_probe_state.json"
+    state = {
+        "last_uploaded_candidate_commit": commits[-1],
+        "last_receipt_commit": receipt_commit,
+        "updated_at": datetime.now(timezone.utc).isoformat(),
+    }
+    state_path.parent.mkdir(parents=True, exist_ok=True)
+    temporary_state = state_path.with_name(state_path.name + ".tmp")
+    temporary_state.write_text(json.dumps(state, ensure_ascii=False, indent=2) + "\n",
+                               encoding="utf-8")
+    temporary_state.replace(state_path)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         description="Upload an existing local receipt over SSH; does not run node tests."
@@ -95,6 +112,26 @@ def main() -> int:
     try:
         receipt_path = Path(args.input).expanduser()
         raw = validate_receipt(receipt_path)
+        receipt_data = json.loads(raw.decode("utf-8"))
+        candidate_path = receipt_path.with_suffix(".candidate.yaml")
+        manifest_path = receipt_path.with_suffix(".manifest.json")
+        if not candidate_path.is_file() or not manifest_path.is_file():
+            raise ValueError("Candidate snapshot sidecars are missing; keep them with the receipt.")
+        candidate_bytes = candidate_path.read_bytes()
+        manifest_bytes = manifest_path.read_bytes()
+        candidate_digest = hashlib.sha256(candidate_bytes).hexdigest()
+        manifest = json.loads(manifest_bytes.decode("utf-8"))
+        if receipt_data.get("candidate_sha256") != candidate_digest:
+            raise ValueError("Receipt/candidate snapshot SHA256 mismatch")
+        if manifest.get("candidate_sha256") != candidate_digest:
+            raise ValueError("Manifest/candidate snapshot SHA256 mismatch")
+        commits = receipt_data.get("candidate_commits")
+        if (not isinstance(commits, list) or not commits
+                or any(not isinstance(item, str) or not re.fullmatch(r"[0-9a-f]{40}", item)
+                       for item in commits)):
+            raise ValueError("Receipt candidate_commits list is missing or invalid")
+        if receipt_data.get("candidate_commit") != commits[-1]:
+            raise ValueError("Receipt candidate_commit does not match the newest queued batch")
         owner, name = args.repo.split("/", 1)
         remote = f"git@github.com:{owner}/{name}.git"
 
@@ -117,11 +154,18 @@ def main() -> int:
             destination = work.joinpath(*repo_path.parts)
             destination.parent.mkdir(parents=True, exist_ok=True)
             destination.write_bytes(raw)
-            git("add", "--", str(repo_path), cwd=work)
+            candidate_destination = work / "receipts" / "candidate.yaml"
+            manifest_destination = work / "receipts" / "manifest.json"
+            candidate_destination.write_bytes(candidate_bytes)
+            manifest_destination.write_bytes(manifest_bytes)
+            git("add", "--", str(repo_path), "receipts/candidate.yaml",
+                "receipts/manifest.json", cwd=work)
             changed = git("diff", "--cached", "--quiet", cwd=work, check=False)
             if changed.returncode == 0:
-                print(f"Already up to date: {args.repo}/{args.path}")
-                print(f"Branch: {args.branch}")
+                existing_commit = git("rev-parse", "HEAD", cwd=work).stdout.strip()
+                save_queue_cursor(commits, existing_commit)
+                print(f"Already uploaded: {args.repo}/{args.path}")
+                print("Local candidate queue cursor synchronized.")
                 print(f"Local receipt kept: {receipt_path.resolve()}")
                 return 0
             if changed.returncode != 1:
@@ -132,6 +176,9 @@ def main() -> int:
                 "commit", "-m", "Upload Android phone probe receipt", cwd=work)
             git("push", "origin", args.branch, cwd=work)
             commit = git("rev-parse", "HEAD", cwd=work).stdout.strip()
+
+        # Advance only after the complete receipt bundle has been accepted by GitHub.
+        save_queue_cursor(commits, commit)
 
         print(f"Upload successful: {args.repo}/{args.path}")
         print(f"Branch: {args.branch}")
