@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Push a completed local AutoSubHub phone-probe receipt over Git SSH.
+"""Push a completed local AutoSubHub phone-probe receipt to GitHub.
 
-Requires an SSH key authorized for the target GitHub repository.
+Uses GITHUB_TOKEN over HTTPS when supplied; otherwise falls back to SSH.
 The script never runs a probe and never deletes or modifies the local receipt.
 """
 from __future__ import annotations
@@ -9,6 +9,8 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
+import base64
 import re
 import subprocess
 import sys
@@ -19,6 +21,7 @@ from pathlib import Path, PurePosixPath
 DEFAULT_REPO = "ccvvv/AutoSubHub"
 DEFAULT_BRANCH = "probe-receipts"
 DEFAULT_PATH = "receipts/latest.json"
+GIT_AUTH_ENV: dict[str, str] = {}
 
 
 def validate_receipt(path: Path) -> bytes:
@@ -60,6 +63,7 @@ def git(*args: str, cwd: Path | None = None, check: bool = True):
     result = subprocess.run(
         ["git", *args], cwd=str(cwd) if cwd else None,
         text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+        env={**os.environ, **GIT_AUTH_ENV},
     )
     if check and result.returncode:
         detail = (result.stderr or result.stdout).strip()
@@ -85,7 +89,7 @@ def save_queue_cursor(commits: list[str], receipt_commit: str) -> None:
 
 def main() -> int:
     parser = argparse.ArgumentParser(
-        description="Upload an existing local receipt over SSH; does not run node tests."
+        description="Upload an existing local receipt to GitHub; does not run node tests."
     )
     parser.add_argument("--input", default="receipt.json",
                         help="Local receipt JSON (default: receipt.json)")
@@ -133,7 +137,19 @@ def main() -> int:
         if receipt_data.get("candidate_commit") != commits[-1]:
             raise ValueError("Receipt candidate_commit does not match the newest queued batch")
         owner, name = args.repo.split("/", 1)
-        remote = f"git@github.com:{owner}/{name}.git"
+        token = os.getenv("GITHUB_TOKEN", "").strip()
+        if token:
+            encoded = base64.b64encode(f"x-access-token:{token}".encode("utf-8")).decode("ascii")
+            GIT_AUTH_ENV.update({
+                "GIT_CONFIG_COUNT": "1",
+                "GIT_CONFIG_KEY_0": "http.https://github.com/.extraheader",
+                "GIT_CONFIG_VALUE_0": f"AUTHORIZATION: basic {encoded}",
+            })
+            remote = f"https://github.com/{owner}/{name}.git"
+            print("GitHub authentication: GITHUB_TOKEN over HTTPS")
+        else:
+            remote = f"git@github.com:{owner}/{name}.git"
+            print("GitHub authentication: SSH key (GITHUB_TOKEN not set)")
 
         with tempfile.TemporaryDirectory(prefix="autosubhub-receipt-") as temp:
             work = Path(temp) / "repo"
