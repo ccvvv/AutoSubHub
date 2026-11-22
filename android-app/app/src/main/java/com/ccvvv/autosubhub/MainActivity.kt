@@ -118,14 +118,30 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
         body.addView(actions)
 
         val logHeader = LinearLayout(this).apply { orientation=LinearLayout.HORIZONTAL; gravity=android.view.Gravity.CENTER_VERTICAL }
-        logHeader.addView(label("运行日志",16,true,Color.rgb(37,49,66)),LinearLayout.LayoutParams(0,-2,1f))
-        val toggle = Button(this).apply { text="展开日志"; setOnClickListener {
-            logPanel.visibility=if(logPanel.visibility==View.VISIBLE) View.GONE else View.VISIBLE
-            text=if(logPanel.visibility==View.VISIBLE) "收起日志" else "展开日志"
-        } }
+        logHeader.addView(label("Termux 终端",16,true,Color.rgb(37,49,66)),LinearLayout.LayoutParams(0,-2,1f))
+        val toggle = Button(this).apply {
+            text="展开终端"
+            setOnClickListener {
+                val expanded = logText.maxLines <= 8
+                logText.maxLines = if (expanded) 500 else 8
+                text = if (expanded) "收起终端" else "展开终端"
+            }
+        }
         logHeader.addView(toggle); body.addView(logHeader)
-        logPanel = LinearLayout(this).apply { orientation=LinearLayout.VERTICAL; visibility=View.GONE; background=rounded(Color.WHITE,14); setPadding(dp(12),dp(10),dp(12),dp(10)) }
-        logText = TextView(this).apply { text="日志暂时为空"; textSize=12f; setTextColor(Color.DKGRAY); setTextIsSelectable(true) }
+        logPanel = LinearLayout(this).apply {
+            orientation=LinearLayout.VERTICAL
+            visibility=View.VISIBLE
+            background=rounded(Color.rgb(20,25,33),14)
+            setPadding(dp(12),dp(10),dp(12),dp(10))
+        }
+        logText = TextView(this).apply {
+            text="等待 Termux 输出……"
+            textSize=12f
+            setTextColor(Color.rgb(205,218,232))
+            typeface=Typeface.MONOSPACE
+            maxLines=8
+            setTextIsSelectable(true)
+        }
         logPanel.addView(logText)
         logPanel.addView(Button(this).apply { text="刷新日志"; setOnClickListener { runTermux("logs") } })
         body.addView(logPanel)
