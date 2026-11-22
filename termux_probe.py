@@ -193,7 +193,7 @@ def download_verified_pair(session: requests.Session, candidate_url: str,
 def main() -> None:
     global CANDIDATE_UPDATED_AT, CANDIDATE_FETCHED_AT
     parser = argparse.ArgumentParser(description="AutoSubHub domestic phone download probe")
-    parser.add_argument("--candidate-url", default=CANDIDATE_URL)
+    parser.add_argument("--candidate-url", default=CANDIDATE_URL)\n    parser.add_argument("--candidate-file", default="", help="Use a previously downloaded local candidate YAML without fetching GitHub")
     parser.add_argument("--manifest-url", default=MANIFEST_URL)
     parser.add_argument("--workers", type=int, default=int(os.getenv("PROBE_WORKERS", "5")))
     parser.add_argument("--limit", type=int, default=0,
@@ -244,42 +244,65 @@ def main() -> None:
         raise SystemExit("API/listener ports must be valid non-privileged TCP ports")
     api_base = f"http://127.0.0.1:{args.api_port}"
 
-    session = requests.Session()
-    session.headers.update({"User-Agent": USER_AGENT})
     queue_state_path = Path.home() / ".autosubhub_probe_state.json"
-    try:
-        remote = subprocess.run(
-            ["git", "remote", "get-url", "origin"],
-            check=True, capture_output=True, text=True, timeout=10,
-        ).stdout.strip()
-        if not remote:
-            raise RuntimeError("Git origin URL is empty")
-        merged_candidate, manifest, candidate_commits, candidate_commit = (
-            collect_pending_candidate_batches(
-                remote, REPO, BRANCH, session, queue_state_path, bootstrap_limit=20
+    if args.candidate_file:
+        candidate_path = Path(args.candidate_file).expanduser()
+        manifest_path = candidate_path.with_suffix(".manifest.json")
+        metadata_path = candidate_path.with_suffix(".meta.json")
+        try:
+            candidate_bytes = candidate_path.read_bytes()
+            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+            metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+            candidate_hash = hashlib.sha256(candidate_bytes).hexdigest()
+            if manifest.get("candidate_sha256") != candidate_hash or metadata.get("candidate_sha256") != candidate_hash:
+                raise ValueError("Local candidate/manifest/metadata SHA256 mismatch")
+            candidate_commits = metadata.get("candidate_commits", [])
+            candidate_commit = metadata.get("candidate_commit", "")
+            CANDIDATE_UPDATED_AT = metadata.get("candidate_updated_at", "")
+            CANDIDATE_FETCHED_AT = metadata.get("candidate_fetched_at", "")
+            source_used = "verified local candidate cache"
+            print(f"使用本地候选文件：{candidate_path}")
+            print(f"本地文件 SHA256 校验通过：{candidate_hash[:16]}…")
+            print(f"候选版本更新时间（北京时间）：{CANDIDATE_UPDATED_AT or '未知'}")
+            print(f"本机获取时间（北京时间）：{CANDIDATE_FETCHED_AT or '未知'}")
+        except (OSError, ValueError, TypeError, json.JSONDecodeError) as exc:
+            raise SystemExit(f"Unable to load verified local candidate file: {type(exc).__name__}: {exc}") from exc
+    else:
+        session = requests.Session()
+        session.headers.update({"User-Agent": USER_AGENT})
+        try:
+            remote = subprocess.run(
+                ["git", "remote", "get-url", "origin"],
+                check=True, capture_output=True, text=True, timeout=10,
+            ).stdout.strip()
+            if not remote:
+                raise RuntimeError("Git origin URL is empty")
+            merged_candidate, manifest, candidate_commits, candidate_commit = (
+                collect_pending_candidate_batches(
+                    remote, REPO, BRANCH, session, queue_state_path, bootstrap_limit=20
+                )
             )
-        )
-        candidate_bytes = yaml.safe_dump(
-            merged_candidate, allow_unicode=True, sort_keys=False
-        ).encode("utf-8")
-        candidate_hash = hashlib.sha256(candidate_bytes).hexdigest()
-        manifest["candidate_sha256"] = candidate_hash
-        source_used = "cumulative immutable candidate history"
-        timestamp_result = subprocess.run(
-            ["git", "show", "-s", "--format=%cI", "FETCH_HEAD"],
-            check=True, capture_output=True, text=True, timeout=10,
-        )
-        raw_timestamp = timestamp_result.stdout.strip()
-        parsed_timestamp = datetime.fromisoformat(raw_timestamp.replace("Z", "+00:00"))
-        beijing = parsed_timestamp.astimezone(timezone(timedelta(hours=8)))
-        CANDIDATE_UPDATED_AT = beijing.strftime("%Y-%m-%d %H:%M:%S")
-        CANDIDATE_FETCHED_AT = datetime.now(timezone(timedelta(hours=8))).strftime("%Y-%m-%d %H:%M:%S")
-        print(f"候选版本更新时间（北京时间）：{CANDIDATE_UPDATED_AT}")
-        print(f"本机获取时间（北京时间）：{CANDIDATE_FETCHED_AT}")
-        print(f"累计批次：{len(candidate_commits)}；最新版本：{candidate_commit}")
-    except (RuntimeError, ValueError, requests.RequestException, json.JSONDecodeError,
-            subprocess.SubprocessError) as exc:
-        raise SystemExit(f"Unable to collect pending candidate batches: {type(exc).__name__}: {exc}") from exc
+            candidate_bytes = yaml.safe_dump(
+                merged_candidate, allow_unicode=True, sort_keys=False
+            ).encode("utf-8")
+            candidate_hash = hashlib.sha256(candidate_bytes).hexdigest()
+            manifest["candidate_sha256"] = candidate_hash
+            source_used = "cumulative immutable candidate history"
+            timestamp_result = subprocess.run(
+                ["git", "show", "-s", "--format=%cI", "FETCH_HEAD"],
+                check=True, capture_output=True, text=True, timeout=10,
+            )
+            raw_timestamp = timestamp_result.stdout.strip()
+            parsed_timestamp = datetime.fromisoformat(raw_timestamp.replace("Z", "+00:00"))
+            beijing = parsed_timestamp.astimezone(timezone(timedelta(hours=8)))
+            CANDIDATE_UPDATED_AT = beijing.strftime("%Y-%m-%d %H:%M:%S")
+            CANDIDATE_FETCHED_AT = datetime.now(timezone(timedelta(hours=8))).strftime("%Y-%m-%d %H:%M:%S")
+            print(f"候选版本更新时间（北京时间）：{CANDIDATE_UPDATED_AT}")
+            print(f"本机获取时间（北京时间）：{CANDIDATE_FETCHED_AT}")
+            print(f"累计批次：{len(candidate_commits)}；最新版本：{candidate_commit}")
+        except (RuntimeError, ValueError, requests.RequestException, json.JSONDecodeError,
+                subprocess.SubprocessError) as exc:
+            raise SystemExit(f"Unable to collect pending candidate batches: {type(exc).__name__}: {exc}") from exc
     candidate_hash = hashlib.sha256(candidate_bytes).hexdigest()
 
     candidate = yaml.safe_load(candidate_bytes) or {}
