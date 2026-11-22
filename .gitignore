@@ -10,3 +10,6 @@ dist/
 # Runtime files
 /logs/
 /progress.json
+
+# Downloaded phone candidate cache (local runtime data)
+/candidate-cache/
