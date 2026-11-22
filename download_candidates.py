@@ -91,8 +91,8 @@ def main() -> None:
     backup_dir = output_dir.with_name(output_dir.name + ".backup")
     try:
         atomic_write(staged_candidate, candidate_bytes)
-        atomic_write(staged_manifest, (json.dumps(manifest, ensure_ascii=False, indent=2) + "\\n").encode())
-        atomic_write(staged_metadata, (json.dumps(metadata, ensure_ascii=False, indent=2) + "\\n").encode())
+        atomic_write(staged_manifest, (json.dumps(manifest, ensure_ascii=False, indent=2) + "\n").encode())
+        atomic_write(staged_metadata, (json.dumps(metadata, ensure_ascii=False, indent=2) + "\n").encode())
         if backup_dir.exists():
             import shutil
             shutil.rmtree(backup_dir)
