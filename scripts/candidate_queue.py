@@ -93,6 +93,22 @@ def collect_pending_candidate_batches(remote: str, repo: str, branch: str,
     except (OSError, ValueError, TypeError):
         cursor = ""
 
+    # If this is the first queue-enabled run on a phone, recover the checkpoint
+    # from the last receipt already uploaded to the public receipts branch.
+    if not cursor:
+        receipt_url = (
+            f"https://raw.githubusercontent.com/{repo}/probe-receipts/receipts/latest.json"
+        )
+        try:
+            previous_receipt = session.get(receipt_url, timeout=20)
+            if previous_receipt.status_code == 200:
+                previous_data = previous_receipt.json()
+                previous_commit = previous_data.get("candidate_commit")
+                if isinstance(previous_commit, str) and previous_commit in history:
+                    cursor = previous_commit
+        except (requests.RequestException, ValueError, json.JSONDecodeError):
+            pass
+
     if cursor:
         if cursor not in history:
             raise RuntimeError(
@@ -101,7 +117,7 @@ def collect_pending_candidate_batches(remote: str, repo: str, branch: str,
             )
         pending = history[:history.index(cursor)]
     else:
-        # First run after installing the queue: backfill a bounded recent window.
+        # No earlier phone receipt exists: backfill a bounded recent window.
         pending = history[:max(1, bootstrap_limit)]
     if not pending:
         raise RuntimeError("No new candidate batches since the last successful receipt upload")
