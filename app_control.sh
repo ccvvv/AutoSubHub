@@ -12,7 +12,8 @@ case "$ACTION" in
     say "开始更新工作区：git pull --ff-only"
     # Runtime output is local state, not source changes; preserve it and
     # allow workspace updates while still blocking actual source edits.
-    DIRTY="$(git status --porcelain --untracked-files=all | grep -Ev '^\?\? (logs/|progress\.json$)' || true)"
+    # Ignore known probe/diagnostic artifacts, but do not blanket-ignore JSON files.
+    DIRTY="$(git status --porcelain --untracked-files=all | grep -Ev '^\?\? (logs/|progress\.json$|receipt\.json$|diagnostic_[^/]*\.json$|single_node_[^/]*\.json$)' || true)"
     if [ -n "$DIRTY" ]; then
       say "更新已取消：检测到源码文件存在未提交修改，请先处理"
       printf '%s\n' "$DIRTY" | tee -a "$LOG"
