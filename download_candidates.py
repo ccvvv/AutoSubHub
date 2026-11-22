@@ -83,6 +83,8 @@ def main() -> None:
     # Stage a complete generation beside the active cache, then swap directories.
     # Any download or write failure leaves the previous cache untouched.
     output_dir = output.parent
+    if output_dir.resolve() == Path.cwd().resolve():
+        raise SystemExit("Choose an output inside a dedicated cache directory; refusing to replace the repository directory")
     output_dir.parent.mkdir(parents=True, exist_ok=True)
     staging_dir = Path(tempfile.mkdtemp(prefix=output_dir.name + ".tmp.", dir=str(output_dir.parent)))
     staged_candidate = staging_dir / output.name
