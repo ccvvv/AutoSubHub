@@ -34,7 +34,7 @@ If `uname -m` returns something other than `aarch64`, do not use that ARM64 file
 Run the probe on the phone from inside the cloned AutoSubHub repository. It reads candidate batch history, combines every batch newer than the last successfully uploaded receipt, and deduplicates nodes by proxy configuration. On the first run after this feature is installed, it resumes from the candidate commit recorded in the last uploaded phone receipt, so already-tested batches are not repeated. Only if no earlier phone receipt exists does it backfill up to the latest 20 candidate batches. It writes a receipt and two matching snapshot sidecars locally; it does not upload to GitHub:
 
 ```sh
-python termux_probe.py --workers 5 --service-timeout 3 --min-speed-kbps 200 --high-speed-kbps 500 --output receipt.json
+python termux_probe.py --candidate-file candidate-local.yaml --workers 5 --service-timeout 3 --min-speed-kbps 200 --high-speed-kbps 500 --output receipt.json
 ```
 
 Increase concurrency gradually after checking device stability. For example, test 10, then 20, then 50 workers; 50 is a target to test, not a guarantee that every phone can sustain it.
