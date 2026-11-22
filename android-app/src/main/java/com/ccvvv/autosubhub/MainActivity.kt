@@ -106,7 +106,8 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
         }
         actions.addView(workersSpinner, LinearLayout.LayoutParams(-1, dp(48)))
         action(actions,"更新工作区","update")
-        action(actions,"下载候选列表","download")\n        action(actions,"本地列表测速","probe-local")
+        action(actions,"下载候选列表","download")
+        action(actions,"本地列表测速","probe-local")
         action(actions,"暂停测速","pause")
         action(actions,"继续测速","resume")
         action(actions,"停止测速","stop")
@@ -165,7 +166,10 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
                     // 启动耗时取决于候选文件下载和 Mihomo 就绪时间，不设置固定启动超时。
                     startPolling()
                 }
-                if(cmd=="download") {\n                    status.text="↓ 正在下载并校验候选列表…";\n                }\n                if(cmd=="pause") {
+                if(cmd=="download") {
+                    status.text="↓ 正在下载并校验候选列表…";
+                }
+                if(cmd=="pause") {
                     status.text="Ⅱ 正在请求暂停…"
                 }
                 if(cmd=="resume") {
