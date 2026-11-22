@@ -320,6 +320,10 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
                     prefs.edit().putBoolean("probe_active",true).apply()
                     status.text="● 已检测到运行中的测速进程 · PID "+d.optInt("pid",0)
                     progress.isIndeterminate=false
+                    actionButtons["probe"]?.visibility=View.GONE
+                    actionButtons["pause"]?.visibility=View.VISIBLE
+                    actionButtons["resume"]?.visibility=View.GONE
+                    actionButtons["stop"]?.visibility=View.VISIBLE
                     runTermux("progress",false)
                 }
                 "starting" -> {
