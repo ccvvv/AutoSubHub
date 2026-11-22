@@ -19,8 +19,20 @@ case "$ACTION" in
       printf '%s\n' "$DIRTY" | tee -a "$LOG"
       exit 2
     fi
-    if ! git pull --ff-only origin "$(git branch --show-current)" 2>&1 | tee -a "$LOG"; then
-      say "工作区更新失败：请检查网络、分支跟踪关系或远端冲突"
+    CURRENT_BRANCH="$(git branch --show-current)"
+    if [ -z "$CURRENT_BRANCH" ]; then
+      say "工作区更新失败：无法确定当前分支"
+      exit 1
+    fi
+    # Fetch only this branch without writing FETCH_HEAD, then fast-forward
+    # explicitly from its remote-tracking ref. This avoids duplicate merge
+    # candidates in FETCH_HEAD on some Git configurations.
+    if ! git fetch --no-tags --no-write-fetch-head origin "+refs/heads/${CURRENT_BRANCH}:refs/remotes/origin/${CURRENT_BRANCH}" 2>&1 | tee -a "$LOG"; then
+      say "工作区更新失败：远程分支抓取失败"
+      exit 1
+    fi
+    if ! git merge --ff-only "refs/remotes/origin/${CURRENT_BRANCH}" 2>&1 | tee -a "$LOG"; then
+      say "工作区更新失败：无法快进到远程分支，请检查本地提交与远端差异"
       exit 1
     fi
     say "工作区更新完成：$(git rev-parse --short HEAD)"
