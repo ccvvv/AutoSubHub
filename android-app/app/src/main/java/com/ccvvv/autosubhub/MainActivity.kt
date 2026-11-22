@@ -263,6 +263,8 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
         try {
             val d=JSONObject(raw.substring(a,b+1))
             val state=d.optString("status","idle")
+            // While the process is alive, an old completed progress file must not overwrite its live state.
+            if(taskState=="running" && (state=="completed"||state=="failed"||state=="interrupted")) return
             val activeTask=taskState=="running"
             val done=d.optInt("done",0); val total=d.optInt("total",0)
             val passed=d.optInt("passed",0); val failed=d.optInt("failed",0)
@@ -325,6 +327,7 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
                     status.text="● 正在启动测速任务…"
                     progress.isIndeterminate=true
                     progressInfo.text="正在等待测速进程启动…"
+                    actionButtons["probe"]?.visibility=View.GONE
                 }
                 "interrupted" -> {
                     monitoringTask=false

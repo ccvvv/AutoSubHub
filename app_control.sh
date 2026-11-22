@@ -92,10 +92,6 @@ elif marker.exists():
         data = {"status": "starting", "process_running": False, "pid": None}
     else:
         data = {"status": "interrupted", "process_running": False, "pid": None}
-        try:
-            marker.unlink()
-        except OSError:
-            pass
 else:
     data = {"status": "idle", "process_running": False, "pid": None}
 print(json.dumps(data, ensure_ascii=False))
