@@ -29,12 +29,30 @@ chmod +x mihomo
 
 If `uname -m` returns something other than `aarch64`, do not use that ARM64 file; choose the matching Android asset from the [official Mihomo releases](https://github.com/MetaCubeX/mihomo/releases). Do not use the Linux amd64 binary from the GitHub Actions workflow on Android.
 
+## Download first, then test locally with VPN off
+
+Download and merge all pending candidate batches while the phone can reach GitHub or an available mirror. The command saves a local YAML, manifest, and metadata file and verifies their matching SHA256 values:
+
+```sh
+python download_candidates.py --output candidate-cache/candidate-local.yaml
+```
+
+After the download succeeds, turn **off the Android system VPN**. Then run the local test. This mode reads only the saved candidate YAML/manifest/metadata and does not fetch candidate files, call GitHub, or update the candidate queue:
+
+```sh
+python termux_probe.py --candidate-file candidate-cache/candidate-local.yaml --workers 5 --service-timeout 3 --min-speed-kbps 200 --high-speed-kbps 500 --output receipt.json
+```
+
+The node checks still use the temporary local Mihomo listeners to test each candidate node. “VPN off” means the phone's existing system VPN is off; Mihomo is launched locally by the probe to route each individual test through the node being measured.
+
+In the Android control panel, use **下载候选列表** first, turn off the system VPN, and then tap **本地列表测速**. The original online-fetch probe command remains available for compatibility.
+
 ## Run a local test
 
 Run the probe on the phone from inside the cloned AutoSubHub repository. It reads candidate batch history, combines every batch newer than the last successfully uploaded receipt, and deduplicates nodes by proxy configuration. On the first run after this feature is installed, it resumes from the candidate commit recorded in the last uploaded phone receipt, so already-tested batches are not repeated. Only if no earlier phone receipt exists does it backfill up to the latest 20 candidate batches. It writes a receipt and two matching snapshot sidecars locally; it does not upload to GitHub:
 
 ```sh
-python termux_probe.py --workers 5 --service-timeout 3 --min-speed-kbps 200 --high-speed-kbps 500 --output receipt.json
+python termux_probe.py --candidate-file candidate-cache/candidate-local.yaml --workers 5 --service-timeout 3 --min-speed-kbps 200 --high-speed-kbps 500 --output receipt.json
 ```
 
 Increase concurrency gradually after checking device stability. For example, test 10, then 20, then 50 workers; 50 is a target to test, not a guarantee that every phone can sustain it.

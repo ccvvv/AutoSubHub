@@ -35,7 +35,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Check Python syntax for phone probe and receipt validator
-        run: python -m py_compile termux_probe.py upload_receipt.py scripts/candidate_queue.py scripts/finalize_phone_receipt.py
+        run: python -m py_compile termux_probe.py download_candidates.py upload_receipt.py scripts/candidate_queue.py scripts/finalize_phone_receipt.py
 
       - name: Install Mihomo core
         run: |

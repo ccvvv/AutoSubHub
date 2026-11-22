@@ -39,6 +39,30 @@ case "$ACTION" in
     say "候选版本更新时间（北京时间）: $BEIJING_TIME"
     say "本机检查时间（北京时间）: $(TZ=Asia/Shanghai date '+%Y-%m-%d %H:%M:%S')"
     ;;
+  download)
+    if pgrep -f '[t]ermux_probe.py' >/dev/null 2>&1; then say "下载取消：测速任务正在运行"; exit 1; fi
+    say "开始下载并校验累计候选列表（此步骤需要网络）"
+    python -u download_candidates.py --output candidate-cache/candidate-local.yaml 2>&1 | tee -a "$LOG"
+    code=${PIPESTATUS[0]}
+    say "候选列表下载结束，退出码：$code"; exit "$code"
+    ;;
+  probe-local)
+    if pgrep -f '[t]ermux_probe.py' >/dev/null 2>&1; then say "测速任务已经在运行，本次取消"; exit 1; fi
+    if [ ! -s candidate-cache/candidate-local.yaml ] || [ ! -s candidate-cache/candidate-local.manifest.json ] || [ ! -s candidate-cache/candidate-local.meta.json ]; then
+      say "本地候选文件不完整：请先点击“下载候选列表”"
+      exit 1
+    fi
+    WORKERS="${2:-200}"
+    if ! [[ "$WORKERS" =~ ^[0-9]+$ ]] || [ "$WORKERS" -lt 1 ] || [ "$WORKERS" -gt 300 ]; then
+      say "测速启动失败：并发必须是 1 到 300 的整数"; exit 2
+    fi
+    rm -f probe.pause probe.stop
+    say "开始使用本地候选文件测速；不会联网获取候选列表。请确认系统 VPN 已关闭。"
+    python -u termux_probe.py --candidate-file candidate-cache/candidate-local.yaml --workers "$WORKERS" --service-timeout 3 --timeout 5 --min-speed-kbps 200 --high-speed-kbps 500 --output receipt.json --progress progress.json 2>&1 | tee -a "$LOG"
+    code=${PIPESTATUS[0]}
+    if [ "$code" -ne 0 ] && [ -s progress.json ]; then sed -i 's/"status":"running"/"status":"failed"/; s/"status":"preparing"/"status":"failed"/' progress.json; fi
+    say "本地候选测速结束，退出码：$code"; exit "$code"
+    ;;
   probe)
     if pgrep -f '[t]ermux_probe.py' >/dev/null 2>&1; then say "测速任务已经在运行，本次取消"; exit 1; fi
     WORKERS="${2:-200}"
@@ -100,5 +124,5 @@ print(json.dumps(data, ensure_ascii=False))
 PY
     ;;
   logs) tail -n 100 "$LOG" 2>/dev/null || echo "暂无日志" ;;
-  *) echo "Usage: app_control.sh {check|probe|pause|resume|stop|upload|progress|logs}"; exit 2 ;;
+  *) echo "Usage: app_control.sh {check|download|probe-local|probe|pause|resume|stop|upload|progress|logs}"; exit 2 ;;
 esac
