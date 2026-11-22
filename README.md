@@ -17,7 +17,7 @@ The candidate workflow publishes only the pending-test YAML and credential-free 
 
 ## Download-first domestic phone testing
 
-The Android control panel provides a separate **Download candidate list** action. Run it while the phone can reach GitHub or a configured mirror; it saves `candidate-local.yaml`, `candidate-local.manifest.json`, and `candidate-local.meta.json` on the phone and verifies their SHA256 consistency. Then turn off the Android system VPN and use **Local list test**. The local mode reads these saved files and does not fetch candidate data from GitHub. Mihomo is still started locally to route each node's test traffic through that candidate node. The original online-fetch probe remains available for compatibility.
+The Android control panel provides a separate **Download candidate list** action. Run it while the phone can reach GitHub or a configured mirror; it saves `candidate-cache/candidate-local.yaml`, `candidate-cache/candidate-local.manifest.json`, and `candidate-cache/candidate-local.meta.json` on the phone and verifies their SHA256 consistency. Then turn off the Android system VPN and use **Local list test**. The local mode reads these saved files and does not fetch candidate data from GitHub. Mihomo is still started locally to route each node's test traffic through that candidate node. The original online-fetch probe remains available for compatibility.
 
 ## Phone probe and final pipeline
 
