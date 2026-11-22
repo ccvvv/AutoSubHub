@@ -193,7 +193,8 @@ def download_verified_pair(session: requests.Session, candidate_url: str,
 def main() -> None:
     global CANDIDATE_UPDATED_AT, CANDIDATE_FETCHED_AT
     parser = argparse.ArgumentParser(description="AutoSubHub domestic phone download probe")
-    parser.add_argument("--candidate-url", default=CANDIDATE_URL)\n    parser.add_argument("--candidate-file", default="", help="Use a previously downloaded local candidate YAML without fetching GitHub")
+    parser.add_argument("--candidate-url", default=CANDIDATE_URL)
+    parser.add_argument("--candidate-file", default="", help="Use a previously downloaded local candidate YAML without fetching GitHub")
     parser.add_argument("--manifest-url", default=MANIFEST_URL)
     parser.add_argument("--workers", type=int, default=int(os.getenv("PROBE_WORKERS", "5")))
     parser.add_argument("--limit", type=int, default=0,
