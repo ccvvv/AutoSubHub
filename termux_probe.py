@@ -301,6 +301,15 @@ def main() -> None:
         proxies = proxies[:args.limit]
         selected_names = {p["name"] for p in proxies}
         manifest_nodes = [n for n in manifest_nodes if n.get("name") in selected_names]
+    # The receipt must be validated against the exact tested subset, not the
+    # larger pre-limit candidate list.
+    candidate = {"proxies": proxies}
+    manifest["nodes"] = manifest_nodes
+    candidate_bytes = yaml.safe_dump(
+        candidate, allow_unicode=True, sort_keys=False
+    ).encode("utf-8")
+    candidate_hash = hashlib.sha256(candidate_bytes).hexdigest()
+    manifest["candidate_sha256"] = candidate_hash
     print(f"累计批次合并后：{len(proxies)} 个唯一节点；SHA256 {candidate_hash[:16]}…")
     write_progress(progress_path, "running", 0, len(proxies), [], started, stage="正在启动 Mihomo")
 
