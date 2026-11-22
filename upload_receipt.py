@@ -130,6 +130,8 @@ def main() -> int:
                 or any(not isinstance(item, str) or not re.fullmatch(r"[0-9a-f]{40}", item)
                        for item in commits)):
             raise ValueError("Receipt candidate_commits list is missing or invalid")
+        if receipt_data.get("candidate_commit") != commits[-1]:
+            raise ValueError("Receipt candidate_commit does not match the newest queued batch")
         owner, name = args.repo.split("/", 1)
         remote = f"git@github.com:{owner}/{name}.git"
 
