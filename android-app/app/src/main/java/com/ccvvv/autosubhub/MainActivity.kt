@@ -32,10 +32,13 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
     private val actionButtons = mutableMapOf<String, Button>()
     private val prefs by lazy { getSharedPreferences("console", MODE_PRIVATE) }
     private val handler = Handler(Looper.getMainLooper())
+    private var monitoringTask = false
+    private var seenRunningThisSession = false
+    private var taskState = "idle"
     private val poll = object : Runnable {
         override fun run() {
-            if (!prefs.getBoolean("probe_active", false)) return
-            runTermux("progress", false)
+            if (!monitoringTask) return
+            runTermux("task_status", false)
             handler.postDelayed(this, 1200)
         }
     }
@@ -51,7 +54,7 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
     override fun onResume() {
         super.onResume()
         logText.text = prefs.getString("last_result", "日志暂时为空")
-        if (prefs.getBoolean("probe_active", false)) startPolling() else runTermux("progress", false)
+        startPolling()
     }
 
     override fun onPause() { handler.removeCallbacks(poll); super.onPause() }
@@ -60,8 +63,12 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
     override fun onSharedPreferenceChanged(p: SharedPreferences, key: String?) {
         if (key == "last_result") {
             val value = prefs.getString("last_result", "").orEmpty()
+            val command = prefs.getString("last_command", "").orEmpty()
             logText.text = value
-            updateProgress(value)
+            when (command) {
+                "task_status" -> updateTaskStatus(value)
+                "progress" -> updateProgress(value)
+            }
         }
     }
 
@@ -221,11 +228,13 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
                     val workers = workersSpinner.selectedItem.toString().toIntOrNull()?.coerceIn(1,300) ?: 200
                     prefs.edit().putInt("probe_workers", workers).apply()
                     extraArgs = arrayOf(workers.toString())
+                    seenRunningThisSession=false
+                    taskState="starting"
                     prefs.edit().putBoolean("probe_active",true).apply()
                     status.text="● 正在启动测速…"
                     progress.isIndeterminate=true
                     progressInfo.text="正在等待 Termux 启动结果…"
-                    // 启动耗时取决于候选文件下载和 Mihomo 就绪时间，不设置固定启动超时。
+                    // 先监控任务生命周期；只有确认进程存在后才读取进度文件。
                     startPolling()
                 }
                 if(cmd=="pause") {
@@ -233,7 +242,6 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
                 }
                 if(cmd=="resume") {
                     status.text="● 正在继续测速…"
-                    prefs.edit().putBoolean("probe_active",true).apply()
                     startPolling()
                 }
                 if(cmd=="stop") {
@@ -255,8 +263,7 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
         try {
             val d=JSONObject(raw.substring(a,b+1))
             val state=d.optString("status","idle")
-            val processRunning=d.optBoolean("process_running",false)
-            val activeTask=processRunning && (state=="running"||state=="preparing"||state=="paused")
+            val activeTask=taskState=="running"
             val done=d.optInt("done",0); val total=d.optInt("total",0)
             val passed=d.optInt("passed",0); val failed=d.optInt("failed",0)
             val high=d.optInt("high",0); val normal=d.optInt("normal",0)
@@ -292,13 +299,58 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
             actionButtons["stop"]?.visibility=if(activeTask) View.VISIBLE else View.GONE
             actionButtons["probe"]?.visibility=if(activeTask) View.GONE else View.VISIBLE
             if(state=="completed"||state=="interrupted"||state=="failed") {
-                prefs.edit().putBoolean("probe_active",false).apply(); handler.removeCallbacks(poll)
+                prefs.edit().putBoolean("probe_active",false).apply()
             }
         } catch (_:Exception) {}
     }
     private fun setStat(name:String,value:String) { statViews[name]?.text=value }
     private fun serviceName(k:String)=when(k) { "youtube"->"YouTube"; "telegram"->"TG"; "google"->"Google"; "chatgpt"->"AI"; else->"GitHub" }
-    private fun startPolling(){ handler.removeCallbacks(poll); handler.post(poll) }
+    private fun updateTaskStatus(raw:String) {
+        val a=raw.indexOf('{'); val b=raw.lastIndexOf('}')
+        if(a<0||b<=a) return
+        try {
+            val d=JSONObject(raw.substring(a,b+1))
+            val state=d.optString("status","idle")
+            taskState=state
+            when(state) {
+                "running" -> {
+                    seenRunningThisSession=true
+                    prefs.edit().putBoolean("probe_active",true).apply()
+                    status.text="● 已检测到运行中的测速进程 · PID "+d.optInt("pid",0)
+                    progress.isIndeterminate=false
+                    runTermux("progress",false)
+                }
+                "starting" -> {
+                    prefs.edit().putBoolean("probe_active",true).apply()
+                    status.text="● 正在启动测速任务…"
+                    progress.isIndeterminate=true
+                    progressInfo.text="正在等待测速进程启动…"
+                }
+                "interrupted" -> {
+                    monitoringTask=false
+                    prefs.edit().putBoolean("probe_active",false).apply()
+                    status.text="Ⅱ 上一次测速异常中断"
+                    progress.isIndeterminate=false
+                    actionButtons["probe"]?.visibility=View.VISIBLE
+                    actionButtons["pause"]?.visibility=View.GONE
+                    actionButtons["resume"]?.visibility=View.GONE
+                    actionButtons["stop"]?.visibility=View.GONE
+                }
+                else -> {
+                    monitoringTask=false
+                    prefs.edit().putBoolean("probe_active",false).apply()
+                    if(seenRunningThisSession) runTermux("progress",false)
+                    else status.text="○ 当前没有运行中的测速任务 · 历史记录保留"
+                    progress.isIndeterminate=false
+                    actionButtons["probe"]?.visibility=View.VISIBLE
+                    actionButtons["pause"]?.visibility=View.GONE
+                    actionButtons["resume"]?.visibility=View.GONE
+                    actionButtons["stop"]?.visibility=View.GONE
+                }
+            }
+        } catch (_:Exception) {}
+    }
+    private fun startPolling(){ monitoringTask=true; handler.removeCallbacks(poll); handler.post(poll) }
 
     private fun runTermux(action:String,showFeedback:Boolean=true,extraArgs:Array<String> = emptyArray()) {
         if(Build.VERSION.SDK_INT>=23 && checkSelfPermission("com.termux.permission.RUN_COMMAND")!=PackageManager.PERMISSION_GRANTED) {

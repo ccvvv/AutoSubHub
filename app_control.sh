@@ -48,10 +48,12 @@ case "$ACTION" in
       exit 2
     fi
     rm -f probe.pause probe.stop
+    touch logs/.probe_active
     say "测速开始：并发$WORKERS，应用检测超时3秒，下载超时5秒"
     python -u termux_probe.py --workers "$WORKERS" --service-timeout 3 --timeout 5 --min-speed-kbps 200 --high-speed-kbps 500 --output receipt.json --progress progress.json 2>&1 | tee -a "$LOG"
     code=${PIPESTATUS[0]}
     if [ "$code" -ne 0 ] && [ -s progress.json ]; then sed -i 's/"status":"running"/"status":"failed"/; s/"status":"preparing"/"status":"failed"/' progress.json; fi
+    rm -f logs/.probe_active
     say "测速结束，退出码：$code"; exit "$code"
     ;;
   upload)
@@ -76,30 +78,40 @@ case "$ACTION" in
     touch probe.stop
     say "已请求停止：当前节点检测结束后停止，并保存已完成结果"
     ;;
+  task_status)
+    python - <<'PY'
+import json, pathlib, subprocess, time
+marker = pathlib.Path("logs/.probe_active")
+result = subprocess.run(["pgrep", "-f", "[t]ermux_probe.py"], capture_output=True, text=True)
+pids = [int(x) for x in result.stdout.split() if x.isdigit()]
+if pids:
+    data = {"status": "running", "process_running": True, "pid": pids[0]}
+elif marker.exists():
+    age = max(0, time.time() - marker.stat().st_mtime)
+    if age < 30:
+        data = {"status": "starting", "process_running": False, "pid": None}
+    else:
+        data = {"status": "interrupted", "process_running": False, "pid": None}
+        try:
+            marker.unlink()
+        except OSError:
+            pass
+else:
+    data = {"status": "idle", "process_running": False, "pid": None}
+print(json.dumps(data, ensure_ascii=False))
+PY
+    ;;
   progress)
     python - <<'PY'
-import json, os, tempfile, subprocess
-path = "progress.json"
-running = subprocess.run(["pgrep", "-f", "[t]ermux_probe.py"], stdout=subprocess.DEVNULL).returncode == 0
+import json
 try:
-    with open(path, "r", encoding="utf-8") as f:
+    with open("progress.json", "r", encoding="utf-8") as f:
         data = json.load(f)
 except Exception:
     data = {"status": "idle", "done": 0, "total": 0}
-data["process_running"] = running
-if not running and data.get("status") in ("running", "preparing", "paused"):
-    data["status"] = "interrupted"
-    data["stage"] = "未检测到运行中的测速进程，已清理残留状态"
-    try:
-        fd, tmp = tempfile.mkstemp(prefix="progress.", suffix=".tmp", dir=".")
-        with os.fdopen(fd, "w", encoding="utf-8") as f:
-            json.dump(data, f, ensure_ascii=False)
-        os.replace(tmp, path)
-    except Exception:
-        pass
 print(json.dumps(data, ensure_ascii=False))
 PY
     ;;
   logs) tail -n 100 "$LOG" 2>/dev/null || echo "暂无日志" ;;
-  *) echo "Usage: app_control.sh {check|probe|pause|resume|stop|upload|progress|logs}"; exit 2 ;;
+  *) echo "Usage: app_control.sh {check|probe|pause|resume|stop|upload|task_status|progress|logs}"; exit 2 ;;
 esac
