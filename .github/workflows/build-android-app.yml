@@ -9,7 +9,6 @@ on:
       - "app_control.sh"
       - "termux_probe.py"
       - "download_candidates.py"
-      - "download_candidates.py"
       - ".github/workflows/build-android-app.yml"
   push:
     branches: [main, feature/android-dashboard]
