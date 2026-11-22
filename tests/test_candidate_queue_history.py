@@ -69,7 +69,7 @@ class CandidateQueueHistoryTests(unittest.TestCase):
             git_results = [
                 type("Result", (), {"stdout": "false"})(),
                 type("Result", (), {"stdout": ""})(),
-                type("Result", (), {"stdout": f"{A}\\n{B}\\n{C}\\n"})(),
+                type("Result", (), {"stdout": f"{A}" + chr(10) + f"{B}" + chr(10)})(),
             ]
             with patch("scripts.candidate_queue.subprocess.run", side_effect=git_results):
                 candidate, manifest, commits, tip = collect_pending_candidate_batches(
