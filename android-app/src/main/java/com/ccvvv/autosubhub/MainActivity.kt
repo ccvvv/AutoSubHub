@@ -229,7 +229,7 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
             actionButtons["pause"]?.visibility=if(state=="running"||state=="preparing") View.VISIBLE else View.GONE
             actionButtons["resume"]?.visibility=if(state=="paused") View.VISIBLE else View.GONE
             actionButtons["stop"]?.visibility=if(state=="running"||state=="preparing"||state=="paused") View.VISIBLE else View.GONE
-            actionButtons["probe"]?.visibility=if((state=="running"||state=="preparing"||state=="paused") && prefs.getBoolean("probe_active", false)) View.GONE else View.VISIBLE
+            actionButtons["probe-local"]?.visibility=if((state=="running"||state=="preparing"||state=="paused") && prefs.getBoolean("probe_active", false)) View.GONE else View.VISIBLE
             if(state=="completed"||state=="interrupted"||state=="failed") {
                 prefs.edit().putBoolean("probe_active",false).apply(); handler.removeCallbacks(poll)
             }
