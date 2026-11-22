@@ -8,6 +8,7 @@ from collections import OrderedDict
 from pathlib import Path
 
 import requests
+import yaml
 
 
 def canonical_fingerprint(proxy: dict) -> str:
@@ -48,8 +49,13 @@ def merge_candidate_snapshots(snapshots: list[tuple[str, dict, dict]]) -> tuple[
 
     proxies = []
     nodes = []
+    used_names = set()
     for fingerprint, entry in merged.items():
-        proxy = entry["proxy"]
+        proxy = dict(entry["proxy"])
+        original_name = proxy["name"]
+        if original_name in used_names:
+            proxy["name"] = f"{original_name} [{fingerprint[:6]}]"
+        used_names.add(proxy["name"])
         proxies.append(proxy)
         nodes.append({
             "node_id": fingerprint,
@@ -113,7 +119,7 @@ def collect_pending_candidate_batches(remote: str, repo: str, branch: str,
         digest = hashlib.sha256(candidate_bytes).hexdigest()
         if manifest.get("candidate_sha256") != digest:
             raise ValueError(f"Candidate/manifest SHA256 mismatch at {commit}")
-        candidate = __import__("yaml").safe_load(candidate_bytes) or {}
+        candidate = yaml.safe_load(candidate_bytes) or {}
         snapshots.append((commit, candidate, manifest))
 
     merged_candidate, merged_manifest, source_commits = merge_candidate_snapshots(snapshots)
