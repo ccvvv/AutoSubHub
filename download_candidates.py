@@ -95,7 +95,11 @@ def main() -> None:
         atomic_write(staged_candidate, candidate_bytes)
         atomic_write(staged_manifest, (json.dumps(manifest, ensure_ascii=False, indent=2) + "\n").encode())
         atomic_write(staged_metadata, (json.dumps(metadata, ensure_ascii=False, indent=2) + "\n").encode())
-        if backup_dir.exists():
+        if backup_dir.exists() and not output_dir.exists():
+            # Recover the previous cache if the process was killed between
+            # the two directory renames during an earlier replacement.
+            backup_dir.replace(output_dir)
+        elif backup_dir.exists():
             import shutil
             shutil.rmtree(backup_dir)
         if output_dir.exists():
