@@ -41,7 +41,7 @@ Increase concurrency gradually after checking device stability. For example, tes
 
 ## Upload the saved receipt separately
 
-Only after the probe has finished and `receipt.json`, `receipt.candidate.yaml`, and `receipt.manifest.json` exist, upload the complete bundle in a separate command. Create a fine-grained GitHub token restricted to this repository with **Contents: Read and write** permission, then set it in the current Termux session:
+Only after the probe has finished and `receipt.json`, `receipt.candidate.yaml`, and `receipt.manifest.json` exist, upload the complete bundle in a separate command. Create a fine-grained GitHub token restricted to this repository with **Contents: Read and write** permission, then set it in the current Termux session. The uploader detects `GITHUB_TOKEN` and authenticates Git over HTTPS; if no token is set, it falls back to SSH:
 
 ```sh
 export GITHUB_TOKEN='YOUR_TOKEN'
