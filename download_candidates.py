@@ -36,7 +36,7 @@ def atomic_write(path: Path, content: bytes) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Download the pending candidate queue for local phone testing")
-    parser.add_argument("--output", default="candidate-local.yaml")
+    parser.add_argument("--output", default="candidate-cache/candidate-local.yaml")
     args = parser.parse_args()
     output = Path(args.output).expanduser()
     manifest_path = output.with_suffix(".manifest.json")
@@ -80,11 +80,40 @@ def main() -> None:
         "source": "cumulative immutable candidate history",
     }
 
-    # Write data files first and metadata last. The metadata file is the commit
-    # marker; readers reject any incomplete or mismatched set by checking SHA256.
-    atomic_write(output, candidate_bytes)
-    atomic_write(manifest_path, (json.dumps(manifest, ensure_ascii=False, indent=2) + "\n").encode())
-    atomic_write(metadata_path, (json.dumps(metadata, ensure_ascii=False, indent=2) + "\n").encode())
+    # Stage a complete generation beside the active cache, then swap directories.
+    # Any download or write failure leaves the previous cache untouched.
+    output_dir = output.parent
+    output_dir.parent.mkdir(parents=True, exist_ok=True)
+    staging_dir = Path(tempfile.mkdtemp(prefix=output_dir.name + ".tmp.", dir=str(output_dir.parent)))
+    staged_candidate = staging_dir / output.name
+    staged_manifest = staged_candidate.with_suffix(".manifest.json")
+    staged_metadata = staged_candidate.with_suffix(".meta.json")
+    backup_dir = output_dir.with_name(output_dir.name + ".backup")
+    try:
+        atomic_write(staged_candidate, candidate_bytes)
+        atomic_write(staged_manifest, (json.dumps(manifest, ensure_ascii=False, indent=2) + "\\n").encode())
+        atomic_write(staged_metadata, (json.dumps(metadata, ensure_ascii=False, indent=2) + "\\n").encode())
+        if backup_dir.exists():
+            import shutil
+            shutil.rmtree(backup_dir)
+        if output_dir.exists():
+            output_dir.replace(backup_dir)
+        try:
+            staging_dir.replace(output_dir)
+        except Exception:
+            if backup_dir.exists() and not output_dir.exists():
+                backup_dir.replace(output_dir)
+            raise
+        if backup_dir.exists():
+            import shutil
+            shutil.rmtree(backup_dir)
+    except Exception:
+        if staging_dir.exists():
+            import shutil
+            shutil.rmtree(staging_dir)
+        raise
+    output = output_dir / output.name
+
     print(f"候选列表已保存：{output}")
     print(f"节点数：{metadata['candidate_count']}；累计批次：{len(commits)}")
     print(f"候选版本 SHA256：{digest}")
