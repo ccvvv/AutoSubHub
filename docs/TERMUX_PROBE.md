@@ -31,7 +31,7 @@ If `uname -m` returns something other than `aarch64`, do not use that ARM64 file
 
 ## Run a local test
 
-Run the probe on the phone. It only tests nodes and writes a local JSON receipt; it does not upload to GitHub:
+Run the probe on the phone from inside the cloned AutoSubHub repository. It reads candidate batch history, combines every batch newer than the last successfully uploaded receipt, and deduplicates nodes by proxy configuration. On the first run after this feature is installed, it backfills up to the latest 20 candidate batches. It writes a receipt and two matching snapshot sidecars locally; it does not upload to GitHub:
 
 ```sh
 python termux_probe.py --workers 5 --service-timeout 3 --min-speed-kbps 200 --high-speed-kbps 500 --output receipt.json
@@ -41,7 +41,7 @@ Increase concurrency gradually after checking device stability. For example, tes
 
 ## Upload the saved receipt separately
 
-Only after the probe has finished and `receipt.json` exists, upload it in a separate command. Create a fine-grained GitHub token restricted to this repository with **Contents: Read and write** permission, then set it in the current Termux session:
+Only after the probe has finished and `receipt.json`, `receipt.candidate.yaml`, and `receipt.manifest.json` exist, upload the complete bundle in a separate command. Create a fine-grained GitHub token restricted to this repository with **Contents: Read and write** permission, then set it in the current Termux session:
 
 ```sh
 export GITHUB_TOKEN='YOUR_TOKEN'
@@ -49,7 +49,7 @@ export GITHUB_REPOSITORY='ccvvv/AutoSubHub'
 python upload_receipt.py --input receipt.json
 ```
 
-The uploader creates the `probe-receipts` branch from `main` if it does not exist, then writes `receipts/latest.json`. If upload fails, keep the local receipt and rerun only the upload command; do not repeat the speed test. The uploader validates the receipt and never deletes or changes the local file.
+The uploader creates the `probe-receipts` branch from `main` if it does not exist, then writes `receipts/latest.json` plus the exact merged `receipts/candidate.yaml` and `receipts/manifest.json` used for that test. Only after the complete bundle is pushed does it advance `~/.autosubhub_probe_state.json` to the newest included candidate commit. If upload fails, keep all three local files and rerun only the upload command; do not repeat the speed test. The uploader validates the receipt and snapshot hashes and never deletes or changes the local files.
 
 Never commit the token or put it in the app source. Protect the token and revoke it if it is exposed.
 
