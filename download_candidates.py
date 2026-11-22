@@ -6,6 +6,7 @@ import argparse
 from datetime import datetime, timedelta, timezone
 import hashlib
 import json
+import os
 import subprocess
 import tempfile
 from pathlib import Path
@@ -24,7 +25,7 @@ def atomic_write(path: Path, content: bytes) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     fd, temporary = tempfile.mkstemp(prefix=path.name + ".", suffix=".tmp", dir=str(path.parent))
     try:
-        with open(fd, "wb", closefd=True) as stream:
+        with os.fdopen(fd, "wb") as stream:
             stream.write(content)
             stream.flush()
         Path(temporary).replace(path)
