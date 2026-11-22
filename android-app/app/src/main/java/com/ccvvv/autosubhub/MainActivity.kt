@@ -117,33 +117,80 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
         action(actions,"检查候选版本","check")
         body.addView(actions)
 
-        val logHeader = LinearLayout(this).apply { orientation=LinearLayout.HORIZONTAL; gravity=android.view.Gravity.CENTER_VERTICAL }
-        logHeader.addView(label("Termux 终端",16,true,Color.rgb(37,49,66)),LinearLayout.LayoutParams(0,-2,1f))
-        val toggle = Button(this).apply {
-            text="展开终端"
-            setOnClickListener {
-                val expanded = logText.maxLines <= 8
-                logText.maxLines = if (expanded) 500 else 8
-                text = if (expanded) "收起终端" else "展开终端"
-            }
-        }
-        logHeader.addView(toggle); body.addView(logHeader)
         logPanel = LinearLayout(this).apply {
             orientation=LinearLayout.VERTICAL
-            visibility=View.VISIBLE
-            background=rounded(Color.rgb(20,25,33),14)
+            background=rounded(Color.rgb(20,25,33),16)
             setPadding(dp(12),dp(10),dp(12),dp(10))
+            layoutParams=LinearLayout.LayoutParams(-1,-2).apply { setMargins(0,dp(6),0,dp(12)) }
         }
+        val terminalHeader = LinearLayout(this).apply {
+            orientation=LinearLayout.HORIZONTAL
+            gravity=android.view.Gravity.CENTER_VERTICAL
+        }
+        val terminalTitle = TextView(this).apply {
+            text="●  TERMINAL"
+            textSize=12f
+            typeface=Typeface.DEFAULT_BOLD
+            setTextColor(Color.rgb(205,218,232))
+            letterSpacing=0.08f
+        }
+        terminalHeader.addView(terminalTitle,LinearLayout.LayoutParams(0,-2,1f))
+        val liveLabel = TextView(this).apply {
+            text="LIVE"
+            textSize=10f
+            typeface=Typeface.DEFAULT_BOLD
+            setTextColor(Color.rgb(117,214,156))
+            setPadding(dp(7),dp(4),dp(7),dp(4))
+            background=rounded(Color.rgb(35,57,49),8)
+        }
+        terminalHeader.addView(liveLabel)
+        val expandTerminal = TextView(this).apply {
+            text=" ⤢ "
+            textSize=20f
+            setTextColor(Color.rgb(205,218,232))
+            setPadding(dp(10),dp(2),dp(4),dp(2))
+            contentDescription="展开或收起终端"
+        }
+        terminalHeader.addView(expandTerminal)
+        logPanel.addView(terminalHeader)
+        val terminalDivider = View(this).apply { setBackgroundColor(Color.rgb(52,59,70)) }
+        logPanel.addView(terminalDivider,LinearLayout.LayoutParams(-1,dp(1)).apply { topMargin=dp(9); bottomMargin=dp(9) })
         logText = TextView(this).apply {
             text="等待 Termux 输出……"
             textSize=12f
             setTextColor(Color.rgb(205,218,232))
             typeface=Typeface.MONOSPACE
-            maxLines=8
+            maxLines=7
             setTextIsSelectable(true)
+            setLineSpacing(dp(2).toFloat(),1f)
         }
         logPanel.addView(logText)
-        logPanel.addView(Button(this).apply { text="刷新日志"; setOnClickListener { runTermux("logs") } })
+        val terminalFooter = LinearLayout(this).apply {
+            orientation=LinearLayout.HORIZONTAL
+            gravity=android.view.Gravity.CENTER_VERTICAL
+            setPadding(0,dp(8),0,0)
+        }
+        val terminalHint = TextView(this).apply {
+            text="~/AutoSubHub"
+            textSize=10f
+            setTextColor(Color.rgb(137,151,170))
+        }
+        terminalFooter.addView(terminalHint,LinearLayout.LayoutParams(0,-2,1f))
+        val refreshTerminal = TextView(this).apply {
+            text="↻ 刷新"
+            textSize=11f
+            setTextColor(Color.rgb(164,190,220))
+            setPadding(dp(8),dp(5),dp(2),dp(5))
+            setOnClickListener { runTermux("logs") }
+        }
+        terminalFooter.addView(refreshTerminal)
+        logPanel.addView(terminalFooter)
+        expandTerminal.setOnClickListener {
+            val expanded = logText.maxLines <= 7
+            logText.maxLines = if (expanded) 500 else 7
+            expandTerminal.text = if (expanded) "⤡" else " ⤢ "
+            terminalHint.text = if (expanded) "完整输出 · ~/AutoSubHub" else "~/AutoSubHub"
+        }
         body.addView(logPanel)
         scroll.addView(body); root.addView(scroll); setContentView(root)
     }
