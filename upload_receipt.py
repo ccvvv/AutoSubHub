@@ -67,6 +67,22 @@ def git(*args: str, cwd: Path | None = None, check: bool = True):
     return result
 
 
+def save_queue_cursor(commits: list[str], receipt_commit: str) -> None:
+    """Advance the local batch cursor after the receipt bundle is present on GitHub."""
+    from datetime import datetime, timezone
+    state_path = Path.home() / ".autosubhub_probe_state.json"
+    state = {
+        "last_uploaded_candidate_commit": commits[-1],
+        "last_receipt_commit": receipt_commit,
+        "updated_at": datetime.now(timezone.utc).isoformat(),
+    }
+    state_path.parent.mkdir(parents=True, exist_ok=True)
+    temporary_state = state_path.with_name(state_path.name + ".tmp")
+    temporary_state.write_text(json.dumps(state, ensure_ascii=False, indent=2) + "\\n",
+                               encoding="utf-8")
+    temporary_state.replace(state_path)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         description="Upload an existing local receipt over SSH; does not run node tests."
@@ -144,8 +160,10 @@ def main() -> int:
                 "receipts/manifest.json", cwd=work)
             changed = git("diff", "--cached", "--quiet", cwd=work, check=False)
             if changed.returncode == 0:
-                print(f"Already up to date: {args.repo}/{args.path}")
-                print(f"Branch: {args.branch}")
+                existing_commit = git("rev-parse", "HEAD", cwd=work).stdout.strip()
+                save_queue_cursor(commits, existing_commit)
+                print(f"Already uploaded: {args.repo}/{args.path}")
+                print("Local candidate queue cursor synchronized.")
                 print(f"Local receipt kept: {receipt_path.resolve()}")
                 return 0
             if changed.returncode != 1:
@@ -157,20 +175,8 @@ def main() -> int:
             git("push", "origin", args.branch, cwd=work)
             commit = git("rev-parse", "HEAD", cwd=work).stdout.strip()
 
-        # Advance the local queue cursor only after the complete receipt bundle
-        # has been accepted by GitHub.
-        from datetime import datetime, timezone
-        state_path = Path.home() / ".autosubhub_probe_state.json"
-        state = {
-            "last_uploaded_candidate_commit": commits[-1],
-            "last_receipt_commit": commit,
-            "updated_at": datetime.now(timezone.utc).isoformat(),
-        }
-        state_path.parent.mkdir(parents=True, exist_ok=True)
-        temporary_state = state_path.with_name(state_path.name + ".tmp")
-        temporary_state.write_text(json.dumps(state, ensure_ascii=False, indent=2) + "\n",
-                                   encoding="utf-8")
-        temporary_state.replace(state_path)
+        # Advance only after the complete receipt bundle has been accepted by GitHub.
+        save_queue_cursor(commits, commit)
 
         print(f"Upload successful: {args.repo}/{args.path}")
         print(f"Branch: {args.branch}")
