@@ -35,7 +35,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Check Python syntax for phone probe and receipt validator
-        run: python -m py_compile termux_probe.py scripts/finalize_phone_receipt.py
+        run: python -m py_compile termux_probe.py scripts/finalize_phone_receipt.py scripts/update_lifecycle.py
 
       - name: Install Mihomo core
         run: |
@@ -104,10 +104,11 @@ jobs:
           mkdir -p /tmp/published/candidate
           cp candidates/candidates.yaml /tmp/published/candidate/subscription.yaml
           cp candidates/manifest.json /tmp/published/candidate/manifest.json
+          python scripts/update_lifecycle.py /tmp/published/candidate/subscription.yaml /tmp/published/candidate/manifest.json /tmp/published/lifecycle.json
           cd /tmp/published
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add candidate/subscription.yaml candidate/manifest.json
+          git add candidate/subscription.yaml candidate/manifest.json lifecycle.json
           if git diff --cached --quiet; then
             echo "Candidate unchanged; public URL already serves this version."
           else
