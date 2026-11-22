@@ -110,15 +110,34 @@ def collect_pending_candidate_batches(remote: str, repo: str, branch: str,
     snapshots = []
     for commit in ordered_commits:
         base = f"https://raw.githubusercontent.com/{repo}/{commit}/candidate/"
-        candidate_response = session.get(base + "subscription.yaml", timeout=45)
-        candidate_response.raise_for_status()
-        manifest_response = session.get(base + "manifest.json", timeout=45)
-        manifest_response.raise_for_status()
-        candidate_bytes = candidate_response.content
-        manifest = manifest_response.json()
-        digest = hashlib.sha256(candidate_bytes).hexdigest()
-        if manifest.get("candidate_sha256") != digest:
-            raise ValueError(f"Candidate/manifest SHA256 mismatch at {commit}")
+        mirrors = (
+            ("GitHub Raw", base),
+            ("GHFast", f"https://ghfast.top/{base}"),
+            ("GH-Proxy", f"https://gh-proxy.com/{base}"),
+        )
+        errors = []
+        verified = None
+        for source, mirror in mirrors:
+            try:
+                candidate_response = session.get(mirror + "subscription.yaml", timeout=45)
+                candidate_response.raise_for_status()
+                manifest_response = session.get(mirror + "manifest.json", timeout=45)
+                manifest_response.raise_for_status()
+                candidate_bytes = candidate_response.content
+                manifest = manifest_response.json()
+                digest = hashlib.sha256(candidate_bytes).hexdigest()
+                if manifest.get("candidate_sha256") != digest:
+                    raise ValueError("candidate/manifest SHA256 mismatch")
+                verified = (candidate_bytes, manifest)
+                print(f"Candidate batch {commit[:10]} verified via {source}")
+                break
+            except (requests.RequestException, ValueError, json.JSONDecodeError) as exc:
+                errors.append(f"{source}: {type(exc).__name__}: {exc}")
+        if verified is None:
+            raise RuntimeError(
+                f"Unable to download candidate batch {commit}: " + " | ".join(errors)
+            )
+        candidate_bytes, manifest = verified
         candidate = yaml.safe_load(candidate_bytes) or {}
         snapshots.append((commit, candidate, manifest))
 
