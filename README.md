@@ -13,7 +13,7 @@ The candidate and final URLs are separate and must never be mixed. The final URL
 
 GitHub Actions fetches configured source subscriptions, parses supported Clash YAML and URI formats, excludes pure HTTP proxy entries, removes duplicates, and generates candidates after GitHub-side TCP/UDP prefiltering, protocol handshake checks, Mihomo HTTP proxy tests, and HTTPS certificate validation against ChatGPT. Download throughput is deliberately not tested on GitHub; that stage belongs to the Android/Termux phone.
 
-The candidate workflow publishes the YAML and credential-free manifest to the public `published-subscriptions` data branch under `candidate/`. A successful new candidate overwrites the previous candidate at the same stable URL. Pull-request validation does not publish candidate credentials.
+The candidate workflow publishes the YAML and credential-free manifest to the public `published-subscriptions` data branch under `candidate/`. A successful new candidate overwrites the previous candidate at the same stable URL. Pull-request validation does not publish candidate credentials. The same publication step maintains `lifecycle.json` and adds a `lifecycle_id` to each manifest node. Its fingerprint is based on the proxy configuration excluding the display name, so renaming a node does not reset its first-observed timestamp. Because this tracker starts when deployed, `first_seen_at` means first observed by the tracker, not a reconstructed historical first-publication time.
 
 ## Phone probe and final pipeline
 
