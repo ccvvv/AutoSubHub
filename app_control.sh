@@ -100,5 +100,5 @@ print(json.dumps(data, ensure_ascii=False))
 PY
     ;;
   logs) tail -n 100 "$LOG" 2>/dev/null || echo "暂无日志" ;;
-  *) echo "Usage: app_control.sh {check|probe|pause|resume|stop|upload|progress|logs}"; exit 2 ;;
+  *) echo "Usage: app_control.sh {check|download|probe-local|probe|pause|resume|stop|upload|progress|logs}"; exit 2 ;;
 esac
