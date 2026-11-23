@@ -47,13 +47,13 @@ jobs:
               echo "Receipt candidate_commit is missing or invalid."
               exit 1
             fi
-            git clone --no-checkout --filter=blob:none --branch published-subscriptions "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" published
+            git clone --filter=blob:none --branch published-subscriptions "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" published
             git -C published fetch --no-tags origin "${CANDIDATE_COMMIT}"
             git -C published show "${CANDIDATE_COMMIT}:candidate/subscription.yaml" > incoming/subscription.yaml
             git -C published show "${CANDIDATE_COMMIT}:candidate/manifest.json" > incoming/manifest.json
           fi
           if [ ! -d published ]; then
-            git clone --no-checkout --filter=blob:none --branch published-subscriptions "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" published
+            git clone --filter=blob:none --branch published-subscriptions "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" published
           fi
       - name: Validate receipt and build final
         env:
