@@ -9,6 +9,8 @@ on:
       - "app_control.sh"
       - "termux_probe.py"
       - "download_candidates.py"
+      - "scripts/streaming_checker.py"
+      - "tests/test_streaming_checker.py"
       - ".github/workflows/build-android-app.yml"
   push:
     branches: [main, feature/android-dashboard, feature/streaming-check-test]
@@ -17,6 +19,8 @@ on:
       - "app_control.sh"
       - "termux_probe.py"
       - "upload_receipt.py"
+      - "scripts/streaming_checker.py"
+      - "tests/test_streaming_checker.py"
       - ".github/workflows/build-android-app.yml"
 
 permissions:
