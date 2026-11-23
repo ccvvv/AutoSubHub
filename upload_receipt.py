@@ -36,6 +36,15 @@ def validate_receipt(path: Path) -> bytes:
         raise ValueError("Receipt root must be a JSON object")
     if data.get("schema_version") != 1 or data.get("status") != "completed":
         raise ValueError("Receipt must have schema_version=1 and status=completed")
+    queue_count = data.get("queue_candidate_count")
+    receipt_count = data.get("receipt_candidate_count")
+    if queue_count is not None or receipt_count is not None:
+        if (type(queue_count) is not int or type(receipt_count) is not int
+                or queue_count < 1 or receipt_count < 1
+                or queue_count != receipt_count):
+            raise ValueError(
+                "Receipt covers only part of the cumulative queue; queue cursor will not advance"
+            )
     digest = data.get("candidate_sha256")
     if not isinstance(digest, str) or not re.fullmatch(r"[0-9a-f]{64}", digest):
         raise ValueError("Receipt candidate_sha256 is missing or invalid")
@@ -57,6 +66,8 @@ def validate_receipt(path: Path) -> bytes:
         ids.append(node_id)
     if len(ids) != len(set(ids)):
         raise ValueError("Receipt contains duplicate node_id values")
+    if receipt_count is not None and receipt_count != len(ids):
+        raise ValueError("Receipt result count does not match its tested candidate count")
     return raw
 
 
