@@ -108,19 +108,6 @@ final_config = {
     "rules": ["MATCH,手动选择"],
 }
 
-with open(out_path, "w", encoding="utf-8") as f:
-    yaml.safe_dump(final_config, f, allow_unicode=True, sort_keys=False)
-
-if len(sys.argv) > 5:
-    v2ray_path = sys.argv[5]
-    encoded = build_v2raytun_subscription(published_nodes)
-    if not encoded.strip():
-        raise SystemExit("No nodes supported by V2Ray share-link format; refusing empty output")
-    with open(v2ray_path, "w", encoding="utf-8") as f:
-        f.write(encoded)
-    print(f"V2Ray share-link subscription generated: {len(base64.b64decode(encoded).decode('utf-8').splitlines())} nodes")
-
-
 def build_v2raytun_subscription(nodes):
     """Encode supported final nodes as a base64 V2Ray share-link subscription."""
     links = []
@@ -207,6 +194,19 @@ def build_v2raytun_subscription(nodes):
             continue
     payload = "\n".join(links)
     return base64.b64encode(payload.encode("utf-8")).decode("ascii") + ("\n" if links else "")
+
+
+with open(out_path, "w", encoding="utf-8") as f:
+    yaml.safe_dump(final_config, f, allow_unicode=True, sort_keys=False)
+
+if len(sys.argv) > 5:
+    v2ray_path = sys.argv[5]
+    encoded = build_v2raytun_subscription(published_nodes)
+    if not encoded.strip():
+        raise SystemExit("No nodes supported by V2Ray share-link format; refusing empty output")
+    with open(v2ray_path, "w", encoding="utf-8") as f:
+        f.write(encoded)
+    print(f"V2Ray share-link subscription generated: {len(base64.b64decode(encoded).decode('utf-8').splitlines())} nodes")
 
 
 print(f"Phone receipt accepted: {len(published_nodes)}/{len(proxies)} nodes; high={len(high_nodes)}, normal={len(normal_nodes)}, rejected={len(proxies)-len(published_nodes)}; all five app gates passed and speed >= {MIN_SPEED_BPS} B/s")
