@@ -1,6 +1,6 @@
-# AutoSubHub → V2RayTun Termux Bridge（第一阶段）
+# AutoSubHub → V2RayTun（云端候选格式 + Termux 桥接）
 
-本工具先完成“把 AutoSubHub 待测速候选节点交给 V2RayTun”。它不会调用 Mihomo，也不会声称已经执行 V2RayTun 真实连接测速。
+候选构建工作流会在生成 `candidates/candidates.yaml` 时，同步生成 V2RayTun Base64 订阅、逐行分享链接和 node_id 映射文件。原始 YAML/Mihomo 流程不变。Termux 桥接仍可用于把手机累计待测队列重新转换成一个合并订阅。此步骤只负责格式准备，不代表已经执行 V2RayTun 真实连接测速。
 
 ## 安装
 
@@ -22,7 +22,7 @@ python -m pip install pyyaml
 python download_candidates.py --output candidate-cache/candidate-local.yaml
 ```
 
-转换成 V2RayTun 分享链接：
+如果只处理当前单批次，GitHub Actions 产物中已经包含以下文件：\n\n- `candidates/v2raytun-sub.txt`：Base64 订阅。\n- `candidates/v2raytun-links.txt`：逐行分享链接。\n- `candidates/v2raytun-map.json`：原始 node_id 对照表。\n\n手机端若使用累计待测队列，仍可按下面命令对下载后的累计 YAML 重新转换：
 
 ```sh
 python tools/v2raytun_bridge.py --candidate-file candidate-cache/candidate-local.yaml
@@ -40,7 +40,7 @@ python tools/v2raytun_bridge.py --candidate-file candidate-cache/candidate-local
 python tools/v2raytun_bridge.py --candidate-file candidate-cache/candidate-local.yaml --copy
 ```
 
-然后在 V2RayTun 中使用剪贴板/分享链接导入入口。第一阶段不自动点击测速或删除，避免未验证 UI 行为时误操作。
+然后在 V2RayTun 中使用剪贴板/分享链接导入入口。公开发布分支 `published-subscriptions` 的 `candidate/` 目录也会同步发布上述三个文件。第一阶段不自动点击测速或删除，避免未验证 UI 行为时误操作。
 
 ## 支持范围与安全边界
 
