@@ -15,6 +15,7 @@ AutoSubHub / V2RayTun Termux helper
   bash v2raytun-termux.sh prepare   Download cumulative pending nodes, convert, copy subscription, open V2RayTun
   bash v2raytun-termux.sh convert   Convert the existing downloaded candidate list
   bash v2raytun-termux.sh collect   Read clipboard export AFTER V2RayTun real-delay test + invalid-node deletion
+  bash v2raytun-termux.sh upload    Upload the inspected V2RayTun receipt to its own GitHub branch
   bash v2raytun-termux.sh help
 
 The helper does not tap V2RayTun buttons or claim tests succeeded.
@@ -37,6 +38,9 @@ case "${1:-help}" in
   collect)
     python tools/collect_v2raytun_survivors.py --map "$MAP" --clipboard --confirm-invalid-removed --output "$CACHE/v2raytun-survivors.json"
     echo "请检查 $CACHE/v2raytun-survivors.json；未匹配节点不会被标记为失败。"
+    ;;
+  upload)
+    python upload_v2raytun_receipt.py --input "$CACHE/v2raytun-survivors.json" --candidate "$CANDIDATE" --manifest "$CACHE/candidate-local.manifest.json" --map "$MAP"
     ;;
   help|-h|--help)
     usage
