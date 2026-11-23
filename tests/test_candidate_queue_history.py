@@ -36,8 +36,12 @@ class FakeSession:
 
     def get(self, url, timeout):
         self.requested.append(url)
-        if url.endswith("/probe-receipts/receipts/latest.json") and self.receipt_data is not None:
-            return FakeResponse(data=self.receipt_data)
+        if url.endswith("/probe-receipts/receipts/latest.json"):
+            if self.receipt_data is not None:
+                return FakeResponse(data=self.receipt_data)
+            missing = FakeResponse(data={})
+            missing.status_code = 404
+            return missing
         for commit, (candidate_bytes, manifest) in self.snapshots.items():
             base = f"https://raw.githubusercontent.com/ccvvv/AutoSubHub/{commit}/candidate/"
             if url == base + "subscription.yaml":
@@ -118,6 +122,36 @@ class CandidateQueueHistoryTests(unittest.TestCase):
         self.assertEqual(len(candidate_result["proxies"]), 1)
         self.assertTrue(any(url.endswith("/probe-receipts/receipts/latest.json")
                             for url in session.requested))
+
+    def test_remote_receipt_advances_stale_local_cursor_after_upload_crash(self):
+        candidate = {"proxies": [
+            {"name": "new-node", "type": "ss", "server": "new.example", "port": 443}
+        ]}
+        raw = yaml.safe_dump(candidate, allow_unicode=True, sort_keys=False).encode()
+        manifest = {"candidate_sha256": hashlib.sha256(raw).hexdigest(),
+                    "nodes": [{"name": "new-node"}]}
+        session = FakeSession(
+            {A: (raw, manifest)},
+            receipt_data={"candidate_commit": B},
+        )
+        with tempfile.TemporaryDirectory() as tmp:
+            state_path = Path(tmp) / "queue.json"
+            state_path.write_text(json.dumps({"last_uploaded_candidate_commit": C}))
+            git_results = [
+                type("Result", (), {"stdout": "false"})(),
+                type("Result", (), {"stdout": ""})(),
+                type("Result", (), {"stdout": f"{A}" + chr(10) + f"{B}" + chr(10) + f"{C}" + chr(10)})(),
+            ]
+            with patch("scripts.candidate_queue.subprocess.run", side_effect=git_results):
+                candidate_result, manifest_result, commits, tip = collect_pending_candidate_batches(
+                    "https://github.com/ccvvv/AutoSubHub.git",
+                    "ccvvv/AutoSubHub", "published-subscriptions",
+                    session, state_path,
+                )
+
+        self.assertEqual(commits, [A])
+        self.assertEqual(tip, A)
+        self.assertEqual(len(candidate_result["proxies"]), 1)
 
     def test_unknown_cursor_fails_closed_instead_of_skipping_batches(self):
         with tempfile.TemporaryDirectory() as tmp:
