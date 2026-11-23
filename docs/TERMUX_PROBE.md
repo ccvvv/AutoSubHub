@@ -73,7 +73,7 @@ Never commit the token or put it in the app source. Protect the token and revoke
 
 ## Application gates and speed categories
 
-- YouTube, Telegram Web, Google, ChatGPT, and GitHub are tested concurrently through the selected node, with a bounded global pool and a 3-second timeout per check. Any failed check rejects the node and skips its download test.
+- YouTube, Telegram Web, Google, ChatGPT, and GitHub are tested sequentially through the selected node. All five must pass; any failed check rejects the node and skips its download test. Different nodes are tested concurrently according to the configured worker count.
 - Telegram currently checks Telegram Web HTTPS reachability; it does not perform a native Telegram MTProto login or message test.
 - Each application check uses a 3-second connect/read timeout by default. Slow or blocked endpoints can therefore reject a node.
 - Nodes below 200 KB/s are rejected. 200–499 KB/s nodes are tagged [普通]; 500 KB/s and above are tagged [高速].
