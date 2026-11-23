@@ -489,10 +489,10 @@ def main() -> None:
                             "elapsed_ms": round((time.perf_counter() - started) * 1000)}
 
             # One bounded pool is shared by all node workers. This avoids spawning six
-    # extra threads per node when the phone concurrency is set to 200 or 300.
-    streaming_pool = ThreadPoolExecutor(max_workers=min(24, max(4, args.workers)))
+            # extra threads per node when the phone concurrency is set to 200 or 300.
+            streaming_pool = ThreadPoolExecutor(max_workers=min(24, max(4, args.workers)))
 
-    def probe_worker(worker_index: int, batch: list[dict]) -> None:
+            def probe_worker(worker_index: int, batch: list[dict]) -> None:
                 selector = api_base + f"/proxies/PHONE-{worker_index:02d}"
                 proxy_url = f"http://127.0.0.1:{args.port_base + worker_index}"
                 worker_api = requests.Session()
