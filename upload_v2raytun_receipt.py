@@ -48,6 +48,7 @@ def main() -> int:
         candidate_bytes = candidate_path.read_bytes()
         manifest_bytes = manifest_path.read_bytes()
         map_bytes = map_path.read_bytes()
+        map_data = json.loads(map_bytes.decode("utf-8"))
         digest = hashlib.sha256(candidate_bytes).hexdigest()
         if receipt.get("schema_version") != 1 or receipt.get("engine") != "v2raytun":
             raise ValueError("not a V2RayTun receipt")
@@ -58,6 +59,8 @@ def main() -> int:
         manifest = json.loads(manifest_bytes.decode("utf-8"))
         if manifest.get("candidate_sha256") != digest:
             raise ValueError("manifest/candidate SHA256 mismatch")
+        if map_data.get("candidate_sha256") != digest:
+            raise ValueError("node map/candidate SHA256 mismatch")
         if receipt.get("confirmation", {}).get("confirmed_by_user") is not True:
             raise ValueError("missing user confirmation")
         results = receipt.get("results")
