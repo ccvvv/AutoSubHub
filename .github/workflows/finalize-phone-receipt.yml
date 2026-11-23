@@ -61,7 +61,7 @@ jobs:
           HIGH_SPEED_BPS: "500000"
         run: |
           set -euo pipefail
-          python scripts/finalize_phone_receipt.py incoming/subscription.yaml incoming/manifest.json incoming/receipt.json incoming/final.yaml
+          python scripts/finalize_phone_receipt.py incoming/subscription.yaml incoming/manifest.json incoming/receipt.json incoming/final.yaml incoming/final-v2raytun.txt
       - name: Rotate and publish three final versions
         run: |
           set -euo pipefail
@@ -70,6 +70,7 @@ jobs:
           if [ -f final/previous.yaml ]; then cp final/previous.yaml final/older.yaml; fi
           if [ -f final/latest.yaml ]; then cp final/latest.yaml final/previous.yaml; fi
           cp ../incoming/final.yaml final/latest.yaml
+          cp ../incoming/final-v2raytun.txt final/latest-v2raytun.txt
           python ../scripts/update_lifecycle.py final/latest.yaml lifecycle.json
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
