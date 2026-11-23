@@ -35,7 +35,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Check Python syntax for phone probe and receipt validator
-        run: python -m py_compile termux_probe.py download_candidates.py upload_receipt.py scripts/candidate_queue.py scripts/finalize_phone_receipt.py tools/v2raytun_bridge.py
+        run: python -m py_compile termux_probe.py download_candidates.py upload_receipt.py scripts/candidate_queue.py scripts/finalize_phone_receipt.py tools/v2raytun_bridge.py tools/build_v2raytun_candidate.py
 
       - name: Install Mihomo core
         run: |
@@ -52,7 +52,9 @@ jobs:
         env:
           SUBSCRIPTION_URLS: ${{ secrets.SUBSCRIPTION_URLS }}
           SOURCE_WORKERS: "10"
-        run: python build.py
+        run: |
+          python build.py
+          python tools/build_v2raytun_candidate.py
 
       - name: Upload candidate artifact
         uses: actions/upload-artifact@v4
@@ -104,10 +106,13 @@ jobs:
           mkdir -p /tmp/published/candidate
           cp candidates/candidates.yaml /tmp/published/candidate/subscription.yaml
           cp candidates/manifest.json /tmp/published/candidate/manifest.json
+          cp candidates/v2raytun-sub.txt /tmp/published/candidate/v2raytun-sub.txt
+          cp candidates/v2raytun-links.txt /tmp/published/candidate/v2raytun-links.txt
+          cp candidates/v2raytun-map.json /tmp/published/candidate/v2raytun-map.json
           cd /tmp/published
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add candidate/subscription.yaml candidate/manifest.json
+          git add candidate/subscription.yaml candidate/manifest.json candidate/v2raytun-sub.txt candidate/v2raytun-links.txt candidate/v2raytun-map.json
           if git diff --cached --quiet; then
             echo "Candidate unchanged; public URL already serves this version."
           else
