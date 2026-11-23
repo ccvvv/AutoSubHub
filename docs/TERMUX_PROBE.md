@@ -74,8 +74,10 @@ Never commit the token or put it in the app source. Protect the token and revoke
 ## Application gates and speed categories
 
 - YouTube, Telegram Web, Google, ChatGPT, and GitHub are tested sequentially through the selected node. All five must pass; any failed check rejects the node and skips its download test. Different nodes are tested concurrently according to the configured worker count.
+- Application checks require the expected HTTP status (Google `generate_204`: 204; the other four web pages: 200), a final URL on the expected service domain (or the configured custom URL's own domain), and a non-empty HTML response sample for the four page-based checks. The receipt records final URL, redirects, content type, sample size, and elapsed time.
 - Telegram currently checks Telegram Web HTTPS reachability; it does not perform a native Telegram MTProto login or message test.
 - Each application check uses a 3-second connect/read timeout by default. Slow or blocked endpoints can therefore reject a node.
+- Download speed is counted only after the full configured test size is received (5 MiB by default). A non-200 response, a declared Content-Length shorter than the test size, or an early/incomplete response rejects the download stage instead of calculating a passing speed from partial data. The receipt records expected and received byte counts; the final publisher independently verifies that they match.
 - Nodes below 200 KB/s are rejected. 200–499 KB/s nodes are tagged [普通]; 500 KB/s and above are tagged [高速].
 - The final output remains one subscription, with 高速节点 and 普通节点 selectable proxy groups and matching node-name tags.
 
