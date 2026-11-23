@@ -107,7 +107,7 @@ def _check_one(name: str, url: str, proxy_url: str, timeout: int) -> dict[str, A
             timeout=(timeout, timeout),
             headers=headers,
             stream=True,
-            allow_redirects=False,
+            allow_redirects=(name != "disney_plus"),
         ) as response:
             code = response.status_code
             if name in ("youtube_premium", "disney_plus"):
