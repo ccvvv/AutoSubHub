@@ -303,15 +303,8 @@ def protocol_handshake_check(node: dict) -> tuple[dict, bool, str]:
     return node, False, last_error
 
 
-def load_final_node_fingerprints() -> set[str]:
-    """Load the currently published final subscription; fail closed on bad data."""
-    url = os.getenv(
-        "FINAL_SUBSCRIPTION_URL",
-        "https://raw.githubusercontent.com/ccvvv/AutoSubHub/published-subscriptions/final/latest.yaml",
-    )
-    response = requests.get(url, headers={"User-Agent": USER_AGENT}, timeout=30)
-    response.raise_for_status()
-    data = yaml.safe_load(response.text)
+def final_node_fingerprints(data: dict) -> set[str]:
+    """Fingerprint only valid proxy nodes, never Clash proxy-group entries."""
     if not isinstance(data, dict) or not isinstance(data.get("proxies"), list):
         raise RuntimeError("Published final subscription is missing a valid proxies list")
     fingerprints = {
@@ -325,6 +318,17 @@ def load_final_node_fingerprints() -> set[str]:
     if not fingerprints:
         raise RuntimeError("Published final subscription contains no valid proxy nodes")
     return fingerprints
+
+
+def load_final_node_fingerprints() -> set[str]:
+    """Load the currently published final subscription; fail closed on bad data."""
+    url = os.getenv(
+        "FINAL_SUBSCRIPTION_URL",
+        "https://raw.githubusercontent.com/ccvvv/AutoSubHub/published-subscriptions/final/latest.yaml",
+    )
+    response = requests.get(url, headers={"User-Agent": USER_AGENT}, timeout=30)
+    response.raise_for_status()
+    return final_node_fingerprints(yaml.safe_load(response.text))
 
 
 def exclude_final_nodes(nodes: list[dict], final_fingerprints: set[str]) -> list[dict]:
