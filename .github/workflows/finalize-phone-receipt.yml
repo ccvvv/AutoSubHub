@@ -2,8 +2,8 @@ name: Finalize phone-tested subscription
 
 on:
   push:
-    branches: [probe-receipts]
-    paths: ["receipts/*.json"]
+    branches: [probe-receipts, main]
+    paths: ["receipts/*.json", ".github/workflows/finalize-phone-receipt.yml", "scripts/finalize_phone_receipt.py"]
   workflow_dispatch:
 
 permissions:
@@ -23,27 +23,45 @@ jobs:
           ref: main
       - name: Install Python dependencies
         run: pip install pyyaml
-      - name: Fetch published candidate and receipt
+      - name: Fetch receipt and its exact merged candidate snapshot
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          git clone --depth 1 --branch published-subscriptions "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" published
           mkdir -p incoming
-          if [ "${GITHUB_EVENT_NAME}" = "push" ]; then
-            # Fetch the immutable event commit, not the moving branch tip.
-            git fetch --no-tags origin "${GITHUB_SHA}"
-            git show "${GITHUB_SHA}:receipts/latest.json" > incoming/receipt.json
+          git clone --depth 1 --branch probe-receipts "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" receipts
+          if [ "${GITHUB_EVENT_NAME}" = "push" ] && [ "${GITHUB_REF}" = "refs/heads/probe-receipts" ]; then
+            git -C receipts fetch --no-tags origin "${GITHUB_SHA}"
+            RECEIPT_REF="${GITHUB_SHA}"
           else
-            git fetch origin probe-receipts
-            git show "origin/probe-receipts:receipts/latest.json" > incoming/receipt.json
+            RECEIPT_REF="origin/probe-receipts"
+          fi
+          git -C receipts show "${RECEIPT_REF}:receipts/latest.json" > incoming/receipt.json
+          if git -C receipts cat-file -e "${RECEIPT_REF}:receipts/candidate.yaml" 2>/dev/null; then
+            git -C receipts show "${RECEIPT_REF}:receipts/candidate.yaml" > incoming/subscription.yaml
+            git -C receipts show "${RECEIPT_REF}:receipts/manifest.json" > incoming/manifest.json
+          else
+            # Backward compatibility for receipts uploaded by the earlier single-batch client.
+            CANDIDATE_COMMIT="$(python -c 'import json; print(json.load(open("incoming/receipt.json"))["candidate_commit"])')"
+            if ! [[ "${CANDIDATE_COMMIT}" =~ ^[0-9a-f]{40}$ ]]; then
+              echo "Receipt candidate_commit is missing or invalid."
+              exit 1
+            fi
+            git clone --no-checkout --filter=blob:none --branch published-subscriptions "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" published
+            git -C published fetch --no-tags origin "${CANDIDATE_COMMIT}"
+            git -C published show "${CANDIDATE_COMMIT}:candidate/subscription.yaml" > incoming/subscription.yaml
+            git -C published show "${CANDIDATE_COMMIT}:candidate/manifest.json" > incoming/manifest.json
+          fi
+          if [ ! -d published ]; then
+            git clone --no-checkout --filter=blob:none --branch published-subscriptions "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" published
           fi
       - name: Validate receipt and build final
         env:
-          MIN_SPEED_BPS: "500000"
+          MIN_SPEED_BPS: "200000"
+          HIGH_SPEED_BPS: "500000"
         run: |
           set -euo pipefail
-          python scripts/finalize_phone_receipt.py published/candidate/subscription.yaml published/candidate/manifest.json incoming/receipt.json incoming/final.yaml
+          python scripts/finalize_phone_receipt.py incoming/subscription.yaml incoming/manifest.json incoming/receipt.json incoming/final.yaml incoming/final-v2raytun.txt
       - name: Rotate and publish three final versions
         run: |
           set -euo pipefail
@@ -52,9 +70,11 @@ jobs:
           if [ -f final/previous.yaml ]; then cp final/previous.yaml final/older.yaml; fi
           if [ -f final/latest.yaml ]; then cp final/latest.yaml final/previous.yaml; fi
           cp ../incoming/final.yaml final/latest.yaml
+          cp ../incoming/final-v2raytun.txt final/latest-v2raytun.txt
+          python ../scripts/update_lifecycle.py final/latest.yaml lifecycle.json
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add final/
+          git add final/ lifecycle.json
           if git diff --cached --quiet; then
             echo "Final subscription is unchanged; nothing to publish."
             exit 0
