@@ -30,6 +30,7 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
     private lateinit var workersSpinner: Spinner
     private val statViews = mutableMapOf<String, TextView>()
     private val actionButtons = mutableMapOf<String, Button>()
+    private var currentProbeStatus = "idle"
     private val prefs by lazy { getSharedPreferences("console", MODE_PRIVATE) }
     private val handler = Handler(Looper.getMainLooper())
     private val poll = object : Runnable {
@@ -116,6 +117,8 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
         actionButtons["resume"]?.visibility=View.GONE
         actionButtons["stop"]?.visibility=View.GONE
         action(actions,"上传测速回执","upload")
+        actionButtons["upload"]?.isEnabled = false
+        actionButtons["upload"]?.alpha = 0.55f
         action(actions,"检查候选版本","check")
         body.addView(actions)
 
@@ -155,6 +158,10 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
             this.text=text
             isAllCaps=false
             setOnClickListener {
+                if(cmd=="upload" && currentProbeStatus!="completed") {
+                    Toast.makeText(this@MainActivity,"只有完整批次测速完成后才能上传回执；部分或中断回执不会推进队列。",Toast.LENGTH_LONG).show()
+                    return@setOnClickListener
+                }
                 var extraArgs = emptyArray<String>()
                 if(cmd=="probe" || cmd=="probe-local") {
                     val workers = workersSpinner.selectedItem.toString().toIntOrNull()?.coerceIn(1,300) ?: 200
@@ -194,6 +201,7 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
         try {
             val d=JSONObject(raw.substring(a,b+1))
             val state=d.optString("status","idle")
+            currentProbeStatus=state
             val processRunning=d.optBoolean("process_running",false)
             val activeTask=processRunning && (state=="running"||state=="preparing"||state=="paused")
             val done=d.optInt("done",0); val total=d.optInt("total",0)
@@ -202,15 +210,18 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
             val rate=d.optDouble("success_rate",0.0); val elapsed=d.optDouble("elapsed_seconds",0.0)
             val percent=if(total>0) done*100/total else 0
             progress.isIndeterminate=state=="preparing"; progress.progress=percent.coerceIn(0,100)
-            progressInfo.text="已检测 "+done+" / "+total+"    ·    耗时 "+elapsed+" 秒"
+            progressInfo.text=if(state=="partial")
+                "本次限量检测 "+done+" / "+total+"    ·    累计队列未完成，禁止上传"
+            else "已检测 "+done+" / "+total+"    ·    耗时 "+elapsed+" 秒"
             val stage=d.optString("stage","").trim()
             status.text=when(state) {
                 "preparing"->"● 正在准备 · "+stage.ifEmpty { "获取候选节点" }
                 "running"->"● 正在测速 · "+percent+"%"+(if(stage.isNotEmpty()) " · "+stage else "")
                 "paused"->"Ⅱ 已暂停测速"
-                "completed"->"✓ 测速完成"
-                "interrupted"->"Ⅱ 测速已中断"
-                "failed"->"! 测速失败"
+                "completed"->"✓ 完整批次测速完成 · 可以上传回执"
+                "partial"->"◷ 限量测速结束 · 只是部分结果 · 不可上传"
+                "interrupted"->"Ⅱ 测速已中断 · 不可上传完整回执"
+                "failed"->"! 测速失败 · 不可上传"
                 else->"● 等待开始"
             }
             setStat("已检测",done.toString()); setStat("可用",passed.toString())
@@ -226,13 +237,16 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
                     val ok=checks.optJSONObject(key)?.optString("status")=="passed"
                     serviceName(key)+(if(ok) " ✓" else " ×")
                 }
+            val canUpload = state=="completed" && total>0 && done>=total
+            actionButtons["upload"]?.isEnabled=canUpload
+            actionButtons["upload"]?.alpha=if(canUpload) 1.0f else 0.55f
             actionButtons["pause"]?.visibility=if(activeTask && (state=="running"||state=="preparing")) View.VISIBLE else View.GONE
             actionButtons["resume"]?.visibility=if(activeTask && state=="paused") View.VISIBLE else View.GONE
             actionButtons["stop"]?.visibility=if(activeTask) View.VISIBLE else View.GONE
             actionButtons["probe"]?.visibility=if(activeTask) View.GONE else View.VISIBLE
             actionButtons["probe-local"]?.visibility=if(activeTask) View.GONE else View.VISIBLE
             actionButtons["download"]?.isEnabled=!activeTask
-            if(state=="completed"||state=="interrupted"||state=="failed") {
+            if(state=="completed"||state=="partial"||state=="interrupted"||state=="failed") {
                 prefs.edit().putBoolean("probe_active",false).apply(); handler.removeCallbacks(poll)
             }
         } catch (_:Exception) {}
