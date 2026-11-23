@@ -549,8 +549,8 @@ def main() -> None:
             manifest_nodes = []
             delay_by_name = {node["name"]: delay for delay, node in tested}
             for node in passed_nodes:
-                canonical = json.dumps(node, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
-                node_id = hashlib.sha256(canonical.encode("utf-8")).hexdigest()[:20]
+                # Keep the phone-side node identity stable when only its display name changes.
+                node_id = node_key(node)[:20]
                 manifest_nodes.append({
                     "node_id": node_id,
                     "name": node.get("name", ""),
