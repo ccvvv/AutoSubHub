@@ -534,11 +534,30 @@ def main() -> None:
                         # Independent media-platform checks run for every selected node,
                         # even when the original five-site application gate fails.
                         # They reuse this worker's already-selected Mihomo listener.
-                        record["streaming_checks"], record["streaming_verdict"] = (
-                            check_streaming_services(
-                                proxy_url, args.streaming_timeout, streaming_pool
+                        try:
+                            record["streaming_checks"], record["streaming_verdict"] = (
+                                check_streaming_services(
+                                    proxy_url, args.streaming_timeout, streaming_pool
+                                )
                             )
-                        )
+                        except Exception as streaming_error:
+                            # Streaming is supplementary: its internal failure must never
+                            # skip or alter the original five-site gate and download test.
+                            record["streaming_checks"] = {
+                                key: {
+                                    "status": "error",
+                                    "confidence": "low",
+                                    "detail": (
+                                        f"{type(streaming_error).__name__}: "
+                                        f"{str(streaming_error)[:160]}"
+                                    ),
+                                }
+                                for key in (
+                                    "netflix", "youtube_premium", "disney_plus",
+                                    "bilibili", "spotify", "tiktok",
+                                )
+                            }
+                            record["streaming_verdict"] = "failed"
                         passed_streaming = [
                             key for key, value in record["streaming_checks"].items()
                             if value.get("status") == "yes"
