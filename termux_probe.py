@@ -36,6 +36,20 @@ CANDIDATE_UPDATED_AT = ""
 CANDIDATE_FETCHED_AT = ""
 
 
+def receipt_completion_status(stopped: bool, tested_count: int,
+                              queue_count: int) -> str:
+    """Only a full, uninterrupted queue run may produce an uploadable receipt."""
+    if type(tested_count) is not int or type(queue_count) is not int:
+        raise ValueError("Candidate counts must be integers")
+    if queue_count < 1 or tested_count < 0 or tested_count > queue_count:
+        raise ValueError("Candidate counts are outside the valid range")
+    if stopped:
+        return "interrupted"
+    if tested_count < queue_count:
+        return "partial"
+    return "completed"
+
+
 def write_yaml(path: Path, data: dict) -> None:
     path.write_text(yaml.safe_dump(data, allow_unicode=True, sort_keys=False), encoding="utf-8")
 
@@ -594,12 +608,9 @@ def main() -> None:
                 mihomo.kill()
 
     completed_at = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
-    if stop_path.exists():
-        run_status = "interrupted"
-    elif receipt_candidate_count < queue_candidate_count:
-        run_status = "partial"
-    else:
-        run_status = "completed"
+    run_status = receipt_completion_status(
+        stop_path.exists(), receipt_candidate_count, queue_candidate_count
+    )
     receipt = {
         "schema_version": 1,
         "status": run_status,
