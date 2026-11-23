@@ -52,7 +52,7 @@ python tools/v2raytun_bridge.py --candidate-file candidate-cache/candidate-local
 bash v2raytun-termux.sh collect
 ```
 
-脚本会将剪贴板导出的分享链接与 node_id 映射表匹配，生成 `candidate-cache/v2raytun-survivors.json`。只有成功匹配到的导出保留节点会记为用户确认的 passed；未匹配、未导出或缺失的节点会放进 unresolved，不会被误判为 failed。
+脚本会将剪贴板导出的分享链接与 node_id 映射表匹配，生成 `candidate-cache/v2raytun-survivors.json`。只有成功匹配到的导出保留节点会记为用户确认的 passed；未匹配、未导出或缺失的节点会放进 unresolved，不会被误判为 failed。\n\n检查结果文件后，运行下面命令回传 GitHub：\n\n```sh\nbash v2raytun-termux.sh upload\n```\n\n结果会写入独立的 `v2raytun-receipts` 分支（`receipts/v2raytun/`），不会覆盖 Mihomo 回执，也不会推进 Mihomo 的待测批次游标。若使用 HTTPS 上传，请先在 Termux 当前会话设置有仓库写入权限的 `GITHUB_TOKEN`；否则脚本会尝试 SSH。
 
 公开发布分支 `published-subscriptions` 的 `candidate/` 目录也会同步发布云端单批次的三个 V2RayTun 文件。当前版本仍需要用户在 V2RayTun 内手动导入、测速、删除和导出；Termux 不会伪装成自动点击，也不会未经验证调用私有 JNI。
 
