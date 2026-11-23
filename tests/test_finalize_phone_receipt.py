@@ -39,10 +39,13 @@ class FinalizePhoneReceiptTests(unittest.TestCase):
         }), encoding="utf-8")
         self.base_receipt = {
             "status": "completed", "candidate_commit": "a" * 40, "candidate_sha256": digest,
+            "max_download_bytes": 5242880,
             "results": [
                 {"node_id": "id-fast", "status": "passed", "download_speed_bps": 800000,
+                 "downloaded_bytes": 5242880, "expected_download_bytes": 5242880,
                  "application_checks": {app: {"status": "passed"} for app in ("youtube", "telegram", "google", "chatgpt", "github")}},
                 {"node_id": "id-slow", "status": "passed", "download_speed_bps": 400000,
+                 "downloaded_bytes": 5242880, "expected_download_bytes": 5242880,
                  "application_checks": {app: {"status": "passed"} for app in ("youtube", "telegram", "google", "chatgpt", "github")}},
                 {"node_id": "id-failed", "status": "failed", "download_speed_bps": 0,
                  "application_checks": {app: {"status": "passed"} for app in ("youtube", "telegram", "google", "chatgpt", "github")}},
@@ -72,6 +75,37 @@ class FinalizePhoneReceiptTests(unittest.TestCase):
         self.assertTrue(MIHOMO.exists(), f"Mihomo binary not found: {MIHOMO}")
         checked = subprocess.run([str(MIHOMO), "-t", "-f", str(self.output)], cwd=ROOT, text=True, capture_output=True)
         self.assertEqual(checked.returncode, 0, checked.stderr + checked.stdout)
+
+    def test_legacy_receipt_uses_url_size_but_still_requires_full_bytes(self):
+        receipt = dict(self.base_receipt)
+        receipt.pop("max_download_bytes")
+        receipt["download_url"] = "https://speed.cloudflare.com/__down?bytes=5242880"
+        receipt["results"] = [dict(item) for item in self.base_receipt["results"]]
+        for item in receipt["results"]:
+            if item["status"] == "passed":
+                item.pop("expected_download_bytes")
+        result = self.run_validator(receipt)
+        self.assertEqual(result.returncode, 0, result.stderr + result.stdout)
+        final = yaml.safe_load(self.output.read_text(encoding="utf-8"))
+        self.assertEqual([p["name"] for p in final["proxies"]], ["fast-node [高速]", "slow-node [普通]"])
+
+    def test_partial_download_bytes_are_rejected(self):
+        receipt = dict(self.base_receipt)
+        receipt["results"] = [dict(item) for item in self.base_receipt["results"]]
+        receipt["results"][0]["downloaded_bytes"] = 5242879
+        result = self.run_validator(receipt)
+        self.assertEqual(result.returncode, 0, result.stderr + result.stdout)
+        final = yaml.safe_load(self.output.read_text(encoding="utf-8"))
+        self.assertEqual([p["name"] for p in final["proxies"]], ["slow-node [普通]"])
+
+    def test_legacy_receipt_rejects_untrusted_download_url(self):
+        receipt = dict(self.base_receipt)
+        receipt.pop("max_download_bytes")
+        receipt["download_url"] = "https://example.com/file?bytes=5242880"
+        result = self.run_validator(receipt)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("Legacy receipt has no trustworthy", result.stderr + result.stdout)
+        self.assertFalse(self.output.exists())
 
     def test_incomplete_receipt_is_rejected(self):
         receipt = dict(self.base_receipt)
