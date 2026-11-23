@@ -24,6 +24,7 @@ import requests
 import yaml
 
 from scripts.candidate_queue import collect_pending_candidate_batches
+from scripts.streaming_checker import check_streaming_services
 
 REPO = os.getenv("GITHUB_REPOSITORY", "ccvvv/AutoSubHub")
 BRANCH = "published-subscriptions"
@@ -76,6 +77,8 @@ def write_progress(path: Path, status: str, done: int, total: int, results: list
         "latest_speed_kbps": round(latest.get("download_speed_bps", 0) / 1000, 1),
         "latest_category": latest.get("speed_category", "checking"),
         "app_checks": latest.get("application_checks", {}),
+        "streaming_checks": latest.get("streaming_checks", {}),
+        "streaming_verdict": latest.get("streaming_verdict", ""),
         "updated_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
     }
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -214,6 +217,8 @@ def main() -> None:
     parser.add_argument("--github-url", default="https://github.com/")
     parser.add_argument("--service-timeout", type=int, default=3,
                         help="Per-application connection/read timeout in seconds (default 3)")
+    parser.add_argument("--streaming-timeout", type=int, default=2,
+                        help="Per-streaming-platform connection/read timeout in seconds (default 2)")
     parser.add_argument("--timeout", type=int, default=5,
                         help="Connection and read-inactivity timeout in seconds (default 5)")
     parser.add_argument("--api-port", type=int, default=int(os.getenv("PROBE_API_PORT", "19090")),
@@ -234,7 +239,7 @@ def main() -> None:
         raise SystemExit("--workers must be between 1 and 300; increase gradually on phones")
     if args.limit < 0:
         raise SystemExit("--limit must be zero (all nodes) or a positive integer")
-    if args.timeout < 1 or args.service_timeout < 1:
+    if args.timeout < 1 or args.service_timeout < 1 or args.streaming_timeout < 1:
         raise SystemExit("timeouts must be at least 1 second")
     if args.min_speed_kbps <= 0 or args.high_speed_kbps <= args.min_speed_kbps:
         raise SystemExit("speed thresholds must be positive and high-speed must exceed minimum speed")
@@ -521,6 +526,20 @@ def main() -> None:
                                 service, target_url, proxy_url, args.service_timeout
                             )
                             record["application_checks"][service] = check_result
+                        current_stage = "streaming_checks"
+                        # Independent media-platform checks run for every selected node,
+                        # even when the original five-site application gate fails.
+                        # They reuse this worker's already-selected Mihomo listener.
+                        record["streaming_checks"], record["streaming_verdict"] = (
+                            check_streaming_services(proxy_url, args.streaming_timeout)
+                        )
+                        passed_streaming = [
+                            key for key, value in record["streaming_checks"].items()
+                            if value.get("status") == "yes"
+                        ]
+                        print(f"Streaming={len(passed_streaming)}/{len(record['streaming_checks'])} "
+                              f"yes; verdict={record['streaming_verdict']}")
+                        current_stage = "application_checks"
                         passed_services = [
                             service for service, result in record["application_checks"].items()
                             if result["status"] == "passed"
@@ -607,10 +626,19 @@ def main() -> None:
         "min_speed_bps": int(args.min_speed_kbps * 1000),
         "high_speed_bps": int(args.high_speed_kbps * 1000),
         "service_timeout_seconds": args.service_timeout,
+        "streaming_timeout_seconds": args.streaming_timeout,
         "service_urls": {"youtube": args.youtube_url, "telegram": args.telegram_url,
                          "google": args.google_url, "chatgpt": args.chatgpt_url,
                          "github": args.github_url},
         "download_url": args.download_url,
+        "streaming_urls": {
+            "netflix": "https://www.netflix.com/title/80018499",
+            "youtube_premium": "https://www.youtube.com/premium",
+            "disney_plus": "https://www.disneyplus.com/",
+            "bilibili": "https://api.bilibili.com/x/web-interface/nav",
+            "spotify": "https://open.spotify.com/",
+            "tiktok": "https://www.tiktok.com/",
+        },
         "results": receipt_results,
     }
     Path(args.output).write_text(json.dumps(receipt, ensure_ascii=False, indent=2) + "\n",
