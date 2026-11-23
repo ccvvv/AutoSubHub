@@ -488,7 +488,11 @@ def main() -> None:
                     return {"status": "failed", **exception_details(exc),
                             "elapsed_ms": round((time.perf_counter() - started) * 1000)}
 
-            def probe_worker(worker_index: int, batch: list[dict]) -> None:
+            # One bounded pool is shared by all node workers. This avoids spawning six
+    # extra threads per node when the phone concurrency is set to 200 or 300.
+    streaming_pool = ThreadPoolExecutor(max_workers=min(24, max(4, args.workers)))
+
+    def probe_worker(worker_index: int, batch: list[dict]) -> None:
                 selector = api_base + f"/proxies/PHONE-{worker_index:02d}"
                 proxy_url = f"http://127.0.0.1:{args.port_base + worker_index}"
                 worker_api = requests.Session()
@@ -531,7 +535,9 @@ def main() -> None:
                         # even when the original five-site application gate fails.
                         # They reuse this worker's already-selected Mihomo listener.
                         record["streaming_checks"], record["streaming_verdict"] = (
-                            check_streaming_services(proxy_url, args.streaming_timeout)
+                            check_streaming_services(
+                                proxy_url, args.streaming_timeout, streaming_pool
+                            )
                         )
                         passed_streaming = [
                             key for key, value in record["streaming_checks"].items()
@@ -600,6 +606,7 @@ def main() -> None:
                            for i, batch in enumerate(batches) if batch]
                 for future in as_completed(futures):
                     future.result()
+            streaming_pool.shutdown(wait=True)
         finally:
             mihomo.terminate()
             try:
@@ -657,7 +664,10 @@ def main() -> None:
     print(f"Download probe: {passed}/{len(receipt_results)} passed; receipt: {args.output}")
     final_stage = "测速已停止，部分结果已保存" if run_status == "interrupted" else "测速完成"
     write_progress(progress_path, run_status, len(receipt_results), len(proxies),
-                   receipt_results, started, stage=final_stage)
+                   receipt_results, started,
+                   current_node=receipt_results[-1].get("name", "") if receipt_results else "",
+                   latest=receipt_results[-1] if receipt_results else {},
+                   stage=final_stage)
 
 
 
