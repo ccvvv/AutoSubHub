@@ -1,6 +1,6 @@
 import unittest
 
-from build import exclude_final_nodes, node_key
+from build import exclude_final_nodes, final_node_fingerprints, node_key
 
 
 class FinalNodeExclusionTests(unittest.TestCase):
@@ -31,6 +31,31 @@ class FinalNodeExclusionTests(unittest.TestCase):
         published = dict(upstream, servername="old-cdn.example")
         remaining = exclude_final_nodes([upstream], {node_key(published)})
         self.assertEqual(remaining, [upstream])
+
+    def test_ignores_proxy_groups_and_keeps_only_valid_proxy_nodes(self):
+        real_node = {
+            "name": "official",
+            "type": "vless",
+            "server": "official.example",
+            "port": 443,
+            "uuid": "user",
+        }
+        data = {
+            "proxies": [
+                real_node,
+                {"name": "AUTO", "type": "url-test", "proxies": ["official"]},
+                {"name": "Manual", "type": "select", "proxies": ["AUTO"]},
+                {"name": "broken", "type": "vless", "server": "bad.example", "port": "443"},
+            ]
+        }
+        self.assertEqual(final_node_fingerprints(data), {node_key(real_node)})
+
+    def test_rejects_final_subscription_without_real_proxy_nodes(self):
+        data = {"proxies": [
+            {"name": "AUTO", "type": "url-test", "proxies": ["DIRECT"]},
+        ]}
+        with self.assertRaisesRegex(RuntimeError, "no valid proxy nodes"):
+            final_node_fingerprints(data)
 
     def test_keeps_nodes_not_in_final_list(self):
         node = {"name": "new", "type": "ss", "server": "new.example", "port": 8388}
