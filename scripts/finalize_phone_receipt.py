@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Validate a phone probe receipt and build a phone-verified final subscription."""
 import base64, hashlib, json, os, sys, yaml
-from urllib.parse import quote, urlencode
+from urllib.parse import parse_qs, quote, urlencode, urlparse
 
 MIN_SPEED_BPS = int(os.getenv("MIN_SPEED_BPS", "200000"))
 HIGH_SPEED_BPS = int(os.getenv("HIGH_SPEED_BPS", "500000"))
@@ -32,6 +32,18 @@ proxies = candidate.get("proxies")
 nodes = manifest.get("nodes")
 results = receipt.get("results")
 max_download_bytes = receipt.get("max_download_bytes")
+legacy_download_metadata = max_download_bytes is None
+if legacy_download_metadata:
+    # Older phone clients recorded the exact received byte count per node but
+    # did not repeat the requested size in the receipt. Recover that expectation
+    # only from the known Cloudflare download URL; still require a full byte match.
+    parsed_download_url = urlparse(str(receipt.get("download_url") or ""))
+    requested_sizes = parse_qs(parsed_download_url.query).get("bytes", [])
+    if (parsed_download_url.scheme != "https"
+            or parsed_download_url.hostname != "speed.cloudflare.com"
+            or len(requested_sizes) != 1 or not requested_sizes[0].isdigit()):
+        raise SystemExit("Legacy receipt has no trustworthy download-size metadata")
+    max_download_bytes = int(requested_sizes[0])
 if (not isinstance(proxies, list) or not isinstance(nodes, list) or not isinstance(results, list)
         or not isinstance(max_download_bytes, int) or isinstance(max_download_bytes, bool)
         or max_download_bytes <= 0):
@@ -59,10 +71,14 @@ for item in results:
         isinstance(checks.get(app), dict) and checks[app].get("status") == "passed"
         for app in REQUIRED_APPLICATIONS
     ))
+    expected_bytes_match = (
+        item.get("expected_download_bytes", max_download_bytes) == max_download_bytes
+        if legacy_download_metadata else item.get("expected_download_bytes") == max_download_bytes
+    )
     download_complete = (
         isinstance(downloaded_bytes, int) and not isinstance(downloaded_bytes, bool)
         and downloaded_bytes == max_download_bytes
-        and item.get("expected_download_bytes") == max_download_bytes
+        and expected_bytes_match
     )
     if (item.get("status") == "passed" and apps_passed and download_complete
             and isinstance(speed, (int, float)) and speed >= MIN_SPEED_BPS):
