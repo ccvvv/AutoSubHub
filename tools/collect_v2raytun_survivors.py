@@ -55,6 +55,7 @@ def main() -> int:
     ap.add_argument("--map", default="candidate-cache/v2raytun-import.map.json")
     ap.add_argument("--clipboard", action="store_true", help="read Termux clipboard")
     ap.add_argument("--input", help="read exported text from a file instead of clipboard")
+    ap.add_argument("--metadata", default="candidate-cache/candidate-local.meta.json")
     ap.add_argument("--output", default="candidate-cache/v2raytun-survivors.json")
     ap.add_argument("--confirm-invalid-removed", action="store_true",
                     help="confirm V2RayTun real-delay test and invalid-config deletion were completed")
@@ -114,11 +115,16 @@ def main() -> int:
             "match_method": match_method,
         })
 
+    metadata_path = Path(args.metadata).expanduser()
+    metadata = json.loads(metadata_path.read_text(encoding="utf-8")) if metadata_path.exists() else {}
     report = {
         "schema_version": 1,
         "engine": "v2raytun",
         "status": "completed_with_unresolved" if unresolved else "completed",
         "candidate_sha256": mapping.get("candidate_sha256"),
+        "candidate_commit": metadata.get("candidate_commit"),
+        "candidate_commits": metadata.get("candidate_commits", []),
+        "candidate_batch_count": metadata.get("candidate_batch_count"),
         "created_at": datetime.now(timezone.utc).isoformat(),
         "confirmation": {
             "real_delay_test_completed": True,
