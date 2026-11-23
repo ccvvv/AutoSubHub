@@ -504,7 +504,7 @@ def main() -> None:
                         if confirmed.json().get("now") != node["name"]:
                             raise RuntimeError("Mihomo selector did not switch to requested node")
                         current_stage = "application_checks"
-                        # All application checks are hard gates and run concurrently.
+                        # Five application checks are hard gates and run sequentially.
                         # Telegram Web verifies HTTPS reachability, not native MTProto login.
                         service_targets = {
                             "youtube": args.youtube_url,
@@ -525,11 +525,12 @@ def main() -> None:
                             service for service, result in record["application_checks"].items()
                             if result["status"] == "passed"
                         ]
-                        # One successful HTTPS service is sufficient to pass the
-                        # application-availability gate; keep all five results for diagnosis.
-                        service_failed = not bool(passed_services)
+                        # All five HTTPS services must pass before download testing.
+                        # Keep every result so failures remain diagnosable.
+                        required_passes = len(service_targets)
+                        service_failed = len(passed_services) != required_passes
                         record["application_gate"] = {
-                            "required_passes": 1,
+                            "required_passes": required_passes,
                             "passed_count": len(passed_services),
                             "passed_services": passed_services,
                             "status": "passed" if not service_failed else "failed",
