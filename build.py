@@ -177,9 +177,19 @@ def parse_source(text: str) -> tuple[list[dict], int]:
     return nodes, 0
 
 
-def node_key(node: dict) -> tuple:
-    return tuple(str(node.get(k, "")) for k in
-                 ("type", "server", "port", "uuid", "password", "cipher", "username"))
+def node_key(node: dict) -> str:
+    """Fingerprint the complete proxy configuration, excluding its display name.
+
+    Names are labels, not identity. Every other field is retained so that
+    TLS/Reality, transport, authentication, plugin and protocol options cannot
+    be accidentally merged into a different node.
+    """
+    identity = {key: value for key, value in node.items() if key != "name"}
+    canonical = json.dumps(
+        identity, ensure_ascii=False, sort_keys=True, separators=(",", ":")
+    )
+    import hashlib
+    return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
 
 
 UDP_PROTOCOLS = {"hysteria", "hysteria2", "tuic", "wireguard"}
