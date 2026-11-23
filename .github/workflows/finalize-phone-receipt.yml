@@ -30,7 +30,7 @@ jobs:
           set -euo pipefail
           mkdir -p incoming
           git clone --depth 1 --branch probe-receipts "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" receipts
-          if [ "${GITHUB_EVENT_NAME}" = "push" ]; then
+          if [ "${GITHUB_EVENT_NAME}" = "push" ] && [ "${GITHUB_REF}" = "refs/heads/probe-receipts" ]; then
             git -C receipts fetch --no-tags origin "${GITHUB_SHA}"
             RECEIPT_REF="${GITHUB_SHA}"
           else
