@@ -61,8 +61,11 @@ def main() -> None:
     digest = hashlib.sha256(candidate_bytes).hexdigest()
     manifest["candidate_sha256"] = digest
 
+    # Use the exact candidate tip returned by the queue collector. FETCH_HEAD is
+    # a mutable Git pseudo-ref and may not be available/reliable after nested
+    # fetch operations on some Termux Git builds.
     raw_time = subprocess.run(
-        ["git", "show", "-s", "--format=%cI", "FETCH_HEAD"],
+        ["git", "show", "-s", "--format=%cI", tip],
         check=True, capture_output=True, text=True, timeout=10,
     ).stdout.strip()
     parsed = datetime.fromisoformat(raw_time.replace("Z", "+00:00"))
