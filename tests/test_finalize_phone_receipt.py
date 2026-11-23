@@ -81,6 +81,15 @@ class FinalizePhoneReceiptTests(unittest.TestCase):
         self.assertIn("Incomplete receipt", result.stderr + result.stdout)
         self.assertFalse(self.output.exists())
 
+    def test_partial_cumulative_queue_is_rejected_even_if_marked_completed(self):
+        receipt = dict(self.base_receipt)
+        receipt["queue_candidate_count"] = 500
+        receipt["receipt_candidate_count"] = 300
+        result = self.run_validator(receipt)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("part of the cumulative queue", result.stderr + result.stdout)
+        self.assertFalse(self.output.exists())
+
     def test_hash_mismatch_is_rejected(self):
         receipt = dict(self.base_receipt)
         receipt["candidate_sha256"] = "0" * 64
