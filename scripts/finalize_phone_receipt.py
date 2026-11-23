@@ -157,7 +157,7 @@ def build_v2raytun_subscription(nodes):
                 userinfo = base64.urlsafe_b64encode(f"{method}:{password}".encode()).decode().rstrip("=")
                 links.append(f"ss://{userinfo}@{server}:{port}#{tag}")
             elif kind in ("vless", "trojan"):
-                credential = str(node.get("uuid") if kind == "vless" else node.get("password") or "")
+                credential = str((node.get("uuid") if kind == "vless" else node.get("password")) or "")
                 if not credential:
                     continue
                 params = {}
