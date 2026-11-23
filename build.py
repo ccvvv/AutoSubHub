@@ -323,7 +323,7 @@ def set_github_output(name: str, value: str) -> None:
     output_path = os.getenv("GITHUB_OUTPUT")
     if output_path:
         with open(output_path, "a", encoding="utf-8") as output:
-            output.write(f"{name}={value}\\n")
+            output.write(f"{name}={value}\n")
 
 
 def unique_names(nodes: list[dict]) -> list[dict]:
