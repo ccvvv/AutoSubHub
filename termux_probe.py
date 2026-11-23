@@ -18,7 +18,7 @@ import threading
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
-from urllib.parse import quote
+from urllib.parse import quote, urlparse
 
 import requests
 import yaml
@@ -475,9 +475,55 @@ def main() -> None:
                                       stream=True, timeout=(timeout, timeout),
                                       headers={"User-Agent": USER_AGENT}) as response:
                         response.raise_for_status()
-                        next(response.iter_content(chunk_size=1024), b"")
+                        expected_status = 204 if service == "google" else 200
+                        if response.status_code != expected_status:
+                            raise RuntimeError(
+                                f"{service} returned HTTP {response.status_code}; "
+                                f"expected {expected_status}"
+                            )
+
+                        # A successful status from an unrelated redirect/interstitial
+                        # must not count as reaching the requested service.
+                        original_host = (urlparse(target_url).hostname or "").lower()
+                        final_host = (urlparse(response.url).hostname or "").lower()
+                        original_root = original_host[4:] if original_host.startswith("www.") else original_host
+                        final_root = final_host[4:] if final_host.startswith("www.") else final_host
+                        allowed_roots = {
+                            "youtube": {"youtube.com", "youtube-nocookie.com"},
+                            "telegram": {"telegram.org"},
+                            "google": {"google.com"},
+                            "chatgpt": {"chatgpt.com", "openai.com"},
+                            "github": {"github.com"},
+                        }.get(service, set())
+                        # Custom test URLs remain usable: their own host is accepted.
+                        host_ok = (
+                            final_root == original_root
+                            or final_root.endswith("." + original_root)
+                            or any(final_root == root or final_root.endswith("." + root)
+                                   for root in allowed_roots)
+                        )
+                        if not host_ok:
+                            raise RuntimeError(
+                                f"{service} redirected to unexpected host: {final_host or 'unknown'}"
+                            )
+
+                        content_type = response.headers.get("Content-Type", "").lower()
+                        sample = b""
+                        if service != "google":
+                            sample = next(response.iter_content(chunk_size=1024), b"")
+                            if not sample:
+                                raise RuntimeError(f"{service} returned an empty response body")
+                            if "text/html" not in content_type and "application/xhtml+xml" not in content_type:
+                                raise RuntimeError(
+                                    f"{service} returned unexpected Content-Type: {content_type or 'missing'}"
+                                )
                         status_code = response.status_code
+                        final_url = response.url
+                        redirect_count = len(response.history)
                     return {"status": "passed", "status_code": status_code,
+                            "final_url": final_url, "redirect_count": redirect_count,
+                            "content_type": content_type,
+                            "sample_bytes": len(sample),
                             "elapsed_ms": round((time.perf_counter() - started) * 1000)}
                 except Exception as exc:
                     return {"status": "failed", **exception_details(exc),
@@ -545,8 +591,25 @@ def main() -> None:
                             with requests.get(args.download_url,
                                               proxies={"http": proxy_url, "https": proxy_url},
                                               stream=True, timeout=(args.timeout, args.timeout),
-                                              headers={"User-Agent": USER_AGENT}) as response:
+                                              headers={"User-Agent": USER_AGENT,
+                                                       "Accept-Encoding": "identity"}) as response:
                                 response.raise_for_status()
+                                if response.status_code != 200:
+                                    raise RuntimeError(
+                                        f"Download endpoint returned HTTP {response.status_code}; expected 200"
+                                    )
+                                content_length = response.headers.get("Content-Length")
+                                record["download_content_length"] = (
+                                    int(content_length) if content_length and content_length.isdigit() else None
+                                )
+                                record["expected_download_bytes"] = args.max_bytes
+                                if (record["download_content_length"] is not None
+                                        and record["download_content_length"] < args.max_bytes):
+                                    raise RuntimeError(
+                                        f"Download response is shorter than test size: "
+                                        f"Content-Length={record['download_content_length']}, "
+                                        f"expected={args.max_bytes}"
+                                    )
                                 for chunk in response.iter_content(chunk_size=64 * 1024):
                                     if not chunk:
                                         continue
@@ -554,6 +617,12 @@ def main() -> None:
                                     received += min(len(chunk), remaining)
                                     if received >= args.max_bytes:
                                         break
+                            record["downloaded_bytes"] = received
+                            if received != args.max_bytes:
+                                raise RuntimeError(
+                                    f"Incomplete download: received {received} bytes, "
+                                    f"expected {args.max_bytes}"
+                                )
                             elapsed = max(time.perf_counter() - start, 0.001)
                             speed = int(received / elapsed)
                             category = ("high" if speed >= args.high_speed_kbps * 1000
@@ -612,6 +681,7 @@ def main() -> None:
                          "google": args.google_url, "chatgpt": args.chatgpt_url,
                          "github": args.github_url},
         "download_url": args.download_url,
+        "max_download_bytes": args.max_bytes,
         "results": receipt_results,
     }
     Path(args.output).write_text(json.dumps(receipt, ensure_ascii=False, indent=2) + "\n",
