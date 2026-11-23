@@ -5,9 +5,10 @@ AutoSubHub publishes two independent public subscription links. Both are intenti
 ## Public subscription links
 
 - **Candidate subscription (phone pending test):** `https://raw.githubusercontent.com/ccvvv/AutoSubHub/published-subscriptions/candidate/subscription.yaml`
-- **Final subscription (phone-tested nodes only):** `https://raw.githubusercontent.com/ccvvv/AutoSubHub/published-subscriptions/final/latest.yaml`
+- **Final subscription (phone-tested nodes only, Clash/Mihomo):** `https://raw.githubusercontent.com/ccvvv/AutoSubHub/published-subscriptions/final/latest.yaml`
+- **Final subscription (same phone-tested nodes, V2Ray share links / Base64):** `https://raw.githubusercontent.com/ccvvv/AutoSubHub/published-subscriptions/final/latest-v2raytun.txt`
 
-The candidate and final URLs are separate and must never be mixed. The final URL is not populated by the candidate workflow; it will be written only by the phone-receipt finalization workflow.
+The candidate and final URLs are separate and must never be mixed. The final URLs are not populated by the candidate workflow; they are written only by the phone-receipt finalization workflow. The V2Ray share-link file is generated from exactly the same phone-tested final nodes; unsupported proxy protocols are skipped in that format only.
 
 ## Candidate pipeline
 
