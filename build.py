@@ -300,6 +300,32 @@ def protocol_handshake_check(node: dict) -> tuple[dict, bool, str]:
     return node, False, last_error
 
 
+def load_final_node_fingerprints() -> set[str]:
+    """Load the currently published final subscription; fail closed on bad data."""
+    url = os.getenv(
+        "FINAL_SUBSCRIPTION_URL",
+        "https://raw.githubusercontent.com/ccvvv/AutoSubHub/published-subscriptions/final/latest.yaml",
+    )
+    response = requests.get(url, headers={"User-Agent": USER_AGENT}, timeout=30)
+    response.raise_for_status()
+    data = yaml.safe_load(response.text)
+    if not isinstance(data, dict) or not isinstance(data.get("proxies"), list):
+        raise RuntimeError("Published final subscription is missing a valid proxies list")
+    return {node_key(node) for node in data["proxies"] if isinstance(node, dict)}
+
+
+def exclude_final_nodes(nodes: list[dict], final_fingerprints: set[str]) -> list[dict]:
+    """Exclude nodes already present in the current official final subscription."""
+    return [node for node in nodes if node_key(node) not in final_fingerprints]
+
+
+def set_github_output(name: str, value: str) -> None:
+    output_path = os.getenv("GITHUB_OUTPUT")
+    if output_path:
+        with open(output_path, "a", encoding="utf-8") as output:
+            output.write(f"{name}={value}\\n")
+
+
 def unique_names(nodes: list[dict]) -> list[dict]:
     used, result = set(), []
     for i, source in enumerate(nodes, 1):
@@ -438,14 +464,19 @@ def main() -> None:
         source_unique.append(bucket)
 
     all_unique_candidates = [node for bucket in source_unique for node in bucket]
-    # Pure Clash HTTP proxies were excluded while parsing each source, before
-    # global deduplication and all network tests. TCP transports remain allowed.
-    candidates = all_unique_candidates
+    # The official final list is the live exclusion set: once a node leaves
+    # final/latest.yaml it can be considered again on a later source pull.
+    final_fingerprints = load_final_node_fingerprints()
+    candidates = exclude_final_nodes(all_unique_candidates, final_fingerprints)
+    excluded_final = len(all_unique_candidates) - len(candidates)
     print(f"Parsed {parsed_total} nodes; globally unique: {unique_total}; "
           f"pure HTTP proxies excluded: {http_type_rejected}; "
+          f"already-final nodes excluded: {excluded_final}; "
           f"remaining candidates: {len(candidates)}")
     if not candidates:
-        raise RuntimeError("No supported non-HTTP nodes parsed; refusing to publish")
+        print("No new candidates remain after excluding the current official final subscription.")
+        set_github_output("has_candidates", "false")
+        return
 
     # TCP and generic handshake checks are diagnostic only. A generic probe can
     # misclassify WS/TLS/Reality/UDP transports; Mihomo performs the decisive test.
@@ -578,6 +609,8 @@ def main() -> None:
             with open(os.path.join("candidates", "manifest.json"), "w", encoding="utf-8") as f:
                 json.dump(manifest, f, ensure_ascii=False, indent=2)
                 f.write("\n")
+
+            set_github_output("has_candidates", "true")
 
             print(
                 "GitHub prefilter complete: "
