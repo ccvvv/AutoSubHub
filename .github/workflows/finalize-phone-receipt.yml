@@ -2,8 +2,8 @@ name: Finalize phone-tested subscription
 
 on:
   push:
-    branches: [probe-receipts]
-    paths: ["receipts/*.json"]
+    branches: [probe-receipts, main]
+    paths: ["receipts/*.json", ".github/workflows/finalize-phone-receipt.yml", "scripts/finalize_phone_receipt.py"]
   workflow_dispatch:
 
 permissions:
