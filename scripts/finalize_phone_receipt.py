@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Validate a phone probe receipt and build a phone-verified final subscription."""
-import hashlib, json, os, sys, yaml
+import base64, hashlib, json, os, sys, yaml
+from urllib.parse import quote, urlencode
 
 MIN_SPEED_BPS = int(os.getenv("MIN_SPEED_BPS", "200000"))
 HIGH_SPEED_BPS = int(os.getenv("HIGH_SPEED_BPS", "500000"))
@@ -109,5 +110,103 @@ final_config = {
 
 with open(out_path, "w", encoding="utf-8") as f:
     yaml.safe_dump(final_config, f, allow_unicode=True, sort_keys=False)
+
+if len(sys.argv) > 5:
+    v2ray_path = sys.argv[5]
+    encoded = build_v2raytun_subscription(published_nodes)
+    if not encoded.strip():
+        raise SystemExit("No nodes supported by V2Ray share-link format; refusing empty output")
+    with open(v2ray_path, "w", encoding="utf-8") as f:
+        f.write(encoded)
+    print(f"V2Ray share-link subscription generated: {len(base64.b64decode(encoded).decode('utf-8').splitlines())} nodes")
+
+
+def build_v2raytun_subscription(nodes):
+    """Encode supported final nodes as a base64 V2Ray share-link subscription."""
+    links = []
+    for node in nodes:
+        kind = str(node.get("type", "")).lower()
+        name = str(node.get("name") or node.get("server") or kind)
+        server = str(node.get("server") or "")
+        port = int(node.get("port") or 0)
+        if not server or not 1 <= port <= 65535:
+            continue
+        tag = quote(name, safe="")
+        try:
+            if kind == "vmess":
+                obj = {
+                    "v": "2", "ps": name, "add": server, "port": str(port),
+                    "id": str(node.get("uuid") or ""), "aid": str(node.get("alterId", 0)),
+                    "scy": str(node.get("cipher") or "auto"),
+                    "net": str(node.get("network") or "tcp"),
+                    "type": "none", "host": "", "path": "", "tls": "tls" if node.get("tls") else "",
+                    "sni": str(node.get("servername") or ""),
+                }
+                ws = node.get("ws-opts") or {}
+                if isinstance(ws, dict):
+                    obj["path"] = str(ws.get("path") or "")
+                    headers = ws.get("headers") or {}
+                    if isinstance(headers, dict):
+                        obj["host"] = str(headers.get("Host") or headers.get("host") or "")
+                raw = base64.urlsafe_b64encode(json.dumps(obj, separators=(",", ":")).encode()).decode().rstrip("=")
+                links.append("vmess://" + raw)
+            elif kind == "ss":
+                method, password = str(node.get("cipher") or ""), str(node.get("password") or "")
+                if not method or not password:
+                    continue
+                userinfo = base64.urlsafe_b64encode(f"{method}:{password}".encode()).decode().rstrip("=")
+                links.append(f"ss://{userinfo}@{server}:{port}#{tag}")
+            elif kind in ("vless", "trojan"):
+                credential = str(node.get("uuid") if kind == "vless" else node.get("password") or "")
+                if not credential:
+                    continue
+                params = {}
+                network = str(node.get("network") or "tcp")
+                if network and network != "tcp":
+                    params["type"] = network
+                if node.get("tls") or kind == "trojan":
+                    params["security"] = "tls"
+                    if node.get("servername"):
+                        params["sni"] = str(node["servername"])
+                    if node.get("client-fingerprint"):
+                        params["fp"] = str(node["client-fingerprint"])
+                    alpn = node.get("alpn")
+                    if isinstance(alpn, list) and alpn:
+                        params["alpn"] = ",".join(map(str, alpn))
+                if kind == "vless" and node.get("flow"):
+                    params["flow"] = str(node["flow"])
+                if network == "ws":
+                    ws = node.get("ws-opts") or {}
+                    if isinstance(ws, dict):
+                        if ws.get("path"):
+                            params["path"] = str(ws["path"])
+                        headers = ws.get("headers") or {}
+                        if isinstance(headers, dict) and (headers.get("Host") or headers.get("host")):
+                            params["host"] = str(headers.get("Host") or headers.get("host"))
+                elif network == "grpc":
+                    grpc = node.get("grpc-opts") or {}
+                    if isinstance(grpc, dict) and grpc.get("grpc-service-name"):
+                        params["serviceName"] = str(grpc["grpc-service-name"])
+                if kind == "vless":
+                    reality = node.get("reality-opts") or {}
+                    if isinstance(reality, dict) and reality:
+                        params["security"] = "reality"
+                        if reality.get("public-key"):
+                            params["pb"] = str(reality["public-key"])
+                        if reality.get("short-id"):
+                            params["sid"] = str(reality["short-id"])
+                query = urlencode(params, quote_via=quote)
+                scheme = kind
+                links.append(f"{scheme}://{quote(credential, safe='')}@{server}:{port}" + (f"?{query}" if query else "") + f"#{tag}")
+            elif kind == "socks5":
+                username = str(node.get("username") or "")
+                password = str(node.get("password") or "")
+                auth = f"{quote(username, safe='')}:{quote(password, safe='')}@" if username else ""
+                links.append(f"socks5://{auth}{server}:{port}#{tag}")
+        except (TypeError, ValueError, KeyError):
+            continue
+    payload = "\n".join(links)
+    return base64.b64encode(payload.encode("utf-8")).decode("ascii") + ("\n" if links else "")
+
 
 print(f"Phone receipt accepted: {len(published_nodes)}/{len(proxies)} nodes; high={len(high_nodes)}, normal={len(normal_nodes)}, rejected={len(proxies)-len(published_nodes)}; all five app gates passed and speed >= {MIN_SPEED_BPS} B/s")
