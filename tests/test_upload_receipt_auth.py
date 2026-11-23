@@ -7,7 +7,16 @@ import upload_receipt
 
 class ReceiptBundleCompletenessTests(unittest.TestCase):
     def setUp(self):
-        self.candidate = b"proxies:\\n  - name: node-a\\n    type: ss\\n    server: a.example\\n    port: 443\\n  - name: node-b\\n    type: ss\\n    server: b.example\\n    port: 443\\n"
+        self.candidate = b"""proxies:
+  - name: node-a
+    type: ss
+    server: a.example
+    port: 443
+  - name: node-b
+    type: ss
+    server: b.example
+    port: 443
+"""
         self.manifest = {"nodes": [
             {"node_id": "a" * 64, "name": "node-a"},
             {"node_id": "b" * 64, "name": "node-b"},
