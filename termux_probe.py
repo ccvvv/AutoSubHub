@@ -615,6 +615,7 @@ def main() -> None:
                                         continue
                                     remaining = args.max_bytes - received
                                     received += min(len(chunk), remaining)
+                                    record["downloaded_bytes"] = received
                                     if received >= args.max_bytes:
                                         break
                             record["downloaded_bytes"] = received
