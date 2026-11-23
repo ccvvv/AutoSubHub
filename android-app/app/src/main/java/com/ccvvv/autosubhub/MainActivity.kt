@@ -106,7 +106,9 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
         }
         actions.addView(workersSpinner, LinearLayout.LayoutParams(-1, dp(48)))
         action(actions,"更新工作区","update")
-        action(actions,"开始测速","probe")
+        action(actions,"下载累计待测节点","download")
+        action(actions,"本地累计清单测速（可关闭 VPN）","probe-local")
+        action(actions,"在线自动累计测速（备用）","probe")
         action(actions,"暂停测速","pause")
         action(actions,"继续测速","resume")
         action(actions,"停止测速","stop")
@@ -154,7 +156,7 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
             isAllCaps=false
             setOnClickListener {
                 var extraArgs = emptyArray<String>()
-                if(cmd=="probe") {
+                if(cmd=="probe" || cmd=="probe-local") {
                     val workers = workersSpinner.selectedItem.toString().toIntOrNull()?.coerceIn(1,300) ?: 200
                     prefs.edit().putInt("probe_workers", workers).apply()
                     extraArgs = arrayOf(workers.toString())
@@ -228,6 +230,8 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
             actionButtons["resume"]?.visibility=if(activeTask && state=="paused") View.VISIBLE else View.GONE
             actionButtons["stop"]?.visibility=if(activeTask) View.VISIBLE else View.GONE
             actionButtons["probe"]?.visibility=if(activeTask) View.GONE else View.VISIBLE
+            actionButtons["probe-local"]?.visibility=if(activeTask) View.GONE else View.VISIBLE
+            actionButtons["download"]?.isEnabled=!activeTask
             if(state=="completed"||state=="interrupted"||state=="failed") {
                 prefs.edit().putBoolean("probe_active",false).apply(); handler.removeCallbacks(poll)
             }
