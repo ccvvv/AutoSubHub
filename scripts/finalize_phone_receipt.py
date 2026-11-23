@@ -31,8 +31,11 @@ if receipt.get("status") != "completed":
 proxies = candidate.get("proxies")
 nodes = manifest.get("nodes")
 results = receipt.get("results")
-if not isinstance(proxies, list) or not isinstance(nodes, list) or not isinstance(results, list):
-    raise SystemExit("Invalid candidate or receipt structure")
+max_download_bytes = receipt.get("max_download_bytes")
+if (not isinstance(proxies, list) or not isinstance(nodes, list) or not isinstance(results, list)
+        or not isinstance(max_download_bytes, int) or isinstance(max_download_bytes, bool)
+        or max_download_bytes <= 0):
+    raise SystemExit("Invalid candidate, receipt, or download-integrity metadata")
 
 proxy_by_name = {p.get("name"): p for p in proxies if isinstance(p, dict) and p.get("name")}
 id_to_name = {n.get("node_id"): n.get("name") for n in nodes if isinstance(n, dict)}
@@ -50,12 +53,18 @@ for item in results:
         raise SystemExit("Unknown or duplicate node_id in receipt")
     seen.add(node_id)
     speed = item.get("download_speed_bps")
+    downloaded_bytes = item.get("downloaded_bytes")
     checks = item.get("application_checks")
     apps_passed = (isinstance(checks, dict) and all(
         isinstance(checks.get(app), dict) and checks[app].get("status") == "passed"
         for app in REQUIRED_APPLICATIONS
     ))
-    if (item.get("status") == "passed" and apps_passed
+    download_complete = (
+        isinstance(downloaded_bytes, int) and not isinstance(downloaded_bytes, bool)
+        and downloaded_bytes == max_download_bytes
+        and item.get("expected_download_bytes") == max_download_bytes
+    )
+    if (item.get("status") == "passed" and apps_passed and download_complete
             and isinstance(speed, (int, float)) and speed >= MIN_SPEED_BPS):
         passed_ids.add(node_id)
 
