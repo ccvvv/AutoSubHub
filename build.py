@@ -30,6 +30,11 @@ CONTROLLER = "http://127.0.0.1:9090"
 PROBE_WORKERS = max(1, min(50, int(os.getenv("CERT_WORKERS", "50") or "50")))
 PROBE_PORT_BASE = 17890
 
+SUPPORTED_PROXY_TYPES = {
+    "ss", "vmess", "vless", "trojan", "socks5", "http", "snell",
+    "hysteria", "hysteria2", "tuic", "wireguard", "ssh", "anytls",
+}
+
 
 def decode_subscription(text: str) -> str:
     text = text.strip().lstrip("\ufeff")
@@ -146,8 +151,6 @@ def parse_source(text: str) -> tuple[list[dict], int]:
     if isinstance(data, dict) and isinstance(data.get("proxies"), list):
         # Normalize common YAML variations and discard incomplete/unsupported entries
         # before they reach TCP and Mihomo testing.
-        valid_types = {"ss", "vmess", "vless", "trojan", "socks5", "http", "snell",
-                       "hysteria", "hysteria2", "tuic", "wireguard", "ssh", "anytls"}
         nodes = []
         http_rejected = 0
         for raw in data["proxies"]:
@@ -159,7 +162,7 @@ def parse_source(text: str) -> tuple[list[dict], int]:
             except (TypeError, ValueError):
                 continue
             node["type"] = str(node.get("type", "")).lower()
-            if node["type"] not in valid_types or not 1 <= node["port"] <= 65535:
+            if node["type"] not in SUPPORTED_PROXY_TYPES or not 1 <= node["port"] <= 65535:
                 continue
             nodes.append(node)
         return nodes, http_rejected
@@ -311,7 +314,17 @@ def load_final_node_fingerprints() -> set[str]:
     data = yaml.safe_load(response.text)
     if not isinstance(data, dict) or not isinstance(data.get("proxies"), list):
         raise RuntimeError("Published final subscription is missing a valid proxies list")
-    return {node_key(node) for node in data["proxies"] if isinstance(node, dict)}
+    fingerprints = {
+        node_key(node) for node in data["proxies"]
+        if isinstance(node, dict)
+        and str(node.get("type", "")).lower() in SUPPORTED_PROXY_TYPES
+        and node.get("server")
+        and isinstance(node.get("port"), int)
+        and 1 <= node["port"] <= 65535
+    }
+    if not fingerprints:
+        raise RuntimeError("Published final subscription contains no valid proxy nodes")
+    return fingerprints
 
 
 def exclude_final_nodes(nodes: list[dict], final_fingerprints: set[str]) -> list[dict]:
@@ -388,10 +401,8 @@ def validate_structure(config: dict) -> None:
     names = [p.get("name") for p in proxies]
     if len(names) != len(set(names)) or any(not n for n in names):
         raise RuntimeError("Proxy names are missing or duplicated")
-    valid_types = {"ss", "vmess", "vless", "trojan", "socks5", "http", "snell", "hysteria",
-                   "hysteria2", "tuic", "wireguard", "ssh", "anytls"}
     for p in proxies:
-        if p.get("type") not in valid_types or not p.get("server") or not isinstance(p.get("port"), int):
+        if p.get("type") not in SUPPORTED_PROXY_TYPES or not p.get("server") or not isinstance(p.get("port"), int):
             raise RuntimeError(f"Invalid proxy definition: {p.get('name', '(unnamed)')}")
     available = set(names) | {"DIRECT", "REJECT"}
     for group in config.get("proxy-groups", []):
