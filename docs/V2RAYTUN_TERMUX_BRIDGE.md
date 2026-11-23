@@ -40,7 +40,21 @@ python tools/v2raytun_bridge.py --candidate-file candidate-cache/candidate-local
 python tools/v2raytun_bridge.py --candidate-file candidate-cache/candidate-local.yaml --copy
 ```
 
-然后在 V2RayTun 中使用剪贴板/分享链接导入入口。公开发布分支 `published-subscriptions` 的 `candidate/` 目录也会同步发布上述三个文件。第一阶段不自动点击测速或删除，避免未验证 UI 行为时误操作。
+在 V2RayTun 中手动选择剪贴板导入。随后手动执行：
+
+1. `Real delay all configurations`（真实连接延迟测试）。
+2. `Delete invalid config (Test first)`（测试后删除无效配置）。
+3. `Export non-custom configs to clipboard`（导出保留配置）。
+
+回到 Termux 执行：
+
+```sh
+bash v2raytun-termux.sh collect
+```
+
+脚本会将剪贴板导出的分享链接与 node_id 映射表匹配，生成 `candidate-cache/v2raytun-survivors.json`。只有成功匹配到的导出保留节点会记为用户确认的 passed；未匹配、未导出或缺失的节点会放进 unresolved，不会被误判为 failed。
+
+公开发布分支 `published-subscriptions` 的 `candidate/` 目录也会同步发布云端单批次的三个 V2RayTun 文件。当前版本仍需要用户在 V2RayTun 内手动导入、测速、删除和导出；Termux 不会伪装成自动点击，也不会未经验证调用私有 JNI。
 
 ## 支持范围与安全边界
 
