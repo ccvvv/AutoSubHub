@@ -4,6 +4,7 @@ These are lightweight HTTP availability probes, not full video-playback tests.
 """
 from __future__ import annotations
 
+from concurrent.futures import Executor
 from typing import Any
 
 import requests
@@ -114,10 +115,19 @@ def summarize_streaming(checks: dict[str, dict[str, Any]]) -> str:
     ) else "failed"
 
 
-def check_streaming_services(proxy_url: str, timeout: int = 2) -> tuple[dict, str]:
-    """Check each platform through the already-selected node's local proxy port."""
-    checks = {
-        name: _check_one(name, url, proxy_url, timeout)
-        for name, url in PLATFORMS.items()
-    }
+def check_streaming_services(
+    proxy_url: str, timeout: int = 2, executor: Executor | None = None
+) -> tuple[dict, str]:
+    """Check through the selected node proxy, using a bounded shared executor when supplied."""
+    if executor is None:
+        checks = {
+            name: _check_one(name, url, proxy_url, timeout)
+            for name, url in PLATFORMS.items()
+        }
+    else:
+        futures = {
+            name: executor.submit(_check_one, name, url, proxy_url, timeout)
+            for name, url in PLATFORMS.items()
+        }
+        checks = {name: future.result() for name, future in futures.items()}
     return checks, summarize_streaming(checks)
