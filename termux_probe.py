@@ -217,8 +217,8 @@ def main() -> None:
     parser.add_argument("--github-url", default="https://github.com/")
     parser.add_argument("--service-timeout", type=int, default=3,
                         help="Per-application connection/read timeout in seconds (default 3)")
-    parser.add_argument("--streaming-timeout", type=int, default=2,
-                        help="Per-streaming-platform connection/read timeout in seconds (default 2)")
+    parser.add_argument("--streaming-timeout", type=int, default=8,
+                        help="Per-streaming-platform connection/read timeout in seconds (default 8)")
     parser.add_argument("--timeout", type=int, default=5,
                         help="Connection and read-inactivity timeout in seconds (default 5)")
     parser.add_argument("--api-port", type=int, default=int(os.getenv("PROBE_API_PORT", "19090")),
@@ -569,19 +569,28 @@ def main() -> None:
                             service for service, result in record["application_checks"].items()
                             if result["status"] == "passed"
                         ]
-                        # One successful HTTPS service is sufficient to pass the
-                        # application-availability gate; keep all five results for diagnosis.
-                        service_failed = not bool(passed_services)
+                        # All five local application checks must pass.
+                        service_failed = len(passed_services) != len(service_targets)
                         record["application_gate"] = {
-                            "required_passes": 1,
+                            "required_passes": len(service_targets),
                             "passed_count": len(passed_services),
                             "passed_services": passed_services,
                             "status": "passed" if not service_failed else "failed",
                         }
+                        streaming_failed = record.get("streaming_verdict") != "passed"
+                        record["streaming_gate"] = {
+                            "required_yes": 1,
+                            "passed_count": len(passed_streaming),
+                            "status": "passed" if not streaming_failed else "failed",
+                        }
                         if service_failed:
                             record["failure_stage"] = "application_checks"
+                        elif streaming_failed:
+                            record["failure_stage"] = "streaming_checks"
 
-                        if not service_failed:
+                        # A node reaches download/final qualification only after both
+                        # local gates pass. Cloud-side logic must not repeat the five-site test.
+                        if not service_failed and not streaming_failed:
                             current_stage = "download"
                             start = time.perf_counter()
                             received = 0
