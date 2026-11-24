@@ -195,8 +195,8 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
                         .setMessage("只清除本轮界面进度和暂停/停止标记。不会删除测速回执、候选清单、已上传历史或累计队列游标。若测速仍在运行，重置会被拒绝。")
                         .setNegativeButton("取消", null)
                         .setPositiveButton("确认重置") { _, _ ->
-                            prefs.edit().putBoolean("probe_active",false).apply()
-                            handler.removeCallbacks(poll)
+                            // Keep an active poll running until Termux confirms reset.
+                            // If reset is refused because probing is still active, monitoring continues.
                             runTermux("reset")
                         }
                         .show()
@@ -260,7 +260,7 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
             actionButtons["probe"]?.visibility=if(activeTask) View.GONE else View.VISIBLE
             actionButtons["probe-local"]?.visibility=if(activeTask) View.GONE else View.VISIBLE
             actionButtons["download"]?.isEnabled=!activeTask
-            if(state=="completed"||state=="partial"||state=="interrupted"||state=="failed") {
+            if(state=="idle"||state=="completed"||state=="partial"||state=="interrupted"||state=="failed") {
                 prefs.edit().putBoolean("probe_active",false).apply(); handler.removeCallbacks(poll)
             }
         } catch (_:Exception) {}
