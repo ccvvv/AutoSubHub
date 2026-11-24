@@ -20,8 +20,13 @@ class RealityShortIdValidationTests(unittest.TestCase):
             with self.subTest(value=value):
                 self.assertFalse(valid_reality_short_id({"reality-opts": {"short-id": value}}))
 
-    def test_non_string_short_id_is_invalid(self):
-        self.assertFalse(valid_reality_short_id({"reality-opts": {"short-id": 123}}))
+    def test_numeric_yaml_short_id_is_normalized_to_string(self):
+        node = {"reality-opts": {"short-id": 40}}
+        self.assertTrue(valid_reality_short_id(node))
+        self.assertEqual(node["reality-opts"]["short-id"], "40")
+
+    def test_boolean_short_id_is_invalid(self):
+        self.assertFalse(valid_reality_short_id({"reality-opts": {"short-id": True}}))
 
 
 if __name__ == "__main__":
