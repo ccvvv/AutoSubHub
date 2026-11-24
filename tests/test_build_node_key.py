@@ -15,6 +15,29 @@ class BuildNodeIdentityTests(unittest.TestCase):
                "&type=tcp&pb=public-key&sid=abc#bad-reality")
         self.assertIsNone(parse_uri(uri))
 
+    def test_uri_with_missing_reality_short_id_omits_empty_field(self):
+        uri = ("vless://user-id@example.com:443?security=reality"
+               "&type=tcp&pb=public-key#no-short-id")
+        node = parse_uri(uri)
+        self.assertIsNotNone(node)
+        self.assertNotIn("short-id", node["reality-opts"])
+
+    def test_yaml_with_empty_reality_short_id_omits_empty_field(self):
+        source = """proxies:
+  - name: empty-short-id
+    type: vless
+    server: example.com
+    port: 443
+    uuid: user-id
+    tls: true
+    reality-opts:
+      public-key: public-key
+      short-id: ""
+"""
+        nodes, _ = parse_source(source)
+        self.assertEqual(len(nodes), 1)
+        self.assertNotIn("short-id", nodes[0]["reality-opts"])
+
     def test_yaml_with_invalid_reality_short_id_is_skipped(self):
         source = """proxies:
   - name: bad-reality
