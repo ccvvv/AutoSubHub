@@ -79,8 +79,12 @@ def collect_pending_candidate_batches(remote: str, repo: str, branch: str,
     fetch_args += ["--unshallow"] if shallow else []
     fetch_args += [remote, ref]
     subprocess.run(fetch_args, check=True, capture_output=True, text=True, timeout=180)
+    # A commit that deletes candidate/subscription.yaml is present in ordinary
+    # path history too, but it is not a downloadable candidate batch. Include
+    # only commits that add or modify the immutable candidate snapshot.
     commits_text = subprocess.run(
-        ["git", "log", "FETCH_HEAD", "--format=%H", "--", "candidate/subscription.yaml"],
+        ["git", "log", "--diff-filter=AM", "FETCH_HEAD", "--format=%H",
+         "--", "candidate/subscription.yaml"],
         check=True, capture_output=True, text=True, timeout=30,
     ).stdout
     history = [line.strip().lower() for line in commits_text.splitlines() if line.strip()]
