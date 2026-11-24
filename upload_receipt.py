@@ -249,9 +249,10 @@ def main() -> int:
                 git("clone", "--depth", "1", "--branch", args.branch,
                     remote, str(work))
             elif exists.returncode == 2:
-                git("clone", "--depth", "1", "--branch", "main",
-                    remote, str(work))
-                git("checkout", "-b", args.branch, cwd=work)
+                raise RuntimeError(
+                    f"Required data branch {args.branch!r} does not exist; "
+                    "refusing to create it from main or upload a receipt to a new history."
+                )
             else:
                 raise RuntimeError((exists.stderr or exists.stdout).strip()
                                    or "Unable to check remote branch")
