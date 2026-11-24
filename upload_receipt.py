@@ -226,19 +226,10 @@ def main() -> int:
         if receipt_data.get("candidate_commit") != commits[-1]:
             raise ValueError("Receipt candidate_commit does not match the newest queued batch")
         owner, name = args.repo.split("/", 1)
-        token = os.getenv("GITHUB_TOKEN", "").strip()
-        if token:
-            encoded = base64.b64encode(f"x-access-token:{token}".encode("utf-8")).decode("ascii")
-            GIT_AUTH_ENV.update({
-                "GIT_CONFIG_COUNT": "1",
-                "GIT_CONFIG_KEY_0": "http.https://github.com/.extraheader",
-                "GIT_CONFIG_VALUE_0": f"AUTHORIZATION: basic {encoded}",
-            })
-            remote = f"https://github.com/{owner}/{name}.git"
-            print("GitHub authentication: GITHUB_TOKEN over HTTPS")
-        else:
-            remote = f"git@github.com:{owner}/{name}.git"
-            print("GitHub authentication: SSH key (GITHUB_TOKEN not set)")
+        # Always use the phone's configured SSH key. Ignore any stale GITHUB_TOKEN
+        # in the environment so it cannot silently switch this upload to HTTPS.
+        remote = f"git@github.com:{owner}/{name}.git"
+        print("GitHub authentication: SSH key (default)")
 
         with tempfile.TemporaryDirectory(prefix="autosubhub-receipt-") as temp:
             work = Path(temp) / "repo"
