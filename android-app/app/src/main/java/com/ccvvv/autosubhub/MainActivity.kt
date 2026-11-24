@@ -24,12 +24,14 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
     private lateinit var nodeInfo: TextView
     private lateinit var speedInfo: TextView
     private lateinit var appsInfo: TextView
+    private lateinit var streamingInfo: TextView
     private lateinit var candidateInfo: TextView
     private lateinit var logPanel: LinearLayout
     private lateinit var logText: TextView
     private lateinit var workersSpinner: Spinner
     private val statViews = mutableMapOf<String, TextView>()
     private val actionButtons = mutableMapOf<String, Button>()
+    private var currentProbeStatus = "idle"
     private val prefs by lazy { getSharedPreferences("console", MODE_PRIVATE) }
     private val handler = Handler(Looper.getMainLooper())
     private val poll = object : Runnable {
@@ -62,6 +64,12 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
             val value = prefs.getString("last_result", "").orEmpty()
             logText.text = value
             updateProgress(value)
+            // The upload command returns log text, not the progress JSON.
+            // Fetch the persisted progress snapshot after upload so the panel
+            // immediately switches from "waiting for receipt" to "uploaded".
+            if (prefs.getString("last_command", "") == "upload") {
+                runTermux("progress", false)
+            }
         }
     }
 
@@ -89,8 +97,9 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
         nodeInfo = detailLine("当前节点：等待测速")
         speedInfo = detailLine("最近速度：—")
         appsInfo = detailLine("应用检测：等待检测")
+        streamingInfo = detailLine("流媒体检测：等待检测")
         candidateInfo = detailLine("候选版本更新时间：等待获取")
-        detail.addView(candidateInfo); detail.addView(nodeInfo); detail.addView(speedInfo); detail.addView(appsInfo)
+        detail.addView(candidateInfo); detail.addView(nodeInfo); detail.addView(speedInfo); detail.addView(appsInfo); detail.addView(streamingInfo)
         body.addView(detail)
 
         val actions = card()
@@ -112,10 +121,13 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
         action(actions,"暂停测速","pause")
         action(actions,"继续测速","resume")
         action(actions,"停止测速","stop")
+        action(actions,"重置本轮状态","reset")
         actionButtons["pause"]?.visibility=View.GONE
         actionButtons["resume"]?.visibility=View.GONE
         actionButtons["stop"]?.visibility=View.GONE
         action(actions,"上传测速回执","upload")
+        actionButtons["upload"]?.isEnabled = false
+        actionButtons["upload"]?.alpha = 0.55f
         action(actions,"检查候选版本","check")
         body.addView(actions)
 
@@ -155,6 +167,10 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
             this.text=text
             isAllCaps=false
             setOnClickListener {
+                if(cmd=="upload" && currentProbeStatus!="completed") {
+                    Toast.makeText(this@MainActivity,"只有完整批次测速完成后才能上传回执；部分或中断回执不会推进队列。",Toast.LENGTH_LONG).show()
+                    return@setOnClickListener
+                }
                 var extraArgs = emptyArray<String>()
                 if(cmd=="probe" || cmd=="probe-local") {
                     val workers = workersSpinner.selectedItem.toString().toIntOrNull()?.coerceIn(1,300) ?: 200
@@ -181,6 +197,19 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
                     actionButtons["pause"]?.visibility=View.GONE
                     actionButtons["resume"]?.visibility=View.GONE
                 }
+                if(cmd=="reset") {
+                    android.app.AlertDialog.Builder(this@MainActivity)
+                        .setTitle("重置本轮测速状态？")
+                        .setMessage("只清除本轮界面进度和暂停/停止标记。不会删除测速回执、候选清单、已上传历史或累计队列游标。若测速仍在运行，重置会被拒绝。")
+                        .setNegativeButton("取消", null)
+                        .setPositiveButton("确认重置") { _, _ ->
+                            // Keep an active poll running until Termux confirms reset.
+                            // If reset is refused because probing is still active, monitoring continues.
+                            runTermux("reset")
+                        }
+                        .show()
+                    return@setOnClickListener
+                }
                 runTermux(cmd, extraArgs=extraArgs)
             }
         }
@@ -194,6 +223,7 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
         try {
             val d=JSONObject(raw.substring(a,b+1))
             val state=d.optString("status","idle")
+            currentProbeStatus=state
             val processRunning=d.optBoolean("process_running",false)
             val activeTask=processRunning && (state=="running"||state=="preparing"||state=="paused")
             val done=d.optInt("done",0); val total=d.optInt("total",0)
@@ -202,16 +232,19 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
             val rate=d.optDouble("success_rate",0.0); val elapsed=d.optDouble("elapsed_seconds",0.0)
             val percent=if(total>0) done*100/total else 0
             progress.isIndeterminate=state=="preparing"; progress.progress=percent.coerceIn(0,100)
-            progressInfo.text="已检测 "+done+" / "+total+"    ·    耗时 "+elapsed+" 秒"
+            progressInfo.text=if(state=="partial")
+                "本次限量检测 "+done+" / "+total+"    ·    累计队列未完成，禁止上传"
+            else "已检测 "+done+" / "+total+"    ·    耗时 "+elapsed+" 秒"
             val stage=d.optString("stage","").trim()
             status.text=when(state) {
                 "preparing"->"● 正在准备 · "+stage.ifEmpty { "获取候选节点" }
                 "running"->"● 正在测速 · "+percent+"%"+(if(stage.isNotEmpty()) " · "+stage else "")
                 "paused"->"Ⅱ 已暂停测速"
-                "completed"->"✓ 测速完成 · 等待上传回执"
+                "completed"->"✓ 完整批次测速完成 · 等待上传回执"
+                "partial"->"◷ 限量测速结束 · 只是部分结果 · 不可上传"
                 "uploaded"->"✓ 回执已上传 · 等待下一轮候选"
-                "interrupted"->"Ⅱ 测速已中断"
-                "failed"->"! 测速失败"
+                "interrupted"->"Ⅱ 测速已中断 · 不可上传完整回执"
+                "failed"->"! 测速失败 · 不可上传"
                 else->"● 等待开始"
             }
             setStat("已检测",done.toString()); setStat("可用",passed.toString())
@@ -227,19 +260,32 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
                     val ok=checks.optJSONObject(key)?.optString("status")=="passed"
                     serviceName(key)+(if(ok) " ✓" else " ×")
                 }
+            val media=d.optJSONObject("streaming_checks")
+            val verdict=d.optString("streaming_verdict","")
+            streamingInfo.text="流媒体检测："+if(media==null||media.length()==0) "等待检测" else
+                listOf("netflix","youtube_premium","disney_plus","bilibili","spotify","tiktok").joinToString("  ") { key ->
+                    val item=media.optJSONObject(key)
+                    val state=item?.optString("status","error") ?: "error"
+                    val mark=when(state) { "yes"->"✓"; "no"->"×"; "partial"->"△"; else->"?" }
+                    mediaName(key)+mark
+                }+ "\n流媒体总判定："+if(verdict=="passed") "通过（至少一个平台 yes）" else if(verdict=="failed") "不通过（没有平台 yes）" else "检测中"
+            val canUpload = state=="completed" && total>0 && done>=total
+            actionButtons["upload"]?.isEnabled=canUpload
+            actionButtons["upload"]?.alpha=if(canUpload) 1.0f else 0.55f
             actionButtons["pause"]?.visibility=if(activeTask && (state=="running"||state=="preparing")) View.VISIBLE else View.GONE
             actionButtons["resume"]?.visibility=if(activeTask && state=="paused") View.VISIBLE else View.GONE
             actionButtons["stop"]?.visibility=if(activeTask) View.VISIBLE else View.GONE
             actionButtons["probe"]?.visibility=if(activeTask) View.GONE else View.VISIBLE
             actionButtons["probe-local"]?.visibility=if(activeTask) View.GONE else View.VISIBLE
             actionButtons["download"]?.isEnabled=!activeTask
-            if(state=="completed"||state=="interrupted"||state=="failed") {
+            if(state=="idle"||state=="completed"||state=="uploaded"||state=="partial"||state=="interrupted"||state=="failed") {
                 prefs.edit().putBoolean("probe_active",false).apply(); handler.removeCallbacks(poll)
             }
         } catch (_:Exception) {}
     }
     private fun setStat(name:String,value:String) { statViews[name]?.text=value }
     private fun serviceName(k:String)=when(k) { "youtube"->"YouTube"; "telegram"->"TG"; "google"->"Google"; "chatgpt"->"AI"; else->"GitHub" }
+    private fun mediaName(k:String)=when(k) { "netflix"->"Netflix"; "youtube_premium"->"YT Premium"; "disney_plus"->"Disney+"; "bilibili"->"B站"; "spotify"->"Spotify"; else->"TikTok" }
     private fun startPolling(){ handler.removeCallbacks(poll); handler.post(poll) }
 
     private fun runTermux(action:String,showFeedback:Boolean=true,extraArgs:Array<String> = emptyArray()) {

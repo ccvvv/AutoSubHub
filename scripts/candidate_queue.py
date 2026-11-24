@@ -93,32 +93,42 @@ def collect_pending_candidate_batches(remote: str, repo: str, branch: str,
     tip = history[0]
     try:
         state = json.loads(state_path.read_text(encoding="utf-8"))
-        cursor = state.get("last_uploaded_candidate_commit", "")
+        local_cursor = state.get("last_uploaded_candidate_commit", "")
     except (OSError, ValueError, TypeError):
-        cursor = ""
+        local_cursor = ""
 
-    # If this is the first queue-enabled run on a phone, recover the checkpoint
-    # from the last receipt already uploaded to the public receipts branch.
-    if not cursor:
-        receipt_url = (
-            f"https://raw.githubusercontent.com/{repo}/probe-receipts/receipts/latest.json"
+    if local_cursor and local_cursor not in history:
+        raise RuntimeError(
+            "Saved phone queue cursor is not present in published history; "
+            "refusing to skip candidate batches. Keep the state file and investigate."
         )
-        try:
-            previous_receipt = session.get(receipt_url, timeout=20)
-            if previous_receipt.status_code == 200:
-                previous_data = previous_receipt.json()
-                previous_commit = previous_data.get("candidate_commit")
-                if isinstance(previous_commit, str) and previous_commit in history:
-                    cursor = previous_commit
-        except (requests.RequestException, ValueError, json.JSONDecodeError):
-            pass
 
-    if cursor:
-        if cursor not in history:
-            raise RuntimeError(
-                "Saved phone queue cursor is not present in published history; "
-                "refusing to skip candidate batches. Keep the state file and investigate."
-            )
+    # Always reconcile local state with the remote receipt. If GitHub accepted
+    # an upload but Android stopped before saving its local cursor, the remote
+    # receipt is authoritative and prevents the already-tested batches replaying.
+    remote_cursor = ""
+    receipt_url = (
+        f"https://raw.githubusercontent.com/{repo}/probe-receipts/receipts/latest.json"
+    )
+    try:
+        previous_receipt = session.get(receipt_url, timeout=20)
+        if previous_receipt.status_code == 200:
+            previous_data = previous_receipt.json()
+            previous_commit = previous_data.get("candidate_commit")
+            if isinstance(previous_commit, str) and previous_commit:
+                if previous_commit not in history:
+                    raise RuntimeError(
+                        "Remote receipt cursor is not present in published history; "
+                        "refusing to skip candidate batches."
+                    )
+                remote_cursor = previous_commit
+    except (requests.RequestException, ValueError, json.JSONDecodeError):
+        pass
+
+    cursors = [item for item in (local_cursor, remote_cursor) if item]
+    if cursors:
+        # Git history is newest-first: the smaller index is the more advanced cursor.
+        cursor = min(cursors, key=history.index)
         pending = history[:history.index(cursor)]
     else:
         # No earlier phone receipt exists: backfill a bounded recent window.

@@ -27,6 +27,13 @@ if receipt.get("candidate_sha256") != actual_hash or manifest.get("candidate_sha
     raise SystemExit("Receipt/candidate hash mismatch; refusing to publish")
 if receipt.get("status") != "completed":
     raise SystemExit("Phone receipt is not marked completed; refusing to publish")
+queue_count = receipt.get("queue_candidate_count")
+receipt_count = receipt.get("receipt_candidate_count")
+if queue_count is not None or receipt_count is not None:
+    if (type(queue_count) is not int or type(receipt_count) is not int
+            or queue_count < 1 or receipt_count < 1
+            or queue_count != receipt_count):
+        raise SystemExit("Receipt covers only part of the cumulative queue; refusing to publish")
 
 proxies = candidate.get("proxies")
 nodes = manifest.get("nodes")
@@ -87,6 +94,8 @@ for item in results:
 if seen != set(id_to_name):
     missing = len(set(id_to_name) - seen)
     raise SystemExit(f"Incomplete receipt: {missing} candidate nodes were not tested")
+if receipt_count is not None and receipt_count != len(seen):
+    raise SystemExit("Receipt tested-node count does not match its results")
 
 final_nodes = [proxy_by_name[id_to_name[nid]] for nid in id_to_name if nid in passed_ids]
 if not final_nodes:

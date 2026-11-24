@@ -1,7 +1,85 @@
 import unittest
+import json
+import tempfile
+from pathlib import Path
 from unittest.mock import patch
 
 import upload_receipt
+
+
+class ReceiptBundleCompletenessTests(unittest.TestCase):
+    def setUp(self):
+        self.candidate = b"""proxies:
+  - name: node-a
+    type: ss
+    server: a.example
+    port: 443
+  - name: node-b
+    type: ss
+    server: b.example
+    port: 443
+"""
+        self.manifest = {"nodes": [
+            {"node_id": "a" * 64, "name": "node-a"},
+            {"node_id": "b" * 64, "name": "node-b"},
+        ]}
+        self.receipt = {"results": [
+            {"node_id": "a" * 64, "status": "passed"},
+            {"node_id": "b" * 64, "status": "failed"},
+        ]}
+
+    def test_accepts_exact_complete_receipt(self):
+        upload_receipt.validate_complete_receipt_bundle(
+            self.receipt, self.candidate, self.manifest
+        )
+
+    def test_rejects_partial_receipt_before_cursor_advance(self):
+        partial = {"results": [{"node_id": "a" * 64, "status": "passed"}]}
+        with self.assertRaisesRegex(ValueError, "missing=1"):
+            upload_receipt.validate_complete_receipt_bundle(
+                partial, self.candidate, self.manifest
+            )
+
+    def test_rejects_limited_queue_receipt_even_if_marked_completed(self):
+        receipt = {
+            "schema_version": 1,
+            "status": "completed",
+            "candidate_sha256": "a" * 64,
+            "candidate_commit": "b" * 40,
+            "queue_candidate_count": 500,
+            "receipt_candidate_count": 300,
+            "results": [{"node_id": "c" * 64, "status": "passed"}],
+        }
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "receipt.json"
+            path.write_text(json.dumps(receipt), encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "part of the cumulative queue"):
+                upload_receipt.validate_receipt(path)
+
+    def test_rejects_receipt_result_count_mismatch(self):
+        receipt = {
+            "schema_version": 1,
+            "status": "completed",
+            "candidate_sha256": "a" * 64,
+            "candidate_commit": "b" * 40,
+            "queue_candidate_count": 2,
+            "receipt_candidate_count": 2,
+            "results": [{"node_id": "c" * 64, "status": "passed"}],
+        }
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "receipt.json"
+            path.write_text(json.dumps(receipt), encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "result count"):
+                upload_receipt.validate_receipt(path)
+
+    def test_rejects_unknown_receipt_node(self):
+        invalid = {"results": [
+            {"node_id": "a" * 64}, {"node_id": "c" * 64}
+        ]}
+        with self.assertRaisesRegex(ValueError, "unknown=1"):
+            upload_receipt.validate_complete_receipt_bundle(
+                invalid, self.candidate, self.manifest
+            )
 
 
 class GitAuthenticationEnvironmentTests(unittest.TestCase):

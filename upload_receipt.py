@@ -15,6 +15,7 @@ import re
 import subprocess
 import sys
 import tempfile
+import yaml
 from pathlib import Path, PurePosixPath
 
 
@@ -35,6 +36,15 @@ def validate_receipt(path: Path) -> bytes:
         raise ValueError("Receipt root must be a JSON object")
     if data.get("schema_version") != 1 or data.get("status") != "completed":
         raise ValueError("Receipt must have schema_version=1 and status=completed")
+    queue_count = data.get("queue_candidate_count")
+    receipt_count = data.get("receipt_candidate_count")
+    if queue_count is not None or receipt_count is not None:
+        if (type(queue_count) is not int or type(receipt_count) is not int
+                or queue_count < 1 or receipt_count < 1
+                or queue_count != receipt_count):
+            raise ValueError(
+                "Receipt covers only part of the cumulative queue; queue cursor will not advance"
+            )
     digest = data.get("candidate_sha256")
     if not isinstance(digest, str) or not re.fullmatch(r"[0-9a-f]{64}", digest):
         raise ValueError("Receipt candidate_sha256 is missing or invalid")
@@ -56,7 +66,51 @@ def validate_receipt(path: Path) -> bytes:
         ids.append(node_id)
     if len(ids) != len(set(ids)):
         raise ValueError("Receipt contains duplicate node_id values")
+    if receipt_count is not None and receipt_count != len(ids):
+        raise ValueError("Receipt result count does not match its tested candidate count")
     return raw
+
+
+def validate_complete_receipt_bundle(receipt: dict, candidate_bytes: bytes,
+                                    manifest: dict) -> None:
+    """Require one result for every node before the queue cursor can advance."""
+    candidate = yaml.safe_load(candidate_bytes) or {}
+    proxies = candidate.get("proxies")
+    nodes = manifest.get("nodes")
+    results = receipt.get("results")
+    if not isinstance(proxies, list) or not isinstance(nodes, list) or not isinstance(results, list):
+        raise ValueError("Candidate, manifest, or receipt structure is invalid")
+
+    proxy_names = [
+        item.get("name") for item in proxies
+        if isinstance(item, dict) and isinstance(item.get("name"), str)
+    ]
+    manifest_names = [
+        item.get("name") for item in nodes
+        if isinstance(item, dict) and isinstance(item.get("name"), str)
+    ]
+    node_ids = [
+        item.get("node_id") for item in nodes
+        if isinstance(item, dict) and isinstance(item.get("node_id"), str)
+    ]
+    result_ids = [
+        item.get("node_id") for item in results
+        if isinstance(item, dict) and isinstance(item.get("node_id"), str)
+    ]
+    if (len(proxy_names) != len(proxies) or len(set(proxy_names)) != len(proxy_names)
+            or len(manifest_names) != len(nodes) or len(set(manifest_names)) != len(manifest_names)
+            or set(manifest_names) != set(proxy_names)
+            or len(node_ids) != len(nodes) or len(set(node_ids)) != len(node_ids)):
+        raise ValueError("Manifest does not exactly match candidate nodes")
+    if len(result_ids) != len(results) or len(set(result_ids)) != len(result_ids):
+        raise ValueError("Receipt contains malformed or duplicate node_id values")
+    if set(result_ids) != set(node_ids):
+        missing = len(set(node_ids) - set(result_ids))
+        unknown = len(set(result_ids) - set(node_ids))
+        raise ValueError(
+            f"Incomplete receipt bundle: missing={missing}, unknown={unknown}; "
+            "queue cursor will not advance"
+        )
 
 
 def git(*args: str, cwd: Path | None = None, check: bool = True):
@@ -72,7 +126,7 @@ def git(*args: str, cwd: Path | None = None, check: bool = True):
 
 
 def mark_progress_uploaded(progress_path: Path, receipt_commit: str) -> bool:
-    """Persist the upload state so the Android panel shows receipt acceptance after relaunch."""
+    """Persist successful receipt upload locally and expose it to Android for safe reset."""
     if not progress_path.is_file():
         return False
     try:
@@ -159,6 +213,7 @@ def main() -> int:
         manifest_bytes = manifest_path.read_bytes()
         candidate_digest = hashlib.sha256(candidate_bytes).hexdigest()
         manifest = json.loads(manifest_bytes.decode("utf-8"))
+        validate_complete_receipt_bundle(receipt_data, candidate_bytes, manifest)
         if receipt_data.get("candidate_sha256") != candidate_digest:
             raise ValueError("Receipt/candidate snapshot SHA256 mismatch")
         if manifest.get("candidate_sha256") != candidate_digest:

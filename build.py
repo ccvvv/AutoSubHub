@@ -30,6 +30,11 @@ CONTROLLER = "http://127.0.0.1:9090"
 PROBE_WORKERS = max(1, min(50, int(os.getenv("CERT_WORKERS", "50") or "50")))
 PROBE_PORT_BASE = 17890
 
+SUPPORTED_PROXY_TYPES = {
+    "ss", "vmess", "vless", "trojan", "socks5", "http", "snell",
+    "hysteria", "hysteria2", "tuic", "wireguard", "ssh", "anytls",
+}
+
 
 def decode_subscription(text: str) -> str:
     text = text.strip().lstrip("\ufeff")
@@ -68,6 +73,41 @@ def vmess_from_uri(uri: str) -> dict:
         if obj.get("path"):
             node["grpc-opts"] = {"grpc-service-name": obj["path"]}
     return node
+
+
+def valid_reality_short_id(value: str) -> bool:
+    """Mihomo REALITY short IDs are empty or 1-8 bytes encoded as even-length hex."""
+    return isinstance(value, str) and len(value) <= 16 and len(value) % 2 == 0 and bool(re.fullmatch(r"[0-9a-fA-F]*", value))
+
+
+def valid_reality_node(node: dict) -> bool:
+    """Validate REALITY short-id and omit an empty optional value.
+
+    Mihomo rejects an explicitly present empty short-id on some proxy entries;
+    an absent short-id is the correct representation when the source omits it.
+    """
+    if "reality-opts" not in node:
+        return True
+    options = node.get("reality-opts")
+    # A present but non-mapping reality-opts value is malformed. Previously
+    # this slipped through because non-dicts were treated like no options.
+    if not isinstance(options, dict):
+        return False
+    if not options:
+        return True
+    short_id = options.get("short-id")
+    if short_id is None or (isinstance(short_id, str) and not short_id.strip()):
+        options.pop("short-id", None)
+        return True
+    # YAML may parse an unquoted all-digit hex short-id as an integer.
+    # Mihomo expects the value to be a string, so normalize before validation.
+    if isinstance(short_id, bool):
+        return False
+    short_id = str(short_id).strip()
+    if not valid_reality_short_id(short_id):
+        return False
+    options["short-id"] = short_id
+    return True
 
 
 def parse_uri(uri: str) -> dict | None:
@@ -124,6 +164,8 @@ def parse_uri(uri: str) -> dict | None:
             node["client-fingerprint"] = q("fp")
         if security == "reality":
             node["reality-opts"] = {"public-key": q("pb"), "short-id": q("sid")}
+            if not valid_reality_node(node):
+                return None
     network = q("type", "tcp")
     if network == "ws":
         node["network"] = "ws"
@@ -146,8 +188,6 @@ def parse_source(text: str) -> tuple[list[dict], int]:
     if isinstance(data, dict) and isinstance(data.get("proxies"), list):
         # Normalize common YAML variations and discard incomplete/unsupported entries
         # before they reach TCP and Mihomo testing.
-        valid_types = {"ss", "vmess", "vless", "trojan", "socks5", "http", "snell",
-                       "hysteria", "hysteria2", "tuic", "wireguard", "ssh", "anytls"}
         nodes = []
         http_rejected = 0
         for raw in data["proxies"]:
@@ -159,7 +199,10 @@ def parse_source(text: str) -> tuple[list[dict], int]:
             except (TypeError, ValueError):
                 continue
             node["type"] = str(node.get("type", "")).lower()
-            if node["type"] not in valid_types or not 1 <= node["port"] <= 65535:
+            if node["type"] not in SUPPORTED_PROXY_TYPES or not 1 <= node["port"] <= 65535:
+                continue
+            if not valid_reality_node(node):
+                print(f"Skip node with invalid REALITY short-id: {node.get('name', '(unnamed)')}")
                 continue
             nodes.append(node)
         return nodes, http_rejected
@@ -177,9 +220,19 @@ def parse_source(text: str) -> tuple[list[dict], int]:
     return nodes, 0
 
 
-def node_key(node: dict) -> tuple:
-    return tuple(str(node.get(k, "")) for k in
-                 ("type", "server", "port", "uuid", "password", "cipher", "username"))
+def node_key(node: dict) -> str:
+    """Fingerprint the complete proxy configuration, excluding its display name.
+
+    Names are labels, not identity. Every other field is retained so that
+    TLS/Reality, transport, authentication, plugin and protocol options cannot
+    be accidentally merged into a different node.
+    """
+    identity = {key: value for key, value in node.items() if key != "name"}
+    canonical = json.dumps(
+        identity, ensure_ascii=False, sort_keys=True, separators=(",", ":")
+    )
+    import hashlib
+    return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
 
 
 UDP_PROTOCOLS = {"hysteria", "hysteria2", "tuic", "wireguard"}
@@ -290,6 +343,46 @@ def protocol_handshake_check(node: dict) -> tuple[dict, bool, str]:
     return node, False, last_error
 
 
+def final_node_fingerprints(data: dict) -> set[str]:
+    """Fingerprint only valid proxy nodes, never Clash proxy-group entries."""
+    if not isinstance(data, dict) or not isinstance(data.get("proxies"), list):
+        raise RuntimeError("Published final subscription is missing a valid proxies list")
+    fingerprints = {
+        node_key(node) for node in data["proxies"]
+        if isinstance(node, dict)
+        and str(node.get("type", "")).lower() in SUPPORTED_PROXY_TYPES
+        and node.get("server")
+        and isinstance(node.get("port"), int)
+        and 1 <= node["port"] <= 65535
+    }
+    if not fingerprints:
+        raise RuntimeError("Published final subscription contains no valid proxy nodes")
+    return fingerprints
+
+
+def load_final_node_fingerprints() -> set[str]:
+    """Load the currently published final subscription; fail closed on bad data."""
+    url = os.getenv(
+        "FINAL_SUBSCRIPTION_URL",
+        "https://raw.githubusercontent.com/ccvvv/AutoSubHub/published-subscriptions/final/latest.yaml",
+    )
+    response = requests.get(url, headers={"User-Agent": USER_AGENT}, timeout=30)
+    response.raise_for_status()
+    return final_node_fingerprints(yaml.safe_load(response.text))
+
+
+def exclude_final_nodes(nodes: list[dict], final_fingerprints: set[str]) -> list[dict]:
+    """Exclude nodes already present in the current official final subscription."""
+    return [node for node in nodes if node_key(node) not in final_fingerprints]
+
+
+def set_github_output(name: str, value: str) -> None:
+    output_path = os.getenv("GITHUB_OUTPUT")
+    if output_path:
+        with open(output_path, "a", encoding="utf-8") as output:
+            output.write(f"{name}={value}\n")
+
+
 def unique_names(nodes: list[dict]) -> list[dict]:
     used, result = set(), []
     for i, source in enumerate(nodes, 1):
@@ -326,6 +419,34 @@ def test_config(proxies: list[dict], speed_workers: int) -> dict:
     }
 
 
+def find_mihomo_rejected_proxies(proxies: list[dict], mihomo_bin: str) -> list[dict]:
+    """Bisect a rejected proxy list to identify entries Mihomo itself rejects."""
+    rejected = []
+
+    def check_subset(items: list[dict]) -> bool:
+        with tempfile.TemporaryDirectory(prefix="autohub-diagnose-") as tmp:
+            path = os.path.join(tmp, "test.yaml")
+            write_yaml(path, test_config(items, 1))
+            result = subprocess.run(
+                [mihomo_bin, "-t", "-f", path],
+                capture_output=True, text=True, timeout=45
+            )
+            return result.returncode == 0
+
+    def inspect(items: list[dict]) -> None:
+        if not items or check_subset(items):
+            return
+        if len(items) == 1:
+            rejected.append(items[0])
+            return
+        middle = len(items) // 2
+        inspect(items[:middle])
+        inspect(items[middle:])
+
+    inspect(proxies)
+    return rejected
+
+
 def final_config(proxies: list[dict]) -> dict:
     names = [p["name"] for p in proxies]
     return {
@@ -340,9 +461,37 @@ def final_config(proxies: list[dict]) -> dict:
     }
 
 
+class QuotedYamlString(str):
+    """A string that must stay a YAML string even when it resembles a number."""
+
+
+class AutoHubSafeDumper(yaml.SafeDumper):
+    pass
+
+
+def _represent_quoted_yaml_string(dumper, value):
+    return dumper.represent_scalar("tag:yaml.org,2002:str", value, style="'")
+
+ 
+AutoHubSafeDumper.add_representer(QuotedYamlString, _represent_quoted_yaml_string)
+
+
 def write_yaml(path: str, data: dict) -> None:
+    # YAML 1.1 treats strings such as 172066e9 as floating-point values.
+    # Mihomo then converts that float back to a different string and rejects
+    # the REALITY short-id. Force these fields to remain quoted YAML strings.
+    proxies = data.get("proxies")
+    if isinstance(proxies, list):
+        for proxy in proxies:
+            if not isinstance(proxy, dict):
+                continue
+            options = proxy.get("reality-opts")
+            if isinstance(options, dict):
+                short_id = options.get("short-id")
+                if isinstance(short_id, str):
+                    options["short-id"] = QuotedYamlString(short_id)
     with open(path, "w", encoding="utf-8") as f:
-        yaml.safe_dump(data, f, allow_unicode=True, sort_keys=False)
+        yaml.dump(data, f, Dumper=AutoHubSafeDumper, allow_unicode=True, sort_keys=False)
 
 
 def validate_structure(config: dict) -> None:
@@ -352,10 +501,8 @@ def validate_structure(config: dict) -> None:
     names = [p.get("name") for p in proxies]
     if len(names) != len(set(names)) or any(not n for n in names):
         raise RuntimeError("Proxy names are missing or duplicated")
-    valid_types = {"ss", "vmess", "vless", "trojan", "socks5", "http", "snell", "hysteria",
-                   "hysteria2", "tuic", "wireguard", "ssh", "anytls"}
     for p in proxies:
-        if p.get("type") not in valid_types or not p.get("server") or not isinstance(p.get("port"), int):
+        if p.get("type") not in SUPPORTED_PROXY_TYPES or not p.get("server") or not isinstance(p.get("port"), int):
             raise RuntimeError(f"Invalid proxy definition: {p.get('name', '(unnamed)')}")
     available = set(names) | {"DIRECT", "REJECT"}
     for group in config.get("proxy-groups", []):
@@ -428,14 +575,19 @@ def main() -> None:
         source_unique.append(bucket)
 
     all_unique_candidates = [node for bucket in source_unique for node in bucket]
-    # Pure Clash HTTP proxies were excluded while parsing each source, before
-    # global deduplication and all network tests. TCP transports remain allowed.
-    candidates = all_unique_candidates
+    # The official final list is the live exclusion set: once a node leaves
+    # final/latest.yaml it can be considered again on a later source pull.
+    final_fingerprints = load_final_node_fingerprints()
+    candidates = exclude_final_nodes(all_unique_candidates, final_fingerprints)
+    excluded_final = len(all_unique_candidates) - len(candidates)
     print(f"Parsed {parsed_total} nodes; globally unique: {unique_total}; "
           f"pure HTTP proxies excluded: {http_type_rejected}; "
+          f"already-final nodes excluded: {excluded_final}; "
           f"remaining candidates: {len(candidates)}")
     if not candidates:
-        raise RuntimeError("No supported non-HTTP nodes parsed; refusing to publish")
+        print("No new candidates remain after excluding the current official final subscription.")
+        set_github_output("has_candidates", "false")
+        return
 
     # TCP and generic handshake checks are diagnostic only. A generic probe can
     # misclassify WS/TLS/Reality/UDP transports; Mihomo performs the decisive test.
@@ -465,8 +617,25 @@ def main() -> None:
     print(f"Protocol handshake diagnostic passed: {handshake_passed_count} / {len(candidates)}; "
           f"failures retained for Mihomo: {handshake_failed_count}; reasons: {handshake_failures}")
 
-    tcp_ok = unique_names(candidates)
-    print(f"Starting Mihomo real proxy tests on all {len(tcp_ok)} parsed candidates")
+    tcp_ok = []
+    invalid_reality = 0
+    for node in unique_names(candidates):
+        if valid_reality_node(node):
+            tcp_ok.append(node)
+        else:
+            invalid_reality += 1
+            print(
+                "Skip malformed REALITY options at final gate: "
+                f"name={node.get('name', '(unnamed)')!r}, "
+                f"short-id={((node.get('reality-opts') or {}).get('short-id') if isinstance(node.get('reality-opts'), dict) else '(non-mapping reality-opts)')!r}"
+            )
+    print(
+        f"Final REALITY validation: kept {len(tcp_ok)}; "
+        f"skipped {invalid_reality} malformed candidates"
+    )
+    if not tcp_ok:
+        raise RuntimeError("No candidates remain after final REALITY validation")
+    print(f"Starting Mihomo real proxy tests on {len(tcp_ok)} validated candidates")
     os.makedirs("site", exist_ok=True)
 
     with tempfile.TemporaryDirectory(prefix="autohub-") as tmp:
@@ -475,6 +644,22 @@ def main() -> None:
         check = subprocess.run([os.getenv("MIHOMO_BIN", "./mihomo"), "-t", "-f", test_path],
                                capture_output=True, text=True, timeout=45)
         if check.returncode:
+            print("Mihomo rejected the combined config; bisecting proxy list to locate invalid entries")
+            bad_nodes = find_mihomo_rejected_proxies(tcp_ok, os.getenv("MIHOMO_BIN", "./mihomo"))
+            if bad_nodes:
+                for bad in bad_nodes:
+                    options = bad.get("reality-opts")
+                    short_id = options.get("short-id") if isinstance(options, dict) else None
+                    print(
+                        "Mihomo-rejected proxy: "
+                        f"name={bad.get('name', '(unnamed)')!r}, "
+                        f"type={bad.get('type')!r}, "
+                        f"reality-opts-type={type(options).__name__}, "
+                        f"short-id={short_id!r}, "
+                        f"short-id-type={type(short_id).__name__}"
+                    )
+            else:
+                print("Bisect found no individually rejected proxy; failure may be caused by config interaction")
             raise RuntimeError("Mihomo rejected test config: " + (check.stderr or check.stdout)[-2500:])
         proc = subprocess.Popen([os.getenv("MIHOMO_BIN", "./mihomo"), "-d", tmp, "-f", test_path],
                                 stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
@@ -539,8 +724,8 @@ def main() -> None:
             manifest_nodes = []
             delay_by_name = {node["name"]: delay for delay, node in tested}
             for node in passed_nodes:
-                canonical = json.dumps(node, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
-                node_id = hashlib.sha256(canonical.encode("utf-8")).hexdigest()[:20]
+                # Keep the phone-side node identity stable when only its display name changes.
+                node_id = node_key(node)[:20]
                 manifest_nodes.append({
                     "node_id": node_id,
                     "name": node.get("name", ""),
@@ -568,6 +753,8 @@ def main() -> None:
             with open(os.path.join("candidates", "manifest.json"), "w", encoding="utf-8") as f:
                 json.dump(manifest, f, ensure_ascii=False, indent=2)
                 f.write("\n")
+
+            set_github_output("has_candidates", "true")
 
             print(
                 "GitHub prefilter complete: "
