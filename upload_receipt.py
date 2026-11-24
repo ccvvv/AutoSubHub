@@ -126,7 +126,7 @@ def git(*args: str, cwd: Path | None = None, check: bool = True):
 def github_ssh_remote(repo: str) -> str:
     """Build the SSH remote; deliberately ignore GITHUB_TOKEN."""
     owner, name = repo.split("/", 1)
-    return f"git@github.com:{owner}/{name}.git"
+    return f"ssh://git@ssh.github.com:443/{owner}/{name}.git"
 
 
 def mark_progress_uploaded(progress_path: Path, receipt_commit: str) -> bool:
