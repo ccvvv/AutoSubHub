@@ -74,7 +74,7 @@ def main() -> int:
     atomic_write(output_dir / "pending.yaml", candidate_bytes)
     atomic_write(
         output_dir / "pending-manifest.json",
-        (json.dumps(manifest, ensure_ascii=False, separators=(",", ":")) + "\\n").encode("utf-8"),
+        (json.dumps(manifest, ensure_ascii=False, separators=(",", ":")) + "\n").encode("utf-8"),
     )
     atomic_write(
         output_dir / "pending-meta.json",
