@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Push a completed local AutoSubHub phone-probe receipt to GitHub.
 
-Uses GITHUB_TOKEN over HTTPS when supplied; otherwise falls back to SSH.
+Always uses the configured GitHub SSH key for uploads.
 The script never runs a probe and never deletes or modifies the local receipt.
 """
 from __future__ import annotations
@@ -10,7 +10,6 @@ import argparse
 import hashlib
 import json
 import os
-import base64
 import re
 import subprocess
 import sys
@@ -22,7 +21,6 @@ from pathlib import Path, PurePosixPath
 DEFAULT_REPO = "ccvvv/AutoSubHub"
 DEFAULT_BRANCH = "published-subscriptions"
 DEFAULT_PATH = "receipts/latest.json"
-GIT_AUTH_ENV: dict[str, str] = {}
 
 
 def validate_receipt(path: Path) -> bytes:
@@ -117,12 +115,18 @@ def git(*args: str, cwd: Path | None = None, check: bool = True):
     result = subprocess.run(
         ["git", *args], cwd=str(cwd) if cwd else None,
         text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-        env={**os.environ, **GIT_AUTH_ENV},
+        env=os.environ.copy(),
     )
     if check and result.returncode:
         detail = (result.stderr or result.stdout).strip()
         raise RuntimeError(detail or f"git {' '.join(args)} failed")
     return result
+
+
+def github_ssh_remote(repo: str) -> str:
+    """Build the SSH remote; deliberately ignore GITHUB_TOKEN."""
+    owner, name = repo.split("/", 1)
+    return f"git@github.com:{owner}/{name}.git"
 
 
 def mark_progress_uploaded(progress_path: Path, receipt_commit: str) -> bool:
@@ -225,10 +229,7 @@ def main() -> int:
             raise ValueError("Receipt candidate_commits list is missing or invalid")
         if receipt_data.get("candidate_commit") != commits[-1]:
             raise ValueError("Receipt candidate_commit does not match the newest queued batch")
-        owner, name = args.repo.split("/", 1)
-        # Always use the phone's configured SSH key. Ignore any stale GITHUB_TOKEN
-        # in the environment so it cannot silently switch this upload to HTTPS.
-        remote = f"git@github.com:{owner}/{name}.git"
+        remote = github_ssh_remote(args.repo)
         print("GitHub authentication: SSH key (default)")
 
         with tempfile.TemporaryDirectory(prefix="autosubhub-receipt-") as temp:
