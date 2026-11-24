@@ -90,7 +90,7 @@ class GitAuthenticationEnvironmentTests(unittest.TestCase):
         with patch.dict("os.environ", {"GITHUB_TOKEN": "stale-token"}):
             self.assertEqual(
                 upload_receipt.github_ssh_remote("ccvvv/AutoSubHub"),
-                "git@github.com:ccvvv/AutoSubHub.git",
+                "ssh://git@ssh.github.com:443/ccvvv/AutoSubHub.git",
             )
 
 

@@ -59,7 +59,7 @@ Increase concurrency gradually after checking device stability. For example, tes
 
 ## Upload the saved receipt separately
 
-Only after the probe has finished and `receipt.json`, `receipt.candidate.yaml`, and `receipt.manifest.json` exist, upload the complete bundle in a separate command. The uploader always uses the GitHub SSH key configured in Termux. Any existing `GITHUB_TOKEN` environment variable is ignored:
+Only after the probe has finished and `receipt.json`, `receipt.candidate.yaml`, and `receipt.manifest.json` exist, upload the complete bundle in a separate command. The uploader always uses the GitHub SSH key configured in Termux, through GitHub's SSH-over-port-443 endpoint (useful when port 22 is blocked). Any existing `GITHUB_TOKEN` environment variable is ignored:
 
 ```sh
 python upload_receipt.py --input receipt.json
