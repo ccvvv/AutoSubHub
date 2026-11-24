@@ -8,6 +8,9 @@ import upload_receipt
 
 
 class ReceiptBundleCompletenessTests(unittest.TestCase):
+    def test_receipt_uploader_defaults_to_the_unified_data_branch(self):
+        self.assertEqual(upload_receipt.DEFAULT_BRANCH, "published-subscriptions")
+
     def setUp(self):
         self.candidate = b"""proxies:
   - name: node-a
