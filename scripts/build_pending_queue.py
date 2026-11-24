@@ -78,7 +78,7 @@ def main() -> int:
     )
     atomic_write(
         output_dir / "pending-meta.json",
-        (json.dumps(metadata, ensure_ascii=False, indent=2) + "\\n").encode("utf-8"),
+        (json.dumps(metadata, ensure_ascii=False, indent=2) + "\n").encode("utf-8"),
     )
     print(
         f"Cloud pending queue ready: {metadata['candidate_count']} nodes, "
