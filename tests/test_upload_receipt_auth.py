@@ -31,5 +31,28 @@ class GitAuthenticationEnvironmentTests(unittest.TestCase):
             upload_receipt.GIT_AUTH_ENV.update(previous)
 
 
+class UploadProgressStateTests(unittest.TestCase):
+    def test_successful_upload_persists_uploaded_state_and_preserves_probe_counts(self):
+        import json
+        import tempfile
+        from pathlib import Path
+
+        with tempfile.TemporaryDirectory() as tmp:
+            progress = Path(tmp) / "progress.json"
+            progress.write_text(json.dumps({
+                "status": "completed", "done": 250, "total": 250,
+                "passed": 31, "failed": 219, "stage": "测速完成",
+            }))
+            changed = upload_receipt.mark_progress_uploaded(progress, "a" * 40)
+            self.assertTrue(changed)
+            data = json.loads(progress.read_text())
+            self.assertEqual(data["status"], "uploaded")
+            self.assertEqual(data["upload_status"], "uploaded")
+            self.assertEqual(data["done"], 250)
+            self.assertEqual(data["passed"], 31)
+            self.assertEqual(data["receipt_commit"], "a" * 40)
+            self.assertEqual(data["stage"], "回执已成功上传至 GitHub")
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -208,7 +208,8 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
                 "preparing"->"● 正在准备 · "+stage.ifEmpty { "获取候选节点" }
                 "running"->"● 正在测速 · "+percent+"%"+(if(stage.isNotEmpty()) " · "+stage else "")
                 "paused"->"Ⅱ 已暂停测速"
-                "completed"->"✓ 测速完成"
+                "completed"->"✓ 测速完成 · 等待上传回执"
+                "uploaded"->"✓ 回执已上传 · 等待下一轮候选"
                 "interrupted"->"Ⅱ 测速已中断"
                 "failed"->"! 测速失败"
                 else->"● 等待开始"
