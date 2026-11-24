@@ -58,7 +58,7 @@ jobs:
           cd /tmp/published
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A candidate/pending.yaml candidate/pending-manifest.json candidate/pending-meta.json
+          git add -A candidate
           if git diff --cached --quiet; then
             echo "Cloud pending queue is already current."
             exit 0
