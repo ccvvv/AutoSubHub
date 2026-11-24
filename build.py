@@ -186,6 +186,27 @@ UDP_PROTOCOLS = {"hysteria", "hysteria2", "tuic", "wireguard"}
 REALITY_PROTOCOLS = {"vless"}
 
 
+def valid_reality_short_id(node: dict) -> bool:
+    """Normalize and validate Mihomo Reality short-id hexadecimal data.
+
+    YAML may parse an unquoted digits-only short-id as an integer. Convert
+    that integer back to its decimal text before validation so valid IDs
+    are not rejected merely because of YAML scalar typing.
+    """
+    options = node.get("reality-opts")
+    if options is None or not isinstance(options, dict):
+        return True
+    short_id = options.get("short-id", "")
+    if short_id is None:
+        short_id = ""
+    elif isinstance(short_id, int) and not isinstance(short_id, bool):
+        short_id = str(short_id)
+        options["short-id"] = short_id
+    return isinstance(short_id, str) and re.fullmatch(
+        r"(?:[0-9a-fA-F]{2}){0,8}", short_id
+    ) is not None
+
+
 def tcp_check(node: dict) -> tuple[dict, float | None]:
     # UDP-based protocols must not be rejected by a TCP port probe.
     if str(node.get("type", "")).lower() in UDP_PROTOCOLS:
@@ -428,11 +449,16 @@ def main() -> None:
         source_unique.append(bucket)
 
     all_unique_candidates = [node for bucket in source_unique for node in bucket]
+    # Drop only structurally invalid Reality short-ids before handing the
+    # complete candidate list to Mihomo. A malformed source node must not make
+    # the whole scheduled subscription build fail.
+    candidates = [node for node in all_unique_candidates if valid_reality_short_id(node)]
+    invalid_reality_short_id = len(all_unique_candidates) - len(candidates)
     # Pure Clash HTTP proxies were excluded while parsing each source, before
     # global deduplication and all network tests. TCP transports remain allowed.
-    candidates = all_unique_candidates
     print(f"Parsed {parsed_total} nodes; globally unique: {unique_total}; "
           f"pure HTTP proxies excluded: {http_type_rejected}; "
+          f"invalid Reality short-ids excluded: {invalid_reality_short_id}; "
           f"remaining candidates: {len(candidates)}")
     if not candidates:
         raise RuntimeError("No supported non-HTTP nodes parsed; refusing to publish")
@@ -475,7 +501,26 @@ def main() -> None:
         check = subprocess.run([os.getenv("MIHOMO_BIN", "./mihomo"), "-t", "-f", test_path],
                                capture_output=True, text=True, timeout=45)
         if check.returncode:
-            raise RuntimeError("Mihomo rejected test config: " + (check.stderr or check.stdout)[-2500:])
+            diagnostic = check.stderr or check.stdout
+            match = re.search(r"proxy (\d+): invalid REALITY short ID", diagnostic)
+            if match:
+                bad_index = int(match.group(1)) - 1
+                if 0 <= bad_index < len(tcp_ok):
+                    bad_node = tcp_ok[bad_index]
+                    options = bad_node.get("reality-opts")
+                    short_id = options.get("short-id") if isinstance(options, dict) else None
+                    print("REALITY diagnostic: index=%d full_node=%r short_id_type=%s short_id=%r" % (
+                        bad_index + 1, bad_node, type(short_id).__name__, short_id))
+                    for nearby in range(max(0, bad_index - 2), min(len(tcp_ok), bad_index + 3)):
+                        item = tcp_ok[nearby]
+                        print("REALITY nearby: index=%d name=%r type=%r tls=%r reality_opts=%r" % (
+                            nearby + 1, item.get("name"), item.get("type"), item.get("tls"), item.get("reality-opts")))
+                    for item_index, item in enumerate(tcp_ok, 1):
+                        opts = item.get("reality-opts")
+                        if opts is not None or "reality" in repr(item).lower():
+                            print("REALITY-bearing proxy: index=%d name=%r type=%r tls=%r opts=%r" % (
+                                item_index, item.get("name"), item.get("type"), item.get("tls"), opts))
+            raise RuntimeError("Mihomo rejected test config: " + diagnostic[-2500:])
         proc = subprocess.Popen([os.getenv("MIHOMO_BIN", "./mihomo"), "-d", tmp, "-f", test_path],
                                 stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
         try:
@@ -556,6 +601,7 @@ def main() -> None:
                 "parsed_nodes": parsed_total,
                 "unique_candidates": unique_total,
                 "excluded_http_proxies": http_type_rejected,
+                "excluded_invalid_reality_short_id": invalid_reality_short_id,
                 "tcp_diagnostic_passed": tcp_passed_count,
                 "tcp_diagnostic_failed_retained": len(candidates) - tcp_passed_count,
                 "protocol_handshake_diagnostic_passed": handshake_passed_count,
