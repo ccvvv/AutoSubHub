@@ -419,6 +419,34 @@ def test_config(proxies: list[dict], speed_workers: int) -> dict:
     }
 
 
+def find_mihomo_rejected_proxies(proxies: list[dict], mihomo_bin: str) -> list[dict]:
+    """Bisect a rejected proxy list to identify entries Mihomo itself rejects."""
+    rejected = []
+
+    def check_subset(items: list[dict]) -> bool:
+        with tempfile.TemporaryDirectory(prefix="autohub-diagnose-") as tmp:
+            path = os.path.join(tmp, "test.yaml")
+            write_yaml(path, test_config(items, 1))
+            result = subprocess.run(
+                [mihomo_bin, "-t", "-f", path],
+                capture_output=True, text=True, timeout=45
+            )
+            return result.returncode == 0
+
+    def inspect(items: list[dict]) -> None:
+        if not items or check_subset(items):
+            return
+        if len(items) == 1:
+            rejected.append(items[0])
+            return
+        middle = len(items) // 2
+        inspect(items[:middle])
+        inspect(items[middle:])
+
+    inspect(proxies)
+    return rejected
+
+
 def final_config(proxies: list[dict]) -> dict:
     names = [p["name"] for p in proxies]
     return {
@@ -588,6 +616,22 @@ def main() -> None:
         check = subprocess.run([os.getenv("MIHOMO_BIN", "./mihomo"), "-t", "-f", test_path],
                                capture_output=True, text=True, timeout=45)
         if check.returncode:
+            print("Mihomo rejected the combined config; bisecting proxy list to locate invalid entries")
+            bad_nodes = find_mihomo_rejected_proxies(tcp_ok, os.getenv("MIHOMO_BIN", "./mihomo"))
+            if bad_nodes:
+                for bad in bad_nodes:
+                    options = bad.get("reality-opts")
+                    short_id = options.get("short-id") if isinstance(options, dict) else None
+                    print(
+                        "Mihomo-rejected proxy: "
+                        f"name={bad.get('name', '(unnamed)')!r}, "
+                        f"type={bad.get('type')!r}, "
+                        f"reality-opts-type={type(options).__name__}, "
+                        f"short-id={short_id!r}, "
+                        f"short-id-type={type(short_id).__name__}"
+                    )
+            else:
+                print("Bisect found no individually rejected proxy; failure may be caused by config interaction")
             raise RuntimeError("Mihomo rejected test config: " + (check.stderr or check.stdout)[-2500:])
         proc = subprocess.Popen([os.getenv("MIHOMO_BIN", "./mihomo"), "-d", tmp, "-f", test_path],
                                 stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
