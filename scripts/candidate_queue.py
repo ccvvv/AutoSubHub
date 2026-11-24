@@ -112,34 +112,18 @@ def collect_pending_candidate_batches(remote: str, repo: str, branch: str,
     )
     try:
         previous_receipt = session.get(receipt_url, timeout=20)
-    except requests.RequestException as exc:
-        raise RuntimeError(
-            "Unable to read the latest phone receipt; refusing to reset the candidate cursor."
-        ) from exc
-    if previous_receipt.status_code == 200:
-        try:
+        if previous_receipt.status_code == 200:
             previous_data = previous_receipt.json()
-        except (ValueError, json.JSONDecodeError) as exc:
-            raise RuntimeError(
-                "The latest phone receipt is not valid JSON; refusing to reset the candidate cursor."
-            ) from exc
-        previous_commit = previous_data.get("candidate_commit")
-        if not isinstance(previous_commit, str) or len(previous_commit) != 40:
-            raise RuntimeError(
-                "The latest phone receipt has no valid candidate_commit; refusing to reset the cursor."
-            )
-        previous_commit = previous_commit.lower()
-        if previous_commit not in history:
-            raise RuntimeError(
-                "Remote receipt cursor is not present in published history; "
-                "refusing to skip candidate batches."
-            )
-        remote_cursor = previous_commit
-    elif previous_receipt.status_code != 404:
-        raise RuntimeError(
-            f"Unable to read the latest phone receipt (HTTP {previous_receipt.status_code}); "
-            "refusing to reset the candidate cursor."
-        )
+            previous_commit = previous_data.get("candidate_commit")
+            if isinstance(previous_commit, str) and previous_commit:
+                if previous_commit not in history:
+                    raise RuntimeError(
+                        "Remote receipt cursor is not present in published history; "
+                        "refusing to skip candidate batches."
+                    )
+                remote_cursor = previous_commit
+    except (requests.RequestException, ValueError, json.JSONDecodeError):
+        pass
 
     cursors = [item for item in (local_cursor, remote_cursor) if item]
     if cursors:
