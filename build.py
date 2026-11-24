@@ -75,6 +75,18 @@ def vmess_from_uri(uri: str) -> dict:
     return node
 
 
+def valid_reality_short_id(value: str) -> bool:
+    """Mihomo REALITY short IDs are empty or 1-8 bytes encoded as even-length hex."""
+    return isinstance(value, str) and len(value) <= 16 and len(value) % 2 == 0 and bool(re.fullmatch(r"[0-9a-fA-F]*", value))
+
+
+def valid_reality_node(node: dict) -> bool:
+    options = node.get("reality-opts")
+    if not isinstance(options, dict) or not options:
+        return True
+    return valid_reality_short_id(str(options.get("short-id") or ""))
+
+
 def parse_uri(uri: str) -> dict | None:
     uri = uri.strip()
     scheme = uri.split("://", 1)[0].lower()
@@ -129,6 +141,8 @@ def parse_uri(uri: str) -> dict | None:
             node["client-fingerprint"] = q("fp")
         if security == "reality":
             node["reality-opts"] = {"public-key": q("pb"), "short-id": q("sid")}
+            if not valid_reality_node(node):
+                return None
     network = q("type", "tcp")
     if network == "ws":
         node["network"] = "ws"
@@ -163,6 +177,9 @@ def parse_source(text: str) -> tuple[list[dict], int]:
                 continue
             node["type"] = str(node.get("type", "")).lower()
             if node["type"] not in SUPPORTED_PROXY_TYPES or not 1 <= node["port"] <= 65535:
+                continue
+            if not valid_reality_node(node):
+                print(f"Skip node with invalid REALITY short-id: {node.get('name', '(unnamed)')}")
                 continue
             nodes.append(node)
         return nodes, http_rejected
