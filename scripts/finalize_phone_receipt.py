@@ -5,6 +5,7 @@ from urllib.parse import parse_qs, quote, urlencode, urlparse
 
 MIN_SPEED_BPS = int(os.getenv("MIN_SPEED_BPS", "200000"))
 HIGH_SPEED_BPS = int(os.getenv("HIGH_SPEED_BPS", "500000"))
+MAX_FINAL_NODES = max(1, int(os.getenv("MAX_FINAL_NODES", "100")))
 REQUIRED_APPLICATIONS = ("youtube", "telegram", "google", "chatgpt", "github")
 candidate_path = sys.argv[1]
 manifest_path = sys.argv[2]
@@ -97,17 +98,28 @@ if seen != set(id_to_name):
 if receipt_count is not None and receipt_count != len(seen):
     raise SystemExit("Receipt tested-node count does not match its results")
 
+# Select only the fastest nodes for the public final subscription.
+# The full candidate/manifest/receipt are validated above and remain untouched;
+# nodes outside this display cap are NOT deleted from the candidate history.
+speed_by_name = {
+    id_to_name[item["node_id"]]: item["download_speed_bps"]
+    for item in results
+    if item.get("node_id") in passed_ids
+}
 final_nodes = [proxy_by_name[id_to_name[nid]] for nid in id_to_name if nid in passed_ids]
 if not final_nodes:
     raise SystemExit("No phone-tested nodes met the minimum download speed; existing final versions remain untouched")
 
+# Stable numeric sort: fastest first; equal-speed nodes retain candidate order.
+final_nodes.sort(key=lambda node: speed_by_name.get(node["name"], 0), reverse=True)
+total_passed_nodes = len(final_nodes)
+published_base_nodes = final_nodes[:MAX_FINAL_NODES]
+
 # Keep one subscription, with speed categories exposed as selectable proxy groups.
 high_nodes = []
 normal_nodes = []
-for node in final_nodes:
-    speed = next(item["download_speed_bps"] for item in results
-                 if item.get("node_id") in id_to_name
-                 and id_to_name[item["node_id"]] == node["name"])
+for node in published_base_nodes:
+    speed = speed_by_name[node["name"]]
     tagged = dict(node)
     if speed >= HIGH_SPEED_BPS:
         tagged["name"] = f'{node["name"]} [高速]'
@@ -243,4 +255,4 @@ if len(sys.argv) > 5:
     print(f"V2Ray share-link subscription generated: {len(base64.b64decode(encoded).decode('utf-8').splitlines())} nodes")
 
 
-print(f"Phone receipt accepted: {len(published_nodes)}/{len(proxies)} nodes; high={len(high_nodes)}, normal={len(normal_nodes)}, rejected={len(proxies)-len(published_nodes)}; all five app gates passed and speed >= {MIN_SPEED_BPS} B/s")
+print(f"Phone receipt accepted: passed={total_passed_nodes}/{len(proxies)}; published={len(published_nodes)}/{total_passed_nodes} (limit={MAX_FINAL_NODES}); high={len(high_nodes)}, normal={len(normal_nodes)}, not_displayed={total_passed_nodes-len(published_nodes)}, rejected={len(proxies)-total_passed_nodes}; all five app gates passed and speed >= {MIN_SPEED_BPS} B/s")
