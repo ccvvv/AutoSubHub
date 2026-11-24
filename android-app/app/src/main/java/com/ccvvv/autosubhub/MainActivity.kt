@@ -260,7 +260,7 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
             actionButtons["probe"]?.visibility=if(activeTask) View.GONE else View.VISIBLE
             actionButtons["probe-local"]?.visibility=if(activeTask) View.GONE else View.VISIBLE
             actionButtons["download"]?.isEnabled=!activeTask
-            if(state=="idle"||state=="completed"||state=="partial"||state=="interrupted"||state=="failed") {
+            if(state=="idle"||state=="completed"||state=="uploaded"||state=="partial"||state=="interrupted"||state=="failed") {
                 prefs.edit().putBoolean("probe_active",false).apply(); handler.removeCallbacks(poll)
             }
         } catch (_:Exception) {}
