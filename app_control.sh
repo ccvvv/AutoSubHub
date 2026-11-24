@@ -104,6 +104,26 @@ case "$ACTION" in
       say "重置拒绝：测速进程仍在运行，请先停止并等待进程退出"
       exit 1
     fi
+    # Keep a completed receipt uploadable until GitHub accepts it.
+    if [ -s receipt.json ] && [ -s progress.json ]; then
+      if python - <<'PY'
+import json, sys
+try:
+    with open("progress.json", encoding="utf-8") as f:
+        progress = json.load(f)
+    with open("receipt.json", encoding="utf-8") as f:
+        receipt = json.load(f)
+except Exception:
+    sys.exit(1)
+sys.exit(0 if progress.get("status") == "completed"
+         and progress.get("upload_status") != "uploaded"
+         and receipt.get("status") == "completed" else 1)
+PY
+      then
+        say "重置拒绝：本轮完整回执尚未上传，请先上传回执，再重置状态"
+        exit 1
+      fi
+    fi
     rm -f probe.pause probe.stop
     python - <<'PY'
 import json, os, tempfile
