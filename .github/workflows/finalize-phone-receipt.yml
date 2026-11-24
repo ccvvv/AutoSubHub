@@ -29,6 +29,7 @@ jobs:
         run: pip install pyyaml
 
       - name: Fetch the exact receipt snapshot from the data branch
+        id: receipt
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -52,7 +53,6 @@ jobs:
           git -C published show "${RECEIPT_REF}:receipts/manifest.json" > incoming/manifest.json
           sha256sum incoming/receipt.json | cut -d' ' -f1 > incoming/receipt.sha256
           echo "has_receipt=true" >> "${GITHUB_OUTPUT}"
-        id: receipt
 
       - name: Validate receipt and build final
         if: steps.receipt.outputs.has_receipt == 'true'
@@ -154,3 +154,50 @@ jobs:
             echo "Could not consume receipt after three fast-forward retries."
             exit 1
           fi
+
+      - name: Notify NodeLife after successful finalization
+        if: steps.receipt.outputs.has_receipt == 'true'
+        uses: actions/github-script@v7
+        env:
+          LIFEDISPATCH_TOKEN: ${{ secrets.LIFEDISPATCH_TOKEN }}
+        with:
+          script: |
+            const token = process.env.LIFEDISPATCH_TOKEN;
+            if (!token) {
+              core.warning("LIFEDISPATCH_TOKEN is not configured; NodeLife will catch up on its scheduled run.");
+              return;
+            }
+
+            const octokit = github.getOctokit(token);
+            const payload = {
+              event_type: "auto-subhub-final-published",
+              client_payload: {
+                source_repository: context.repo.owner + "/" + context.repo.repo,
+                source_branch: "published-subscriptions",
+                final_subscription: "final/latest.yaml"
+              }
+            };
+
+            let lastError;
+            for (let attempt = 1; attempt <= 3; attempt++) {
+              try {
+                await octokit.rest.repos.createDispatchEvent({
+                  owner: "ccvvv",
+                  repo: "NodeLife",
+                  ...payload
+                });
+                core.info("NodeLife dispatch accepted by GitHub.");
+                lastError = undefined;
+                break;
+              } catch (error) {
+                lastError = error;
+                core.warning(`NodeLife dispatch attempt ${attempt}/3 failed: ${error.message}`);
+                if (attempt < 3) {
+                  await new Promise(resolve => setTimeout(resolve, 2000));
+                }
+              }
+            }
+
+            if (lastError) {
+              core.warning("Immediate NodeLife dispatch failed after three attempts; the six-hour scheduled catch-up remains enabled.");
+            }
