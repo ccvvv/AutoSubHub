@@ -20,7 +20,7 @@ from pathlib import Path, PurePosixPath
 
 
 DEFAULT_REPO = "ccvvv/AutoSubHub"
-DEFAULT_BRANCH = "probe-receipts"
+DEFAULT_BRANCH = "published-subscriptions"
 DEFAULT_PATH = "receipts/latest.json"
 GIT_AUTH_ENV: dict[str, str] = {}
 
@@ -281,7 +281,20 @@ def main() -> int:
             git("-c", "user.name=AutoSubHub Termux",
                 "-c", "user.email=ccvvv@users.noreply.github.com",
                 "commit", "-m", "Upload Android phone probe receipt", cwd=work)
-            git("push", "origin", args.branch, cwd=work)
+            # Shared data branch: retry fast-forward updates, never force-push.
+            pushed = False
+            for attempt in range(1, 4):
+                result = git("push", "origin", args.branch, cwd=work, check=False)
+                if result.returncode == 0:
+                    pushed = True
+                    break
+                git("fetch", "origin", args.branch, cwd=work)
+                rebased = git("rebase", f"origin/{args.branch}", cwd=work, check=False)
+                if rebased.returncode:
+                    git("rebase", "--abort", cwd=work, check=False)
+                    raise RuntimeError("Concurrent update conflicts with the receipt bundle; no force-push was attempted. Keep the local receipt and retry after inspecting the remote branch.")
+            if not pushed:
+                raise RuntimeError("Could not push receipt after 3 fast-forward retries; local receipt was kept.")
             commit = git("rev-parse", "HEAD", cwd=work).stdout.strip()
 
         # Advance only after the complete receipt bundle has been accepted by GitHub.
