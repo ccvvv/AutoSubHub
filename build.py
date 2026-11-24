@@ -187,19 +187,21 @@ REALITY_PROTOCOLS = {"vless"}
 
 
 def valid_reality_short_id(node: dict) -> bool:
-    """Return whether a Mihomo Reality short-id is valid hexadecimal data.
+    """Normalize and validate Mihomo Reality short-id hexadecimal data.
 
-    A short-id is optional; when supplied it must be an even-length hex
-    string representing at most 8 bytes (16 hex characters).
+    YAML may parse an unquoted digits-only short-id as an integer. Convert
+    that integer back to its decimal text before validation so valid IDs
+    are not rejected merely because of YAML scalar typing.
     """
     options = node.get("reality-opts")
-    if options is None:
-        return True
-    if not isinstance(options, dict):
+    if options is None or not isinstance(options, dict):
         return True
     short_id = options.get("short-id", "")
     if short_id is None:
         short_id = ""
+    elif isinstance(short_id, int) and not isinstance(short_id, bool):
+        short_id = str(short_id)
+        options["short-id"] = short_id
     return isinstance(short_id, str) and re.fullmatch(
         r"(?:[0-9a-fA-F]{2}){0,8}", short_id
     ) is not None
