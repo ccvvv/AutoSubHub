@@ -9,14 +9,18 @@ on:
       - "app_control.sh"
       - "termux_probe.py"
       - "download_candidates.py"
+      - "scripts/streaming_checker.py"
+      - "tests/test_streaming_checker.py"
       - ".github/workflows/build-android-app.yml"
   push:
-    branches: [main, feature/android-dashboard, feature/android-cumulative-queue-receipts, feature/auto-cumulative-pool-rules]
+    branches: [main, feature/android-dashboard, feature/android-cumulative-queue-receipts, feature/auto-cumulative-pool-rules, feature/streaming-check-test, integration/main-unified]
     paths:
       - "android-app/**"
       - "app_control.sh"
       - "termux_probe.py"
       - "upload_receipt.py"
+      - "scripts/streaming_checker.py"
+      - "tests/test_streaming_checker.py"
       - ".github/workflows/build-android-app.yml"
 
 permissions:
@@ -31,7 +35,9 @@ jobs:
       - name: Check Termux dispatcher shell syntax
         run: bash -n app_control.sh
       - name: Check Python syntax
-        run: python3 -m py_compile termux_probe.py download_candidates.py upload_receipt.py
+        run: python3 -m py_compile termux_probe.py download_candidates.py upload_receipt.py scripts/streaming_checker.py tests/test_streaming_checker.py
+      - name: Test streaming verdict rules
+        run: python3 -m unittest discover -s tests -p 'test_streaming_checker.py' -v
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:

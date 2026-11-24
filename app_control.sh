@@ -59,7 +59,7 @@ case "$ACTION" in
     fi
     rm -f probe.pause probe.stop
     say "开始使用本地候选文件测速；不会联网获取候选列表。请确认系统 VPN 已关闭。"
-    python -u termux_probe.py --candidate-file candidate-cache/candidate-local.yaml --workers "$WORKERS" --service-timeout 3 --timeout 5 --min-speed-kbps 200 --high-speed-kbps 500 --output receipt.json --progress progress.json 2>&1 | tee -a "$LOG"
+    python -u termux_probe.py --candidate-file candidate-cache/candidate-local.yaml --workers "$WORKERS" --service-timeout 3 --streaming-timeout 2 --timeout 5 --min-speed-kbps 200 --high-speed-kbps 500 --output receipt.json --progress progress.json 2>&1 | tee -a "$LOG"
     code=${PIPESTATUS[0]}
     if [ "$code" -ne 0 ] && [ -s progress.json ]; then sed -i 's/"status":"running"/"status":"failed"/; s/"status":"preparing"/"status":"failed"/' progress.json; fi
     say "本地候选测速结束，退出码：$code"; exit "$code"
@@ -73,7 +73,7 @@ case "$ACTION" in
     fi
     rm -f probe.pause probe.stop
     say "测速开始：并发$WORKERS，应用检测超时3秒，下载超时5秒"
-    python -u termux_probe.py --workers "$WORKERS" --service-timeout 3 --timeout 5 --min-speed-kbps 200 --high-speed-kbps 500 --output receipt.json --progress progress.json 2>&1 | tee -a "$LOG"
+    python -u termux_probe.py --workers "$WORKERS" --service-timeout 3 --streaming-timeout 2 --timeout 5 --min-speed-kbps 200 --high-speed-kbps 500 --output receipt.json --progress progress.json 2>&1 | tee -a "$LOG"
     code=${PIPESTATUS[0]}
     if [ "$code" -ne 0 ] && [ -s progress.json ]; then sed -i 's/"status":"running"/"status":"failed"/; s/"status":"preparing"/"status":"failed"/' progress.json; fi
     say "测速结束，退出码：$code"; exit "$code"

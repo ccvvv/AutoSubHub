@@ -24,6 +24,7 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
     private lateinit var nodeInfo: TextView
     private lateinit var speedInfo: TextView
     private lateinit var appsInfo: TextView
+    private lateinit var streamingInfo: TextView
     private lateinit var candidateInfo: TextView
     private lateinit var logPanel: LinearLayout
     private lateinit var logText: TextView
@@ -90,8 +91,9 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
         nodeInfo = detailLine("当前节点：等待测速")
         speedInfo = detailLine("最近速度：—")
         appsInfo = detailLine("应用检测：等待检测")
+        streamingInfo = detailLine("流媒体检测：等待检测")
         candidateInfo = detailLine("候选版本更新时间：等待获取")
-        detail.addView(candidateInfo); detail.addView(nodeInfo); detail.addView(speedInfo); detail.addView(appsInfo)
+        detail.addView(candidateInfo); detail.addView(nodeInfo); detail.addView(speedInfo); detail.addView(appsInfo); detail.addView(streamingInfo)
         body.addView(detail)
 
         val actions = card()
@@ -252,6 +254,15 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
                     val ok=checks.optJSONObject(key)?.optString("status")=="passed"
                     serviceName(key)+(if(ok) " ✓" else " ×")
                 }
+            val media=d.optJSONObject("streaming_checks")
+            val verdict=d.optString("streaming_verdict","")
+            streamingInfo.text="流媒体检测："+if(media==null||media.length()==0) "等待检测" else
+                listOf("netflix","youtube_premium","disney_plus","bilibili","spotify","tiktok").joinToString("  ") { key ->
+                    val item=media.optJSONObject(key)
+                    val state=item?.optString("status","error") ?: "error"
+                    val mark=when(state) { "yes"->"✓"; "no"->"×"; "partial"->"△"; else->"?" }
+                    mediaName(key)+mark
+                }+ "\n流媒体总判定："+if(verdict=="passed") "通过（至少一个平台 yes）" else if(verdict=="failed") "不通过（没有平台 yes）" else "检测中"
             val canUpload = state=="completed" && total>0 && done>=total
             actionButtons["upload"]?.isEnabled=canUpload
             actionButtons["upload"]?.alpha=if(canUpload) 1.0f else 0.55f
@@ -268,6 +279,7 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
     }
     private fun setStat(name:String,value:String) { statViews[name]?.text=value }
     private fun serviceName(k:String)=when(k) { "youtube"->"YouTube"; "telegram"->"TG"; "google"->"Google"; "chatgpt"->"AI"; else->"GitHub" }
+    private fun mediaName(k:String)=when(k) { "netflix"->"Netflix"; "youtube_premium"->"YT Premium"; "disney_plus"->"Disney+"; "bilibili"->"B站"; "spotify"->"Spotify"; else->"TikTok" }
     private fun startPolling(){ handler.removeCallbacks(poll); handler.post(poll) }
 
     private fun runTermux(action:String,showFeedback:Boolean=true,extraArgs:Array<String> = emptyArray()) {

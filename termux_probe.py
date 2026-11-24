@@ -24,6 +24,7 @@ import requests
 import yaml
 
 from scripts.candidate_queue import collect_pending_candidate_batches
+from scripts.streaming_checker import check_streaming_services
 
 REPO = os.getenv("GITHUB_REPOSITORY", "ccvvv/AutoSubHub")
 BRANCH = "published-subscriptions"
@@ -90,6 +91,8 @@ def write_progress(path: Path, status: str, done: int, total: int, results: list
         "latest_speed_kbps": round(latest.get("download_speed_bps", 0) / 1000, 1),
         "latest_category": latest.get("speed_category", "checking"),
         "app_checks": latest.get("application_checks", {}),
+        "streaming_checks": latest.get("streaming_checks", {}),
+        "streaming_verdict": latest.get("streaming_verdict", ""),
         "updated_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
     }
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -228,6 +231,8 @@ def main() -> None:
     parser.add_argument("--github-url", default="https://github.com/")
     parser.add_argument("--service-timeout", type=int, default=3,
                         help="Per-application connection/read timeout in seconds (default 3)")
+    parser.add_argument("--streaming-timeout", type=int, default=8,
+                        help="Per-streaming-platform connection/read timeout in seconds (default 8)")
     parser.add_argument("--timeout", type=int, default=5,
                         help="Connection and read-inactivity timeout in seconds (default 5)")
     parser.add_argument("--api-port", type=int, default=int(os.getenv("PROBE_API_PORT", "19090")),
@@ -248,7 +253,7 @@ def main() -> None:
         raise SystemExit("--workers must be between 1 and 300; increase gradually on phones")
     if args.limit < 0:
         raise SystemExit("--limit must be zero (all nodes) or a positive integer")
-    if args.timeout < 1 or args.service_timeout < 1:
+    if args.timeout < 1 or args.service_timeout < 1 or args.streaming_timeout < 1:
         raise SystemExit("timeouts must be at least 1 second")
     if args.min_speed_kbps <= 0 or args.high_speed_kbps <= args.min_speed_kbps:
         raise SystemExit("speed thresholds must be positive and high-speed must exceed minimum speed")
@@ -548,6 +553,10 @@ def main() -> None:
                     return {"status": "failed", **exception_details(exc),
                             "elapsed_ms": round((time.perf_counter() - started) * 1000)}
 
+            # One bounded pool is shared by all node workers. This avoids spawning six
+            # extra threads per node when the phone concurrency is set to 200 or 300.
+            streaming_pool = ThreadPoolExecutor(max_workers=min(24, max(4, args.workers)))
+
             def probe_worker(worker_index: int, batch: list[dict]) -> None:
                 selector = api_base + f"/proxies/PHONE-{worker_index:02d}"
                 proxy_url = f"http://127.0.0.1:{args.port_base + worker_index}"
@@ -586,6 +595,41 @@ def main() -> None:
                                 service, target_url, proxy_url, args.service_timeout
                             )
                             record["application_checks"][service] = check_result
+                        current_stage = "streaming_checks"
+                        # Independent media-platform checks run for every selected node,
+                        # even when the original five-site application gate fails.
+                        # They reuse this worker's already-selected Mihomo listener.
+                        try:
+                            record["streaming_checks"], record["streaming_verdict"] = (
+                                check_streaming_services(
+                                    proxy_url, args.streaming_timeout, streaming_pool
+                                )
+                            )
+                        except Exception as streaming_error:
+                            # A streaming-check exception is recorded as a failed streaming gate;
+                            # it does not modify the five-site application-check results.
+                            record["streaming_checks"] = {
+                                key: {
+                                    "status": "error",
+                                    "confidence": "low",
+                                    "detail": (
+                                        f"{type(streaming_error).__name__}: "
+                                        f"{str(streaming_error)[:160]}"
+                                    ),
+                                }
+                                for key in (
+                                    "netflix", "youtube_premium", "disney_plus",
+                                    "bilibili", "spotify", "tiktok",
+                                )
+                            }
+                            record["streaming_verdict"] = "failed"
+                        passed_streaming = [
+                            key for key, value in record["streaming_checks"].items()
+                            if value.get("status") == "yes"
+                        ]
+                        print(f"Streaming={len(passed_streaming)}/{len(record['streaming_checks'])} "
+                              f"yes; verdict={record['streaming_verdict']}")
+                        current_stage = "application_checks"
                         passed_services = [
                             service for service, result in record["application_checks"].items()
                             if result["status"] == "passed"
@@ -600,10 +644,20 @@ def main() -> None:
                             "passed_services": passed_services,
                             "status": "passed" if not service_failed else "failed",
                         }
+                        streaming_failed = record.get("streaming_verdict") != "passed"
+                        record["streaming_gate"] = {
+                            "required_yes": 1,
+                            "passed_count": len(passed_streaming),
+                            "status": "passed" if not streaming_failed else "failed",
+                        }
                         if service_failed:
                             record["failure_stage"] = "application_checks"
+                        elif streaming_failed:
+                            record["failure_stage"] = "streaming_checks"
 
-                        if not service_failed:
+                        # A node reaches download/final qualification only after both
+                        # local gates pass. Cloud-side logic must not repeat the five-site test.
+                        if not service_failed and not streaming_failed:
                             current_stage = "download"
                             start = time.perf_counter()
                             received = 0
@@ -671,6 +725,7 @@ def main() -> None:
                            for i, batch in enumerate(batches) if batch]
                 for future in as_completed(futures):
                     future.result()
+            streaming_pool.shutdown(wait=True)
         finally:
             mihomo.terminate()
             try:
@@ -701,11 +756,20 @@ def main() -> None:
         "min_speed_bps": int(args.min_speed_kbps * 1000),
         "high_speed_bps": int(args.high_speed_kbps * 1000),
         "service_timeout_seconds": args.service_timeout,
+        "streaming_timeout_seconds": args.streaming_timeout,
         "service_urls": {"youtube": args.youtube_url, "telegram": args.telegram_url,
                          "google": args.google_url, "chatgpt": args.chatgpt_url,
                          "github": args.github_url},
         "download_url": args.download_url,
         "max_download_bytes": args.max_bytes,
+        "streaming_urls": {
+            "netflix": "https://www.netflix.com/title/80018499",
+            "youtube_premium": "https://www.youtube.com/premium",
+            "disney_plus": "https://www.disneyplus.com/",
+            "bilibili": "https://api.bilibili.com/x/web-interface/nav",
+            "spotify": "https://open.spotify.com/",
+            "tiktok": "https://www.tiktok.com/",
+        },
         "results": receipt_results,
     }
     Path(args.output).write_text(json.dumps(receipt, ensure_ascii=False, indent=2) + "\n",
@@ -730,7 +794,10 @@ def main() -> None:
     else:
         final_stage = "测速完成"
     write_progress(progress_path, run_status, len(receipt_results), len(proxies),
-                   receipt_results, started, stage=final_stage)
+                   receipt_results, started,
+                   current_node=receipt_results[-1].get("name", "") if receipt_results else "",
+                   latest=receipt_results[-1] if receipt_results else {},
+                   stage=final_stage)
 
 
 
