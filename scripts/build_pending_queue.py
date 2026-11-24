@@ -13,7 +13,7 @@ import tempfile
 
 import yaml
 
-from scripts.candidate_queue import collect_pending_candidate_batches
+from candidate_queue import collect_pending_candidate_batches
 
 
 def atomic_write(path: Path, content: bytes) -> None:
