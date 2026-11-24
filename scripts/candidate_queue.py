@@ -108,7 +108,7 @@ def collect_pending_candidate_batches(remote: str, repo: str, branch: str,
     # receipt is authoritative and prevents the already-tested batches replaying.
     remote_cursor = ""
     receipt_url = (
-        f"https://raw.githubusercontent.com/{repo}/probe-receipts/receipts/latest.json"
+        f"https://raw.githubusercontent.com/{repo}/published-subscriptions/receipts/latest.json"
     )
     try:
         previous_receipt = session.get(receipt_url, timeout=20)

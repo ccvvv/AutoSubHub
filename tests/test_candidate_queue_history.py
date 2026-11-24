@@ -36,7 +36,7 @@ class FakeSession:
 
     def get(self, url, timeout):
         self.requested.append(url)
-        if url.endswith("/probe-receipts/receipts/latest.json"):
+        if url.endswith("/published-subscriptions/receipts/latest.json"):
             if self.receipt_data is not None:
                 return FakeResponse(data=self.receipt_data)
             missing = FakeResponse(data={})
@@ -122,7 +122,7 @@ class CandidateQueueHistoryTests(unittest.TestCase):
         self.assertEqual(commits, [A])
         self.assertEqual(tip, A)
         self.assertEqual(len(candidate_result["proxies"]), 1)
-        self.assertTrue(any(url.endswith("/probe-receipts/receipts/latest.json")
+        self.assertTrue(any(url.endswith("/published-subscriptions/receipts/latest.json")
                             for url in session.requested))
 
     def test_remote_receipt_advances_stale_local_cursor_after_upload_crash(self):

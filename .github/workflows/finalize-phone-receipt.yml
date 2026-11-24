@@ -2,8 +2,11 @@ name: Finalize phone-tested subscription
 
 on:
   push:
-    branches: [probe-receipts, main]
-    paths: ["receipts/*.json", ".github/workflows/finalize-phone-receipt.yml", "scripts/finalize_phone_receipt.py"]
+    branches: [published-subscriptions]
+    paths:
+      - "receipts/latest.json"
+      - "receipts/candidate.yaml"
+      - "receipts/manifest.json"
   workflow_dispatch:
 
 permissions:
@@ -17,55 +20,55 @@ jobs:
   finalize:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout project
+      - name: Checkout code from main
         uses: actions/checkout@v4
         with:
           ref: main
+
       - name: Install Python dependencies
         run: pip install pyyaml
-      - name: Fetch receipt and its exact merged candidate snapshot
+
+      - name: Fetch the exact receipt snapshot from the data branch
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          mkdir -p incoming
-          git clone --depth 1 --branch probe-receipts "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" receipts
-          if [ "${GITHUB_EVENT_NAME}" = "push" ] && [ "${GITHUB_REF}" = "refs/heads/probe-receipts" ]; then
-            git -C receipts fetch --no-tags origin "${GITHUB_SHA}"
+          git clone --filter=blob:none --no-checkout "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" published
+          git -C published fetch --no-tags origin published-subscriptions
+          if [ "${GITHUB_EVENT_NAME}" = "push" ] && [ "${GITHUB_REF}" = "refs/heads/published-subscriptions" ]; then
+            git -C published fetch --no-tags origin "${GITHUB_SHA}"
             RECEIPT_REF="${GITHUB_SHA}"
           else
-            RECEIPT_REF="origin/probe-receipts"
+            RECEIPT_REF="origin/published-subscriptions"
           fi
-          git -C receipts show "${RECEIPT_REF}:receipts/latest.json" > incoming/receipt.json
-          if git -C receipts cat-file -e "${RECEIPT_REF}:receipts/candidate.yaml" 2>/dev/null; then
-            git -C receipts show "${RECEIPT_REF}:receipts/candidate.yaml" > incoming/subscription.yaml
-            git -C receipts show "${RECEIPT_REF}:receipts/manifest.json" > incoming/manifest.json
-          else
-            # Backward compatibility for receipts uploaded by the earlier single-batch client.
-            CANDIDATE_COMMIT="$(python -c 'import json; print(json.load(open("incoming/receipt.json"))["candidate_commit"])')"
-            if ! [[ "${CANDIDATE_COMMIT}" =~ ^[0-9a-f]{40}$ ]]; then
-              echo "Receipt candidate_commit is missing or invalid."
-              exit 1
-            fi
-            git clone --filter=blob:none --branch published-subscriptions "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" published
-            git -C published fetch --no-tags origin "${CANDIDATE_COMMIT}"
-            git -C published show "${CANDIDATE_COMMIT}:candidate/subscription.yaml" > incoming/subscription.yaml
-            git -C published show "${CANDIDATE_COMMIT}:candidate/manifest.json" > incoming/manifest.json
+          if ! git -C published cat-file -e "${RECEIPT_REF}:receipts/latest.json" 2>/dev/null; then
+            echo "No pending phone receipt on published-subscriptions."
+            echo "has_receipt=false" >> "${GITHUB_OUTPUT}"
+            exit 0
           fi
-          if [ ! -d published ]; then
-            git clone --filter=blob:none --branch published-subscriptions "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" published
-          fi
+          mkdir -p incoming
+          git -C published show "${RECEIPT_REF}:receipts/latest.json" > incoming/receipt.json
+          git -C published show "${RECEIPT_REF}:receipts/candidate.yaml" > incoming/subscription.yaml
+          git -C published show "${RECEIPT_REF}:receipts/manifest.json" > incoming/manifest.json
+          sha256sum incoming/receipt.json | cut -d' ' -f1 > incoming/receipt.sha256
+          echo "has_receipt=true" >> "${GITHUB_OUTPUT}"
+        id: receipt
+
       - name: Validate receipt and build final
+        if: steps.receipt.outputs.has_receipt == 'true'
         env:
           MIN_SPEED_BPS: "200000"
           HIGH_SPEED_BPS: "500000"
         run: |
           set -euo pipefail
           python scripts/finalize_phone_receipt.py incoming/subscription.yaml incoming/manifest.json incoming/receipt.json incoming/final.yaml incoming/final-v2raytun.txt
-      - name: Rotate and publish three final versions
+
+      - name: Publish final versions without overwriting concurrent data
+        if: steps.receipt.outputs.has_receipt == 'true'
         run: |
           set -euo pipefail
           cd published
+          git checkout -B publish-work origin/published-subscriptions
           mkdir -p final
           if [ -f final/previous.yaml ]; then cp final/previous.yaml final/older.yaml; fi
           if [ -f final/latest.yaml ]; then cp final/latest.yaml final/previous.yaml; fi
@@ -75,28 +78,79 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add final/ lifecycle.json
-          if git diff --cached --quiet; then
-            echo "Final subscription is unchanged; nothing to publish."
-            exit 0
+          if ! git diff --cached --quiet; then
+            git commit -m "Publish phone-tested final subscription"
+            pushed=false
+            for attempt in 1 2 3; do
+              if git push origin HEAD:published-subscriptions; then
+                pushed=true
+                break
+              fi
+              git fetch origin published-subscriptions
+              if ! git rebase origin/published-subscriptions; then
+                git rebase --abort || true
+                echo "Concurrent data-branch conflict; receipt remains available for retry."
+                exit 1
+              fi
+            done
+            if [ "$pushed" != true ]; then
+              echo "Could not publish after three fast-forward retries."
+              exit 1
+            fi
+          else
+            echo "Final subscription is unchanged."
           fi
-          git commit -m "Publish phone-tested final subscription"
-          git push origin HEAD:published-subscriptions
 
-      - name: Consume processed receipt bundle
-        if: success()
+      - name: Consume only the receipt that was actually processed
+        if: steps.receipt.outputs.has_receipt == 'true'
         run: |
           set -euo pipefail
-          cd receipts
+          cd published
+          git fetch origin published-subscriptions
+          git checkout -B consume-work origin/published-subscriptions
+          expected="$(cat ../incoming/receipt.sha256)"
+          if [ ! -f receipts/latest.json ]; then
+            echo "Receipt was already consumed."
+            exit 0
+          fi
+          actual="$(sha256sum receipts/latest.json | cut -d' ' -f1)"
+          if [ "$actual" != "$expected" ]; then
+            echo "A newer phone receipt is present; leaving it untouched."
+            exit 0
+          fi
           files=()
           for file in receipts/latest.json receipts/candidate.yaml receipts/manifest.json; do
             if [ -f "$file" ]; then files+=("$file"); fi
           done
           if [ "${#files[@]}" -eq 0 ]; then
-            echo "No active receipt bundle to consume."
+            echo "No receipt bundle to consume."
             exit 0
           fi
           git rm -- "${files[@]}"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git commit -m "[skip ci] Consume successfully processed phone receipt"
-          git push origin HEAD:probe-receipts
+          pushed=false
+          for attempt in 1 2 3; do
+            if git push origin HEAD:published-subscriptions; then
+              pushed=true
+              break
+            fi
+            git fetch origin published-subscriptions
+            if ! git rebase origin/published-subscriptions; then
+              git rebase --abort || true
+              echo "Receipt cleanup conflicted with a concurrent update; receipt remains for safe retry."
+              exit 1
+            fi
+            if [ -f receipts/latest.json ]; then
+              actual="$(sha256sum receipts/latest.json | cut -d' ' -f1)"
+              if [ "$actual" != "$expected" ]; then
+                echo "A newer receipt arrived during cleanup; preserving it."
+                exit 0
+              fi
+            fi
+          done
+          if [ "$pushed" != true ]; then
+            echo "Could not consume receipt after three fast-forward retries."
+            exit 1
+          fi

@@ -67,7 +67,7 @@ export GITHUB_REPOSITORY='ccvvv/AutoSubHub'
 python upload_receipt.py --input receipt.json
 ```
 
-The uploader creates the `probe-receipts` branch from `main` if it does not exist, then writes `receipts/latest.json` plus the exact merged `receipts/candidate.yaml` and `receipts/manifest.json` used for that test. Only after the complete bundle is pushed does it advance `~/.autosubhub_probe_state.json` to the newest included candidate commit. If upload fails, keep all three local files and rerun only the upload command; do not repeat the speed test. The uploader validates the receipt and snapshot hashes and never deletes or changes the local files.
+The uploader writes `receipts/latest.json` plus the exact merged `receipts/candidate.yaml` and `receipts/manifest.json` to the existing `published-subscriptions` data branch. It no longer creates a separate receipt branch. Only after the complete bundle is pushed does it advance `~/.autosubhub_probe_state.json` to the newest included candidate commit. If upload fails, keep all three local files and rerun only the upload command; do not repeat the speed test. The uploader validates the receipt and snapshot hashes and never deletes or changes the local files.
 
 Never commit the token or put it in the app source. Protect the token and revoke it if it is exposed.
 

@@ -199,6 +199,18 @@ def parse_source(text: str) -> tuple[list[dict], int]:
             except (TypeError, ValueError):
                 continue
             node["type"] = str(node.get("type", "")).lower()
+            # Some upstream VMess YAML feeds serialize an absent security
+            # option as `security: null`. Mihomo rejects that explicit null;
+            # omission correctly selects the protocol default.
+            if node["type"] == "vmess":
+                if node.get("security") is None:
+                    node.pop("security", None)
+                # Mihomo reports a null VMess cipher as an unsupported
+                # security type. Use the protocol's normal automatic cipher
+                # when an upstream YAML feed explicitly supplies null/empty.
+                cipher = node.get("cipher")
+                if cipher is None or (isinstance(cipher, str) and cipher.strip().lower() in {"", "null", "none"}):
+                    node["cipher"] = "auto"
             if node["type"] not in SUPPORTED_PROXY_TYPES or not 1 <= node["port"] <= 65535:
                 continue
             if not valid_reality_node(node):
