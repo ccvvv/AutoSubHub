@@ -114,5 +114,21 @@ jobs:
             echo "Candidate unchanged; public URL already serves this version."
           else
             git commit -m "Publish latest public candidate subscription"
-            git push origin HEAD:published-subscriptions
+            pushed=false
+            for attempt in 1 2 3; do
+              if git push origin HEAD:published-subscriptions; then
+                pushed=true
+                break
+              fi
+              git fetch origin published-subscriptions
+              if ! git rebase origin/published-subscriptions; then
+                git rebase --abort || true
+                echo "Concurrent data-branch conflict; candidate snapshot was not force-pushed."
+                exit 1
+              fi
+            done
+            if [ "$pushed" != true ]; then
+              echo "Could not publish candidate snapshot after three fast-forward retries."
+              exit 1
+            fi
           fi
