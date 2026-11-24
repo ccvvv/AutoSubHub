@@ -81,10 +81,19 @@ def valid_reality_short_id(value: str) -> bool:
 
 
 def valid_reality_node(node: dict) -> bool:
+    """Validate REALITY short-id and omit an empty optional value.
+
+    Mihomo rejects an explicitly present empty short-id on some proxy entries;
+    an absent short-id is the correct representation when the source omits it.
+    """
     options = node.get("reality-opts")
     if not isinstance(options, dict) or not options:
         return True
-    return valid_reality_short_id(str(options.get("short-id") or ""))
+    short_id = options.get("short-id")
+    if short_id is None or (isinstance(short_id, str) and not short_id.strip()):
+        options.pop("short-id", None)
+        return True
+    return valid_reality_short_id(str(short_id).strip())
 
 
 def parse_uri(uri: str) -> dict | None:
