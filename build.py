@@ -93,7 +93,15 @@ def valid_reality_node(node: dict) -> bool:
     if short_id is None or (isinstance(short_id, str) and not short_id.strip()):
         options.pop("short-id", None)
         return True
-    return valid_reality_short_id(str(short_id).strip())
+    # YAML may parse an unquoted all-digit hex short-id as an integer.
+    # Mihomo expects the value to be a string, so normalize before validation.
+    if isinstance(short_id, bool):
+        return False
+    short_id = str(short_id).strip()
+    if not valid_reality_short_id(short_id):
+        return False
+    options["short-id"] = short_id
+    return True
 
 
 def parse_uri(uri: str) -> dict | None:
