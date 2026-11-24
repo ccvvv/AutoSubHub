@@ -55,6 +55,30 @@ class BuildNodeIdentityTests(unittest.TestCase):
         self.assertEqual(len(nodes), 1)
         self.assertNotIn("short-id", nodes[0]["reality-opts"])
 
+    def test_yaml_with_non_mapping_reality_options_is_skipped(self):
+        source = """proxies:
+  - name: malformed-reality
+    type: vless
+    server: example.com
+    port: 443
+    uuid: user-id
+    tls: true
+    reality-opts: "not-a-map"
+  - name: good-node
+    type: vless
+    server: example.org
+    port: 443
+    uuid: user-id
+"""
+        nodes, _ = parse_source(source)
+        self.assertEqual([node["name"] for node in nodes], ["good-node"])
+
+    def test_final_gate_rejects_non_mapping_reality_options(self):
+        from build import valid_reality_node
+        self.assertFalse(valid_reality_node({
+            "name": "bad", "reality-opts": "invalid"
+        }))
+
     def test_yaml_with_invalid_reality_short_id_is_skipped(self):
         source = """proxies:
   - name: bad-reality
