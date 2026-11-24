@@ -86,8 +86,14 @@ def valid_reality_node(node: dict) -> bool:
     Mihomo rejects an explicitly present empty short-id on some proxy entries;
     an absent short-id is the correct representation when the source omits it.
     """
+    if "reality-opts" not in node:
+        return True
     options = node.get("reality-opts")
-    if not isinstance(options, dict) or not options:
+    # A present but non-mapping reality-opts value is malformed. Previously
+    # this slipped through because non-dicts were treated like no options.
+    if not isinstance(options, dict):
+        return False
+    if not options:
         return True
     short_id = options.get("short-id")
     if short_id is None or (isinstance(short_id, str) and not short_id.strip()):
@@ -555,8 +561,25 @@ def main() -> None:
     print(f"Protocol handshake diagnostic passed: {handshake_passed_count} / {len(candidates)}; "
           f"failures retained for Mihomo: {handshake_failed_count}; reasons: {handshake_failures}")
 
-    tcp_ok = unique_names(candidates)
-    print(f"Starting Mihomo real proxy tests on all {len(tcp_ok)} parsed candidates")
+    tcp_ok = []
+    invalid_reality = 0
+    for node in unique_names(candidates):
+        if valid_reality_node(node):
+            tcp_ok.append(node)
+        else:
+            invalid_reality += 1
+            print(
+                "Skip malformed REALITY options at final gate: "
+                f"name={node.get('name', '(unnamed)')!r}, "
+                f"short-id={((node.get('reality-opts') or {}).get('short-id') if isinstance(node.get('reality-opts'), dict) else '(non-mapping reality-opts)')!r}"
+            )
+    print(
+        f"Final REALITY validation: kept {len(tcp_ok)}; "
+        f"skipped {invalid_reality} malformed candidates"
+    )
+    if not tcp_ok:
+        raise RuntimeError("No candidates remain after final REALITY validation")
+    print(f"Starting Mihomo real proxy tests on {len(tcp_ok)} validated candidates")
     os.makedirs("site", exist_ok=True)
 
     with tempfile.TemporaryDirectory(prefix="autohub-") as tmp:
