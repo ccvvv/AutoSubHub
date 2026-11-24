@@ -501,7 +501,18 @@ def main() -> None:
         check = subprocess.run([os.getenv("MIHOMO_BIN", "./mihomo"), "-t", "-f", test_path],
                                capture_output=True, text=True, timeout=45)
         if check.returncode:
-            raise RuntimeError("Mihomo rejected test config: " + (check.stderr or check.stdout)[-2500:])
+            diagnostic = check.stderr or check.stdout
+            match = re.search(r"proxy (\\d+): invalid REALITY short ID", diagnostic)
+            if match:
+                bad_index = int(match.group(1)) - 1
+                if 0 <= bad_index < len(tcp_ok):
+                    bad_node = tcp_ok[bad_index]
+                    options = bad_node.get("reality-opts")
+                    short_id = options.get("short-id") if isinstance(options, dict) else None
+                    print("REALITY diagnostic: index=%d name=%r type=%r tls=%r opts=%r short_id_type=%s short_id=%r" % (
+                        bad_index + 1, bad_node.get("name"), bad_node.get("type"), bad_node.get("tls"),
+                        options, type(short_id).__name__, short_id))
+            raise RuntimeError("Mihomo rejected test config: " + diagnostic[-2500:])
         proc = subprocess.Popen([os.getenv("MIHOMO_BIN", "./mihomo"), "-d", tmp, "-f", test_path],
                                 stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
         try:
