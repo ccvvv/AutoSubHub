@@ -509,9 +509,17 @@ def main() -> None:
                     bad_node = tcp_ok[bad_index]
                     options = bad_node.get("reality-opts")
                     short_id = options.get("short-id") if isinstance(options, dict) else None
-                    print("REALITY diagnostic: index=%d name=%r type=%r tls=%r opts=%r short_id_type=%s short_id=%r" % (
-                        bad_index + 1, bad_node.get("name"), bad_node.get("type"), bad_node.get("tls"),
-                        options, type(short_id).__name__, short_id))
+                    print("REALITY diagnostic: index=%d full_node=%r short_id_type=%s short_id=%r" % (
+                        bad_index + 1, bad_node, type(short_id).__name__, short_id))
+                    for nearby in range(max(0, bad_index - 2), min(len(tcp_ok), bad_index + 3)):
+                        item = tcp_ok[nearby]
+                        print("REALITY nearby: index=%d name=%r type=%r tls=%r reality_opts=%r" % (
+                            nearby + 1, item.get("name"), item.get("type"), item.get("tls"), item.get("reality-opts")))
+                    for item_index, item in enumerate(tcp_ok, 1):
+                        opts = item.get("reality-opts")
+                        if opts is not None or "reality" in repr(item).lower():
+                            print("REALITY-bearing proxy: index=%d name=%r type=%r tls=%r opts=%r" % (
+                                item_index, item.get("name"), item.get("type"), item.get("tls"), opts))
             raise RuntimeError("Mihomo rejected test config: " + diagnostic[-2500:])
         proc = subprocess.Popen([os.getenv("MIHOMO_BIN", "./mihomo"), "-d", tmp, "-f", test_path],
                                 stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
