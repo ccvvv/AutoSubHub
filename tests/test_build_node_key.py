@@ -1,6 +1,8 @@
+import os
+import tempfile
 import unittest
 
-from build import node_key, parse_uri, parse_source, valid_reality_short_id
+from build import node_key, parse_uri, parse_source, valid_reality_short_id, write_yaml
 
 
 class BuildNodeIdentityTests(unittest.TestCase):
@@ -21,6 +23,21 @@ class BuildNodeIdentityTests(unittest.TestCase):
         node = parse_uri(uri)
         self.assertIsNotNone(node)
         self.assertNotIn("short-id", node["reality-opts"])
+
+    def test_yaml_writer_quotes_scientific_notation_reality_short_id(self):
+        config = {
+            "proxies": [{
+                "name": "scientific-short-id",
+                "type": "vless",
+                "reality-opts": {"short-id": "172066e9"},
+            }]
+        }
+        with tempfile.TemporaryDirectory() as tmp:
+            path = os.path.join(tmp, "config.yaml")
+            write_yaml(path, config)
+            with open(path, encoding="utf-8") as handle:
+                output = handle.read()
+        self.assertIn("short-id: '172066e9'", output)
 
     def test_yaml_numeric_reality_short_id_is_normalized_to_string(self):
         source = """proxies:
