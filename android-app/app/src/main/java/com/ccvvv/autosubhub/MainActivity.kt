@@ -113,6 +113,7 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
         action(actions,"暂停测速","pause")
         action(actions,"继续测速","resume")
         action(actions,"停止测速","stop")
+        action(actions,"重置本轮状态","reset")
         actionButtons["pause"]?.visibility=View.GONE
         actionButtons["resume"]?.visibility=View.GONE
         actionButtons["stop"]?.visibility=View.GONE
@@ -187,6 +188,19 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
                     progress.isIndeterminate=false
                     actionButtons["pause"]?.visibility=View.GONE
                     actionButtons["resume"]?.visibility=View.GONE
+                }
+                if(cmd=="reset") {
+                    android.app.AlertDialog.Builder(this@MainActivity)
+                        .setTitle("重置本轮测速状态？")
+                        .setMessage("只清除本轮界面进度和暂停/停止标记。不会删除测速回执、候选清单、已上传历史或累计队列游标。若测速仍在运行，重置会被拒绝。")
+                        .setNegativeButton("取消", null)
+                        .setPositiveButton("确认重置") { _, _ ->
+                            prefs.edit().putBoolean("probe_active",false).apply()
+                            handler.removeCallbacks(poll)
+                            runTermux("reset")
+                        }
+                        .show()
+                    return@setOnClickListener
                 }
                 runTermux(cmd, extraArgs=extraArgs)
             }
