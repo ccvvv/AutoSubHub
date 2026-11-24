@@ -502,7 +502,7 @@ def main() -> None:
                                capture_output=True, text=True, timeout=45)
         if check.returncode:
             diagnostic = check.stderr or check.stdout
-            match = re.search(r"proxy (\\d+): invalid REALITY short ID", diagnostic)
+            match = re.search(r"proxy (\d+): invalid REALITY short ID", diagnostic)
             if match:
                 bad_index = int(match.group(1)) - 1
                 if 0 <= bad_index < len(tcp_ok):
