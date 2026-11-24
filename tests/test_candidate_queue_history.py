@@ -155,6 +155,34 @@ class CandidateQueueHistoryTests(unittest.TestCase):
         self.assertEqual(tip, A)
         self.assertEqual(len(candidate_result["proxies"]), 1)
 
+    def test_receipt_server_error_fails_closed_instead_of_bootstrapping(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            state_path = Path(tmp) / "missing-state.json"
+            session = FakeSession({})
+            session.receipt_data = None
+            original_get = session.get
+
+            def failing_get(url, timeout):
+                if url.endswith("/published-subscriptions/receipts/latest.json"):
+                    response = FakeResponse(data={})
+                    response.status_code = 503
+                    return response
+                return original_get(url, timeout)
+
+            session.get = failing_get
+            git_results = [
+                type("Result", (), {"stdout": "false"})(),
+                type("Result", (), {"stdout": ""})(),
+                type("Result", (), {"stdout": f"{A}" + chr(10) + f"{B}" + chr(10)})(),
+            ]
+            with patch("scripts.candidate_queue.subprocess.run", side_effect=git_results):
+                with self.assertRaisesRegex(RuntimeError, "HTTP 503"):
+                    collect_pending_candidate_batches(
+                        "https://github.com/ccvvv/AutoSubHub.git",
+                        "ccvvv/AutoSubHub", "published-subscriptions",
+                        session, state_path,
+                    )
+
     def test_unknown_cursor_fails_closed_instead_of_skipping_batches(self):
         with tempfile.TemporaryDirectory() as tmp:
             state_path = Path(tmp) / "queue.json"
