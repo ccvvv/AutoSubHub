@@ -461,9 +461,37 @@ def final_config(proxies: list[dict]) -> dict:
     }
 
 
+class QuotedYamlString(str):
+    """A string that must stay a YAML string even when it resembles a number."""
+
+
+class AutoHubSafeDumper(yaml.SafeDumper):
+    pass
+
+
+def _represent_quoted_yaml_string(dumper, value):
+    return dumper.represent_scalar("tag:yaml.org,2002:str", value, style="'")
+
+ 
+AutoHubSafeDumper.add_representer(QuotedYamlString, _represent_quoted_yaml_string)
+
+
 def write_yaml(path: str, data: dict) -> None:
+    # YAML 1.1 treats strings such as 172066e9 as floating-point values.
+    # Mihomo then converts that float back to a different string and rejects
+    # the REALITY short-id. Force these fields to remain quoted YAML strings.
+    proxies = data.get("proxies")
+    if isinstance(proxies, list):
+        for proxy in proxies:
+            if not isinstance(proxy, dict):
+                continue
+            options = proxy.get("reality-opts")
+            if isinstance(options, dict):
+                short_id = options.get("short-id")
+                if isinstance(short_id, str):
+                    options["short-id"] = QuotedYamlString(short_id)
     with open(path, "w", encoding="utf-8") as f:
-        yaml.safe_dump(data, f, allow_unicode=True, sort_keys=False)
+        yaml.dump(data, f, Dumper=AutoHubSafeDumper, allow_unicode=True, sort_keys=False)
 
 
 def validate_structure(config: dict) -> None:
