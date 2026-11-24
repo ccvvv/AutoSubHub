@@ -93,16 +93,11 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          mkdir -p /tmp/published
-          if git ls-remote --exit-code --heads origin published-subscriptions >/dev/null 2>&1; then
-            git clone --depth 1 --branch published-subscriptions "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" /tmp/published
-          else
-            git clone --depth 1 "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" /tmp/published
-            cd /tmp/published
-            git checkout --orphan published-subscriptions
-            git rm -rf . >/dev/null 2>&1 || true
-            cd -
+          if ! git ls-remote --exit-code --heads origin published-subscriptions >/dev/null 2>&1; then
+            echo "Required data branch published-subscriptions is missing; refusing to create or reset it automatically."
+            exit 1
           fi
+          git clone --depth 1 --branch published-subscriptions "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" /tmp/published
           mkdir -p /tmp/published/candidate
           cp candidates/candidates.yaml /tmp/published/candidate/subscription.yaml
           cp candidates/manifest.json /tmp/published/candidate/manifest.json
