@@ -128,10 +128,3 @@ jobs:
             fi
           fi
 
-      # GITHUB_TOKEN pushes do not trigger downstream workflows automatically.
-      # Explicit workflow_dispatch keeps all queue refreshes serialized in one workflow.
-      - name: Trigger cloud pending queue refresh
-        if: github.event_name != 'pull_request'
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: gh workflow run build-pending-queue.yml --ref main
