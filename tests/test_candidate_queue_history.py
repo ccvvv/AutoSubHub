@@ -71,13 +71,15 @@ class CandidateQueueHistoryTests(unittest.TestCase):
                 type("Result", (), {"stdout": ""})(),
                 type("Result", (), {"stdout": f"{A}" + chr(10) + f"{B}" + chr(10) + f"{C}" + chr(10)})(),
             ]
-            with patch("scripts.candidate_queue.subprocess.run", side_effect=git_results):
+            with patch("scripts.candidate_queue.subprocess.run", side_effect=git_results) as mocked_git:
                 candidate, manifest, commits, tip = collect_pending_candidate_batches(
                     "https://github.com/ccvvv/AutoSubHub.git",
                     "ccvvv/AutoSubHub", "published-subscriptions",
                     session, state_path,
                 )
 
+        log_command = mocked_git.call_args_list[2].args[0]
+        self.assertIn("--diff-filter=AM", log_command)
         self.assertEqual(commits, [B, A])
         self.assertEqual(tip, A)
         self.assertEqual(len(candidate["proxies"]), 2)
