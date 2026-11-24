@@ -30,6 +30,11 @@ CONTROLLER = "http://127.0.0.1:9090"
 PROBE_WORKERS = max(1, min(50, int(os.getenv("CERT_WORKERS", "50") or "50")))
 PROBE_PORT_BASE = 17890
 
+SUPPORTED_PROXY_TYPES = {
+    "ss", "vmess", "vless", "trojan", "socks5", "http", "snell",
+    "hysteria", "hysteria2", "tuic", "wireguard", "ssh", "anytls",
+}
+
 
 def decode_subscription(text: str) -> str:
     text = text.strip().lstrip("\ufeff")
@@ -146,8 +151,6 @@ def parse_source(text: str) -> tuple[list[dict], int]:
     if isinstance(data, dict) and isinstance(data.get("proxies"), list):
         # Normalize common YAML variations and discard incomplete/unsupported entries
         # before they reach TCP and Mihomo testing.
-        valid_types = {"ss", "vmess", "vless", "trojan", "socks5", "http", "snell",
-                       "hysteria", "hysteria2", "tuic", "wireguard", "ssh", "anytls"}
         nodes = []
         http_rejected = 0
         for raw in data["proxies"]:
@@ -159,7 +162,7 @@ def parse_source(text: str) -> tuple[list[dict], int]:
             except (TypeError, ValueError):
                 continue
             node["type"] = str(node.get("type", "")).lower()
-            if node["type"] not in valid_types or not 1 <= node["port"] <= 65535:
+            if node["type"] not in SUPPORTED_PROXY_TYPES or not 1 <= node["port"] <= 65535:
                 continue
             nodes.append(node)
         return nodes, http_rejected
@@ -177,9 +180,19 @@ def parse_source(text: str) -> tuple[list[dict], int]:
     return nodes, 0
 
 
-def node_key(node: dict) -> tuple:
-    return tuple(str(node.get(k, "")) for k in
-                 ("type", "server", "port", "uuid", "password", "cipher", "username"))
+def node_key(node: dict) -> str:
+    """Fingerprint the complete proxy configuration, excluding its display name.
+
+    Names are labels, not identity. Every other field is retained so that
+    TLS/Reality, transport, authentication, plugin and protocol options cannot
+    be accidentally merged into a different node.
+    """
+    identity = {key: value for key, value in node.items() if key != "name"}
+    canonical = json.dumps(
+        identity, ensure_ascii=False, sort_keys=True, separators=(",", ":")
+    )
+    import hashlib
+    return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
 
 
 UDP_PROTOCOLS = {"hysteria", "hysteria2", "tuic", "wireguard"}
@@ -290,6 +303,46 @@ def protocol_handshake_check(node: dict) -> tuple[dict, bool, str]:
     return node, False, last_error
 
 
+def final_node_fingerprints(data: dict) -> set[str]:
+    """Fingerprint only valid proxy nodes, never Clash proxy-group entries."""
+    if not isinstance(data, dict) or not isinstance(data.get("proxies"), list):
+        raise RuntimeError("Published final subscription is missing a valid proxies list")
+    fingerprints = {
+        node_key(node) for node in data["proxies"]
+        if isinstance(node, dict)
+        and str(node.get("type", "")).lower() in SUPPORTED_PROXY_TYPES
+        and node.get("server")
+        and isinstance(node.get("port"), int)
+        and 1 <= node["port"] <= 65535
+    }
+    if not fingerprints:
+        raise RuntimeError("Published final subscription contains no valid proxy nodes")
+    return fingerprints
+
+
+def load_final_node_fingerprints() -> set[str]:
+    """Load the currently published final subscription; fail closed on bad data."""
+    url = os.getenv(
+        "FINAL_SUBSCRIPTION_URL",
+        "https://raw.githubusercontent.com/ccvvv/AutoSubHub/published-subscriptions/final/latest.yaml",
+    )
+    response = requests.get(url, headers={"User-Agent": USER_AGENT}, timeout=30)
+    response.raise_for_status()
+    return final_node_fingerprints(yaml.safe_load(response.text))
+
+
+def exclude_final_nodes(nodes: list[dict], final_fingerprints: set[str]) -> list[dict]:
+    """Exclude nodes already present in the current official final subscription."""
+    return [node for node in nodes if node_key(node) not in final_fingerprints]
+
+
+def set_github_output(name: str, value: str) -> None:
+    output_path = os.getenv("GITHUB_OUTPUT")
+    if output_path:
+        with open(output_path, "a", encoding="utf-8") as output:
+            output.write(f"{name}={value}\n")
+
+
 def unique_names(nodes: list[dict]) -> list[dict]:
     used, result = set(), []
     for i, source in enumerate(nodes, 1):
@@ -352,10 +405,8 @@ def validate_structure(config: dict) -> None:
     names = [p.get("name") for p in proxies]
     if len(names) != len(set(names)) or any(not n for n in names):
         raise RuntimeError("Proxy names are missing or duplicated")
-    valid_types = {"ss", "vmess", "vless", "trojan", "socks5", "http", "snell", "hysteria",
-                   "hysteria2", "tuic", "wireguard", "ssh", "anytls"}
     for p in proxies:
-        if p.get("type") not in valid_types or not p.get("server") or not isinstance(p.get("port"), int):
+        if p.get("type") not in SUPPORTED_PROXY_TYPES or not p.get("server") or not isinstance(p.get("port"), int):
             raise RuntimeError(f"Invalid proxy definition: {p.get('name', '(unnamed)')}")
     available = set(names) | {"DIRECT", "REJECT"}
     for group in config.get("proxy-groups", []):
@@ -428,14 +479,19 @@ def main() -> None:
         source_unique.append(bucket)
 
     all_unique_candidates = [node for bucket in source_unique for node in bucket]
-    # Pure Clash HTTP proxies were excluded while parsing each source, before
-    # global deduplication and all network tests. TCP transports remain allowed.
-    candidates = all_unique_candidates
+    # The official final list is the live exclusion set: once a node leaves
+    # final/latest.yaml it can be considered again on a later source pull.
+    final_fingerprints = load_final_node_fingerprints()
+    candidates = exclude_final_nodes(all_unique_candidates, final_fingerprints)
+    excluded_final = len(all_unique_candidates) - len(candidates)
     print(f"Parsed {parsed_total} nodes; globally unique: {unique_total}; "
           f"pure HTTP proxies excluded: {http_type_rejected}; "
+          f"already-final nodes excluded: {excluded_final}; "
           f"remaining candidates: {len(candidates)}")
     if not candidates:
-        raise RuntimeError("No supported non-HTTP nodes parsed; refusing to publish")
+        print("No new candidates remain after excluding the current official final subscription.")
+        set_github_output("has_candidates", "false")
+        return
 
     # TCP and generic handshake checks are diagnostic only. A generic probe can
     # misclassify WS/TLS/Reality/UDP transports; Mihomo performs the decisive test.
@@ -539,8 +595,8 @@ def main() -> None:
             manifest_nodes = []
             delay_by_name = {node["name"]: delay for delay, node in tested}
             for node in passed_nodes:
-                canonical = json.dumps(node, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
-                node_id = hashlib.sha256(canonical.encode("utf-8")).hexdigest()[:20]
+                # Keep the phone-side node identity stable when only its display name changes.
+                node_id = node_key(node)[:20]
                 manifest_nodes.append({
                     "node_id": node_id,
                     "name": node.get("name", ""),
@@ -568,6 +624,8 @@ def main() -> None:
             with open(os.path.join("candidates", "manifest.json"), "w", encoding="utf-8") as f:
                 json.dump(manifest, f, ensure_ascii=False, indent=2)
                 f.write("\n")
+
+            set_github_output("has_candidates", "true")
 
             print(
                 "GitHub prefilter complete: "

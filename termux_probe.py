@@ -36,6 +36,20 @@ CANDIDATE_UPDATED_AT = ""
 CANDIDATE_FETCHED_AT = ""
 
 
+def receipt_completion_status(stopped: bool, tested_count: int,
+                              queue_count: int) -> str:
+    """Only a full, uninterrupted queue run may produce an uploadable receipt."""
+    if type(tested_count) is not int or type(queue_count) is not int:
+        raise ValueError("Candidate counts must be integers")
+    if queue_count < 1 or tested_count < 0 or tested_count > queue_count:
+        raise ValueError("Candidate counts are outside the valid range")
+    if stopped:
+        return "interrupted"
+    if tested_count < queue_count:
+        return "partial"
+    return "completed"
+
+
 def write_yaml(path: Path, data: dict) -> None:
     path.write_text(yaml.safe_dump(data, allow_unicode=True, sort_keys=False), encoding="utf-8")
 
@@ -321,6 +335,7 @@ def main() -> None:
             or any(not isinstance(value, str) or not value for value in node_ids)):
         raise SystemExit("Manifest node IDs do not exactly match candidate proxy names")
     proxies = list(by_name.values())
+    queue_candidate_count = len(proxies)
     if args.limit:
         proxies = proxies[:args.limit]
         selected_names = {p["name"] for p in proxies}
@@ -334,7 +349,11 @@ def main() -> None:
     ).encode("utf-8")
     candidate_hash = hashlib.sha256(candidate_bytes).hexdigest()
     manifest["candidate_sha256"] = candidate_hash
-    print(f"累计批次合并后：{len(proxies)} 个唯一节点；SHA256 {candidate_hash[:16]}…")
+    receipt_candidate_count = len(proxies)
+    print(
+        f"本次测速清单：{receipt_candidate_count}/{queue_candidate_count} 个唯一节点；"
+        f"SHA256 {candidate_hash[:16]}…"
+    )
     write_progress(progress_path, "running", 0, len(proxies), [], started, stage="正在启动 Mihomo")
 
     api = requests.Session()
@@ -660,7 +679,9 @@ def main() -> None:
                 mihomo.kill()
 
     completed_at = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
-    run_status = "interrupted" if stop_path.exists() else "completed"
+    run_status = receipt_completion_status(
+        stop_path.exists(), receipt_candidate_count, queue_candidate_count
+    )
     receipt = {
         "schema_version": 1,
         "status": run_status,
@@ -670,6 +691,8 @@ def main() -> None:
         "candidate_commit": candidate_commit,
         "candidate_commits": candidate_commits,
         "candidate_batch_count": len(candidate_commits),
+        "queue_candidate_count": queue_candidate_count,
+        "receipt_candidate_count": receipt_candidate_count,
         "candidate_updated_at": CANDIDATE_UPDATED_AT,
         "candidate_fetched_at": CANDIDATE_FETCHED_AT,
         "candidate_source": source_used,
@@ -699,7 +722,13 @@ def main() -> None:
     rejected = len(receipt_results) - high - normal
     print(f"Application gates + download: high={high}, normal={normal}, rejected={rejected}")
     print(f"Download probe: {passed}/{len(receipt_results)} passed; receipt: {args.output}")
-    final_stage = "测速已停止，部分结果已保存" if run_status == "interrupted" else "测速完成"
+    if run_status == "interrupted":
+        final_stage = "测速已停止，部分结果已保存"
+    elif run_status == "partial":
+        final_stage = "限量测速完成；结果仅保存，不可推进完整队列"
+        print("注意：本次只测试了队列的一部分，回执不可上传，队列游标不会推进。")
+    else:
+        final_stage = "测速完成"
     write_progress(progress_path, run_status, len(receipt_results), len(proxies),
                    receipt_results, started, stage=final_stage)
 

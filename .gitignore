@@ -13,3 +13,9 @@ dist/
 
 # Downloaded phone candidate cache (local runtime data)
 /candidate-cache/
+
+# Runtime-generated probe diagnostics and receipts
+/diagnostic_mihomo.json
+/receipt.candidate.yaml
+/receipt.json
+/receipt.manifest.json

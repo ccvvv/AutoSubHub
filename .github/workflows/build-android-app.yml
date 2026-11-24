@@ -3,7 +3,7 @@ name: Build AutoSubHub Android app
 on:
   workflow_dispatch:
   pull_request:
-    branches: [main]
+    branches: [main, feature/auto-cumulative-pool-rules]
     paths:
       - "android-app/**"
       - "app_control.sh"
@@ -11,7 +11,7 @@ on:
       - "download_candidates.py"
       - ".github/workflows/build-android-app.yml"
   push:
-    branches: [main, feature/android-dashboard]
+    branches: [main, feature/android-dashboard, feature/android-cumulative-queue-receipts, feature/auto-cumulative-pool-rules]
     paths:
       - "android-app/**"
       - "app_control.sh"
