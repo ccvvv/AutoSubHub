@@ -23,6 +23,34 @@ proxies:
         self.assertEqual(len(nodes), 1)
         self.assertNotIn("security", nodes[0])
 
+    def test_vmess_null_cipher_uses_auto_before_mihomo_validation(self):
+        source = """proxies:
+  - name: vmess-null-cipher
+    type: vmess
+    server: example.com
+    port: 443
+    uuid: 00000000-0000-0000-0000-000000000000
+    alterId: 0
+    cipher: null
+"""
+        nodes, rejected = parse_source(source)
+        self.assertEqual(rejected, 0)
+        self.assertEqual(len(nodes), 1)
+        self.assertEqual(nodes[0]["cipher"], "auto")
+
+    def test_vmess_string_null_cipher_uses_auto(self):
+        source = """proxies:
+  - name: vmess-string-null-cipher
+    type: vmess
+    server: example.com
+    port: 443
+    uuid: 00000000-0000-0000-0000-000000000000
+    alterId: 0
+    cipher: "null"
+"""
+        nodes, _ = parse_source(source)
+        self.assertEqual(nodes[0]["cipher"], "auto")
+
     def test_reality_short_id_validation(self):
         for valid in ("", "ab", "0123456789abcdef", "ABCDEF"):
             self.assertTrue(valid_reality_short_id(valid), valid)
