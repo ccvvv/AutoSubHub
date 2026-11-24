@@ -99,6 +99,55 @@ case "$ACTION" in
     touch probe.stop
     say "已请求停止：当前节点检测结束后停止，并保存已完成结果"
     ;;
+  reset)
+    if pgrep -f '[t]ermux_probe.py' >/dev/null 2>&1; then
+      say "重置拒绝：测速进程仍在运行，请先停止并等待进程退出"
+      exit 1
+    fi
+    rm -f probe.pause probe.stop
+    python - <<'PY'
+import json, os, tempfile
+path = "progress.json"
+data = {
+    "status": "idle",
+    "stage": "本轮状态已重置，可以开始新一轮测速",
+    "done": 0,
+    "total": 0,
+    "passed": 0,
+    "failed": 0,
+    "high": 0,
+    "normal": 0,
+    "rejected": 0,
+    "success_rate": 0.0,
+    "elapsed_seconds": 0.0,
+    "current_node": "",
+    "latest_speed_kbps": 0.0,
+    "latest_category": "checking",
+    "app_checks": {},
+    "process_running": False
+}
+fd, tmp = tempfile.mkstemp(prefix="progress.", suffix=".tmp", dir=".")
+try:
+    with os.fdopen(fd, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False)
+        f.write("\\n")
+    os.replace(tmp, path)
+except Exception:
+    try:
+        os.unlink(tmp)
+    except OSError:
+        pass
+    raise
+print(json.dumps(data, ensure_ascii=False))
+PY
+    code=$?
+    if [ "$code" -eq 0 ]; then
+      say "本轮状态已重置；回执、候选缓存和累计队列游标均保留"
+    else
+      say "重置失败：无法写入 progress.json"
+      exit "$code"
+    fi
+    ;;
   progress)
     python - <<'PY'
 import json, os, tempfile, subprocess
