@@ -64,6 +64,12 @@ class MainActivity : Activity(), SharedPreferences.OnSharedPreferenceChangeListe
             val value = prefs.getString("last_result", "").orEmpty()
             logText.text = value
             updateProgress(value)
+            // The upload command returns log text, not the progress JSON.
+            // Fetch the persisted progress snapshot after upload so the panel
+            // immediately switches from "waiting for receipt" to "uploaded".
+            if (prefs.getString("last_command", "") == "upload") {
+                runTermux("progress", false)
+            }
         }
     }
 

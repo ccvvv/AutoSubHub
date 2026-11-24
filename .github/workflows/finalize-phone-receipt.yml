@@ -81,3 +81,22 @@ jobs:
           fi
           git commit -m "Publish phone-tested final subscription"
           git push origin HEAD:published-subscriptions
+
+      - name: Consume processed receipt bundle
+        if: success()
+        run: |
+          set -euo pipefail
+          cd receipts
+          files=()
+          for file in receipts/latest.json receipts/candidate.yaml receipts/manifest.json; do
+            if [ -f "$file" ]; then files+=("$file"); fi
+          done
+          if [ "${#files[@]}" -eq 0 ]; then
+            echo "No active receipt bundle to consume."
+            exit 0
+          fi
+          git rm -- "${files[@]}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "[skip ci] Consume successfully processed phone receipt"
+          git push origin HEAD:probe-receipts
