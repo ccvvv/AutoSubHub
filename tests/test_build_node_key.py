@@ -22,6 +22,23 @@ class BuildNodeIdentityTests(unittest.TestCase):
         self.assertIsNotNone(node)
         self.assertNotIn("short-id", node["reality-opts"])
 
+    def test_yaml_numeric_reality_short_id_is_normalized_to_string(self):
+        source = """proxies:
+  - name: numeric-short-id
+    type: vless
+    server: example.com
+    port: 443
+    uuid: user-id
+    tls: true
+    reality-opts:
+      public-key: public-key
+      short-id: 1234
+"""
+        nodes, _ = parse_source(source)
+        self.assertEqual(len(nodes), 1)
+        self.assertEqual(nodes[0]["reality-opts"]["short-id"], "1234")
+        self.assertIsInstance(nodes[0]["reality-opts"]["short-id"], str)
+
     def test_yaml_with_empty_reality_short_id_omits_empty_field(self):
         source = """proxies:
   - name: empty-short-id
