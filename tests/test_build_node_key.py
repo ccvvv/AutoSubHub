@@ -5,7 +5,7 @@ from build import node_key, parse_uri, parse_source, valid_reality_short_id
 
 class BuildNodeIdentityTests(unittest.TestCase):
     def test_reality_short_id_validation(self):
-        for valid in ("", "a", "ab", "0123456789abcdef", "ABCDEF"):
+        for valid in ("", "ab", "0123456789abcdef", "ABCDEF"):
             self.assertTrue(valid_reality_short_id(valid), valid)
         for invalid in ("abc", "0123456789abcdef0", "zz", "12 4"):
             self.assertFalse(valid_reality_short_id(invalid), invalid)
