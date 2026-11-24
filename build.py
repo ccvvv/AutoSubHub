@@ -186,6 +186,25 @@ UDP_PROTOCOLS = {"hysteria", "hysteria2", "tuic", "wireguard"}
 REALITY_PROTOCOLS = {"vless"}
 
 
+def valid_reality_short_id(node: dict) -> bool:
+    """Return whether a Mihomo Reality short-id is valid hexadecimal data.
+
+    A short-id is optional; when supplied it must be an even-length hex
+    string representing at most 8 bytes (16 hex characters).
+    """
+    options = node.get("reality-opts")
+    if options is None:
+        return True
+    if not isinstance(options, dict):
+        return True
+    short_id = options.get("short-id", "")
+    if short_id is None:
+        short_id = ""
+    return isinstance(short_id, str) and re.fullmatch(
+        r"(?:[0-9a-fA-F]{2}){0,8}", short_id
+    ) is not None
+
+
 def tcp_check(node: dict) -> tuple[dict, float | None]:
     # UDP-based protocols must not be rejected by a TCP port probe.
     if str(node.get("type", "")).lower() in UDP_PROTOCOLS:
@@ -428,11 +447,16 @@ def main() -> None:
         source_unique.append(bucket)
 
     all_unique_candidates = [node for bucket in source_unique for node in bucket]
+    # Drop only structurally invalid Reality short-ids before handing the
+    # complete candidate list to Mihomo. A malformed source node must not make
+    # the whole scheduled subscription build fail.
+    candidates = [node for node in all_unique_candidates if valid_reality_short_id(node)]
+    invalid_reality_short_id = len(all_unique_candidates) - len(candidates)
     # Pure Clash HTTP proxies were excluded while parsing each source, before
     # global deduplication and all network tests. TCP transports remain allowed.
-    candidates = all_unique_candidates
     print(f"Parsed {parsed_total} nodes; globally unique: {unique_total}; "
           f"pure HTTP proxies excluded: {http_type_rejected}; "
+          f"invalid Reality short-ids excluded: {invalid_reality_short_id}; "
           f"remaining candidates: {len(candidates)}")
     if not candidates:
         raise RuntimeError("No supported non-HTTP nodes parsed; refusing to publish")
@@ -556,6 +580,7 @@ def main() -> None:
                 "parsed_nodes": parsed_total,
                 "unique_candidates": unique_total,
                 "excluded_http_proxies": http_type_rejected,
+                "excluded_invalid_reality_short_id": invalid_reality_short_id,
                 "tcp_diagnostic_passed": tcp_passed_count,
                 "tcp_diagnostic_failed_retained": len(candidates) - tcp_passed_count,
                 "protocol_handshake_diagnostic_passed": handshake_passed_count,
