@@ -125,6 +125,36 @@ def git(*args: str, cwd: Path | None = None, check: bool = True):
     return result
 
 
+
+def mark_progress_uploaded(progress_path: Path, receipt_commit: str) -> bool:
+    """Record successful receipt upload locally; only then allow a safe reset."""
+    if not progress_path.is_file():
+        return False
+    try:
+        data = json.loads(progress_path.read_text(encoding="utf-8"))
+    except (OSError, ValueError, TypeError):
+        return False
+    if not isinstance(data, dict):
+        return False
+    from datetime import datetime, timezone
+    data.update({
+        "status": "uploaded",
+        "stage": "回执已成功上传至 GitHub",
+        "upload_status": "uploaded",
+        "receipt_uploaded_at": datetime.now(timezone.utc).isoformat(),
+        "receipt_commit": receipt_commit,
+        "process_running": False,
+    })
+    temporary = progress_path.with_name(progress_path.name + ".tmp")
+    try:
+        temporary.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n",
+                             encoding="utf-8")
+        temporary.replace(progress_path)
+    except OSError:
+        temporary.unlink(missing_ok=True)
+        raise
+    return True
+
 def save_queue_cursor(commits: list[str], receipt_commit: str) -> None:
     """Advance the local batch cursor after the receipt bundle is present on GitHub."""
     from datetime import datetime, timezone
@@ -151,7 +181,10 @@ def main() -> int:
                         help="GitHub owner/repository (default: ccvvv/AutoSubHub)")
     parser.add_argument("--branch", default=DEFAULT_BRANCH)
     parser.add_argument("--path", default=DEFAULT_PATH)
+    parser.add_argument("--progress", default="progress.json",
+                        help="Progress JSON to update after GitHub accepts the receipt")
     args = parser.parse_args()
+    progress_path = Path(args.progress).expanduser()
 
     if not re.fullmatch(r"[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+", args.repo):
         print("Error: --repo must be owner/repository.", file=sys.stderr)
@@ -235,6 +268,7 @@ def main() -> int:
             if changed.returncode == 0:
                 existing_commit = git("rev-parse", "HEAD", cwd=work).stdout.strip()
                 save_queue_cursor(commits, existing_commit)
+                mark_progress_uploaded(progress_path, existing_commit)
                 print(f"Already uploaded: {args.repo}/{args.path}")
                 print("Local candidate queue cursor synchronized.")
                 print(f"Local receipt kept: {receipt_path.resolve()}")
@@ -250,6 +284,7 @@ def main() -> int:
 
         # Advance only after the complete receipt bundle has been accepted by GitHub.
         save_queue_cursor(commits, commit)
+        mark_progress_uploaded(progress_path, commit)
 
         print(f"Upload successful: {args.repo}/{args.path}")
         print(f"Branch: {args.branch}")
