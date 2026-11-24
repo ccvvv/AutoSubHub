@@ -127,3 +127,47 @@ jobs:
               exit 1
             fi
           fi
+
+      # The GITHUB_TOKEN push above does not trigger another workflow. Build the
+      # phone queue in this same run so every newly published cloud snapshot is covered.
+      - name: Build and publish cloud pending probe queue
+        if: github.event_name != 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          python -m py_compile scripts/build_pending_queue.py scripts/candidate_queue.py
+          python scripts/build_pending_queue.py --output-dir /tmp/pending-output
+          git clone --depth 1 --branch published-subscriptions "https://github.com/${GITHUB_REPOSITORY}.git" /tmp/published-pending
+          mkdir -p /tmp/published-pending/candidate
+          for name in pending.yaml pending-manifest.json pending-meta.json; do
+            if [ -f "/tmp/pending-output/$name" ]; then
+              cp "/tmp/pending-output/$name" "/tmp/published-pending/candidate/$name"
+            else
+              rm -f "/tmp/published-pending/candidate/$name"
+            fi
+          done
+          cd /tmp/published-pending
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A candidate
+          if git diff --cached --quiet; then
+            echo "Cloud pending queue is already current."
+            exit 0
+          fi
+          git commit -m "Refresh cloud-prepared pending probe queue"
+          git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          pushed=false
+          for attempt in 1 2 3; do
+            if git push origin HEAD:published-subscriptions; then
+              pushed=true
+              break
+            fi
+            git fetch origin published-subscriptions
+            git rebase origin/published-subscriptions
+          done
+          if [ "$pushed" != true ]; then
+            echo "Could not publish cloud pending queue after three attempts."
+            exit 1
+          fi
