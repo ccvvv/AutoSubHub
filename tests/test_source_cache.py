@@ -70,9 +70,6 @@ class SourceCacheTests(unittest.TestCase):
                 load_cache(path)
 
 
-if __name__ == "__main__":
-    unittest.main()
-
 class SourcePayloadValidationTests(unittest.TestCase):
     def test_explicit_empty_clash_feed_is_valid(self):
         nodes, rejected = parse_source("proxies: []\\n")
@@ -88,3 +85,6 @@ class SourcePayloadValidationTests(unittest.TestCase):
         self.assertEqual(nodes, [])
         self.assertEqual(rejected, 0)
 
+
+if __name__ == "__main__":
+    unittest.main()
