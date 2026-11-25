@@ -72,7 +72,7 @@ class SourceCacheTests(unittest.TestCase):
 
 class SourcePayloadValidationTests(unittest.TestCase):
     def test_explicit_empty_clash_feed_is_valid(self):
-        nodes, rejected = parse_source("proxies: []\\n")
+        nodes, rejected = parse_source("proxies: []\n")
         self.assertEqual(nodes, [])
         self.assertEqual(rejected, 0)
 
@@ -81,7 +81,7 @@ class SourcePayloadValidationTests(unittest.TestCase):
             parse_source("<html>upstream error</html>")
 
     def test_comment_only_feed_is_valid_empty(self):
-        nodes, rejected = parse_source("# temporarily no nodes\\n")
+        nodes, rejected = parse_source("# temporarily no nodes\n")
         self.assertEqual(nodes, [])
         self.assertEqual(rejected, 0)
 
