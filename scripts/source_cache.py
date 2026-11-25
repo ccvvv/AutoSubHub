@@ -81,7 +81,7 @@ def record_response(cache: dict, url: str, status_code: int,
 def save_cache(path: str | Path, cache: dict) -> None:
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
-    payload = json.dumps(cache, ensure_ascii=False, sort_keys=True, indent=2) + "\\n"
+    payload = json.dumps(cache, ensure_ascii=False, sort_keys=True, indent=2) + "\n"
     fd, temporary = tempfile.mkstemp(prefix=path.name + ".", dir=str(path.parent))
     try:
         with os.fdopen(fd, "w", encoding="utf-8") as handle:
