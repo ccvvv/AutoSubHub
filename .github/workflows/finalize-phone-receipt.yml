@@ -137,6 +137,7 @@ jobs:
             exit 0
           fi
           git rm -- "${files[@]}"
+          git add candidate/pool.yaml
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git commit -m "[skip ci] Consume successfully processed phone receipt"
