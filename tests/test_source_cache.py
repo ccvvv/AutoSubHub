@@ -3,6 +3,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
+from build import parse_source
 from scripts.source_cache import (
     conditional_headers,
     empty_cache,
@@ -71,3 +72,19 @@ class SourceCacheTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+class SourcePayloadValidationTests(unittest.TestCase):
+    def test_explicit_empty_clash_feed_is_valid(self):
+        nodes, rejected = parse_source("proxies: []\\n")
+        self.assertEqual(nodes, [])
+        self.assertEqual(rejected, 0)
+
+    def test_unrecognized_nonempty_response_is_rejected(self):
+        with self.assertRaises(ValueError):
+            parse_source("<html>upstream error</html>")
+
+    def test_comment_only_feed_is_valid_empty(self):
+        nodes, rejected = parse_source("# temporarily no nodes\\n")
+        self.assertEqual(nodes, [])
+        self.assertEqual(rejected, 0)
+
