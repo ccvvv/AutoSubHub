@@ -116,9 +116,8 @@ jobs:
           fi
           git clone --depth 1 --branch published-subscriptions "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" /tmp/published
           mkdir -p /tmp/published/candidate
-          mkdir -p candidate
           if [ -f "$GITHUB_WORKSPACE/source-cache.json" ]; then
-            cp "$GITHUB_WORKSPACE/source-cache.json" candidate/source-cache.json
+            cp "$GITHUB_WORKSPACE/source-cache.json" /tmp/published/candidate/source-cache.json
           fi
           cd /tmp/published
           if [ "${{ steps.generate.outputs.has_candidates }}" = "true" ]; then
