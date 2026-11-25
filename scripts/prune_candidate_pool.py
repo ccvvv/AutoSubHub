@@ -44,7 +44,7 @@ def prune_and_refresh(pool_path: Path, manifest_path: Path, receipt_path: Path) 
         hashlib.sha256(candidate_bytes).hexdigest(),
     )
     (pool_path.parent / "manifest.json").write_text(
-        json.dumps(refreshed_manifest, ensure_ascii=False, indent=2) + "\\n",
+        json.dumps(refreshed_manifest, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
     )
 
