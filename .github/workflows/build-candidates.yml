@@ -14,8 +14,8 @@ permissions:
   actions: write
 
 concurrency:
-  group: build-candidates-${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.pull_request.number) || 'main' }}
-  cancel-in-progress: true
+  group: ${{ github.event_name == 'pull_request' && format('build-candidates-pr-{0}', github.event.pull_request.number) || 'published-subscriptions-writer' }}
+  cancel-in-progress: false
 
 jobs:
   build-candidates:
