@@ -15,7 +15,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: phone-final-publish
+  group: published-subscriptions-writer
   cancel-in-progress: false
 
 jobs:
@@ -127,7 +127,6 @@ jobs:
             exit 1
           fi
           python ../scripts/prune_candidate_pool.py candidate/pool.yaml ../incoming/manifest.json ../incoming/receipt.json
-          cp candidate/pool.yaml /tmp/pool-after-prune.yaml
           files=()
           for file in receipts/latest.json receipts/candidate.yaml receipts/manifest.json; do
             if [ -f "$file" ]; then files+=("$file"); fi
