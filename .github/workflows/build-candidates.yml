@@ -99,8 +99,10 @@ jobs:
           fi
           git clone --depth 1 --branch published-subscriptions "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" /tmp/published
           mkdir -p /tmp/published/candidate
-          cp candidates/candidates.yaml /tmp/published/candidate/subscription.yaml
-          cp candidates/manifest.json /tmp/published/candidate/manifest.json
+          cp candidates/candidates.yaml /tmp/incoming-candidates.yaml
+          cd /tmp/published
+          PYTHONPATH="$GITHUB_WORKSPACE" python "$GITHUB_WORKSPACE/scripts/update_candidate_pool.py" /tmp/incoming-candidates.yaml candidate/pool.yaml candidate/subscription.yaml
+          cd /tmp/published
           cd /tmp/published
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
