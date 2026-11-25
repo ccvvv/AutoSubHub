@@ -582,7 +582,7 @@ def main() -> None:
                     unchanged += 1
                     print(f"Source {index}: unchanged (HTTP 304); skipped download and parsing")
                 else:
-                    if status == 200 and parsed:
+                    if status == 200:
                         cache_changed = record_response(
                             source_cache, urls[index - 1], status, response_headers
                         ) or cache_changed
