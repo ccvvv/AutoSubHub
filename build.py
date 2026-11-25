@@ -221,16 +221,23 @@ def parse_source(text: str) -> tuple[list[dict], int]:
             nodes.append(node)
         return nodes, http_rejected
     nodes = []
-    for line in text.splitlines():
-        line = line.strip()
-        if not line or line.startswith("#"):
-            continue
+    meaningful_lines = [
+        line.strip() for line in text.splitlines()
+        if line.strip() and not line.lstrip().startswith("#")
+    ]
+    for line in meaningful_lines:
         try:
             node = parse_uri(line)
             if node:
                 nodes.append(node)
         except Exception as exc:
             print(f"Skip malformed URI: {type(exc).__name__}")
+    # An explicitly empty Clash/Mihomo proxies list is a valid empty feed.
+    # For other non-empty bodies, zero recognized nodes usually means an HTML
+    # error page, malformed payload, or unsupported response; do not cache its
+    # HTTP validators or turn a transient upstream problem into a 304 loop.
+    if meaningful_lines and not nodes:
+        raise ValueError("Subscription response contains no supported proxy entries")
     return nodes, 0
 
 
