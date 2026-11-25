@@ -13,10 +13,11 @@ class CandidatePoolTests(unittest.TestCase):
         result = merge_pool({"proxies": [self.a]}, {"proxies": [self.a_renamed, self.b]})
         self.assertEqual(result["proxies"], [self.a, self.b])
 
-    def test_manifest_keeps_newapp_schema_and_20_hex_ids(self):
+    def test_manifest_matches_client_contract(self):
         candidate = {"proxies": [self.a, self.b]}
-        manifest = build_manifest(candidate, "2026-11-26T00:00:00Z")
+        manifest = build_manifest(candidate, "2026-11-26T00:00:00Z", "a" * 64)
         self.assertEqual(manifest["schema_version"], 1)
+        self.assertEqual(manifest["candidate_sha256"], "a" * 64)
         self.assertTrue(all(len(n["node_id"]) == 20 for n in manifest["nodes"]))
         self.assertTrue(all(set(n["node_id"]) <= set("0123456789abcdef") for n in manifest["nodes"]))
 
