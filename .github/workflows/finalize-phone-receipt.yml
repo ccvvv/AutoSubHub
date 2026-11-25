@@ -120,6 +120,14 @@ jobs:
             echo "A newer phone receipt is present; leaving it untouched."
             exit 0
           fi
+          # The receipt was fully validated in the earlier step. Remove exactly
+          # those tested IDs from the latest pool, preserving nodes added meanwhile.
+          if [ ! -f candidate/pool.yaml ]; then
+            echo "Persistent candidate pool missing; refusing receipt consumption."
+            exit 1
+          fi
+          python ../scripts/prune_candidate_pool.py candidate/pool.yaml ../incoming/manifest.json ../incoming/receipt.json
+          cp candidate/pool.yaml /tmp/pool-after-prune.yaml
           files=()
           for file in receipts/latest.json receipts/candidate.yaml receipts/manifest.json; do
             if [ -f "$file" ]; then files+=("$file"); fi
