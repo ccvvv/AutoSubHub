@@ -17,6 +17,8 @@ from urllib.parse import parse_qs, unquote, urlsplit, quote
 import requests
 import yaml
 
+from scripts.source_cache import load_cache, empty_cache, conditional_headers, record_response, save_cache
+
 USER_AGENT = "AutoSubHub/2.0 (+https://github.com/ccvvv/AutoSubHub)"
 CONNECT_TIMEOUT = float(os.getenv("CONNECT_TIMEOUT", "3") or "3")
 HTTP_TIMEOUT_MS = int(os.getenv("HTTP_TEST_TIMEOUT", "8000") or "8000")
@@ -540,34 +542,60 @@ def main() -> None:
         raise SystemExit("No subscription sources configured")
     print(f"Loaded {len(urls)} sources from {source_mode}")
 
+    cache_path = os.getenv("SOURCE_CACHE_PATH", "source-cache.json")
+    try:
+        source_cache = load_cache(cache_path)
+    except ValueError as exc:
+        print(f"Source validator cache is invalid; performing unconditional fetches: {exc}")
+        source_cache = empty_cache()
+    cache_changed = False
+
     source_nodes = [[] for _ in urls]
     successes = 0
+    unchanged = 0
     http_type_rejected = 0
 
-    def fetch_source(item: tuple[int, str]) -> tuple[int, list[dict], int, str | None]:
+    def fetch_source(item: tuple[int, str]) -> tuple[int, list[dict], int, str | None, int, dict]:
         index, url = item
         try:
-            response = requests.get(url, headers={"User-Agent": USER_AGENT}, timeout=25)
+            headers = {"User-Agent": USER_AGENT}
+            headers.update(conditional_headers(source_cache, url))
+            response = requests.get(url, headers=headers, timeout=25)
+            if response.status_code == 304:
+                return index, [], 0, None, 304, {}
             response.raise_for_status()
             parsed, rejected_http = parse_source(response.text)
-            return index, parsed, rejected_http, None
+            return index, parsed, rejected_http, None, response.status_code, dict(response.headers)
         except Exception as exc:
-            return index, [], 0, f"{type(exc).__name__}: {exc}"
+            return index, [], 0, f"{type(exc).__name__}: {exc}", 0, {}
 
     print(f"Fetching {len(urls)} subscription sources with {min(SOURCE_WORKERS, len(urls))} workers")
     with ThreadPoolExecutor(max_workers=min(SOURCE_WORKERS, len(urls))) as pool:
         futures = [pool.submit(fetch_source, item) for item in enumerate(urls, 1)]
         for future in as_completed(futures):
-            index, parsed, rejected_http, error = future.result()
+            index, parsed, rejected_http, error, status, response_headers = future.result()
             source_nodes[index - 1] = parsed
             http_type_rejected += rejected_http
             if error is None:
-                print(f"Source {index}: {len(parsed)} usable nodes; excluded {rejected_http} pure HTTP proxies")
                 successes += 1
+                if status == 304:
+                    unchanged += 1
+                    print(f"Source {index}: unchanged (HTTP 304); skipped download and parsing")
+                else:
+                    if status == 200:
+                        cache_changed = record_response(
+                            source_cache, urls[index - 1], status, response_headers
+                        ) or cache_changed
+                    print(f"Source {index}: {len(parsed)} usable nodes; excluded {rejected_http} pure HTTP proxies")
             else:
                 print(f"Source {index} failed: {error}")
+
     if successes == 0:
         raise RuntimeError("All subscription sources failed; refusing to publish")
+    if cache_changed:
+        save_cache(cache_path, source_cache)
+    set_github_output("has_cache_updates", "true" if cache_changed else "false")
+    print(f"Source fetch summary: successful={successes}, unchanged={unchanged}, failed={len(urls) - successes}")
 
     # Deduplicate globally, then test every unique node without a sampling cap.
     source_unique = []
