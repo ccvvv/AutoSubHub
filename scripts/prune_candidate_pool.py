@@ -2,19 +2,18 @@
 """Prune a pool only after finalize_phone_receipt.py has validated the receipt."""
 from __future__ import annotations
 
+import hashlib
 import json
 import sys
+from datetime import datetime, timezone
 from pathlib import Path
 
 import yaml
 
-from scripts.candidate_pool import remove_tested_nodes
+from scripts.candidate_pool import remove_tested_nodes, build_manifest
 
 
-def main() -> None:
-    if len(sys.argv) != 4:
-        raise SystemExit("usage: prune_candidate_pool.py pool.yaml manifest.json receipt.json")
-    pool_path, manifest_path, receipt_path = map(Path, sys.argv[1:])
+def prune_and_refresh(pool_path: Path, manifest_path: Path, receipt_path: Path) -> None:
     pool = yaml.safe_load(pool_path.read_text(encoding="utf-8")) or {}
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
@@ -28,8 +27,33 @@ def main() -> None:
             or len(set(expected)) != len(expected) or set(actual) != set(expected)
             or len(actual) != len(expected)):
         raise SystemExit("Receipt is not a complete exact match for candidate manifest")
+
     pruned = remove_tested_nodes(pool, set(expected))
     pool_path.write_text(yaml.safe_dump(pruned, allow_unicode=True, sort_keys=False), encoding="utf-8")
+
+    # The phone downloads subscription.yaml, not pool.yaml. Keep the public
+    # snapshot and its manifest in lockstep with the pruned persistent pool.
+    candidate_path = pool_path.parent / "subscription.yaml"
+    candidate_path.write_text(
+        yaml.safe_dump(pruned, allow_unicode=True, sort_keys=False), encoding="utf-8"
+    )
+    candidate_bytes = candidate_path.read_bytes()
+    refreshed_manifest = build_manifest(
+        pruned,
+        datetime.now(timezone.utc).isoformat(),
+        hashlib.sha256(candidate_bytes).hexdigest(),
+    )
+    (pool_path.parent / "manifest.json").write_text(
+        json.dumps(refreshed_manifest, ensure_ascii=False, indent=2) + "\\n",
+        encoding="utf-8",
+    )
+
+
+def main() -> None:
+    if len(sys.argv) != 4:
+        raise SystemExit("usage: prune_candidate_pool.py pool.yaml manifest.json receipt.json")
+    pool_path, manifest_path, receipt_path = map(Path, sys.argv[1:])
+    prune_and_refresh(pool_path, manifest_path, receipt_path)
 
 
 if __name__ == "__main__":
