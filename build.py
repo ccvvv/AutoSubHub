@@ -567,7 +567,7 @@ def main() -> None:
             parsed, rejected_http = parse_source(response.text)
             return index, parsed, rejected_http, None, response.status_code, dict(response.headers)
         except Exception as exc:
-            return index, [], 0, f"{type(exc).__name__}: {exc}", 0, {}
+            return index, [], 0, f"Request failed ({type(exc).__name__})", 0, {}
 
     print(f"Fetching {len(urls)} subscription sources with {min(SOURCE_WORKERS, len(urls))} workers")
     with ThreadPoolExecutor(max_workers=min(SOURCE_WORKERS, len(urls))) as pool:
