@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import base64
 import json
+from datetime import date, datetime
+from zoneinfo import ZoneInfo
 import os
 import re
 import socket
@@ -31,6 +33,15 @@ LATENCY_FALLBACK_URL = os.getenv("LATENCY_FALLBACK_URL", "https://www.apple.com/
 CONTROLLER = "http://127.0.0.1:9090"
 PROBE_WORKERS = max(1, min(50, int(os.getenv("CERT_WORKERS", "50") or "50")))
 PROBE_PORT_BASE = 17890
+
+
+def resolve_source_url(url: str, today: date | None = None) -> str:
+    """Resolve supported date placeholders using the Shanghai calendar date."""
+    if "{Ymd}" not in url:
+        return url
+    if today is None:
+        today = datetime.now(ZoneInfo("Asia/Shanghai")).date()
+    return url.replace("{Ymd}", today.strftime("%Y%m%d"))
 
 SUPPORTED_PROXY_TYPES = {
     "ss", "vmess", "vless", "trojan", "socks5", "http", "snell",
@@ -561,6 +572,18 @@ def main() -> None:
                 known_urls.add(extra_url)
         if extra_urls:
             source_mode += " + extra-subscriptions.txt"
+
+    # Resolve date-based feeds at build time (Asia/Shanghai), then de-duplicate
+    # again because a template may expand to an already configured literal URL.
+    resolved_urls = []
+    seen_urls = set()
+    for source_url in urls:
+        resolved_url = resolve_source_url(source_url)
+        if resolved_url not in seen_urls:
+            resolved_urls.append(resolved_url)
+            seen_urls.add(resolved_url)
+    urls = resolved_urls
+
     if not urls:
         raise SystemExit("No subscription sources configured")
     print(f"Loaded {len(urls)} sources from {source_mode}")
