@@ -17,3 +17,5 @@ https://raw.githubusercontent.com/barry-far/V2ray-config/main/Sub2.txt
 https://raw.githubusercontent.com/MhdiTaheri/V2rayCollector/main/sub/mix
 https://raw.githubusercontent.com/asgharkapk/Sub-Config-Extractor/main/output_configs/clash/Ruk1ng001.yaml
 https://free.datiya.com/uploads/{Ymd}-clash.yaml
+https://node.freeclashnode.com/uploads/{Y}/{mm}/0-{Ymd}.yaml
+https://raw.githubusercontent.com/free-nodes/clashfree/main/clash{Ymd}.yml
