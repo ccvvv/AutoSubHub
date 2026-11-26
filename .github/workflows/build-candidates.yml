@@ -122,6 +122,10 @@ jobs:
           cd /tmp/published
           if [ "${{ steps.generate.outputs.has_candidates }}" = "true" ]; then
             cp "$GITHUB_WORKSPACE/candidates/candidates.yaml" /tmp/incoming-candidates.yaml
+            if [ ! -f candidate/pool.yaml ]; then
+              echo "First candidate-pool migration; fetching full data-branch history."
+              git fetch --unshallow origin published-subscriptions
+            fi
             PYTHONPATH="$GITHUB_WORKSPACE" python "$GITHUB_WORKSPACE/scripts/update_candidate_pool.py" /tmp/incoming-candidates.yaml candidate/pool.yaml candidate/subscription.yaml
           fi
           git config user.name "github-actions[bot]"
