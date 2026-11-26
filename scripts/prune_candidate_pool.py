@@ -8,6 +8,10 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
+# This script is invoked from the published-data checkout, not the code repo.
+# Add the code repository root so the shared scripts package is importable.
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
 import yaml
 
 from scripts.candidate_pool import remove_tested_nodes, build_manifest
