@@ -631,7 +631,7 @@ def main() -> None:
     invalid_reality = 0
     for node in unique_names(candidates):
         if valid_reality_node(node):
-            tcp_ok.append(node)
+            validated_candidates.append(node)
         else:
             invalid_reality += 1
             print(
@@ -640,23 +640,23 @@ def main() -> None:
                 f"short-id={((node.get('reality-opts') or {}).get('short-id') if isinstance(node.get('reality-opts'), dict) else '(non-mapping reality-opts)')!r}"
             )
     print(
-        f"Final REALITY validation: kept {len(tcp_ok)}; "
+        f"Final REALITY validation: kept {len(validated_candidates)}; "
         f"skipped {invalid_reality} malformed candidates"
     )
-    if not tcp_ok:
+    if not validated_candidates:
         raise RuntimeError("No candidates remain after final REALITY validation")
-    print(f"Starting Mihomo real proxy tests on {len(tcp_ok)} validated candidates")
+    print(f"Starting Mihomo real proxy tests on {len(validated_candidates)} validated candidates")
     os.makedirs("site", exist_ok=True)
 
     with tempfile.TemporaryDirectory(prefix="autohub-") as tmp:
         test_path = os.path.join(tmp, "test.yaml")
-        write_yaml(test_path, test_config(tcp_ok, PROBE_WORKERS))
+        write_yaml(test_path, test_config(validated_candidates, PROBE_WORKERS))
         mihomo_bin = os.getenv("MIHOMO_BIN", "./mihomo")
         check = subprocess.run([mihomo_bin, "-t", "-f", test_path],
                                capture_output=True, text=True, timeout=45)
         if check.returncode:
             print("Mihomo rejected the combined config; bisecting proxy list to locate invalid entries")
-            bad_nodes = find_mihomo_rejected_proxies(tcp_ok, mihomo_bin)
+            bad_nodes = find_mihomo_rejected_proxies(validated_candidates, mihomo_bin)
             if not bad_nodes:
                 print("Bisect found no individually rejected proxy; failure may be caused by config interaction")
                 raise RuntimeError("Mihomo rejected test config: " + (check.stderr or check.stdout)[-2500:])
@@ -674,18 +674,18 @@ def main() -> None:
                     f"source_urls={source_urls_by_node_key.get(node_key(bad), [])!r}"
                 )
 
-            before_count = len(tcp_ok)
-            tcp_ok = exclude_mihomo_rejected_proxies(tcp_ok, bad_nodes)
+            before_count = len(validated_candidates)
+            validated_candidates = exclude_mihomo_rejected_proxies(validated_candidates, bad_nodes)
             print(
-                f"Mihomo config isolation: removed {before_count - len(tcp_ok)} rejected nodes; "
-                f"{len(tcp_ok)} candidates remain"
+                f"Mihomo config isolation: removed {before_count - len(validated_candidates)} rejected nodes; "
+                f"{len(validated_candidates)} candidates remain"
             )
-            if not tcp_ok:
+            if not validated_candidates:
                 raise RuntimeError("Mihomo rejected every candidate proxy; nothing remains to test")
 
             # Rebuild and validate the complete remaining configuration before
             # starting the core. Never continue if a config-level interaction remains.
-            write_yaml(test_path, test_config(tcp_ok, PROBE_WORKERS))
+            write_yaml(test_path, test_config(validated_candidates, PROBE_WORKERS))
             retry_check = subprocess.run(
                 [mihomo_bin, "-t", "-f", test_path],
                 capture_output=True, text=True, timeout=45
@@ -695,7 +695,7 @@ def main() -> None:
                     "Mihomo still rejects the config after isolating individually invalid nodes: "
                     + (retry_check.stderr or retry_check.stdout)[-2500:]
                 )
-            print(f"Mihomo config validated after isolation: {len(tcp_ok)} candidates retained")
+            print(f"Mihomo config validated after isolation: {len(validated_candidates)} candidates retained")
         proc = subprocess.Popen([os.getenv("MIHOMO_BIN", "./mihomo"), "-d", tmp, "-f", test_path],
                                 stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
         try:
@@ -728,7 +728,7 @@ def main() -> None:
 
             tested = []
             with ThreadPoolExecutor(max_workers=HTTP_WORKERS) as pool:
-                futures = [pool.submit(proxy_delay, n) for n in tcp_ok]
+                futures = [pool.submit(proxy_delay, n) for n in validated_candidates]
                 for future in as_completed(futures):
                     node, delay = future.result()
                     if delay is not None:
@@ -736,7 +736,7 @@ def main() -> None:
             tested.sort(key=lambda x: x[0])
 
             http_tested_count = len(tested)
-            print(f"HTTP proxy test passed: {http_tested_count} / {len(tcp_ok)}")
+            print(f"HTTP proxy test passed: {http_tested_count} / {len(validated_candidates)}")
 
             # Attribute successful real HTTP tests to every source containing
             # each node. Shared nodes may therefore count toward multiple feeds.
