@@ -4,255 +4,178 @@ mode: rule
 log-level: warning
 ipv6: false
 proxies:
-- name: 🇫🇷FR_24|4.1MB/s [高速]
-  password: 'null'
+- name: 🇺🇸US_410|754KB/s|R002-260618 [高速]
   port: 443
-  server: 172.64.69.89
-  skip-cert-verify: true
-  tls: true
-  type: http
-  username: 'null'
-  udp: true
-- name: 🇩🇪DE_1|1.8MB/s|P002-260618 [高速]
-  password: None
-  port: 443
-  server: 172.64.68.89
-  skip-cert-verify: true
-  sub_tag: P002-260618
-  tls: true
-  type: http
-  udp: true
-  x-toolall-mihomo: true
-- name: US_speednode_0027 [高速]
-  port: 443
-  server: 172.64.69.89
-  skip-cert-verify: true
-  tls: true
-  type: http
-  udp: true
-- name: 🇨🇦CA_41|949KB/s [高速]
-  password: ''
-  port: 9443
-  server: 181.215.52.6
-  skip-cert-verify: true
-  tls: true
-  type: http
-  username: ''
-  udp: true
-- name: 🇺🇸US_12|2.2MB/s [高速]
-  port: 443
-  server: 149.34.248.65
-  skip-cert-verify: true
-  sni: 149.34.248.65
-  tls: true
-  type: http
-- name: 🇨🇦CA_19|136KB/s|R002-260618 [高速]
-  port: 443
-  server: 206.223.183.13
+  server: 12.221.146.147
   skip-cert-verify: true
   sub_tag: R002-260618
   tls: true
   type: http
   udp: true
-- name: 🇺🇸US_13|679KB/s|K001-260618 [高速]
+- name: 🇺🇸US_192|936KB/s|K001-260618 [高速]
+  password: None
+  port: 9443
+  server: 154.47.25.78
+  skip-cert-verify: true
+  sub_tag: K001-260618
+  tls: true
+  type: http
+  username: ''
+  udp: true
+- name: 🇺🇸US_379|614KB/s|K001-260618 [高速]
   password: None
   port: 443
-  server: 121.127.34.82
+  server: 12.202.180.10
   skip-cert-verify: true
   sub_tag: K001-260618
   tls: true
   type: http
   username: ''
   udp: true
-- name: 🇺🇸US_526|572KB/s|K001-260618 [高速]
-  password: ''
+- name: 🇺🇸US_361|775KB/s|K001-260618 [高速]
+  password: None
   port: 9443
-  server: 76.164.193.18
+  server: 198.44.138.27
   skip-cert-verify: true
   sub_tag: K001-260618
   tls: true
   type: http
   username: ''
   udp: true
+- name: 🇺🇸US_461|685KB/s|R002-260618 [高速]
+  password: None
+  port: 443
+  server: 68.235.56.51
+  skip-cert-verify: true
+  sub_tag: R002-260618
+  tls: true
+  type: http
+  udp: true
+- name: 🇺🇸US_362|849KB/s|K001-260618 [高速]
+  password: None
+  port: 443
+  server: 12.202.180.118
+  skip-cert-verify: true
+  sub_tag: K001-260618
+  tls: true
+  type: http
+  username: ''
+  udp: true
+- name: 🇺🇸US_280|855KB/s|R002-260618 [高速]
+  port: 443
+  server: 149.88.21.129
+  skip-cert-verify: true
+  sub_tag: R002-260618
+  tls: true
+  type: http
+  udp: true
+- name: 🇺🇸US_378|957KB/s|P002-260618 [高速]
+  port: 9443
+  server: 149.88.21.140
+  skip-cert-verify: true
+  sub_tag: P002-260618
+  tls: true
+  type: http
+  udp: true
+- name: 🇨🇦CA_11|565KB/s|R002-260618 [高速]
+  port: 443
+  server: 206.223.161.47
+  skip-cert-verify: true
+  sub_tag: R002-260618
+  tls: true
+  type: http
+  udp: true
 - cipher: aes-256-gcm
-  name: nl|5013|puddincat07@Telegram [高速]
+  name: 🇮🇹IT_4|2.1MB/s|A004-260618 [高速]
   password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
   port: 19999
-  server: 202.50.253.90
-  type: ss
-- cipher: aes-256-gcm
-  name: nl|bc46|puddincat07@Telegram [高速]
-  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
-  port: 19999
-  server: 202.50.253.54
-  type: ss
-- cipher: aes-256-gcm
-  name: 🇮🇹IT_7|505KB/s|A004-260618 [高速]
-  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
-  port: 19999
-  server: 202.50.253.45
+  server: 202.50.253.81
   sub_tag: A004-260618
   type: ss
   udp: true
-- cipher: aes-256-gcm
-  name: nl|8e6f|puddincat07@Telegram [高速]
-  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
-  port: 19999
-  server: 202.50.253.72
-  type: ss
-- cipher: aes-256-gcm
-  name: 意大利|@ripaojiedian [高速]
-  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
-  port: 19999
-  server: 202.50.253.63
-  type: ss
-  udp: true
-- cipher: aes-256-gcm
-  name: nl|6a01|puddincat07@Telegram [高速]
-  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
-  port: 19999
-  server: 202.50.253.18
-  type: ss
-- cipher: aes-256-gcm
-  name: nl|f92b|puddincat07@Telegram [高速]
-  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
-  port: 19999
-  server: 202.50.253.27
-  type: ss
-- name: 意大利 - Milan - 4 [高速]
-  server: 202.50.253.81
+- name: 🇮🇹 [588.7ms +/-10ms] 🇮🇹 [高速]
+  server: 202.50.253.36
   port: 19999
   type: ss
-  country: 🇳🇿 NZ
-  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
   cipher: aes-256-gcm
-  delay: 1379
-- name: '[807.6ms +/-0ms] http-149.36.51.129 [高速]'
-  server: 149.36.51.129
-  port: 443
-  type: http
-  tls: true
-  skip-cert-verify: true
-- name: 🇩🇪DE_16|1010KB/s|R002-260618 [高速]
-  password: None
-  port: 443
-  server: 149.36.50.129
-  skip-cert-verify: true
-  sub_tag: R002-260618
-  tls: true
-  type: http
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
   udp: true
-- name: 🇳🇱NL_157|4.5MB/s|P002-260618 [高速]
-  password: 'null'
-  port: 443
-  server: 5.255.118.82
-  skip-cert-verify: true
-  sub_tag: P002-260618
-  tls: true
-  type: http
-  username: 'null'
+- name: 意大利 - Milan - 5 [高速]
+  server: 202.50.253.99
+  port: 19999
+  type: ss
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
   udp: true
-- name: 🇨🇭CH_23|1.5MB/s|R002-260618 [高速]
-  port: 443
-  server: 31.7.62.50
-  skip-cert-verify: true
-  sub_tag: R002-260618
-  tls: true
-  type: http
-  udp: true
-- name: 🇨🇿CZ_4|593KB/s|P002-260618 [高速]
-  password: None
-  port: 443
-  server: 185.216.35.66
-  skip-cert-verify: true
-  sub_tag: P002-260618
-  tls: true
-  type: http
-  udp: true
-- name: 🇩🇪DE_56|1.4MB/s|P002-260618 [高速]
+  delay: 1424
+- name: 🇬🇧GB_10|700KB/s|P002-260618 [高速]
   password: None
   port: 9443
-  server: 213.177.229.161
+  server: 84.17.50.214
   skip-cert-verify: true
   sub_tag: P002-260618
   tls: true
   type: http
   udp: true
-- name: 🇸🇪SE_9|1.1MB/s|P002-260618 [高速]
-  password: None
-  port: 443
-  server: 79.142.77.63
-  skip-cert-verify: true
-  sub_tag: P002-260618
-  tls: true
-  type: http
-  udp: true
-- name: 🇭🇺HU_1|954KB/s|R002-260618 [高速]
-  port: 443
-  server: 146.70.203.18
-  skip-cert-verify: true
-  sub_tag: R002-260618
-  tls: true
-  type: http
-  udp: true
-- name: 🇮🇹IT_25|991KB/s|P002-260618 [高速]
-  password: None
-  port: 443
-  server: 185.183.105.130
-  skip-cert-verify: true
-  sub_tag: P002-260618
-  tls: true
-  type: http
-  udp: true
-- name: 🇱🇻LV_12|560KB/s|R002-260618 [高速]
-  port: 443
-  server: 85.203.39.130
-  skip-cert-verify: true
-  sub_tag: R002-260618
-  tls: true
-  type: http
-  udp: true
-- cipher: aes-256-gcm
-  name: '🇮🇹 意大利 | ITA #1 [高速]'
-  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
-  port: 19999
-  server: 202.50.253.81
-  type: ss
-  udp: true
-- name: 🇦🇱AL_3|533KB/s|K001-260618 [高速]
+- name: 🇬🇧GB_29|1005KB/s|P002-260618 [高速]
   password: None
   port: 9443
-  server: 31.171.155.210
-  skip-cert-verify: true
-  sub_tag: K001-260618
-  tls: true
-  type: http
-  username: ''
-  udp: true
-- name: 🇷🇸RS_1|1.1MB/s [高速]
-  port: 443
-  server: 146.70.221.18
-  skip-cert-verify: true
-  tls: true
-  type: http
-- cipher: aes-256-gcm
-  name: 🇮🇹IT_18|2.2MB/s|C001-260618 [高速]
-  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
-  port: 19999
-  server: 202.50.253.90
-  sub_tag: C001-260618
-  type: ss
-  udp: true
-- name: 🇦🇱AL_1|1.1MB/s|P002-260618 [高速]
-  password: None
-  port: 443
-  server: 87.120.103.242
+  server: 84.233.178.33
   skip-cert-verify: true
   sub_tag: P002-260618
   tls: true
   type: http
   udp: true
-- name: 🇧🇬BG_7|943KB/s|R002-260618 [高速]
+- name: 🇸🇬SG_27|502KB/s|R002-260618 [高速]
+  port: 9443
+  server: 152.233.9.239
+  skip-cert-verify: true
+  sub_tag: R002-260618
+  tls: true
+  type: http
+  udp: true
+- name: 🇸🇪SE_3|675KB/s|R002-260618 [高速]
+  port: 443
+  server: 146.70.242.130
+  skip-cert-verify: true
+  sub_tag: R002-260618
+  tls: true
+  type: http
+  udp: true
+- name: '[840.0ms +/-1ms] http-149.34.248.65 [高速]'
+  server: 149.34.248.65
+  port: 443
+  type: http
+  tls: true
+  skip-cert-verify: true
+- name: 🇳🇴NO_2|669KB/s|P002-260618 [高速]
+  password: None
+  port: 9443
+  server: 146.70.170.210
+  skip-cert-verify: true
+  sub_tag: P002-260618
+  tls: true
+  type: http
+  udp: true
+- name: 🇷🇸RS_1|869KB/s|R002-260618 [高速]
+  port: 443
+  server: 146.70.221.34
+  skip-cert-verify: true
+  sub_tag: R002-260618
+  tls: true
+  type: http
+  udp: true
+- name: 🇧🇬BG_7|448KB/s|P002-260618 [高速]
+  password: None
+  port: 9443
+  server: 169.150.237.1
+  skip-cert-verify: true
+  sub_tag: P002-260618
+  tls: true
+  type: http
+  udp: true
+- name: 🇧🇬BG_6|1.2MB/s|R002-260618 [高速]
+  password: None
   port: 443
   server: 185.94.192.210
   skip-cert-verify: true
@@ -260,50 +183,294 @@ proxies:
   tls: true
   type: http
   udp: true
-- name: 🇲🇰MK_1|838KB/s|P002-260618 [高速]
+- name: 🇩🇪DE_8|1.8MB/s|R002-260618 [高速]
+  port: 8443
+  server: 77.221.136.60
+  skip-cert-verify: true
+  sub_tag: R002-260618
+  tls: true
+  type: http
+  udp: true
+- name: 🇦🇱AL_1|1.0MB/s|P002-260618 [高速]
+  password: None
   port: 443
-  server: 185.225.28.50
+  server: 87.120.103.226
   skip-cert-verify: true
   sub_tag: P002-260618
   tls: true
   type: http
   udp: true
-- name: 🇸🇬SG_13|668KB/s [高速]
-  password: ''
-  port: 9443
-  server: 149.88.99.209
+- name: 🇨🇾CY_1|783KB/s|K001-260618 [高速]
+  password: None
+  port: 443
+  server: 213.207.130.34
   skip-cert-verify: true
+  sub_tag: K001-260618
   tls: true
   type: http
   username: ''
   udp: true
-- name: 🇸🇬SG_34|71KB/s|P002-260618 [高速]
+- name: 🇵🇹PT_1|587KB/s|R002-260618 [高速]
+  port: 443
+  server: 149.22.86.1
+  skip-cert-verify: true
+  sub_tag: R002-260618
+  tls: true
+  type: http
+  udp: true
+- name: 🇵🇹PT_2|696KB/s|P002-260618 [高速]
   password: None
-  port: 9443
-  server: 152.233.9.239
+  port: 443
+  server: 149.22.86.14
   skip-cert-verify: true
   sub_tag: P002-260618
   tls: true
   type: http
   udp: true
-- type: hysteria
-  name: 🇺🇸_US_美国_IPV4 (3) [高速]
-  server: 38.6.222.131
-  port: 11008
-  password: dongtaiwang.com
-  tls: true
-  servername: bing.com
-  sni: bing.com
+- name: 🇹🇼 🇨🇳 台湾 | TWN 5 [高速]
+  password: 2902c46c8493
+  port: 443
+  server: rtifgjdr.df6h451rh.xin
   skip-cert-verify: true
+  sni: docs.microsoft.com
+  type: anytls
+  udp: true
+- cipher: aes-256-gcm
+  name: 🇮🇹IT_16|320KB/s|B007-260618 [高速]
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 202.50.253.54
+  sub_tag: B007-260618
+  type: ss
+  udp: true
+- type: anytls
+  name: 🇹🇼_TW_台湾_IPV4 (2) [高速]
+  server: rtifgjdr.df6h451rh.xin
+  port: 443
+  password: 2902c46c8493
+  tls: true
+  servername: docs.microsoft.com
+  sni: docs.microsoft.com
+  skip-cert-verify: true
+- cipher: aes-256-gcm
+  name: nl|468f|puddincat07@Telegram [高速]
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 202.50.253.45
+  type: ss
+- name: 🇹🇼 🇨🇳 台湾 | TWN [e39c3f] [高速]
+  password: 2902c46c8493
+  port: 443
+  server: rtifgjdr.df6h451rh.xin
+  servername: docs.microsoft.com
+  skip-cert-verify: true
+  sni: docs.microsoft.com
+  tls: true
+  type: anytls
+  udp: true
+- fingerprint: ''
+  name: 🇹🇼TW_4|1.8MB/s [高速]
+  password: 2902c46c8493
+  port: 443
+  server: er8u54dh.df6h451rh.xin
+  skip-cert-verify: true
+  sni: px.ads.linkedin.com
+  type: anytls
+  udp: true
+  username: 2902c46c8493
+- name: Igareck Node 087 | 🇬🇧 United Kingdom， London | [BL] [高速]
+  type: hysteria2
+  server: uk-tube-01.stre4m.net
+  port: 13337
+  password: 900c8c92-1979-4c7c-8f2f-63e87d53d8fe
+  udp: true
+  sni: mother-earth.fyi
   alpn:
   - h3
-  up: '11'
-  down: '55'
-  auth-str: dongtaiwang.com
-- name: 🇨🇦CA_21|866KB/s|K001-260618 [普通]
+- name: 🇸🇪SE_10|908KB/s|P002-260618 [高速]
   password: None
   port: 443
-  server: 206.223.161.47
+  server: 149.50.216.65
+  skip-cert-verify: true
+  sub_tag: P002-260618
+  tls: true
+  type: http
+  udp: true
+- name: 🇭🇺HU_1|1.1MB/s|P002-260618 [高速]
+  password: None
+  port: 443
+  server: 146.70.203.18
+  skip-cert-verify: true
+  sub_tag: P002-260618
+  tls: true
+  type: http
+  udp: true
+- name: 🇦🇱AL_6|990KB/s|R002-260618 [高速]
+  port: 443
+  server: 87.120.103.242
+  skip-cert-verify: true
+  sub_tag: R002-260618
+  tls: true
+  type: http
+  udp: true
+- client-fingerprint: firefox
+  name: 🇫🇮FI_1|2.2MB/s [高速]
+  network: xhttp
+  port: 443
+  reality-opts:
+    public-key: _yJGJ5q-8IxTuWFcoy5wpKKYtk9p9q4lQ6svfXC1IUU
+    short-id: 621290c77645b731
+  server: 196.196.208.22
+  servername: 9303d6x.fi-p1b.h1clayd.click
+  tls: true
+  type: vless
+  udp: true
+  uuid: cae99415-10a6-4317-81bd-19a4586b5d76
+  xhttp-opts:
+    host: 9303d6x.fi-p1b.h1clayd.click
+    mode: auto
+    path: /f57a81c99fea
+- name: 🇺🇸US_459|773KB/s|R002-260618 [普通]
+  port: 443
+  server: 121.127.34.82
+  skip-cert-verify: true
+  sub_tag: R002-260618
+  tls: true
+  type: http
+  udp: true
+- name: '[437.1ms +/-3ms] http-181.215.52.6 [普通]'
+  server: 181.215.52.6
+  port: 9443
+  type: http
+  tls: true
+  skip-cert-verify: true
+- name: 🇺🇸US_432|757KB/s|K001-260618 [普通]
+  password: None
+  port: 443
+  server: 198.44.135.27
+  skip-cert-verify: true
+  sub_tag: K001-260618
+  tls: true
+  type: http
+  username: ''
+  udp: true
+- name: 🇺🇸US_448|648KB/s|R002-260618 [普通]
+  port: 9443
+  server: 198.44.135.19
+  skip-cert-verify: true
+  sub_tag: R002-260618
+  tls: true
+  type: http
+  udp: true
+- name: 🇺🇸US_388|256KB/s|Z001-260618 [普通]
+  port: 443
+  server: fan.226278.xyz
+  sub_tag: Z001-260618
+  tls: true
+  type: http
+  udp: true
+  sni: fan.226278.xyz
+- name: 🇨🇦CA_21|884KB/s|R002-260618 [普通]
+  port: 443
+  server: 206.223.183.21
+  skip-cert-verify: true
+  sub_tag: R002-260618
+  tls: true
+  type: http
+  udp: true
+- name: 🇺🇸US_365|101KB/s|R002-260618 [普通]
+  port: 443
+  server: 137.175.22.56
+  skip-cert-verify: true
+  sub_tag: R002-260618
+  tls: true
+  type: http
+  udp: true
+- cipher: aes-256-gcm
+  name: nl|e1f5|puddincat07@Telegram [普通]
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 202.50.253.63
+  type: ss
+- name: 🇯🇵JP_14|270KB/s|R002-260618 [普通]
+  password: exaxgqkKkd0TAMrCxeonWg==
+  port: 443
+  server: jpgmo102-cdn-route.couldflare-cdn.com
+  sub_tag: R002-260618
+  tls: true
+  type: http
+  username: mrwdfNTD8M79LCukCieldrqZWqs=
+  udp: true
+  sni: jpgmo102-cdn-route.couldflare-cdn.com
+- name: 🇬🇧GB_11|967KB/s|R002-260618 [普通]
+  port: 443
+  server: 185.164.138.156
+  skip-cert-verify: true
+  sub_tag: R002-260618
+  tls: true
+  type: http
+  udp: true
+- cipher: aes-256-gcm
+  name: '🇮🇹 意大利 | ITA #4 [普通]'
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 202.50.253.90
+  type: ss
+  udp: true
+- name: 🇬🇧GB_9|1.1MB/s|R002-260618 [普通]
+  port: 443
+  server: 84.17.50.193
+  skip-cert-verify: true
+  sub_tag: R002-260618
+  tls: true
+  type: http
+  udp: true
+- name: 🇮🇪IE_8|1.4MB/s|P002-260618 [普通]
+  password: None
+  port: 443
+  server: 149.88.96.12
+  skip-cert-verify: true
+  sub_tag: P002-260618
+  tls: true
+  type: http
+  udp: true
+- name: 🇬🇧GB_32|1.3MB/s|R002-260618 [普通]
+  port: 443
+  server: 37.120.233.18
+  skip-cert-verify: true
+  sub_tag: R002-260618
+  tls: true
+  type: http
+  udp: true
+- name: 🇩🇪DE_98|1.2MB/s|P002-260618 [普通]
+  password: None
+  port: 9443
+  server: 79.127.156.177
+  skip-cert-verify: true
+  sub_tag: P002-260618
+  tls: true
+  type: http
+  udp: true
+- name: 🇩🇪DE_70|1.5MB/s|R002-260618 [普通]
+  port: 443
+  server: 149.36.50.129
+  skip-cert-verify: true
+  sub_tag: R002-260618
+  tls: true
+  type: http
+  udp: true
+- name: 🇩🇪DE_90|716KB/s|R002-260618 [普通]
+  port: 443
+  server: 79.127.156.177
+  skip-cert-verify: true
+  sub_tag: R002-260618
+  tls: true
+  type: http
+  udp: true
+- name: 🇷🇴RO_28|687KB/s|K001-260618 [普通]
+  password: None
+  port: 443
+  server: 185.163.110.194
   skip-cert-verify: true
   sub_tag: K001-260618
   tls: true
@@ -311,266 +478,282 @@ proxies:
   username: ''
   udp: true
 - cipher: aes-256-gcm
-  name: 🇮🇹IT_14|2.3MB/s|A004-260618 [普通]
+  name: nl|b8af|puddincat07@Telegram [普通]
   password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
   port: 19999
-  server: 202.50.253.99
-  sub_tag: A004-260618
+  server: 202.50.253.81
   type: ss
-  udp: true
-- cipher: aes-256-gcm
-  name: 🇮🇹IT_5|4.1MB/s|B007-260618 [普通]
-  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
-  port: 19999
-  server: 202.50.253.36
-  sub_tag: B007-260618
-  type: ss
-  udp: true
-- cipher: aes-256-gcm
-  name: 🇮🇹IT_3|3.4MB/s|B007-260618 [普通]
-  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
-  port: 19999
-  server: 202.50.253.27
-  sub_tag: B007-260618
-  type: ss
-  udp: true
-- cipher: aes-256-gcm
-  name: 🇮🇹IT_15|211KB/s|A004-260618 [普通]
-  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
-  port: 19999
-  server: 202.50.253.72
-  sub_tag: A004-260618
-  type: ss
-  udp: true
-- cipher: aes-256-gcm
-  name: nl|2d27|puddincat07@Telegram [普通]
-  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
-  port: 19999
-  server: 202.50.253.99
-  type: ss
-- cipher: aes-256-gcm
-  name: '🇮🇹 意大利 | ITA #4-2 [普通]'
-  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
-  port: 19999
-  server: 202.50.253.72
-  type: ss
-  udp: true
-- cipher: aes-256-gcm
-  name: '🇮🇹 意大利 | ITA #5 [普通]'
-  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
-  port: 19999
-  server: 202.50.253.27
-  type: ss
-  udp: true
-- cipher: aes-256-gcm
-  name: '🇮🇹 意大利 | ITA #3 [普通]'
-  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
-  port: 19999
-  server: 202.50.253.54
-  type: ss
-  udp: true
-- cipher: aes-256-gcm
-  name: '🇮🇹 意大利 | ITA #5-2 [普通]'
-  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
-  port: 19999
-  server: 202.50.253.99
-  type: ss
-  udp: true
-- cipher: aes-256-gcm
-  name: 🇮🇹IT_6|2.4MB/s|A004-260618 [普通]
-  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
-  port: 19999
-  server: 202.50.253.63
-  sub_tag: A004-260618
-  type: ss
-  udp: true
-- cipher: aes-256-gcm
-  name: '🇮🇹 意大利 | ITA #2 [普通]'
-  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
-  port: 19999
-  server: 202.50.253.45
-  type: ss
-  udp: true
-- name: '[760.2ms +/-4ms] http-149.36.50.1 [普通]'
-  server: 149.36.50.1
+- name: 🇺🇸US_340|96KB/s|R002-260618 [普通]
   port: 443
-  type: http
-  tls: true
-  skip-cert-verify: true
-- name: 🇸🇪SE_8|1.1MB/s|R002-260618 [普通]
-  port: 443
-  server: 149.50.216.65
+  server: 137.175.22.52
   skip-cert-verify: true
   sub_tag: R002-260618
   tls: true
   type: http
   udp: true
-- name: 🇩🇪DE_54|768KB/s|R002-260618 [普通]
-  password: 'null'
+- name: 🇺🇸US_115|315KB/s|R002-260618 [普通]
   port: 443
-  server: fan.973511.xyz
-  sub_tag: R002-260618
-  tls: true
-  type: http
-  username: 'null'
-  udp: true
-  sni: fan.973511.xyz
-- fingerprint: ''
-  name: 🇺🇸US_13|2.6MB/s [普通]
-  password: 0324fbc29561
-  port: 443
-  server: sdf65h46wr.df6h451rh.xin
-  skip-cert-verify: true
-  sni: images.ctfassets.net
-  type: anytls
-  udp: true
-  username: 0324fbc29561
-- cipher: aes-256-gcm
-  name: 🇮🇹IT_9|2.7MB/s [普通]
-  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
-  port: 19999
-  server: 202.50.253.18
-  type: ss
-  udp: true
-- name: 🇸🇬SG_10|601KB/s|R002-260618 [普通]
-  port: 443
-  server: 154.26.139.24
+  server: 38.28.193.188
   skip-cert-verify: true
   sub_tag: R002-260618
   tls: true
   type: http
   udp: true
-- client-fingerprint: chrome
-  name: 🇯🇵JP_31|219KB/s|A003-260618 [普通]
+- name: 🇺🇸US_84|326KB/s|R002-260618 [普通]
+  port: 443
+  server: fan.365747.xyz
+  skip-cert-verify: true
+  sni: fan.365747.xyz
+  sub_tag: R002-260618
+  tls: true
+  type: http
+  udp: true
+- name: 🇺🇸US_423|120KB/s|R002-260618 [普通]
+  port: 443
+  server: 137.175.22.29
+  skip-cert-verify: true
+  sub_tag: R002-260618
+  tls: true
+  type: http
+  udp: true
+- name: 🇺🇸US_186|324KB/s|R002-260618 [普通]
+  port: 443
+  server: 38.28.193.1
+  skip-cert-verify: true
+  sni: 38.28.193.1
+  sub_tag: R002-260618
+  tls: true
+  type: http
+  udp: true
+- name: 🇯🇵JP_28|112KB/s|R002-260618 [普通]
+  port: 443
+  server: fan.571589.xyz
+  skip-cert-verify: false
+  sub_tag: R002-260618
+  tls: true
+  type: http
+  udp: true
+  sni: fan.571589.xyz
+- alpn:
+  - h3
+  auth_str: dongtaiwang.com
+  down: '55'
+  name: 🇫🇷FR_5|3.3MB/s [普通]
+  obfs: ''
+  port: 24667
+  protocol: ''
+  server: 62.210.28.175
+  skip-cert-verify: true
+  sni: bing.com
+  type: hysteria
+  up: '11'
+- name: 🇳🇱NL_203|1.9MB/s|R002-260618 [普通]
+  port: 443
+  server: 5.255.120.245
+  skip-cert-verify: true
+  sub_tag: R002-260618
+  tls: true
+  type: http
+  udp: true
+- name: 🇳🇱NL_190|4.0MB/s|R002-260618 [普通]
+  port: 443
+  server: 5.255.120.238
+  skip-cert-verify: true
+  sub_tag: R002-260618
+  tls: true
+  type: http
+  udp: true
+- name: Igareck Node 071 | 🇺🇸 United States， Ashburn | 🌐 | [BL] [普通]
+  type: vless
+  server: 87.228.110.60
+  port: 443
+  uuid: 7aa77858-f235-000a-9434-7ab060848b17
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  servername: allah-ddos.whyfucked.sc
   network: tcp
-  password: 57beeeb0-03fc-4fc9-94da-7604488a7134
-  port: 34745
-  server: win2loxfde0303.gggrelay.org
-  skip-cert-verify: true
-  sni: nu3rb.supertoolify.com
-  sub_tag: A003-260618
-  type: trojan
+- client-fingerprint: chrome
+  encryption: none
+  name: 🇱🇹LT_2|2.1MB/s [普通]
+  network: xhttp
+  port: 443
+  reality-opts:
+    public-key: KEbWnNTqeFDxwCQqyvVvyEhnK7QUIrwhq9-9geUEOmY
+    short-id: 90190d82f1581926
+  server: 176.223.131.60
+  servername: 7bc4aex.lt3.h1clayd.click
+  tls: true
+  type: vless
   udp: true
+  uuid: cae99415-10a6-4317-81bd-19a4586b5d76
+  xhttp-opts:
+    host: 7bc4aex.lt3.h1clayd.click
+    mode: auto
+    path: /8c1d3cd048db
+  xudp: true
+- client-fingerprint: chrome
+  grpc-opts:
+    grpc-service-name: 7d5abcd7d8a1
+  name: 🇳🇱NL_8|1.2MB/s [普通]
+  network: grpc
+  packet-encoding: xudp
+  port: 443
+  reality-opts:
+    public-key: xn7KVKS5MOnsFrYrEeRS04JssBCOxh12rxegaDFyGkA
+    short-id: 6d289ff0f47c0aac
+  server: 961ec0g.nl13.h1clayd.click
+  servername: 961ec0g.nl13.h1clayd.click
+  tls: true
+  type: vless
+  uuid: cda0862a-0f87-4be9-8ed8-1d0c9e382839
+  x-toolall-mihomo: true
 proxy-groups:
 - name: 高速节点
   type: select
   proxies:
-  - 🇫🇷FR_24|4.1MB/s [高速]
-  - 🇩🇪DE_1|1.8MB/s|P002-260618 [高速]
-  - US_speednode_0027 [高速]
-  - 🇨🇦CA_41|949KB/s [高速]
-  - 🇺🇸US_12|2.2MB/s [高速]
-  - 🇨🇦CA_19|136KB/s|R002-260618 [高速]
-  - 🇺🇸US_13|679KB/s|K001-260618 [高速]
-  - 🇺🇸US_526|572KB/s|K001-260618 [高速]
-  - nl|5013|puddincat07@Telegram [高速]
-  - nl|bc46|puddincat07@Telegram [高速]
-  - 🇮🇹IT_7|505KB/s|A004-260618 [高速]
-  - nl|8e6f|puddincat07@Telegram [高速]
-  - 意大利|@ripaojiedian [高速]
-  - nl|6a01|puddincat07@Telegram [高速]
-  - nl|f92b|puddincat07@Telegram [高速]
-  - 意大利 - Milan - 4 [高速]
-  - '[807.6ms +/-0ms] http-149.36.51.129 [高速]'
-  - 🇩🇪DE_16|1010KB/s|R002-260618 [高速]
-  - 🇳🇱NL_157|4.5MB/s|P002-260618 [高速]
-  - 🇨🇭CH_23|1.5MB/s|R002-260618 [高速]
-  - 🇨🇿CZ_4|593KB/s|P002-260618 [高速]
-  - 🇩🇪DE_56|1.4MB/s|P002-260618 [高速]
-  - 🇸🇪SE_9|1.1MB/s|P002-260618 [高速]
-  - 🇭🇺HU_1|954KB/s|R002-260618 [高速]
-  - 🇮🇹IT_25|991KB/s|P002-260618 [高速]
-  - 🇱🇻LV_12|560KB/s|R002-260618 [高速]
-  - '🇮🇹 意大利 | ITA #1 [高速]'
-  - 🇦🇱AL_3|533KB/s|K001-260618 [高速]
-  - 🇷🇸RS_1|1.1MB/s [高速]
-  - 🇮🇹IT_18|2.2MB/s|C001-260618 [高速]
-  - 🇦🇱AL_1|1.1MB/s|P002-260618 [高速]
-  - 🇧🇬BG_7|943KB/s|R002-260618 [高速]
-  - 🇲🇰MK_1|838KB/s|P002-260618 [高速]
-  - 🇸🇬SG_13|668KB/s [高速]
-  - 🇸🇬SG_34|71KB/s|P002-260618 [高速]
-  - 🇺🇸_US_美国_IPV4 (3) [高速]
+  - 🇺🇸US_410|754KB/s|R002-260618 [高速]
+  - 🇺🇸US_192|936KB/s|K001-260618 [高速]
+  - 🇺🇸US_379|614KB/s|K001-260618 [高速]
+  - 🇺🇸US_361|775KB/s|K001-260618 [高速]
+  - 🇺🇸US_461|685KB/s|R002-260618 [高速]
+  - 🇺🇸US_362|849KB/s|K001-260618 [高速]
+  - 🇺🇸US_280|855KB/s|R002-260618 [高速]
+  - 🇺🇸US_378|957KB/s|P002-260618 [高速]
+  - 🇨🇦CA_11|565KB/s|R002-260618 [高速]
+  - 🇮🇹IT_4|2.1MB/s|A004-260618 [高速]
+  - 🇮🇹 [588.7ms +/-10ms] 🇮🇹 [高速]
+  - 意大利 - Milan - 5 [高速]
+  - 🇬🇧GB_10|700KB/s|P002-260618 [高速]
+  - 🇬🇧GB_29|1005KB/s|P002-260618 [高速]
+  - 🇸🇬SG_27|502KB/s|R002-260618 [高速]
+  - 🇸🇪SE_3|675KB/s|R002-260618 [高速]
+  - '[840.0ms +/-1ms] http-149.34.248.65 [高速]'
+  - 🇳🇴NO_2|669KB/s|P002-260618 [高速]
+  - 🇷🇸RS_1|869KB/s|R002-260618 [高速]
+  - 🇧🇬BG_7|448KB/s|P002-260618 [高速]
+  - 🇧🇬BG_6|1.2MB/s|R002-260618 [高速]
+  - 🇩🇪DE_8|1.8MB/s|R002-260618 [高速]
+  - 🇦🇱AL_1|1.0MB/s|P002-260618 [高速]
+  - 🇨🇾CY_1|783KB/s|K001-260618 [高速]
+  - 🇵🇹PT_1|587KB/s|R002-260618 [高速]
+  - 🇵🇹PT_2|696KB/s|P002-260618 [高速]
+  - 🇹🇼 🇨🇳 台湾 | TWN 5 [高速]
+  - 🇮🇹IT_16|320KB/s|B007-260618 [高速]
+  - 🇹🇼_TW_台湾_IPV4 (2) [高速]
+  - nl|468f|puddincat07@Telegram [高速]
+  - 🇹🇼 🇨🇳 台湾 | TWN [e39c3f] [高速]
+  - 🇹🇼TW_4|1.8MB/s [高速]
+  - Igareck Node 087 | 🇬🇧 United Kingdom， London | [BL] [高速]
+  - 🇸🇪SE_10|908KB/s|P002-260618 [高速]
+  - 🇭🇺HU_1|1.1MB/s|P002-260618 [高速]
+  - 🇦🇱AL_6|990KB/s|R002-260618 [高速]
+  - 🇫🇮FI_1|2.2MB/s [高速]
 - name: 普通节点
   type: select
   proxies:
-  - 🇨🇦CA_21|866KB/s|K001-260618 [普通]
-  - 🇮🇹IT_14|2.3MB/s|A004-260618 [普通]
-  - 🇮🇹IT_5|4.1MB/s|B007-260618 [普通]
-  - 🇮🇹IT_3|3.4MB/s|B007-260618 [普通]
-  - 🇮🇹IT_15|211KB/s|A004-260618 [普通]
-  - nl|2d27|puddincat07@Telegram [普通]
-  - '🇮🇹 意大利 | ITA #4-2 [普通]'
-  - '🇮🇹 意大利 | ITA #5 [普通]'
-  - '🇮🇹 意大利 | ITA #3 [普通]'
-  - '🇮🇹 意大利 | ITA #5-2 [普通]'
-  - 🇮🇹IT_6|2.4MB/s|A004-260618 [普通]
-  - '🇮🇹 意大利 | ITA #2 [普通]'
-  - '[760.2ms +/-4ms] http-149.36.50.1 [普通]'
-  - 🇸🇪SE_8|1.1MB/s|R002-260618 [普通]
-  - 🇩🇪DE_54|768KB/s|R002-260618 [普通]
-  - 🇺🇸US_13|2.6MB/s [普通]
-  - 🇮🇹IT_9|2.7MB/s [普通]
-  - 🇸🇬SG_10|601KB/s|R002-260618 [普通]
-  - 🇯🇵JP_31|219KB/s|A003-260618 [普通]
+  - 🇺🇸US_459|773KB/s|R002-260618 [普通]
+  - '[437.1ms +/-3ms] http-181.215.52.6 [普通]'
+  - 🇺🇸US_432|757KB/s|K001-260618 [普通]
+  - 🇺🇸US_448|648KB/s|R002-260618 [普通]
+  - 🇺🇸US_388|256KB/s|Z001-260618 [普通]
+  - 🇨🇦CA_21|884KB/s|R002-260618 [普通]
+  - 🇺🇸US_365|101KB/s|R002-260618 [普通]
+  - nl|e1f5|puddincat07@Telegram [普通]
+  - 🇯🇵JP_14|270KB/s|R002-260618 [普通]
+  - 🇬🇧GB_11|967KB/s|R002-260618 [普通]
+  - '🇮🇹 意大利 | ITA #4 [普通]'
+  - 🇬🇧GB_9|1.1MB/s|R002-260618 [普通]
+  - 🇮🇪IE_8|1.4MB/s|P002-260618 [普通]
+  - 🇬🇧GB_32|1.3MB/s|R002-260618 [普通]
+  - 🇩🇪DE_98|1.2MB/s|P002-260618 [普通]
+  - 🇩🇪DE_70|1.5MB/s|R002-260618 [普通]
+  - 🇩🇪DE_90|716KB/s|R002-260618 [普通]
+  - 🇷🇴RO_28|687KB/s|K001-260618 [普通]
+  - nl|b8af|puddincat07@Telegram [普通]
+  - 🇺🇸US_340|96KB/s|R002-260618 [普通]
+  - 🇺🇸US_115|315KB/s|R002-260618 [普通]
+  - 🇺🇸US_84|326KB/s|R002-260618 [普通]
+  - 🇺🇸US_423|120KB/s|R002-260618 [普通]
+  - 🇺🇸US_186|324KB/s|R002-260618 [普通]
+  - 🇯🇵JP_28|112KB/s|R002-260618 [普通]
+  - 🇫🇷FR_5|3.3MB/s [普通]
+  - 🇳🇱NL_203|1.9MB/s|R002-260618 [普通]
+  - 🇳🇱NL_190|4.0MB/s|R002-260618 [普通]
+  - Igareck Node 071 | 🇺🇸 United States， Ashburn | 🌐 | [BL] [普通]
+  - 🇱🇹LT_2|2.1MB/s [普通]
+  - 🇳🇱NL_8|1.2MB/s [普通]
 - name: AUTO
   type: url-test
   proxies:
-  - 🇫🇷FR_24|4.1MB/s [高速]
-  - 🇩🇪DE_1|1.8MB/s|P002-260618 [高速]
-  - US_speednode_0027 [高速]
-  - 🇨🇦CA_41|949KB/s [高速]
-  - 🇺🇸US_12|2.2MB/s [高速]
-  - 🇨🇦CA_19|136KB/s|R002-260618 [高速]
-  - 🇺🇸US_13|679KB/s|K001-260618 [高速]
-  - 🇺🇸US_526|572KB/s|K001-260618 [高速]
-  - nl|5013|puddincat07@Telegram [高速]
-  - nl|bc46|puddincat07@Telegram [高速]
-  - 🇮🇹IT_7|505KB/s|A004-260618 [高速]
-  - nl|8e6f|puddincat07@Telegram [高速]
-  - 意大利|@ripaojiedian [高速]
-  - nl|6a01|puddincat07@Telegram [高速]
-  - nl|f92b|puddincat07@Telegram [高速]
-  - 意大利 - Milan - 4 [高速]
-  - '[807.6ms +/-0ms] http-149.36.51.129 [高速]'
-  - 🇩🇪DE_16|1010KB/s|R002-260618 [高速]
-  - 🇳🇱NL_157|4.5MB/s|P002-260618 [高速]
-  - 🇨🇭CH_23|1.5MB/s|R002-260618 [高速]
-  - 🇨🇿CZ_4|593KB/s|P002-260618 [高速]
-  - 🇩🇪DE_56|1.4MB/s|P002-260618 [高速]
-  - 🇸🇪SE_9|1.1MB/s|P002-260618 [高速]
-  - 🇭🇺HU_1|954KB/s|R002-260618 [高速]
-  - 🇮🇹IT_25|991KB/s|P002-260618 [高速]
-  - 🇱🇻LV_12|560KB/s|R002-260618 [高速]
-  - '🇮🇹 意大利 | ITA #1 [高速]'
-  - 🇦🇱AL_3|533KB/s|K001-260618 [高速]
-  - 🇷🇸RS_1|1.1MB/s [高速]
-  - 🇮🇹IT_18|2.2MB/s|C001-260618 [高速]
-  - 🇦🇱AL_1|1.1MB/s|P002-260618 [高速]
-  - 🇧🇬BG_7|943KB/s|R002-260618 [高速]
-  - 🇲🇰MK_1|838KB/s|P002-260618 [高速]
-  - 🇸🇬SG_13|668KB/s [高速]
-  - 🇸🇬SG_34|71KB/s|P002-260618 [高速]
-  - 🇺🇸_US_美国_IPV4 (3) [高速]
-  - 🇨🇦CA_21|866KB/s|K001-260618 [普通]
-  - 🇮🇹IT_14|2.3MB/s|A004-260618 [普通]
-  - 🇮🇹IT_5|4.1MB/s|B007-260618 [普通]
-  - 🇮🇹IT_3|3.4MB/s|B007-260618 [普通]
-  - 🇮🇹IT_15|211KB/s|A004-260618 [普通]
-  - nl|2d27|puddincat07@Telegram [普通]
-  - '🇮🇹 意大利 | ITA #4-2 [普通]'
-  - '🇮🇹 意大利 | ITA #5 [普通]'
-  - '🇮🇹 意大利 | ITA #3 [普通]'
-  - '🇮🇹 意大利 | ITA #5-2 [普通]'
-  - 🇮🇹IT_6|2.4MB/s|A004-260618 [普通]
-  - '🇮🇹 意大利 | ITA #2 [普通]'
-  - '[760.2ms +/-4ms] http-149.36.50.1 [普通]'
-  - 🇸🇪SE_8|1.1MB/s|R002-260618 [普通]
-  - 🇩🇪DE_54|768KB/s|R002-260618 [普通]
-  - 🇺🇸US_13|2.6MB/s [普通]
-  - 🇮🇹IT_9|2.7MB/s [普通]
-  - 🇸🇬SG_10|601KB/s|R002-260618 [普通]
-  - 🇯🇵JP_31|219KB/s|A003-260618 [普通]
+  - 🇺🇸US_410|754KB/s|R002-260618 [高速]
+  - 🇺🇸US_192|936KB/s|K001-260618 [高速]
+  - 🇺🇸US_379|614KB/s|K001-260618 [高速]
+  - 🇺🇸US_361|775KB/s|K001-260618 [高速]
+  - 🇺🇸US_461|685KB/s|R002-260618 [高速]
+  - 🇺🇸US_362|849KB/s|K001-260618 [高速]
+  - 🇺🇸US_280|855KB/s|R002-260618 [高速]
+  - 🇺🇸US_378|957KB/s|P002-260618 [高速]
+  - 🇨🇦CA_11|565KB/s|R002-260618 [高速]
+  - 🇮🇹IT_4|2.1MB/s|A004-260618 [高速]
+  - 🇮🇹 [588.7ms +/-10ms] 🇮🇹 [高速]
+  - 意大利 - Milan - 5 [高速]
+  - 🇬🇧GB_10|700KB/s|P002-260618 [高速]
+  - 🇬🇧GB_29|1005KB/s|P002-260618 [高速]
+  - 🇸🇬SG_27|502KB/s|R002-260618 [高速]
+  - 🇸🇪SE_3|675KB/s|R002-260618 [高速]
+  - '[840.0ms +/-1ms] http-149.34.248.65 [高速]'
+  - 🇳🇴NO_2|669KB/s|P002-260618 [高速]
+  - 🇷🇸RS_1|869KB/s|R002-260618 [高速]
+  - 🇧🇬BG_7|448KB/s|P002-260618 [高速]
+  - 🇧🇬BG_6|1.2MB/s|R002-260618 [高速]
+  - 🇩🇪DE_8|1.8MB/s|R002-260618 [高速]
+  - 🇦🇱AL_1|1.0MB/s|P002-260618 [高速]
+  - 🇨🇾CY_1|783KB/s|K001-260618 [高速]
+  - 🇵🇹PT_1|587KB/s|R002-260618 [高速]
+  - 🇵🇹PT_2|696KB/s|P002-260618 [高速]
+  - 🇹🇼 🇨🇳 台湾 | TWN 5 [高速]
+  - 🇮🇹IT_16|320KB/s|B007-260618 [高速]
+  - 🇹🇼_TW_台湾_IPV4 (2) [高速]
+  - nl|468f|puddincat07@Telegram [高速]
+  - 🇹🇼 🇨🇳 台湾 | TWN [e39c3f] [高速]
+  - 🇹🇼TW_4|1.8MB/s [高速]
+  - Igareck Node 087 | 🇬🇧 United Kingdom， London | [BL] [高速]
+  - 🇸🇪SE_10|908KB/s|P002-260618 [高速]
+  - 🇭🇺HU_1|1.1MB/s|P002-260618 [高速]
+  - 🇦🇱AL_6|990KB/s|R002-260618 [高速]
+  - 🇫🇮FI_1|2.2MB/s [高速]
+  - 🇺🇸US_459|773KB/s|R002-260618 [普通]
+  - '[437.1ms +/-3ms] http-181.215.52.6 [普通]'
+  - 🇺🇸US_432|757KB/s|K001-260618 [普通]
+  - 🇺🇸US_448|648KB/s|R002-260618 [普通]
+  - 🇺🇸US_388|256KB/s|Z001-260618 [普通]
+  - 🇨🇦CA_21|884KB/s|R002-260618 [普通]
+  - 🇺🇸US_365|101KB/s|R002-260618 [普通]
+  - nl|e1f5|puddincat07@Telegram [普通]
+  - 🇯🇵JP_14|270KB/s|R002-260618 [普通]
+  - 🇬🇧GB_11|967KB/s|R002-260618 [普通]
+  - '🇮🇹 意大利 | ITA #4 [普通]'
+  - 🇬🇧GB_9|1.1MB/s|R002-260618 [普通]
+  - 🇮🇪IE_8|1.4MB/s|P002-260618 [普通]
+  - 🇬🇧GB_32|1.3MB/s|R002-260618 [普通]
+  - 🇩🇪DE_98|1.2MB/s|P002-260618 [普通]
+  - 🇩🇪DE_70|1.5MB/s|R002-260618 [普通]
+  - 🇩🇪DE_90|716KB/s|R002-260618 [普通]
+  - 🇷🇴RO_28|687KB/s|K001-260618 [普通]
+  - nl|b8af|puddincat07@Telegram [普通]
+  - 🇺🇸US_340|96KB/s|R002-260618 [普通]
+  - 🇺🇸US_115|315KB/s|R002-260618 [普通]
+  - 🇺🇸US_84|326KB/s|R002-260618 [普通]
+  - 🇺🇸US_423|120KB/s|R002-260618 [普通]
+  - 🇺🇸US_186|324KB/s|R002-260618 [普通]
+  - 🇯🇵JP_28|112KB/s|R002-260618 [普通]
+  - 🇫🇷FR_5|3.3MB/s [普通]
+  - 🇳🇱NL_203|1.9MB/s|R002-260618 [普通]
+  - 🇳🇱NL_190|4.0MB/s|R002-260618 [普通]
+  - Igareck Node 071 | 🇺🇸 United States， Ashburn | 🌐 | [BL] [普通]
+  - 🇱🇹LT_2|2.1MB/s [普通]
+  - 🇳🇱NL_8|1.2MB/s [普通]
   url: https://www.gstatic.com/generate_204
   interval: 300
   tolerance: 80
@@ -580,60 +763,73 @@ proxy-groups:
   - AUTO
   - 高速节点
   - 普通节点
-  - 🇫🇷FR_24|4.1MB/s [高速]
-  - 🇩🇪DE_1|1.8MB/s|P002-260618 [高速]
-  - US_speednode_0027 [高速]
-  - 🇨🇦CA_41|949KB/s [高速]
-  - 🇺🇸US_12|2.2MB/s [高速]
-  - 🇨🇦CA_19|136KB/s|R002-260618 [高速]
-  - 🇺🇸US_13|679KB/s|K001-260618 [高速]
-  - 🇺🇸US_526|572KB/s|K001-260618 [高速]
-  - nl|5013|puddincat07@Telegram [高速]
-  - nl|bc46|puddincat07@Telegram [高速]
-  - 🇮🇹IT_7|505KB/s|A004-260618 [高速]
-  - nl|8e6f|puddincat07@Telegram [高速]
-  - 意大利|@ripaojiedian [高速]
-  - nl|6a01|puddincat07@Telegram [高速]
-  - nl|f92b|puddincat07@Telegram [高速]
-  - 意大利 - Milan - 4 [高速]
-  - '[807.6ms +/-0ms] http-149.36.51.129 [高速]'
-  - 🇩🇪DE_16|1010KB/s|R002-260618 [高速]
-  - 🇳🇱NL_157|4.5MB/s|P002-260618 [高速]
-  - 🇨🇭CH_23|1.5MB/s|R002-260618 [高速]
-  - 🇨🇿CZ_4|593KB/s|P002-260618 [高速]
-  - 🇩🇪DE_56|1.4MB/s|P002-260618 [高速]
-  - 🇸🇪SE_9|1.1MB/s|P002-260618 [高速]
-  - 🇭🇺HU_1|954KB/s|R002-260618 [高速]
-  - 🇮🇹IT_25|991KB/s|P002-260618 [高速]
-  - 🇱🇻LV_12|560KB/s|R002-260618 [高速]
-  - '🇮🇹 意大利 | ITA #1 [高速]'
-  - 🇦🇱AL_3|533KB/s|K001-260618 [高速]
-  - 🇷🇸RS_1|1.1MB/s [高速]
-  - 🇮🇹IT_18|2.2MB/s|C001-260618 [高速]
-  - 🇦🇱AL_1|1.1MB/s|P002-260618 [高速]
-  - 🇧🇬BG_7|943KB/s|R002-260618 [高速]
-  - 🇲🇰MK_1|838KB/s|P002-260618 [高速]
-  - 🇸🇬SG_13|668KB/s [高速]
-  - 🇸🇬SG_34|71KB/s|P002-260618 [高速]
-  - 🇺🇸_US_美国_IPV4 (3) [高速]
-  - 🇨🇦CA_21|866KB/s|K001-260618 [普通]
-  - 🇮🇹IT_14|2.3MB/s|A004-260618 [普通]
-  - 🇮🇹IT_5|4.1MB/s|B007-260618 [普通]
-  - 🇮🇹IT_3|3.4MB/s|B007-260618 [普通]
-  - 🇮🇹IT_15|211KB/s|A004-260618 [普通]
-  - nl|2d27|puddincat07@Telegram [普通]
-  - '🇮🇹 意大利 | ITA #4-2 [普通]'
-  - '🇮🇹 意大利 | ITA #5 [普通]'
-  - '🇮🇹 意大利 | ITA #3 [普通]'
-  - '🇮🇹 意大利 | ITA #5-2 [普通]'
-  - 🇮🇹IT_6|2.4MB/s|A004-260618 [普通]
-  - '🇮🇹 意大利 | ITA #2 [普通]'
-  - '[760.2ms +/-4ms] http-149.36.50.1 [普通]'
-  - 🇸🇪SE_8|1.1MB/s|R002-260618 [普通]
-  - 🇩🇪DE_54|768KB/s|R002-260618 [普通]
-  - 🇺🇸US_13|2.6MB/s [普通]
-  - 🇮🇹IT_9|2.7MB/s [普通]
-  - 🇸🇬SG_10|601KB/s|R002-260618 [普通]
-  - 🇯🇵JP_31|219KB/s|A003-260618 [普通]
+  - 🇺🇸US_410|754KB/s|R002-260618 [高速]
+  - 🇺🇸US_192|936KB/s|K001-260618 [高速]
+  - 🇺🇸US_379|614KB/s|K001-260618 [高速]
+  - 🇺🇸US_361|775KB/s|K001-260618 [高速]
+  - 🇺🇸US_461|685KB/s|R002-260618 [高速]
+  - 🇺🇸US_362|849KB/s|K001-260618 [高速]
+  - 🇺🇸US_280|855KB/s|R002-260618 [高速]
+  - 🇺🇸US_378|957KB/s|P002-260618 [高速]
+  - 🇨🇦CA_11|565KB/s|R002-260618 [高速]
+  - 🇮🇹IT_4|2.1MB/s|A004-260618 [高速]
+  - 🇮🇹 [588.7ms +/-10ms] 🇮🇹 [高速]
+  - 意大利 - Milan - 5 [高速]
+  - 🇬🇧GB_10|700KB/s|P002-260618 [高速]
+  - 🇬🇧GB_29|1005KB/s|P002-260618 [高速]
+  - 🇸🇬SG_27|502KB/s|R002-260618 [高速]
+  - 🇸🇪SE_3|675KB/s|R002-260618 [高速]
+  - '[840.0ms +/-1ms] http-149.34.248.65 [高速]'
+  - 🇳🇴NO_2|669KB/s|P002-260618 [高速]
+  - 🇷🇸RS_1|869KB/s|R002-260618 [高速]
+  - 🇧🇬BG_7|448KB/s|P002-260618 [高速]
+  - 🇧🇬BG_6|1.2MB/s|R002-260618 [高速]
+  - 🇩🇪DE_8|1.8MB/s|R002-260618 [高速]
+  - 🇦🇱AL_1|1.0MB/s|P002-260618 [高速]
+  - 🇨🇾CY_1|783KB/s|K001-260618 [高速]
+  - 🇵🇹PT_1|587KB/s|R002-260618 [高速]
+  - 🇵🇹PT_2|696KB/s|P002-260618 [高速]
+  - 🇹🇼 🇨🇳 台湾 | TWN 5 [高速]
+  - 🇮🇹IT_16|320KB/s|B007-260618 [高速]
+  - 🇹🇼_TW_台湾_IPV4 (2) [高速]
+  - nl|468f|puddincat07@Telegram [高速]
+  - 🇹🇼 🇨🇳 台湾 | TWN [e39c3f] [高速]
+  - 🇹🇼TW_4|1.8MB/s [高速]
+  - Igareck Node 087 | 🇬🇧 United Kingdom， London | [BL] [高速]
+  - 🇸🇪SE_10|908KB/s|P002-260618 [高速]
+  - 🇭🇺HU_1|1.1MB/s|P002-260618 [高速]
+  - 🇦🇱AL_6|990KB/s|R002-260618 [高速]
+  - 🇫🇮FI_1|2.2MB/s [高速]
+  - 🇺🇸US_459|773KB/s|R002-260618 [普通]
+  - '[437.1ms +/-3ms] http-181.215.52.6 [普通]'
+  - 🇺🇸US_432|757KB/s|K001-260618 [普通]
+  - 🇺🇸US_448|648KB/s|R002-260618 [普通]
+  - 🇺🇸US_388|256KB/s|Z001-260618 [普通]
+  - 🇨🇦CA_21|884KB/s|R002-260618 [普通]
+  - 🇺🇸US_365|101KB/s|R002-260618 [普通]
+  - nl|e1f5|puddincat07@Telegram [普通]
+  - 🇯🇵JP_14|270KB/s|R002-260618 [普通]
+  - 🇬🇧GB_11|967KB/s|R002-260618 [普通]
+  - '🇮🇹 意大利 | ITA #4 [普通]'
+  - 🇬🇧GB_9|1.1MB/s|R002-260618 [普通]
+  - 🇮🇪IE_8|1.4MB/s|P002-260618 [普通]
+  - 🇬🇧GB_32|1.3MB/s|R002-260618 [普通]
+  - 🇩🇪DE_98|1.2MB/s|P002-260618 [普通]
+  - 🇩🇪DE_70|1.5MB/s|R002-260618 [普通]
+  - 🇩🇪DE_90|716KB/s|R002-260618 [普通]
+  - 🇷🇴RO_28|687KB/s|K001-260618 [普通]
+  - nl|b8af|puddincat07@Telegram [普通]
+  - 🇺🇸US_340|96KB/s|R002-260618 [普通]
+  - 🇺🇸US_115|315KB/s|R002-260618 [普通]
+  - 🇺🇸US_84|326KB/s|R002-260618 [普通]
+  - 🇺🇸US_423|120KB/s|R002-260618 [普通]
+  - 🇺🇸US_186|324KB/s|R002-260618 [普通]
+  - 🇯🇵JP_28|112KB/s|R002-260618 [普通]
+  - 🇫🇷FR_5|3.3MB/s [普通]
+  - 🇳🇱NL_203|1.9MB/s|R002-260618 [普通]
+  - 🇳🇱NL_190|4.0MB/s|R002-260618 [普通]
+  - Igareck Node 071 | 🇺🇸 United States， Ashburn | 🌐 | [BL] [普通]
+  - 🇱🇹LT_2|2.1MB/s [普通]
+  - 🇳🇱NL_8|1.2MB/s [普通]
 rules:
 - MATCH,手动选择
