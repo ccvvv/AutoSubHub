@@ -660,11 +660,18 @@ def main() -> None:
     seen = set()
     parsed_total = 0
     unique_total = 0
-    for nodes in source_nodes:
+    # Keep provenance for every fingerprint, including identical nodes found
+    # in multiple feeds, so Mihomo-rejected entries can be traced to sources.
+    source_urls_by_node_key = {}
+    for source_index, nodes in enumerate(source_nodes):
+        source_url = urls[source_index]
         parsed_total += len(nodes)
         bucket = []
         for node in nodes:
             key = node_key(node)
+            origins = source_urls_by_node_key.setdefault(key, [])
+            if source_url not in origins:
+                origins.append(source_url)
             if key in seen:
                 continue
             seen.add(key)
@@ -762,7 +769,8 @@ def main() -> None:
                     f"type={bad.get('type')!r}, "
                     f"reality-opts-type={type(options).__name__}, "
                     f"short-id={short_id!r}, "
-                    f"short-id-type={type(short_id).__name__}"
+                    f"short-id-type={type(short_id).__name__}, "
+                    f"source_urls={source_urls_by_node_key.get(node_key(bad), [])!r}"
                 )
 
             before_count = len(tcp_ok)
