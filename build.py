@@ -485,6 +485,14 @@ def find_mihomo_rejected_proxies(proxies: list[dict], mihomo_bin: str) -> list[d
     return rejected
 
 
+def exclude_mihomo_rejected_proxies(proxies: list[dict], rejected: list[dict]) -> list[dict]:
+    """Remove only the proxy entries independently rejected by Mihomo."""
+    rejected_keys = {node_key(node) for node in rejected}
+    if not rejected_keys:
+        return list(proxies)
+    return [node for node in proxies if node_key(node) not in rejected_keys]
+
+
 def final_config(proxies: list[dict]) -> dict:
     names = [p["name"] for p in proxies]
     return {
@@ -735,26 +743,50 @@ def main() -> None:
     with tempfile.TemporaryDirectory(prefix="autohub-") as tmp:
         test_path = os.path.join(tmp, "test.yaml")
         write_yaml(test_path, test_config(tcp_ok, PROBE_WORKERS))
-        check = subprocess.run([os.getenv("MIHOMO_BIN", "./mihomo"), "-t", "-f", test_path],
+        mihomo_bin = os.getenv("MIHOMO_BIN", "./mihomo")
+        check = subprocess.run([mihomo_bin, "-t", "-f", test_path],
                                capture_output=True, text=True, timeout=45)
         if check.returncode:
             print("Mihomo rejected the combined config; bisecting proxy list to locate invalid entries")
-            bad_nodes = find_mihomo_rejected_proxies(tcp_ok, os.getenv("MIHOMO_BIN", "./mihomo"))
-            if bad_nodes:
-                for bad in bad_nodes:
-                    options = bad.get("reality-opts")
-                    short_id = options.get("short-id") if isinstance(options, dict) else None
-                    print(
-                        "Mihomo-rejected proxy: "
-                        f"name={bad.get('name', '(unnamed)')!r}, "
-                        f"type={bad.get('type')!r}, "
-                        f"reality-opts-type={type(options).__name__}, "
-                        f"short-id={short_id!r}, "
-                        f"short-id-type={type(short_id).__name__}"
-                    )
-            else:
+            bad_nodes = find_mihomo_rejected_proxies(tcp_ok, mihomo_bin)
+            if not bad_nodes:
                 print("Bisect found no individually rejected proxy; failure may be caused by config interaction")
-            raise RuntimeError("Mihomo rejected test config: " + (check.stderr or check.stdout)[-2500:])
+                raise RuntimeError("Mihomo rejected test config: " + (check.stderr or check.stdout)[-2500:])
+
+            for bad in bad_nodes:
+                options = bad.get("reality-opts")
+                short_id = options.get("short-id") if isinstance(options, dict) else None
+                print(
+                    "Mihomo-rejected proxy isolated: "
+                    f"name={bad.get('name', '(unnamed)')!r}, "
+                    f"type={bad.get('type')!r}, "
+                    f"reality-opts-type={type(options).__name__}, "
+                    f"short-id={short_id!r}, "
+                    f"short-id-type={type(short_id).__name__}"
+                )
+
+            before_count = len(tcp_ok)
+            tcp_ok = exclude_mihomo_rejected_proxies(tcp_ok, bad_nodes)
+            print(
+                f"Mihomo config isolation: removed {before_count - len(tcp_ok)} rejected nodes; "
+                f"{len(tcp_ok)} candidates remain"
+            )
+            if not tcp_ok:
+                raise RuntimeError("Mihomo rejected every candidate proxy; nothing remains to test")
+
+            # Rebuild and validate the complete remaining configuration before
+            # starting the core. Never continue if a config-level interaction remains.
+            write_yaml(test_path, test_config(tcp_ok, PROBE_WORKERS))
+            retry_check = subprocess.run(
+                [mihomo_bin, "-t", "-f", test_path],
+                capture_output=True, text=True, timeout=45
+            )
+            if retry_check.returncode:
+                raise RuntimeError(
+                    "Mihomo still rejects the config after isolating individually invalid nodes: "
+                    + (retry_check.stderr or retry_check.stdout)[-2500:]
+                )
+            print(f"Mihomo config validated after isolation: {len(tcp_ok)} candidates retained")
         proc = subprocess.Popen([os.getenv("MIHOMO_BIN", "./mihomo"), "-d", tmp, "-f", test_path],
                                 stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
         try:
