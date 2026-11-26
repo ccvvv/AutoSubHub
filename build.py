@@ -609,6 +609,7 @@ def main() -> None:
     cache_changed = False
 
     source_nodes = [[] for _ in urls]
+    source_statuses = [None for _ in urls]
     successes = 0
     unchanged = 0
     http_type_rejected = 0
@@ -633,6 +634,7 @@ def main() -> None:
         for future in as_completed(futures):
             index, parsed, rejected_http, error, status, response_headers = future.result()
             source_nodes[index - 1] = parsed
+            source_statuses[index - 1] = status if error is None else 0
             http_type_rejected += rejected_http
             if error is None:
                 successes += 1
@@ -657,6 +659,7 @@ def main() -> None:
 
     # Deduplicate globally, then test every unique node without a sampling cap.
     source_unique = []
+    source_stats = []
     seen = set()
     parsed_total = 0
     unique_total = 0
@@ -665,10 +668,13 @@ def main() -> None:
     source_urls_by_node_key = {}
     for source_index, nodes in enumerate(source_nodes):
         source_url = urls[source_index]
+        status = source_statuses[source_index]
         parsed_total += len(nodes)
         bucket = []
+        source_keys = set()
         for node in nodes:
             key = node_key(node)
+            source_keys.add(key)
             origins = source_urls_by_node_key.setdefault(key, [])
             if source_url not in origins:
                 origins.append(source_url)
@@ -678,6 +684,17 @@ def main() -> None:
             bucket.append(node)
             unique_total += 1
         source_unique.append(bucket)
+        source_stats.append({
+            "index": source_index + 1,
+            "url": source_url,
+            "status": status,
+            "raw": len(nodes),
+            "distinct": len(source_keys),
+            "first_seen": len(bucket),
+            "overlap": len(source_keys) - len(bucket),
+            "within_duplicates": len(nodes) - len(source_keys),
+            "keys": source_keys,
+        })
 
     all_unique_candidates = [node for bucket in source_unique for node in bucket]
     if not all_unique_candidates:
@@ -838,6 +855,32 @@ def main() -> None:
 
             http_tested_count = len(tested)
             print(f"HTTP proxy test passed: {http_tested_count} / {len(tcp_ok)}")
+
+            # Attribute successful real HTTP tests to every source containing
+            # each node. Shared nodes may therefore count toward multiple feeds.
+            passed_keys = {node_key(node) for _, node in tested}
+            print("Per-source contribution report (passed counts include shared nodes):")
+            for stat in source_stats:
+                if stat["status"] == 304:
+                    print(
+                        f"Source {stat['index']} | HTTP 304 unchanged | "
+                        f"node counts unavailable in this run | {stat['url']}"
+                    )
+                    continue
+                if stat["status"] == 0:
+                    print(
+                        f"Source {stat['index']} | fetch failed | "
+                        f"{stat['url']}"
+                    )
+                    continue
+                passed_from_source = len(stat["keys"] & passed_keys)
+                print(
+                    f"Source {stat['index']} | raw={stat['raw']} | "
+                    f"distinct={stat['distinct']} | first_seen_unique={stat['first_seen']} | "
+                    f"overlap_with_earlier_sources={stat['overlap']} | "
+                    f"duplicates_inside_source={stat['within_duplicates']} | "
+                    f"http_passed={passed_from_source} | {stat['url']}"
+                )
 
             # Mihomo's successful real-delay request is the candidate gate.
             # A separate ChatGPT TLS check is intentionally not a hard requirement:
