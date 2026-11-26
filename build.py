@@ -710,6 +710,22 @@ def main() -> None:
           f"pure HTTP proxies excluded: {http_type_rejected}; "
           f"already-final nodes excluded: {excluded_final}; "
           f"remaining candidates: {len(candidates)}")
+    print("Per-source parsed and deduplication report:")
+    for stat in source_stats:
+        if stat["status"] == 304:
+            print(
+                f"Source {stat['index']} | HTTP 304 unchanged | "
+                f"node counts unavailable in this run | {stat['url']}"
+            )
+        elif stat["status"] == 0:
+            print(f"Source {stat['index']} | fetch failed | {stat['url']}")
+        else:
+            print(
+                f"Source {stat['index']} | raw={stat['raw']} | "
+                f"distinct={stat['distinct']} | first_seen_unique={stat['first_seen']} | "
+                f"overlap_with_earlier_sources={stat['overlap']} | "
+                f"duplicates_inside_source={stat['within_duplicates']} | {stat['url']}"
+            )
     if not candidates:
         print("No new candidates remain after excluding the current official final subscription.")
         set_github_output("has_candidates", "false")
@@ -850,8 +866,6 @@ def main() -> None:
                     if delay is not None:
                         tested.append((delay, node))
             tested.sort(key=lambda x: x[0])
-            if not tested:
-                raise RuntimeError("No node passed real HTTP proxy latency test")
 
             http_tested_count = len(tested)
             print(f"HTTP proxy test passed: {http_tested_count} / {len(tcp_ok)}")
@@ -881,6 +895,8 @@ def main() -> None:
                     f"duplicates_inside_source={stat['within_duplicates']} | "
                     f"http_passed={passed_from_source} | {stat['url']}"
                 )
+            if not tested:
+                raise RuntimeError("No node passed real HTTP proxy latency test")
 
             # Mihomo's successful real-delay request is the candidate gate.
             # A separate ChatGPT TLS check is intentionally not a hard requirement:
