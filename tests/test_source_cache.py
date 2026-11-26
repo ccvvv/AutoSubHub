@@ -77,7 +77,7 @@ class SourcePayloadValidationTests(unittest.TestCase):
         self.assertEqual(rejected, 0)
 
     def test_nonempty_yaml_with_no_supported_proxies_is_rejected(self):
-        payload = "proxies:\\n  - name: broken\\n    type: unsupported-protocol\\n    server: example.test\\n    port: 443\\n"
+        payload = "proxies:\n  - name: broken\n    type: unsupported-protocol\n    server: example.test\n    port: 443\n"
         with self.assertRaises(ValueError):
             parse_source(payload)
 
