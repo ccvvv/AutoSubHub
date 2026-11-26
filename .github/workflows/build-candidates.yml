@@ -14,8 +14,8 @@ permissions:
   actions: write
 
 concurrency:
-  group: build-candidates-${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.pull_request.number) || 'main' }}
-  cancel-in-progress: true
+  group: ${{ github.event_name == 'pull_request' && format('build-candidates-pr-{0}', github.event.pull_request.number) || 'published-subscriptions-writer' }}
+  cancel-in-progress: false
 
 jobs:
   build-candidates:
@@ -35,7 +35,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Check Python syntax for phone probe and receipt validator
-        run: python -m py_compile termux_probe.py download_candidates.py upload_receipt.py scripts/candidate_queue.py scripts/finalize_phone_receipt.py
+        run: python -m py_compile termux_probe.py download_candidates.py upload_receipt.py scripts/candidate_queue.py scripts/candidate_pool.py scripts/update_candidate_pool.py scripts/prune_candidate_pool.py scripts/finalize_phone_receipt.py scripts/source_cache.py
 
       - name: Install Mihomo core
         run: |
@@ -47,6 +47,23 @@ jobs:
         env:
           MIHOMO_BIN: ${{ github.workspace }}/mihomo
         run: python -m unittest discover -s tests -p 'test_*.py' -v
+
+      - name: Restore subscription source validator cache
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          if git ls-remote --exit-code --heads origin published-subscriptions >/dev/null 2>&1; then
+            git clone --quiet --depth 1 --branch published-subscriptions "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" /tmp/source-cache
+            if [ -f /tmp/source-cache/candidate/source-cache.json ]; then
+              cp /tmp/source-cache/candidate/source-cache.json source-cache.json
+              echo "Restored subscription source validator cache."
+            else
+              echo "No previous source cache; first fetch will be unconditional."
+            fi
+          else
+            echo "Data branch unavailable; first fetch will be unconditional."
+          fi
 
       - name: Generate candidate files
         id: generate
@@ -88,7 +105,7 @@ jobs:
       # Public subscription URLs are stored on a dedicated data branch.
       # PR validation never publishes credentials; main pushes and manual runs do.
       - name: Publish public candidate subscription
-        if: github.event_name != 'pull_request' && steps.generate.outputs.has_candidates == 'true'
+        if: github.event_name != 'pull_request' && (steps.generate.outputs.has_candidates == 'true' || steps.generate.outputs.has_cache_updates == 'true')
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -99,12 +116,24 @@ jobs:
           fi
           git clone --depth 1 --branch published-subscriptions "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" /tmp/published
           mkdir -p /tmp/published/candidate
-          cp candidates/candidates.yaml /tmp/published/candidate/subscription.yaml
-          cp candidates/manifest.json /tmp/published/candidate/manifest.json
+          if [ -f "$GITHUB_WORKSPACE/source-cache.json" ]; then
+            cp "$GITHUB_WORKSPACE/source-cache.json" /tmp/published/candidate/source-cache.json
+          fi
           cd /tmp/published
+          if [ "${{ steps.generate.outputs.has_candidates }}" = "true" ]; then
+            cp "$GITHUB_WORKSPACE/candidates/candidates.yaml" /tmp/incoming-candidates.yaml
+            if [ ! -f candidate/pool.yaml ]; then
+              echo "First candidate-pool migration; fetching full data-branch history."
+              git fetch --unshallow origin published-subscriptions
+            fi
+            PYTHONPATH="$GITHUB_WORKSPACE" python "$GITHUB_WORKSPACE/scripts/update_candidate_pool.py" /tmp/incoming-candidates.yaml candidate/pool.yaml candidate/subscription.yaml
+          fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add candidate/subscription.yaml candidate/manifest.json
+          if [ -f candidate/source-cache.json ]; then git add candidate/source-cache.json; fi
+          if [ "${{ steps.generate.outputs.has_candidates }}" = "true" ]; then
+            git add candidate/pool.yaml candidate/subscription.yaml candidate/manifest.json
+          fi
           if git diff --cached --quiet; then
             echo "Candidate unchanged; public URL already serves this version."
           else
