@@ -624,6 +624,10 @@ def main() -> None:
         source_unique.append(bucket)
 
     all_unique_candidates = [node for bucket in source_unique for node in bucket]
+    if not all_unique_candidates:
+        print("No new source nodes were returned; retaining the persistent candidate pool.")
+        set_github_output("has_candidates", "false")
+        return
     # The official final list is the live exclusion set: once a node leaves
     # final/latest.yaml it can be considered again on a later source pull.
     final_fingerprints = load_final_node_fingerprints()
