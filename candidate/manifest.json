@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-26T12:29:38.901937+00:00",
-  "candidate_sha256": "536b894db947c14522afa2777174b565680f4d1eb0ae35e5ab74c51a6cea78ca",
+  "generated_at": "2026-11-26T13:28:41.315910+00:00",
+  "candidate_sha256": "fa2d818a493b7c164fd3cfb5b1a9198274f56c5589e95046d6e448c8331dd80e",
   "nodes": [
     {
       "node_id": "f8b3af04c3778c36e11f",
@@ -5874,6 +5874,270 @@
     {
       "node_id": "5f8596a8538fffa9eedf",
       "name": "🇺🇸US_428|213KB/s|R002-260618"
+    },
+    {
+      "node_id": "4152b937a8150a7e7dfa",
+      "name": "Igareck Node 103 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]"
+    },
+    {
+      "node_id": "681388066861aa14f1d7",
+      "name": "Igareck Node 128 | 🌐 Anycast-IP | 🇬🇧 🇸🇪 🇺🇸 | [BL]"
+    },
+    {
+      "node_id": "6200b3449c4bbfb2c7a3",
+      "name": "Igareck Node 105 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]"
+    },
+    {
+      "node_id": "76b0d5a41b63381c3da2",
+      "name": "Igareck Node 099 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]"
+    },
+    {
+      "node_id": "3a42e80bd4216e4bbdd6",
+      "name": "Igareck Node 116 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]"
+    },
+    {
+      "node_id": "193fb5cf9439e5caf281",
+      "name": "Igareck Node 132 | 🌐 Anycast-IP | 🇸🇪 🇺🇸 | [BL]"
+    },
+    {
+      "node_id": "5ae8956dcad8fd082d95",
+      "name": "Igareck Node 088 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 | [BL]"
+    },
+    {
+      "node_id": "deac850e8bc43b62e90c",
+      "name": "Igareck Node 111 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]"
+    },
+    {
+      "node_id": "2beaae91417b407d24d9",
+      "name": "Igareck Node 101 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]"
+    },
+    {
+      "node_id": "4cfb21b7a1d5c1fdbf2d",
+      "name": "Igareck Node 091 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 | [BL]"
+    },
+    {
+      "node_id": "f0c17deeb7facb317962",
+      "name": "Igareck Node 096 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]"
+    },
+    {
+      "node_id": "b49c1a0bb59653004bed",
+      "name": "Igareck Node 112 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]"
+    },
+    {
+      "node_id": "1193f583608c9e9f5b80",
+      "name": "Igareck Node 133 | 🌐 Anycast-IP | 🇸🇪 🇺🇸 | [BL]"
+    },
+    {
+      "node_id": "5957edcce1456cde65ab",
+      "name": "Igareck Node 127 | 🌐 Anycast-IP | 🇬🇧 🇸🇪 🇺🇸 | [BL]"
+    },
+    {
+      "node_id": "b8498d23314049166aaf",
+      "name": "Igareck Node 098 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]"
+    },
+    {
+      "node_id": "578775063fd3849ff72d",
+      "name": "Igareck Node 095 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]"
+    },
+    {
+      "node_id": "5b9edb522fa3a91c56a3",
+      "name": "Igareck Node 097 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]"
+    },
+    {
+      "node_id": "8275733ec02fe99e0a9f",
+      "name": "Igareck Node 086 | 🌐 Anycast-IP | 🇨🇦 🇬🇧 🇸🇪 🇺🇸 | [BL]"
+    },
+    {
+      "node_id": "c18c3bee1425e4c90b14",
+      "name": "Igareck Node 104 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]"
+    },
+    {
+      "node_id": "970473e5492dcfadb363",
+      "name": "Igareck Node 084 | 🌐 Anycast-IP | 🇨🇦 🇬🇧 🇸🇪 🇺🇸 | [BL]"
+    },
+    {
+      "node_id": "ecc92c30e152cae99a1e",
+      "name": "Igareck Node 085 | 🌐 Anycast-IP | 🇨🇦 🇬🇧 🇸🇪 🇺🇸 | [BL]"
+    },
+    {
+      "node_id": "c91039d90db158105613",
+      "name": "Igareck Node 071 | 🇺🇸 United States， Miami | [BL]"
+    },
+    {
+      "node_id": "c1a7d0a52f8653c328a9",
+      "name": "Igareck Node 147 | 🇺🇸 United States， Columbus | 🌐 | [BL"
+    },
+    {
+      "node_id": "f892b217a30ebf087048",
+      "name": "🇬🇧[www.v2nodes.com] ss-GB-8004..."
+    },
+    {
+      "node_id": "32ef268bcf49653d9d1b",
+      "name": "🇩🇪[www.v2nodes.com] ss-DE-1608..."
+    },
+    {
+      "node_id": "c3b86f371951e42bef08",
+      "name": "🇦🇪_AE_阿拉伯联合酋长国->🇩🇪_DE_德国_IPV4"
+    },
+    {
+      "node_id": "c1b9dccce1f0d0fc6354",
+      "name": "🇬🇧 英国 | GBR"
+    },
+    {
+      "node_id": "2542c6e724643efb21db",
+      "name": "🇳🇱 荷兰 | NLD"
+    },
+    {
+      "node_id": "17640b9a7fe0049f3cc1",
+      "name": "Igareck Node 065 | 🇳🇱 The Netherlands， Amsterdam | [BL]"
+    },
+    {
+      "node_id": "4931f58a6b56a94d136f",
+      "name": "Igareck Node 135 | 🇩🇰 Denmark， Copenhagen | [BL]"
+    },
+    {
+      "node_id": "2de365f4984a3160a6da",
+      "name": "🇬🇧 英国 | GBR 3"
+    },
+    {
+      "node_id": "16c388576a36d2308396",
+      "name": "🇪🇪 爱沙尼亚 | EST"
+    },
+    {
+      "node_id": "d1014372b28f912c2a09",
+      "name": "end-gfw-sg89-SS"
+    },
+    {
+      "node_id": "e951bfbb8c851ad64a87",
+      "name": "🇭🇰 香港 | HKG"
+    },
+    {
+      "node_id": "9f21e9f89082a2f6f66c",
+      "name": "🇭🇰 香港 | HKG 3"
+    },
+    {
+      "node_id": "00d17166055ae330e69a",
+      "name": "Igareck Node 077 | 🌐 Anycast-IP | 🇨🇦 🇬🇧 | [BL]"
+    },
+    {
+      "node_id": "422f46915cd346451260",
+      "name": "🇹🇼 🇨🇳 台湾 | TWN 4"
+    },
+    {
+      "node_id": "2e42ac124925770b82a1",
+      "name": "end-gfw-sg89-HY2"
+    },
+    {
+      "node_id": "9fbbb0a08f04fdeea042",
+      "name": "Igareck Node 070 | 🇺🇸 United States， Ashburn | [BL]"
+    },
+    {
+      "node_id": "52a42d32b787902e0bf8",
+      "name": "🇰🇷 韩国 | KOR 3"
+    },
+    {
+      "node_id": "af480f8271d9392e6903",
+      "name": "🇰🇷 韩国 | KOR 2"
+    },
+    {
+      "node_id": "4e782dbf5c8d089b645c",
+      "name": "🇬🇧 英国 | GBR 2"
+    },
+    {
+      "node_id": "4bf75aa7fd3fbfdcfbce",
+      "name": "Igareck Node 060 | 🇸🇬 Singapore， Singapore (Downtown Co"
+    },
+    {
+      "node_id": "7c053a73d388d79eaea5",
+      "name": "🇪🇸 西班牙 | ESP 2"
+    },
+    {
+      "node_id": "476a9f54fab5511eebe6",
+      "name": "Igareck Node 081 | 🌐 Anycast-IP | 🇨🇦 🇬🇧 | [BL]"
+    },
+    {
+      "node_id": "f23ea509884ae4069fe3",
+      "name": "🏳[www.v2nodes.com] vless-"
+    },
+    {
+      "node_id": "b3826cddfe8ee716974d",
+      "name": "🇪🇸 西班牙 | ESP"
+    },
+    {
+      "node_id": "befbf6b5a9cdf9f1bd0a",
+      "name": "Igareck Node 064 | 🇸🇪 Sweden， Stockholm | [BL]"
+    },
+    {
+      "node_id": "1e284801698175441ed8",
+      "name": "Igareck Node 082 | 🌐 Anycast-IP | 🇨🇦 🇬🇧 | [BL]"
+    },
+    {
+      "node_id": "76069d6fefe0359c6b62",
+      "name": "🇪🇸 西班牙 | ESP 3"
+    },
+    {
+      "node_id": "6fa187622cd3498594ca",
+      "name": "Igareck Node 063 | 🇸🇪 Sweden， Stockholm | [BL]"
+    },
+    {
+      "node_id": "dc06d1972139c0006ffd",
+      "name": "Igareck Node 072 | 🇺🇸 United States， Newark (Central Bu"
+    },
+    {
+      "node_id": "3ce3db1a39608de475af",
+      "name": "🏳[www.v2nodes.com] vless- #5"
+    },
+    {
+      "node_id": "9f6e6a074b2a21b55980",
+      "name": "United States_Reston_ss_1076"
+    },
+    {
+      "node_id": "bc4854a148b2c7fd3bce",
+      "name": "@DeltaKroneckerGithub_2974_IPV4"
+    },
+    {
+      "node_id": "b4d46648e15af6583e15",
+      "name": "Igareck Node 009 | 🇩🇪 Germany | 🌐 | [BL] [b4d466]"
+    },
+    {
+      "node_id": "678532da9983c80bad85",
+      "name": "Igareck Node 007 | 🇩🇪 Germany | 🌐 | [BL] [678532]"
+    },
+    {
+      "node_id": "856ce19561cb041819c4",
+      "name": "Igareck Node 014 | 🇩🇪 Germany | 🌐 | [BL] [856ce1]"
+    },
+    {
+      "node_id": "c50a9c91b4cc58b7a12d",
+      "name": "Igareck Node 006 | 🇩🇪 Germany | 🌐 | [BL] [c50a9c]"
+    },
+    {
+      "node_id": "c6bc52da4f111684c32e",
+      "name": "Igareck Node 019 | 🇩🇪 Germany | 🌐 | [BL]"
+    },
+    {
+      "node_id": "aec56f4a3208101c36a9",
+      "name": "Igareck Node 011 | 🇩🇪 Germany | 🌐 | [BL] [aec56f]"
+    },
+    {
+      "node_id": "9f289969b606ae414e9b",
+      "name": "Igareck Node 145 | 🇺🇸 United States， Chicago | 🌐 | [BL]"
+    },
+    {
+      "node_id": "8a42dc889c4b5e103f95",
+      "name": "Igareck Node 073 | 🇺🇸 United States， Newark (Central Bu"
+    },
+    {
+      "node_id": "e1bdf360760dde2ba051",
+      "name": "Igareck Node 062 | 🇸🇬 Singapore， Singapore (Outram) | 🌐"
+    },
+    {
+      "node_id": "c1849e6aa766d8e9eadd",
+      "name": "Igareck Node 080 | 🌐 Anycast-IP | 🇨🇦 🇬🇧 | [BL]"
+    },
+    {
+      "node_id": "52427c49842cd3f6d593",
+      "name": "Igareck Node 144 | 🇺🇸 United States， Chicago | 🌐 | [BL]"
     }
   ]
 }
