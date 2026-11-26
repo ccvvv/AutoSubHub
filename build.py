@@ -8,8 +8,6 @@ from datetime import date, datetime
 from zoneinfo import ZoneInfo
 import os
 import re
-import socket
-import ssl
 import subprocess
 import tempfile
 import time
@@ -24,7 +22,6 @@ from scripts.source_cache import load_cache, empty_cache, conditional_headers, r
 USER_AGENT = "AutoSubHub/2.0 (+https://github.com/ccvvv/AutoSubHub)"
 CONNECT_TIMEOUT = float(os.getenv("CONNECT_TIMEOUT", "3") or "3")
 HTTP_TIMEOUT_MS = int(os.getenv("HTTP_TEST_TIMEOUT", "8000") or "8000")
-WORKERS = max(1, int(os.getenv("MAX_WORKERS", "80") or "80"))
 HTTP_WORKERS = max(1, int(os.getenv("HTTP_WORKERS", "60") or "60"))
 SOURCE_WORKERS = max(1, int(os.getenv("SOURCE_WORKERS", "10") or "10"))
 # v2rayNG's real-delay test URL (changed from google.com/generate_204 upstream).
@@ -275,110 +272,6 @@ def node_key(node: dict) -> str:
 
 UDP_PROTOCOLS = {"hysteria", "hysteria2", "tuic", "wireguard"}
 REALITY_PROTOCOLS = {"vless"}
-
-
-def tcp_check(node: dict) -> tuple[dict, float | None]:
-    # UDP-based protocols must not be rejected by a TCP port probe.
-    if str(node.get("type", "")).lower() in UDP_PROTOCOLS:
-        return node, 0.0
-    try:
-        start = time.perf_counter()
-        with socket.create_connection((str(node["server"]), int(node["port"])), timeout=CONNECT_TIMEOUT):
-            return node, round((time.perf_counter() - start) * 1000, 1)
-    except Exception:
-        return node, None
-
-
-def protocol_handshake_check(node: dict) -> tuple[dict, bool, str]:
-    """FreeNodePanel-style TCP -> TLS -> WebSocket/HTTPUpgrade handshake.
-
-    Reality and UDP transports are deliberately left to Mihomo's native
-    protocol implementation to avoid false negatives from a generic TLS/TCP probe.
-    """
-    kind = str(node.get("type", "")).lower()
-    if kind in UDP_PROTOCOLS:
-        return node, True, "native-udp"
-    reality = isinstance(node.get("reality-opts"), dict) and bool(node.get("reality-opts"))
-    if kind in REALITY_PROTOCOLS and reality:
-        return node, True, "reality-deferred-to-mihomo"
-
-    host = str(node.get("server", ""))
-    port = int(node.get("port", 0) or 0)
-    if not host or not 1 <= port <= 65535:
-        return node, False, "invalid-endpoint"
-
-    use_tls = bool(node.get("tls")) or kind == "trojan"
-    network = str(node.get("network", "tcp")).lower()
-    is_ws = network in {"ws", "httpupgrade"}
-    ws_options = node.get("ws-opts", {}) if network == "ws" else node.get("http-upgrade-opts", {})
-    if not isinstance(ws_options, dict):
-        ws_options = {}
-    path = str(ws_options.get("path") or "/")
-    headers = ws_options.get("headers", {})
-    if not isinstance(headers, dict):
-        headers = {}
-    ws_host = str(headers.get("Host") or headers.get("host") or node.get("servername") or host)
-
-    try:
-        addresses = socket.getaddrinfo(host, port, type=socket.SOCK_STREAM)
-    except Exception:
-        return node, False, "dns-failed"
-    if not addresses:
-        return node, False, "dns-empty"
-
-    last_error = "connect-failed"
-    for family, socktype, proto, _, sockaddr in addresses:
-        raw = None
-        try:
-            raw = socket.socket(family, socktype, proto)
-            raw.settimeout(max(CONNECT_TIMEOUT, 4.0))
-            raw.connect(sockaddr)
-            conn = raw
-            if use_tls:
-                context = ssl.create_default_context()
-                context.check_hostname = False
-                context.verify_mode = ssl.CERT_NONE
-                sni = str(node.get("servername") or host)
-                conn = context.wrap_socket(raw, server_hostname=sni)
-                raw = None  # wrapped socket now owns the file descriptor
-            if is_ws:
-                request = (
-                    f"GET {path} HTTP/1.1\r\n"
-                    f"Host: {ws_host}\r\n"
-                    "Upgrade: websocket\r\n"
-                    "Connection: Upgrade\r\n"
-                    "Sec-WebSocket-Key: dGhlIHNhbXBsZSBub25jZQ==\r\n"
-                    "Sec-WebSocket-Version: 13\r\n\r\n"
-                )
-                conn.sendall(request.encode("utf-8"))
-                response = b""
-                while b"\r\n" not in response and len(response) < 4096:
-                    chunk = conn.recv(512)
-                    if not chunk:
-                        break
-                    response += chunk
-                status = response.split(b"\r\n", 1)[0]
-                if b" 101 " not in status and not status.endswith(b" 101"):
-                    last_error = "websocket-upgrade-rejected"
-                    conn.close()
-                    continue
-                conn.close()
-            elif use_tls:
-                conn.close()
-            else:
-                conn.close()
-            return node, True, "tcp-tls-ws-ok"
-        except ssl.SSLError:
-            last_error = "tls-handshake-failed"
-        except Exception:
-            last_error = "connect-or-upgrade-failed"
-        finally:
-            if raw is not None:
-                try:
-                    raw.close()
-                except Exception:
-                    pass
-    return node, False, last_error
 
 
 def final_node_fingerprints(data: dict) -> set[str]:
@@ -731,35 +624,10 @@ def main() -> None:
         set_github_output("has_candidates", "false")
         return
 
-    # TCP and generic handshake checks are diagnostic only. A generic probe can
-    # misclassify WS/TLS/Reality/UDP transports; Mihomo performs the decisive test.
-    print(f"TCP diagnostic: {len(candidates)} candidates, {WORKERS} workers")
-    tcp_passed_count = 0
-    with ThreadPoolExecutor(max_workers=WORKERS) as pool:
-        futures = [pool.submit(tcp_check, n) for n in candidates]
-        for future in as_completed(futures):
-            _, latency = future.result()
-            if latency is not None:
-                tcp_passed_count += 1
-    print(f"TCP diagnostic passed: {tcp_passed_count} / {len(candidates)}; failures retained for Mihomo")
+    # TCP and generic protocol-handshake diagnostics were removed:
+    # Mihomo config validation and real HTTP proxy tests are the decisive gates.
 
-    handshake_workers = max(1, int(os.getenv("HANDSHAKE_WORKERS", "80") or "80"))
-    print(f"Protocol handshake diagnostic: {len(candidates)} candidates, {handshake_workers} workers")
-    handshake_passed_count = 0
-    handshake_failures = {}
-    with ThreadPoolExecutor(max_workers=handshake_workers) as pool:
-        futures = [pool.submit(protocol_handshake_check, n) for n in candidates]
-        for future in as_completed(futures):
-            _, passed, reason = future.result()
-            if passed:
-                handshake_passed_count += 1
-            else:
-                handshake_failures[reason] = handshake_failures.get(reason, 0) + 1
-    handshake_failed_count = sum(handshake_failures.values())
-    print(f"Protocol handshake diagnostic passed: {handshake_passed_count} / {len(candidates)}; "
-          f"failures retained for Mihomo: {handshake_failed_count}; reasons: {handshake_failures}")
-
-    tcp_ok = []
+    validated_candidates = []
     invalid_reality = 0
     for node in unique_names(candidates):
         if valid_reality_node(node):
@@ -934,10 +802,6 @@ def main() -> None:
                 "parsed_nodes": parsed_total,
                 "unique_candidates": unique_total,
                 "excluded_http_proxies": http_type_rejected,
-                "tcp_diagnostic_passed": tcp_passed_count,
-                "tcp_diagnostic_failed_retained": len(candidates) - tcp_passed_count,
-                "protocol_handshake_diagnostic_passed": handshake_passed_count,
-                "protocol_handshake_failed_retained": handshake_failed_count,
                 "mihomo_http_passed": http_tested_count,
                 "latency_test_url": LATENCY_URL,
                 "latency_fallback_url": LATENCY_FALLBACK_URL,
@@ -952,8 +816,6 @@ def main() -> None:
             print(
                 "GitHub prefilter complete: "
                 f"parsed={parsed_total}, unique={unique_total}, "
-                f"TCP diagnostic={tcp_passed_count}/{len(candidates)}, "
-                f"handshake diagnostic={handshake_passed_count}/{len(candidates)}, "
                 f"Mihomo HTTP={http_tested_count}. "
                 "Phone download-speed testing remains pending."
             )
