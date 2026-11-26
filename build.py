@@ -219,6 +219,8 @@ def parse_source(text: str) -> tuple[list[dict], int]:
                 print(f"Skip node with invalid REALITY short-id: {node.get('name', '(unnamed)')}")
                 continue
             nodes.append(node)
+        if data["proxies"] and not nodes:
+            raise ValueError("Subscription YAML contains no supported proxy entries")
         return nodes, http_rejected
     nodes = []
     meaningful_lines = [
