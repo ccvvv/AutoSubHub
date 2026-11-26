@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-26T03:50:32.919068+00:00",
-  "candidate_sha256": "5ce62f6f6b624d60565638cf5da521c783c6915b1bafdcf754b8b57104c36da3",
+  "generated_at": "2026-11-26T08:42:40.041985+00:00",
+  "candidate_sha256": "a2c851f6a5b01a786a622ee888f6fedd9156bb19ff28146a0f4676d0a7475959",
   "nodes": [
     {
       "node_id": "678238b25040a650f266",
@@ -22318,6 +22318,182 @@
     {
       "node_id": "fa978929d170017cf137",
       "name": "🇯🇵JP_12|90KB/s|M003-260806"
+    },
+    {
+      "node_id": "f8b3af04c3778c36e11f",
+      "name": "🇺🇸US_124|121KB/s|S004-260618"
+    },
+    {
+      "node_id": "e333051238503043346f",
+      "name": "Igareck Node 087 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]"
+    },
+    {
+      "node_id": "2b1e04659450c158fb1a",
+      "name": "Igareck Node 086 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]"
+    },
+    {
+      "node_id": "3ced8809ff25b1733422",
+      "name": "Igareck Node 085 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]"
+    },
+    {
+      "node_id": "537a6e9e387c1958087a",
+      "name": "Igareck Node 084 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]"
+    },
+    {
+      "node_id": "a2b50afe2a9e1b49098d",
+      "name": "❓Other_114|66KB/s|S004-260618"
+    },
+    {
+      "node_id": "ac901549601070047c08",
+      "name": "[529.3ms +/-1ms] 4FreeIran-deea13ce5a"
+    },
+    {
+      "node_id": "35bb08a6aff360658972",
+      "name": "🇨🇦CA_9|476KB/s|M003-260806"
+    },
+    {
+      "node_id": "d0e8edb77b71a8d4e8c3",
+      "name": "❓Other_116|225KB/s|S004-260618"
+    },
+    {
+      "node_id": "8854a8223807de33e6af",
+      "name": "🇮🇹IT_9|838KB/s|S004-260618"
+    },
+    {
+      "node_id": "1e8a53b994dcba885c48",
+      "name": "🇭🇰HK_11|503KB/s|M003-260806"
+    },
+    {
+      "node_id": "ac7e276ec09e55e558a5",
+      "name": "🇱🇻LV_9|249KB/s|M003-260806"
+    },
+    {
+      "node_id": "7dd70d92b111051aeb53",
+      "name": "❓Other_115|392KB/s|S004-260618"
+    },
+    {
+      "node_id": "97260759f04e1094c6c8",
+      "name": "end-gfw-kr64-SS [972607]"
+    },
+    {
+      "node_id": "93264903bdd364e5c28b",
+      "name": "end-gfw-sg89-SS [932649]"
+    },
+    {
+      "node_id": "a4e3acb33d502314d035",
+      "name": "[884.5ms +/-1ms] 🇰🇷"
+    },
+    {
+      "node_id": "8de73e155bed38fd15c6",
+      "name": "🇩🇪DE_27|454KB/s|M003-260806"
+    },
+    {
+      "node_id": "ad33fb35c8b32136f741",
+      "name": "🇳🇱NL_75|243KB/s|M003-260806"
+    },
+    {
+      "node_id": "6a58177b49239fd94f47",
+      "name": "[555.2ms +/-1ms] 🇳🇱25@exclavevpn"
+    },
+    {
+      "node_id": "15a7817b8c381550f24e",
+      "name": "end-gfw-kr64-HY2 [15a781]"
+    },
+    {
+      "node_id": "7f3fe615653a99bed6dc",
+      "name": "🇫🇮FI_1|1.2MB/s"
+    },
+    {
+      "node_id": "f34058e1fa63b47bb695",
+      "name": "🇩🇪DE_22|2.8MB/s|M003-260806"
+    },
+    {
+      "node_id": "6e01ba337c3bf45456f3",
+      "name": "🇹🇭TH_5|251KB/s|S004-260618"
+    },
+    {
+      "node_id": "44a521156a1e1cbd0212",
+      "name": "[702.9ms +/-7ms] 4Nika-34cc02f1d9"
+    },
+    {
+      "node_id": "9e7e9de2d5baeaf6db80",
+      "name": "end-gfw-sg89-HY2 [9e7e9d]"
+    },
+    {
+      "node_id": "f3fd29dca307d333b74a",
+      "name": "🇸🇪SE_6|265KB/s|S004-260618"
+    },
+    {
+      "node_id": "858bdc2b0d6a71e4076b",
+      "name": "[635.2ms +/-2ms] 4Jadi-cdbe277f6c"
+    },
+    {
+      "node_id": "4b06e754fa419749c17c",
+      "name": "[718.1ms +/-5ms] 🇷🇺RU-🚀@VPNine1"
+    },
+    {
+      "node_id": "86cd23c7263aceba40fb",
+      "name": "🇷🇺 [778.5ms +/-1ms] @V2rayNPVTConfig"
+    },
+    {
+      "node_id": "aefedf7bc8fa27b0c7c9",
+      "name": "Igareck Node 073 | 🇺🇸 United States， Ashburn | [BL]"
+    },
+    {
+      "node_id": "25a845bd1a5efb8fbaea",
+      "name": "🇸🇬SG_1|3.4MB/s"
+    },
+    {
+      "node_id": "ccd4af78f6b91a370ac0",
+      "name": "🇱🇹LT_1|1.2MB/s"
+    },
+    {
+      "node_id": "651e84f2270326fda7d7",
+      "name": "🇯🇵JP_1|2.1MB/s"
+    },
+    {
+      "node_id": "1cd101cf11faef46f168",
+      "name": "🇩🇪DE_25|1.4MB/s|M003-260806"
+    },
+    {
+      "node_id": "20459900ccd38cfb31cd",
+      "name": "🇭🇰HK_1|4.1MB/s"
+    },
+    {
+      "node_id": "42e5e5b5a17cb709e76b",
+      "name": "Igareck Node 072 | 🇺🇸 United States， Ashburn | [BL]"
+    },
+    {
+      "node_id": "560dafa9fe3fa8442fc8",
+      "name": "[787.4ms +/-1ms] 🇹🇼 🇨🇳 台湾 | TWN"
+    },
+    {
+      "node_id": "854dc6c3c3bfb087c742",
+      "name": "[1065.6ms +/-1ms] 🇸🇬"
+    },
+    {
+      "node_id": "2ae06564d5a76e46bdc3",
+      "name": "Igareck Node 053 | 🇸🇪 Sweden， Stockholm | [BL]"
+    },
+    {
+      "node_id": "cb869fb31d5f816d1665",
+      "name": "[1355.8ms +/-1ms] 🇯🇵"
+    },
+    {
+      "node_id": "2a69d2e034785f22fbba",
+      "name": "🇩🇪DE_26|68KB/s|M003-260806"
+    },
+    {
+      "node_id": "2c65f4124b8d46508a38",
+      "name": "[1486.6ms +/-56ms] 🇨🇦 加拿大 | CAN"
+    },
+    {
+      "node_id": "6dfd41ce80f80a83fbc9",
+      "name": "🇷🇴 [1014.1ms +/-263ms] 🇸🇪"
+    },
+    {
+      "node_id": "6fa4d74eff5b96f75441",
+      "name": "[1209.3ms +/-27ms] @hex_proxy"
     }
   ]
 }
