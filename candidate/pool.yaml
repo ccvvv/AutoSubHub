@@ -16003,3 +16003,4636 @@ proxies:
     path: /ws
     headers:
       Host: vmess.lbw666.dpdns.org
+- name: 🇺🇸US_92|1.4MB/s|B007-260618 [00b2e44e8b7d]
+  type: ss
+  server: 15.204.246.108
+  port: 8881
+  cipher: aes-256-gcm
+  password: kDWvXYZoTBcGkC4
+  udp: true
+- name: 🇺🇸US_105|1.6MB/s|B007-260618 [a7437def4eee]
+  type: ss
+  server: 15.204.246.111
+  port: 5498
+  cipher: aes-256-gcm
+  password: lGqs95QkFHo2NV
+  udp: true
+- name: 🇺🇸US_321|1.8MB/s|A004-260618 [a5ed26dec6c6]
+  type: ss
+  server: 15.204.246.107
+  port: 8888
+  cipher: aes-256-gcm
+  password: Y6R9pAtvxxzmGC
+  udp: true
+- name: 🇺🇸US_23|1.6MB/s|A004-260618 [8037ede700ca]
+  type: ss
+  server: 15.204.233.41
+  port: 8882
+  cipher: aes-256-gcm
+  password: kDWvXYZoTBcGkC4
+  udp: true
+- name: 🇺🇸US_71|1.5MB/s|A004-260618 [b8988ceec449]
+  type: ss
+  server: 15.204.246.132
+  port: 7307
+  cipher: aes-256-gcm
+  password: FoOiGlkAA9yPEGP
+  udp: true
+- name: 🇺🇸US_351|1.6MB/s|A004-260618 [931fc4ea9a8d]
+  type: ss
+  server: 37.19.198.243
+  port: 443
+  cipher: aes-128-gcm
+  password: shadowsocks
+  udp: true
+- name: 🇺🇸US_180|1.8MB/s|B007-260618 [808a639a9c8e]
+  type: ss
+  server: 193.151.163.18
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- name: 🇺🇸US_350|1.6MB/s|A004-260618 [9b5fba991b3e]
+  type: ss
+  server: 37.19.198.236
+  port: 443
+  cipher: aes-128-gcm
+  password: shadowsocks
+  udp: true
+- name: 🇺🇸US_349|2.0MB/s|A004-260618 [e6b01b36cdce]
+  type: ss
+  server: 37.19.198.244
+  port: 443
+  cipher: aes-128-gcm
+  password: shadowsocks
+  udp: true
+- name: 🇺🇸US_83|72KB/s|M003-260806 [7c505264f53f]
+  type: ss
+  server: 38.91.100.39
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- name: 🇺🇸US_4|398KB/s|A004-260618 [0d70475f53d8]
+  type: vless
+  server: 45.138.100.248
+  port: 10443
+  uuid: ae908ff5-f749-402c-af25-e6e9aef4d6bb
+  udp: true
+- name: 🇺🇸US_120|1.3MB/s|C002-260622 [69ce2d16fba0]
+  type: vmess
+  server: 67.220.85.46
+  port: 18000
+  uuid: f8c8dc3d-0d37-46b0-8b34-a7232882fcfe
+  alterId: 0
+  cipher: aes-128-gcm
+  udp: true
+- name: 🇺🇸US_173|71KB/s|A004-260618 [22da3bbe39a5]
+  type: ss
+  server: 98.98.79.198
+  port: 8080
+  cipher: rc4-md5
+  password: 14fFPrbezE3HDZzsMOr6
+  udp: true
+- name: 🇺🇸US_292|182KB/s|K001-260618 [255c9f0ca687]
+  type: vmess
+  server: 142.202.48.87
+  port: 1270
+  uuid: 5c040f1d-45db-43bd-8d46-e4950e433735
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: xmfhlpy.com
+- name: 🇺🇸US_298|1.3MB/s|K001-260618 [e7594b307d7f]
+  type: vmess
+  server: 38.91.100.69
+  port: 1270
+  uuid: 5c040f1d-45db-43bd-8d46-e4950e433735
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: xmfhlpy.com
+- name: 🇺🇸US_149|1.6MB/s|M003-260806 [ca8b3e39c2f7]
+  type: ss
+  server: 149.40.57.135
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- name: 🇺🇸US_361|1.6MB/s|M003-260806 [a71fa255a36e]
+  type: ss
+  server: 149.40.57.138
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- name: 🇺🇸US_111|1.7MB/s|A004-260618 [1a68c8f8ad94]
+  type: ss
+  server: 45.86.51.18
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- name: 🇺🇸US_76|1.6MB/s|M003-260806 [f1a295ebe63d]
+  type: ss
+  server: 172.111.38.72
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- name: 🇺🇸US_74|1.5MB/s|M003-260806 [9f107174f422]
+  type: ss
+  server: 149.40.57.133
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- name: 🇺🇸US_27|1.7MB/s|A004-260618 [f99283bc71bd]
+  type: ss
+  server: 185.230.230.18
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- name: 🇺🇸US_307|1.4MB/s|S004-260618 [7a17272729d8]
+  type: ss
+  server: 149.40.57.134
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- name: 🇺🇸US_300|1.6MB/s|M003-260806 [94a4682d5bc1]
+  type: ss
+  server: 200.102.179.179
+  port: 8388
+  cipher: aes-256-gcm
+  password: itzvpn@321
+  udp: true
+- name: 🇺🇸US_107|206KB/s|K001-260618 [9c796e6c300a]
+  type: vmess
+  server: 67.220.95.49
+  port: 1270
+  uuid: 5c040f1d-45db-43bd-8d46-e4950e433735
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: xmfhlpy.com
+- cipher: aes-256-gcm
+  name: ❓Other_98|276KB/s|B007-260618 [901ef66a7fa3]
+  password: itzvpn@321
+  port: 8388
+  server: 192.99.151.230
+  sub_tag: B007-260618
+  type: ss
+  udp: true
+- name: 🇺🇸US_18|1.3MB/s|A004-260618 [0ad85ff13500]
+  type: vless
+  server: 45.138.100.248
+  port: 14430
+  uuid: ae908ff5-f749-402c-af25-e6e9aef4d6bb
+  udp: true
+  network: ws
+  ws-opts:
+    path: /vless
+    headers:
+      Host: 45.138.100.248
+- name: 🇺🇸US_87|1.5MB/s|M003-260806 [bad2fa4202d3]
+  type: ss
+  server: 67.220.73.178
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- name: 🇨🇦CA_11|1.5MB/s|A004-260618 [2fa6e394998f]
+  type: ss
+  server: 51.222.141.125
+  port: 445
+  cipher: aes-256-gcm
+  password: zDNVedRFPQexG9v
+  udp: true
+- name: 🇨🇦CA_12|762KB/s|B007-260618 [c681699ecc3a]
+  type: ss
+  server: 51.79.49.116
+  port: 8882
+  cipher: aes-256-gcm
+  password: kDWvXYZoTBcGkC4
+  udp: true
+- name: 🇺🇸US_333|1.5MB/s|B007-260618 [2b5598cbc9f5]
+  type: vmess
+  server: 172.111.38.246
+  port: 1270
+  uuid: 5c040f1d-45db-43bd-8d46-e4950e433735
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: xmfhlpy.com
+- name: 🇺🇸US_522|1.5MB/s|M003-260806 [78c3be9de2bb]
+  type: ss
+  server: 67.220.73.247
+  port: 443
+  cipher: chacha20-ietf-poly1305
+  password: DGjtV63aPW3E
+  udp: true
+- name: 🇨🇦CA_35|868KB/s|B007-260618 [9aa0d593f21b]
+  type: ss
+  server: 51.222.155.113
+  port: 5601
+  cipher: aes-256-gcm
+  password: Y6R9pAtvxxzmGC
+  udp: true
+- name: 🇨🇦CA_23|89KB/s|B007-260618 [3c6bd205af3f]
+  type: ss
+  server: 184.107.106.77
+  port: 8388
+  cipher: aes-256-gcm
+  password: itzvpn@321
+  udp: true
+- name: 🇺🇸US_151|1.5MB/s|M003-260806 [9646daacba74]
+  type: ss
+  server: 216.106.178.169
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- name: 🇨🇦CA_7|1.1MB/s|B007-260618 [b287191877fb]
+  type: ss
+  server: 51.222.136.236
+  port: 8882
+  cipher: aes-256-gcm
+  password: kDWvXYZoTBcGkC4
+  udp: true
+- cipher: aes-256-gcm
+  name: 🇺🇸US_21|645KB/s|M003-260806 [34b27eebfe6b]
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 38.128.66.32
+  sub_tag: M003-260806
+  type: ss
+  udp: true
+- name: 🇺🇸US_305|1.3MB/s|M003-260806 [dc743abcfca8]
+  type: ss
+  server: 38.64.138.135
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- cipher: aes-256-gcm
+  name: ❓Other_97|213KB/s|B007-260618 [6bc2148b6e9d]
+  password: itzvpn@321
+  port: 8388
+  server: 184.107.106.77
+  sub_tag: B007-260618
+  type: ss
+  udp: true
+- client-fingerprint: chrome
+  name: 🇺🇸US_61|212KB/s|M003-260806 [d5de87762528]
+  network: tcp
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 216.152.155.59
+  skip-cert-verify: true
+  sni: www.findconnectwithemployersandbuildprofessionalnetwork.com
+  sub_tag: M003-260806
+  type: trojan
+  udp: true
+- name: 🇺🇸US_430|1.4MB/s|K001-260618 [3dea52353fb9]
+  type: vmess
+  server: 38.107.226.5
+  port: 1270
+  uuid: 5c040f1d-45db-43bd-8d46-e4950e433735
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: xmfhlpy.com
+- name: 🇺🇸US_406|1.3MB/s|B007-260618 [362883564f10]
+  type: vmess
+  server: 38.128.66.241
+  port: 1270
+  uuid: 5c040f1d-45db-43bd-8d46-e4950e433735
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: xmfhlpy.com
+- name: 🇺🇸US_477|1.3MB/s|K001-260618 [dd20931b839e]
+  type: vmess
+  server: 38.64.138.187
+  port: 1270
+  uuid: 5c040f1d-45db-43bd-8d46-e4950e433735
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: xmfhlpy.com
+- name: 🇨🇦CA_1|1.3MB/s|A004-260618 [66d12a9e0a5d]
+  type: vmess
+  server: 134.195.196.211
+  port: 18000
+  uuid: f8c8dc3d-0d37-46b0-8b34-a7232882fcfe
+  alterId: 0
+  cipher: auto
+  udp: true
+- name: 🇺🇸US_257|1.3MB/s|K001-260618 [c3c1a46fdcc9]
+  type: vmess
+  server: 38.128.66.249
+  port: 1270
+  uuid: 5c040f1d-45db-43bd-8d46-e4950e433735
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: xmfhlpy.com
+- name: 🇨🇦CA_2|1.5MB/s|C002-260622 [7e4248e90db7]
+  type: vmess
+  server: 23.162.200.198
+  port: 18000
+  uuid: f8c8dc3d-0d37-46b0-8b34-a7232882fcfe
+  alterId: 0
+  cipher: auto
+  udp: true
+- name: 🇺🇸US_96|543KB/s|K001-260618 [8d29a8f8f185]
+  type: vmess
+  server: 38.128.66.212
+  port: 1270
+  uuid: 5c040f1d-45db-43bd-8d46-e4950e433735
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: xmfhlpy.com
+- client-fingerprint: chrome
+  name: ❓Other_59|410KB/s|A004-260618 [4c85fce4702d]
+  network: tcp
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 216.152.155.176
+  skip-cert-verify: true
+  sub_tag: A004-260618
+  type: trojan
+  udp: true
+- name: 🇫🇷FR_84|1.3MB/s|M003-260806 [d6741310dd37]
+  type: vless
+  server: 188.114.98.0
+  port: 443
+  uuid: 53bbdad4-2f4e-45db-8df4-fa491a6a7227
+  udp: true
+  tls: true
+  servername: freeceshi6.frii.site
+  alpn:
+  - http/1.1
+  client-fingerprint: unsafe
+  network: ws
+  ws-opts:
+    path: /proxyip=ProxyIP.JP.CMLiussss.net
+    headers:
+      Host: freeceshi6.frii.site
+- name: 🇨🇦CA_6|1.3MB/s|A004-260618 [478b2f668f0b]
+  type: ss
+  server: 137.184.174.93
+  port: 8080
+  cipher: rc4-md5
+  password: 14fFPrbezE3HDZzsMOr6
+  udp: true
+- name: 🇺🇸US_496|1.3MB/s|K001-260618 [b28478a2acaa]
+  type: vmess
+  server: 162.251.61.46
+  port: 1270
+  uuid: 5c040f1d-45db-43bd-8d46-e4950e433735
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: xmfhlpy.com
+- name: 🇨🇦CA_39|1.5MB/s|M003-260806 [f5aa2196be8c]
+  type: ss
+  server: 134.195.198.163
+  port: 443
+  cipher: chacha20-ietf-poly1305
+  password: PmCqK98WqhSC
+  udp: true
+- client-fingerprint: chrome
+  name: ❓Other_70|91KB/s|M003-260806 [b8fed1abc255]
+  network: tcp
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 216.152.147.89
+  skip-cert-verify: false
+  sni: www.connectingpeoplewithgreatjobs.com
+  sub_tag: M003-260806
+  type: trojan
+  udp: true
+- name: 🇺🇸US_432|1.2MB/s|K001-260618 [05dc41bc9391]
+  type: vmess
+  server: 38.64.138.135
+  port: 1270
+  uuid: 5c040f1d-45db-43bd-8d46-e4950e433735
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: xmfhlpy.com
+- client-fingerprint: chrome
+  name: 🇨🇦CA_4|193KB/s|M003-260806 [c9fe0ee0972c]
+  network: tcp
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 216.152.147.85
+  skip-cert-verify: false
+  sni: cdn.connectingpeoplewithgreatjobs.com
+  sub_tag: M003-260806
+  type: trojan
+  udp: true
+- name: 🇨🇦CA_5|314KB/s|R002-260618 [e0b6eacb1061]
+  port: 443
+  server: 206.223.183.16
+  skip-cert-verify: true
+  sub_tag: R002-260618
+  tls: true
+  type: http
+  udp: true
+- name: 🇯🇵JP_24|305KB/s|M003-260806 [4b2a913c6697]
+  type: vless
+  server: kuruish.org
+  port: 443
+  uuid: 03fcc618-b93d-6796-6aed-8a38c975d581
+  udp: true
+  tls: true
+  servername: kuruish.org
+  client-fingerprint: chrome
+- name: 🇺🇸US_226|1.0MB/s|S004-260618 [3fbf02e695d3]
+  type: vless
+  server: 69.48.201.136
+  port: 30016
+  uuid: 03dc60cb-a8d4-4226-93fe-0e6cbf77fe5a
+  udp: true
+  network: ws
+  ws-opts:
+    path: /usserver
+    headers:
+      Host: uspanel.unixzone.us
+- name: 🇨🇦CA_40|768KB/s|M003-260806 [070850d3e8c7]
+  type: vless
+  server: 66.163.113.9
+  port: 443
+  uuid: 03fcc618-b93d-6796-6aed-8a38c975d581
+  udp: true
+  tls: true
+  servername: kuruish.org
+  client-fingerprint: chrome
+- client-fingerprint: chrome
+  name: ❓Other_60|354KB/s|A004-260618 [1a6a635cbd74]
+  network: tcp
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 216.152.155.176
+  skip-cert-verify: false
+  sni: blog.nextjobopportunityandclaimyouridealrole.com
+  sub_tag: A004-260618
+  type: trojan
+  udp: true
+- name: 🇺🇸US_417|1.0MB/s|A004-260618 [ef5dab9eb43c]
+  type: ss
+  server: 173.244.56.9
+  port: 443
+  cipher: aes-128-gcm
+  password: shadowsocks
+  udp: true
+- name: 🇺🇸US_40|926KB/s|S004-260618 [25efab7899d7]
+  type: vless
+  server: uspanel.unixzone.us
+  port: 30016
+  uuid: 03dc60cb-a8d4-4226-93fe-0e6cbf77fe5a
+  udp: true
+  network: ws
+  ws-opts:
+    path: /usserver
+    headers:
+      Host: uspanel.unixzone.us
+- name: 🇺🇸US_369|1.2MB/s|A004-260618 [a25a5f4b0320]
+  type: ss
+  server: 173.244.56.6
+  port: 443
+  cipher: aes-128-gcm
+  password: shadowsocks
+  udp: true
+- name: 🇨🇦CA_2|268KB/s|K001-260618 [8f7dcc7502fb]
+  password: None
+  port: 9443
+  server: 23.169.224.34
+  skip-cert-verify: true
+  sub_tag: K001-260618
+  tls: true
+  type: http
+  udp: true
+  username: ''
+- name: 🇺🇸US_20|1.4MB/s|B007-260618 [7881d9b17dae]
+  type: ss
+  server: 185.215.132.18
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- client-fingerprint: chrome
+  name: 🇺🇸US_19|223KB/s|A004-260618 [d49de64bdab7]
+  network: tcp
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 66.163.114.132
+  skip-cert-verify: true
+  sni: 66.163.114.132
+  sub_tag: A004-260618
+  type: trojan
+  udp: true
+- name: 🇺🇸US_19|1002KB/s|A004-260618 [90c0d450952c]
+  type: ss
+  server: 95.215.201.18
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- client-fingerprint: chrome
+  name: 🇺🇸US_18|833KB/s|C002-260622 [d7c61c0ced09]
+  network: tcp
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 66.163.114.114
+  skip-cert-verify: true
+  sni: 66.163.114.114
+  sub_tag: C002-260622
+  type: trojan
+  udp: true
+- name: 🇺🇸US_77|459KB/s|M003-260806 [c69393e76ecc]
+  type: ss
+  server: 23.150.152.38
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- name: 🇺🇸US_79|1.5MB/s|M003-260806 [6d968e5cac69]
+  type: ss
+  server: 38.128.66.32
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- name: 🇨🇦CA_13|1.3MB/s|A004-260618 [a9739d892b18]
+  type: ss
+  server: 51.222.12.127
+  port: 445
+  cipher: aes-256-gcm
+  password: zDNVedRFPQexG9v
+  udp: true
+- name: 🇺🇸US_116|1.1MB/s|C001-260618 [30df0e37041e]
+  type: ss
+  server: 193.151.160.18
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- name: 🇺🇸US_80|941KB/s|M003-260806 [ae0c628cd654]
+  type: ss
+  server: 38.143.66.146
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- name: 🇺🇸US_229|1.0MB/s|M003-260806 [b15a0b86f538]
+  type: ss
+  server: 38.121.43.231
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- name: 🇺🇸US_152|1.4MB/s|M003-260806 [13a4ca381212]
+  type: ss
+  server: 38.22.17.214
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- cipher: rc4-md5
+  name: 🇺🇸US_4|299KB/s|M003-260806 [6364b2c615d5]
+  password: 14fFPrbezE3HDZzsMOr6
+  port: 8080
+  server: 23.251.121.242
+  sub_tag: M003-260806
+  type: ss
+  udp: true
+- name: 🇺🇸US_78|1.4MB/s|M003-260806 [a6e2aaebaf73]
+  type: ss
+  server: 38.121.43.225
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- name: 🇺🇸US_7|1.2MB/s|A004-260618 [0a6e050b6876]
+  type: ss
+  server: 193.151.160.9
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- name: 🇮🇪IE_7|4.1MB/s|S004-260618 [6a486f5d89a6]
+  type: ss
+  server: 3.248.201.197
+  port: 443
+  cipher: aes-256-cfb
+  password: amazonskr05
+  udp: true
+- name: 🇺🇸US_150|1.4MB/s|M003-260806 [abf669dcccb8]
+  type: ss
+  server: 169.197.140.247
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- name: 🇺🇸US_253|1.0MB/s|M003-260806 [91cadfca4a46]
+  type: ss
+  server: 169.197.142.68
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- name: 🇺🇸US_85|1.3MB/s|M003-260806 [b683c8c94ee9]
+  type: ss
+  server: 38.91.107.57
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- client-fingerprint: chrome
+  name: 🇺🇸US_45|244KB/s|A004-260618 [2abc1522f015]
+  network: tcp
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 66.163.112.242
+  skip-cert-verify: true
+  sub_tag: A004-260618
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇺🇸US_7|1.0MB/s|A004-260618 [752e2163f5e9]
+  network: tcp
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 216.152.156.65
+  skip-cert-verify: false
+  sni: learn.healthcarejobshubenhancemedicalprofessionalskillstoday.com
+  sub_tag: A004-260618
+  type: trojan
+  udp: true
+- name: 🇺🇸US_304|474KB/s|M003-260806 [00f5b4db99b7]
+  type: ss
+  server: 38.22.17.129
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- name: 🇺🇸US_82|1.2MB/s|M003-260806 [a4c0d5abed1c]
+  type: ss
+  server: 38.22.17.219
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- name: 🇺🇸US_81|1.4MB/s|M003-260806 [bb6156f78ff6]
+  type: ss
+  server: 38.22.17.139
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- name: 🇺🇸US_14|987KB/s|B007-260618 [06334f9cfd2f]
+  type: vmess
+  server: 84.17.41.2
+  port: 18000
+  uuid: f8c8dc3d-0d37-46b0-8b34-a7232882fcfe
+  alterId: 0
+  cipher: auto
+  udp: true
+- client-fingerprint: chrome
+  name: 🇺🇸US_62|478KB/s|S004-260618 [0e7a3a7788b3]
+  network: tcp
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 216.152.156.65
+  skip-cert-verify: true
+  sni: 216.152.156.65
+  sub_tag: S004-260618
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇺🇸US_60|487KB/s|A004-260618 [e754ebea2e2e]
+  network: tcp
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 216.152.156.81
+  skip-cert-verify: true
+  sni: www.healthcarejobshubenhancemedicalprofessionalskillstoday.com
+  sub_tag: A004-260618
+  type: trojan
+  udp: true
+- name: 🇺🇸US_218|1.1MB/s|M003-260806 [897fbcec13fe]
+  type: ss
+  server: 38.121.43.18
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- name: ❓Other_17|1.1MB/s|M003-260806 [336a94f5e9b9]
+  type: ss
+  server: 172.111.36.123
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- name: 🇺🇸US_75|1.4MB/s|M003-260806 [fc354a25559b]
+  type: ss
+  server: 167.88.63.39
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- name: 🇺🇸US_204|1.0MB/s|A004-260618 [1f72b334a6b7]
+  type: vless
+  server: 69.48.201.136
+  port: 30016
+  uuid: 03dc60cb-a8d4-4226-93fe-0e6cbf77fe5a
+  udp: true
+  network: ws
+  ws-opts:
+    path: /usserver
+    headers:
+      Host: zoom.us
+- name: 🇺🇸US_461|832KB/s|M002-260618 [b8d702b29c8c]
+  type: vmess
+  server: 129.146.77.248
+  port: 39495
+  uuid: f836c736-87fc-4fde-aabc-00857ecdff3e
+  alterId: 0
+  cipher: auto
+  udp: true
+  network: ws
+  ws-opts:
+    path: /cctv13.m3u8
+    headers:
+      Host: 129.146.77.248
+- name: 🇨🇦CA_30|782KB/s|A004-260618 [edb848906829]
+  type: ss
+  server: 149.22.95.183
+  port: 443
+  cipher: aes-128-gcm
+  password: shadowsocks
+  udp: true
+- client-fingerprint: chrome
+  name: ❓Other_55|217KB/s|M003-260806 [b3e72ddd1887]
+  network: tcp
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 169.197.140.218
+  skip-cert-verify: true
+  sub_tag: M003-260806
+  type: trojan
+  udp: true
+- name: 🇬🇧GB_3|5.4MB/s|M003-260806 [cadca750fa2d]
+  type: ss
+  server: 198.244.202.215
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- client-fingerprint: chrome
+  name: 🇺🇸US_23|550KB/s|B007-260618 [6dda07ff8f8e]
+  network: tcp
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 169.197.140.169
+  skip-cert-verify: true
+  sub_tag: B007-260618
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇺🇸US_47|351KB/s|C002-260622 [bb2a86998936]
+  network: tcp
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 169.197.140.218
+  skip-cert-verify: true
+  sni: 169.197.140.218
+  sub_tag: C002-260622
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇺🇸US_57|346KB/s|C002-260622 [fdf3731eeca5]
+  network: tcp
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 169.197.140.208
+  skip-cert-verify: false
+  sni: blog.discoverfreshgraduatejobsstartyourprofessionaljourney.com
+  sub_tag: C002-260622
+  type: trojan
+  udp: true
+- name: 🇬🇧GB_9|5.1MB/s|M003-260806 [cb662ccb9869]
+  type: ss
+  server: 198.244.201.129
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- name: 🇺🇸US_231|856KB/s|A004-260618 [0c55ca482097]
+  type: ss
+  server: 79.110.54.250
+  port: 8080
+  cipher: rc4-md5
+  password: 14fFPrbezE3HDZzsMOr6
+  udp: true
+- name: 🇬🇧GB_14|941KB/s|A004-260618 [698a6c4659aa]
+  type: ss
+  server: 158.173.24.73
+  port: 443
+  cipher: aes-128-gcm
+  password: shadowsocks
+  udp: true
+- name: 🇺🇸US_211|973KB/s|K001-260618 [884e1efdb045]
+  type: vmess
+  server: 172.111.36.253
+  port: 1270
+  uuid: 5c040f1d-45db-43bd-8d46-e4950e433735
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: xmfhlpy.com
+- client-fingerprint: chrome
+  name: 🇺🇸US_55|550KB/s|M003-260806 [73fc8075f7a8]
+  network: tcp
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 169.197.140.169
+  skip-cert-verify: false
+  sni: api.discoverfreshgraduatejobsstartyourprofessionaljourney.com
+  sub_tag: M003-260806
+  type: trojan
+  udp: true
+- name: 🇺🇸US_185|949KB/s|A004-260618 [3d94f6d7c78e]
+  type: ss
+  server: 107.151.182.197
+  port: 8080
+  cipher: rc4-md5
+  password: 14fFPrbezE3HDZzsMOr6
+  udp: true
+- name: 🇺🇸US_61|948KB/s|A004-260618 [4ec6d1023f84]
+  type: ss
+  server: 107.151.182.253
+  port: 8080
+  cipher: rc4-md5
+  password: 14fFPrbezE3HDZzsMOr6
+  udp: true
+- client-fingerprint: chrome
+  name: 🇺🇸US_46|300KB/s|A004-260618 [f06b6b88b748]
+  network: tcp
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 169.197.140.171
+  skip-cert-verify: false
+  sni: cdn.discoverfreshgraduatejobsstartyourprofessionaljourney.com
+  sub_tag: A004-260618
+  type: trojan
+  udp: true
+- name: 🇺🇸US_494|1.3MB/s|K001-260618 [2ea556638a21]
+  type: vmess
+  server: 38.22.17.89
+  port: 1270
+  uuid: 5c040f1d-45db-43bd-8d46-e4950e433735
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: xmfhlpy.com
+- name: 🇺🇸US_155|1.3MB/s|K001-260618 [267d878b7fd3]
+  type: vmess
+  server: 172.111.36.126
+  port: 1270
+  uuid: 5c040f1d-45db-43bd-8d46-e4950e433735
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: xmfhlpy.com
+- name: 🇺🇸US_288|1.2MB/s|M003-260806 [b3ff691620f4]
+  type: ss
+  server: 38.91.107.19
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- name: 🇺🇸US_492|1.2MB/s|K001-260618 [d4b7cef043ec]
+  type: vmess
+  server: 38.22.17.64
+  port: 1270
+  uuid: 5c040f1d-45db-43bd-8d46-e4950e433735
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: xmfhlpy.com
+- name: 🇺🇸US_212|1.3MB/s|K001-260618 [666e3b7373ef]
+  type: vmess
+  server: 167.88.63.39
+  port: 1270
+  uuid: 5c040f1d-45db-43bd-8d46-e4950e433735
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: xmfhlpy.com
+- name: 🇺🇸US_84|1.2MB/s|M003-260806 [f1b2fe8caf2a]
+  type: ss
+  server: 38.91.107.188
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- name: 🇺🇸US_431|886KB/s|K001-260618 [cd1e11f93b64]
+  type: vmess
+  server: 38.22.17.251
+  port: 1270
+  uuid: 5c040f1d-45db-43bd-8d46-e4950e433735
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: xmfhlpy.com
+- name: 🇺🇸US_258|918KB/s|B007-260618 [6712651edbec]
+  type: vmess
+  server: 38.91.107.57
+  port: 1270
+  uuid: 5c040f1d-45db-43bd-8d46-e4950e433735
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: xmfhlpy.com
+- name: 🇳🇱NL_103|2.0MB/s|M003-260806 [ef0b968ad5fd]
+  type: ss
+  server: 151.241.19.36
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- name: 🇺🇸US_86|1.2MB/s|M003-260806 [14913be00127]
+  type: ss
+  server: 66.163.125.120
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- name: 🇺🇸US_154|1.2MB/s|K001-260618 [19884c9a3e5e]
+  type: vmess
+  server: 167.88.63.99
+  port: 1270
+  uuid: 5c040f1d-45db-43bd-8d46-e4950e433735
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: xmfhlpy.com
+- name: 🇺🇸US_214|922KB/s|K001-260618 [fdae4aa847e1]
+  type: vmess
+  server: 23.150.152.65
+  port: 1270
+  uuid: 5c040f1d-45db-43bd-8d46-e4950e433735
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: xmfhlpy.com
+- name: 🇺🇸US_112|1.4MB/s|A004-260618 [8a77727a8beb]
+  type: ss
+  server: 185.215.132.9
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- name: 🇺🇸US_442|1.2MB/s|K001-260618 [d35d32b3b15b]
+  type: vmess
+  server: 172.111.36.147
+  port: 1270
+  uuid: 5c040f1d-45db-43bd-8d46-e4950e433735
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: xmfhlpy.com
+- name: 🇪🇸ES_12|4.0MB/s|M001-260618 [1ac4c07e395d]
+  type: ss
+  server: 5.188.181.201
+  port: 9031
+  cipher: aes-256-cfb
+  password: BwcAUZk8hUFAkDGN
+  udp: true
+- name: 🇬🇧GB_10|3.6MB/s|M003-260806 [115ca2e001d5]
+  type: ss
+  server: 38.114.120.221
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- name: 🇪🇸ES_16|2.9MB/s|M001-260618 [628e873e23f1]
+  type: ss
+  server: 5.188.181.201
+  port: 9041
+  cipher: aes-256-cfb
+  password: U6qnYRhfyDmn8sgn
+  udp: true
+- name: 🇪🇸ES_11|3.8MB/s|M001-260618 [70cf15c25da2]
+  type: ss
+  server: 5.188.181.201
+  port: 9025
+  cipher: aes-256-cfb
+  password: XPtzA9sCug3SPR4c
+  udp: true
+- cipher: aes-256-cfb
+  name: 🇪🇸ES_10|158KB/s|M003-260806 [a067dd7feb84]
+  password: VcFuyXvND2yQWSFY
+  port: 9054
+  server: 5.188.181.201
+  sub_tag: M003-260806
+  type: ss
+  udp: true
+- name: 🇺🇸US_336|1.2MB/s|B007-260618 [07ff0c8ee67d]
+  type: vmess
+  server: 172.111.36.123
+  port: 1270
+  uuid: 5c040f1d-45db-43bd-8d46-e4950e433735
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: xmfhlpy.com
+- name: 🇺🇸US_495|1.0MB/s|K001-260618 [b3393d03913b]
+  type: vmess
+  server: 172.111.36.137
+  port: 1270
+  uuid: 5c040f1d-45db-43bd-8d46-e4950e433735
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: xmfhlpy.com
+- name: 🇺🇸US_213|1.2MB/s|K001-260618 [c107910cd19b]
+  type: vmess
+  server: 167.88.63.47
+  port: 1270
+  uuid: 5c040f1d-45db-43bd-8d46-e4950e433735
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: xmfhlpy.com
+- name: 🇪🇸ES_10|3.5MB/s|M003-260806 [a32a97f38311]
+  type: ss
+  server: 5.188.181.201
+  port: 9000
+  cipher: aes-256-cfb
+  password: a3GFYt36Sm82Vys9
+  udp: true
+- name: ❓Other_5|745KB/s|M003-260806 [a2af3f5170e9]
+  type: ss
+  server: 5.188.181.201
+  port: 9054
+  cipher: aes-256-cfb
+  password: VcFuyXvND2yQWSFY
+  udp: true
+- name: 🇫🇷FR_19|4.9MB/s|M003-260806 [216dd764a3ca]
+  type: ss
+  server: 79.137.99.183
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- name: 🇺🇸US_95|1.0MB/s|K001-260618 [8a208f191f78]
+  type: vmess
+  server: 38.91.107.84
+  port: 1270
+  uuid: 5c040f1d-45db-43bd-8d46-e4950e433735
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: xmfhlpy.com
+- name: 🇺🇸US_308|1.1MB/s|K001-260618 [4f8e7788f744]
+  type: vmess
+  server: 66.163.125.51
+  port: 1270
+  uuid: 5c040f1d-45db-43bd-8d46-e4950e433735
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: xmfhlpy.com
+- name: 🇩🇪DE_61|2.8MB/s|C001-260618 [7c70a96d01ba]
+  type: ss
+  server: 185.176.204.18
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- name: 🇺🇸US_450|706KB/s|K001-260618 [0fe2edd0708e]
+  type: vmess
+  server: 38.91.107.188
+  port: 1270
+  uuid: 5c040f1d-45db-43bd-8d46-e4950e433735
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: xmfhlpy.com
+- name: 🇳🇱NL_205|8.4MB/s|M003-260806 [2a9a37014087]
+  type: ss
+  server: leviko-nl6763.shopingggg.ir
+  port: 443
+  cipher: aes-128-gcm
+  password: shadowsocks
+  udp: true
+- name: 🇬🇧GB_23|3.9MB/s|A004-260618 [676d0b47b05c]
+  type: ss
+  server: 141.98.101.181
+  port: 443
+  cipher: aes-128-gcm
+  password: shadowsocks
+  udp: true
+- name: 🇺🇸US_476|1.0MB/s|B007-260618 [ded80212c26b]
+  type: vmess
+  server: 67.220.74.250
+  port: 1270
+  uuid: 5c040f1d-45db-43bd-8d46-e4950e433735
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: xmfhlpy.com
+- name: 🇺🇸US_438|1.1MB/s|K001-260618 [4fb5ce816aa1]
+  type: vmess
+  server: 67.220.74.188
+  port: 1270
+  uuid: 5c040f1d-45db-43bd-8d46-e4950e433735
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: xmfhlpy.com
+- name: 🇺🇸US_397|1.1MB/s|B007-260618 [6f3574152692]
+  type: vmess
+  server: 216.106.182.225
+  port: 1270
+  uuid: 5c040f1d-45db-43bd-8d46-e4950e433735
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: xmfhlpy.com
+- name: 🇬🇧GB_1|381KB/s|A004-260618 [b1c2c09c12b6]
+  type: ss
+  server: 185.176.206.9
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- name: 🇺🇸US_162|848KB/s|B007-260618 [8b21a407aaa2]
+  type: vmess
+  server: 162.251.62.35
+  port: 1270
+  uuid: 5c040f1d-45db-43bd-8d46-e4950e433735
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: xmfhlpy.com
+- name: 🇺🇸US_210|1.1MB/s|K001-260618 [e515b4fcbf3b]
+  type: vmess
+  server: 67.220.74.197
+  port: 1270
+  uuid: 5c040f1d-45db-43bd-8d46-e4950e433735
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: xmfhlpy.com
+- name: 🇺🇸US_381|1.0MB/s|K001-260618 [000e9538b070]
+  type: vmess
+  server: 38.91.106.182
+  port: 1270
+  uuid: 5c040f1d-45db-43bd-8d46-e4950e433735
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: xmfhlpy.com
+- name: 🇪🇸ES_18|2.1MB/s|M001-260618 [d3e8e70aa766]
+  type: ss
+  server: 5.188.181.201
+  port: 9040
+  cipher: aes-256-cfb
+  password: p9z5BVADH2YFs3MN
+  udp: true
+- name: 🇺🇸US_93|951KB/s|K001-260618 [3292f1406526]
+  type: vmess
+  server: 169.197.142.68
+  port: 1270
+  uuid: 5c040f1d-45db-43bd-8d46-e4950e433735
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: xmfhlpy.com
+- name: 🇺🇸US_35|927KB/s|M002-260618 [0bae86d275ac]
+  type: vmess
+  server: 38.91.107.49
+  port: 18000
+  uuid: f8c8dc3d-0d37-46b0-8b34-a7232882fcfe
+  alterId: 0
+  cipher: auto
+  udp: true
+- name: 🇳🇱NL_134|7.4MB/s|A003-260618 [5cb387b5d7e5]
+  type: ss
+  server: 82.38.31.204
+  port: 8080
+  cipher: chacha20-ietf-poly1305
+  password: k1dBOmOB4oqi7Ump37a1bQ
+  udp: true
+- name: 🇳🇱NL_7|7.8MB/s|A004-260618 [fba1c64cad1b]
+  type: ss
+  server: 82.38.31.165
+  port: 443
+  cipher: chacha20-ietf-poly1305
+  password: oZIoA69Q8yhcQV8ka3Pa3A
+  udp: true
+- name: 🇩🇪DE_11|6.4MB/s|M003-260806 [d3f781d9f3d3]
+  type: ss
+  server: 57.129.83.85
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- name: 🇳🇱NL_27|9.2MB/s|A004-260618 [53f43cb8046d]
+  type: ss
+  server: 82.38.31.220
+  port: 8080
+  cipher: chacha20-ietf-poly1305
+  password: k1dBOmOB4oqi7Ump37a1bQ
+  udp: true
+- name: 🇩🇪DE_25|5.1MB/s|A004-260618 [7cec1c5d051e]
+  type: ss
+  server: 146.70.20.147
+  port: 8080
+  cipher: rc4-md5
+  password: 14fFPrbezE3HDZzsMOr6
+  udp: true
+- name: 🇩🇪DE_17|6.0MB/s|M003-260806 [b381d6528038]
+  type: ss
+  server: 57.129.76.233
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- name: 🇩🇪DE_59|4.3MB/s|M003-260806 [dc751a3ea209]
+  type: ss
+  server: 193.108.116.98
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- name: 🇳🇱NL_120|68KB/s|A004-260618 [edeedf537e6b]
+  type: ss
+  server: 82.38.31.218
+  port: 8080
+  cipher: chacha20-ietf-poly1305
+  password: k1dBOmOB4oqi7Ump37a1bQ
+  udp: true
+- name: 🇳🇱NL_41|6.9MB/s|A003-260618 [a32efd378ae9]
+  type: ss
+  server: 82.38.31.212
+  port: 8080
+  cipher: chacha20-ietf-poly1305
+  password: k1dBOmOB4oqi7Ump37a1bQ
+  udp: true
+- name: 🇳🇱NL_100|6.7MB/s|S004-260618 [e0e0c91efe5e]
+  type: ss
+  server: 193.29.139.223
+  port: 8080
+  cipher: chacha20-ietf-poly1305
+  password: k1dBOmOB4oqi7Ump37a1bQ
+  udp: true
+- name: 🇺🇸US_478|1.0MB/s|K001-260618 [168358d04c6e]
+  type: vmess
+  server: 162.251.62.31
+  port: 1270
+  uuid: 5c040f1d-45db-43bd-8d46-e4950e433735
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: xmfhlpy.com
+- name: 🇺🇸US_169|1017KB/s|K001-260618 [356f2da01be9]
+  type: vmess
+  server: 162.251.62.44
+  port: 1270
+  uuid: 5c040f1d-45db-43bd-8d46-e4950e433735
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: xmfhlpy.com
+- name: 🇺🇸US_94|911KB/s|B007-260618 [8e869ff206cd]
+  type: vmess
+  server: 162.251.62.42
+  port: 1270
+  uuid: 5c040f1d-45db-43bd-8d46-e4950e433735
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: xmfhlpy.com
+- name: 🇳🇱NL_133|6.0MB/s|A004-260618 [435881338126]
+  type: ss
+  server: 82.38.31.186
+  port: 8080
+  cipher: chacha20-ietf-poly1305
+  password: k1dBOmOB4oqi7Ump37a1bQ
+  udp: true
+- name: 🇫🇷FR_43|1.6MB/s|M003-260806 [de7570378b41]
+  type: ss
+  server: 23.162.152.22
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- name: 🇳🇱NL_112|3.4MB/s|A003-260618 [e3f534626a38]
+  type: ss
+  server: 82.38.31.181
+  port: 8080
+  cipher: chacha20-ietf-poly1305
+  password: k1dBOmOB4oqi7Ump37a1bQ
+  udp: true
+- cipher: chacha20-ietf-poly1305
+  name: 🇳🇱NL_8|155KB/s|A004-260618 [bf68da5d936d]
+  password: k1dBOmOB4oqi7Ump37a1bQ
+  port: 8080
+  server: 82.38.31.185
+  sub_tag: A004-260618
+  type: ss
+  udp: true
+- name: 🇳🇱NL_66|5.1MB/s|A004-260618 [56d18abf985f]
+  type: ss
+  server: 82.38.31.185
+  port: 8080
+  cipher: chacha20-ietf-poly1305
+  password: k1dBOmOB4oqi7Ump37a1bQ
+  udp: true
+- name: 🇳🇱NL_90|8.3MB/s|A004-260618 [7704c624789f]
+  type: ss
+  server: 193.29.139.235
+  port: 443
+  cipher: chacha20-ietf-poly1305
+  password: oZIoA69Q8yhcQV8ka3Pa3A
+  udp: true
+- name: 🇳🇱NL_2|8.1MB/s|M001-260618 [ed67d7ce0981]
+  type: ss
+  server: 82.38.31.61
+  port: 8080
+  cipher: chacha20-ietf-poly1305
+  password: oZIoA69Q8yhcQV8ka3Pa3A
+  udp: true
+- name: 🇫🇷FR_42|2.2MB/s|M003-260806 [5fc19f66dfd3]
+  type: ss
+  server: 172.99.189.142
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- name: 🇳🇱NL_32|5.9MB/s|A003-260618 [fed8473bbd26]
+  type: ss
+  server: 82.38.31.193
+  port: 8080
+  cipher: chacha20-ietf-poly1305
+  password: k1dBOmOB4oqi7Ump37a1bQ
+  udp: true
+- cipher: chacha20-ietf-poly1305
+  name: 🇳🇱NL_44|225KB/s [c3dbcf50fb16]
+  password: k1dBOmOB4oqi7Ump37a1bQ
+  port: 8080
+  server: 82.38.31.194
+  type: ss
+  udp: true
+- name: 🇪🇸ES_9|2.7MB/s|M003-260806 [ddb80fe524ea]
+  type: ss
+  server: 5.188.181.201
+  port: 9020
+  cipher: aes-256-cfb
+  password: BNmAXXxAHYpTRdzu
+  udp: true
+- name: 🇳🇱NL_35|4.0MB/s|B007-260618 [8af2be164146]
+  type: ss
+  server: 193.29.139.168
+  port: 8080
+  cipher: chacha20-ietf-poly1305
+  password: QCXDxuDlTTMD7jtgHUjIoj
+  udp: true
+- name: 🇩🇪DE_22|6.2MB/s|B007-260618 [eaabf74fb795]
+  type: ss
+  server: 47.254.175.2
+  port: 443
+  cipher: 2022-blake3-chacha20-poly1305
+  password: 8yO3ANWefuuGs1lRKXECQA1FEhxlWFV2ppQMcBaZo5Y=
+  udp: true
+- name: 🇳🇱NL_81|2.8MB/s|A004-260618 [2e471754ff05]
+  type: ss
+  server: 82.38.31.199
+  port: 8080
+  cipher: chacha20-ietf-poly1305
+  password: k1dBOmOB4oqi7Ump37a1bQ
+  udp: true
+- name: 🇳🇱NL_156|8.1MB/s|A004-260618 [33c6910ddff2]
+  type: ss
+  server: 158.173.20.208
+  port: 443
+  cipher: aes-128-gcm
+  password: shadowsocks
+  udp: true
+- name: 🇩🇪DE_19|10.2MB/s|B007-260618 [7dbef2781940]
+  type: ss
+  server: 8.220.81.25
+  port: 443
+  cipher: 2022-blake3-chacha20-poly1305
+  password: 8yO3ANWefuuGs1lRKXECQA1FEhxlWFV2ppQMcBaZo5Y=
+  udp: true
+- name: 🇩🇪DE_52|3.9MB/s|A004-260618 [88e5916bc842]
+  type: ss
+  server: 213.202.208.199
+  port: 5000
+  cipher: aes-256-gcm
+  password: Y6R9pAtvxxzmGC
+  udp: true
+- name: 🇳🇱NL_56|4.9MB/s|A004-260618 [faa610b52c1d]
+  type: ss
+  server: 82.38.31.200
+  port: 8080
+  cipher: chacha20-ietf-poly1305
+  password: k1dBOmOB4oqi7Ump37a1bQ
+  udp: true
+- name: 🇩🇪DE_23|5.6MB/s|M003-260806 [3fc250fcf0ec]
+  type: ss
+  server: 47.245.174.67
+  port: 443
+  cipher: 2022-blake3-chacha20-poly1305
+  password: 8yO3ANWefuuGs1lRKXECQA1FEhxlWFV2ppQMcBaZo5Y=
+  udp: true
+- name: 🇫🇷FR_18|3.0MB/s|M003-260806 [7ed185558546]
+  type: ss
+  server: 38.109.228.110
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- name: 🇪🇸ES_1|2.7MB/s|M001-260618 [af9b2eb19e20]
+  type: ss
+  server: 5.188.181.201
+  port: 9011
+  cipher: aes-256-cfb
+  password: M3t2ZEQcMGRWBjRa
+  udp: true
+- name: 🇩🇪DE_67|1.7MB/s|B007-260618 [221a7e3db4fb]
+  type: ss
+  server: 47.245.167.223
+  port: 443
+  cipher: 2022-blake3-chacha20-poly1305
+  password: 8yO3ANWefuuGs1lRKXECQA1FEhxlWFV2ppQMcBaZo5Y=
+  udp: true
+- name: 🇳🇱NL_22|6.7MB/s|B007-260618 [9695db4053e8]
+  type: ss
+  server: 82.38.31.202
+  port: 8080
+  cipher: chacha20-ietf-poly1305
+  password: k1dBOmOB4oqi7Ump37a1bQ
+  udp: true
+- name: ❓Other_15|536KB/s|B007-260618 [b17a7c5624c3]
+  type: ss
+  server: 47.91.74.232
+  port: 443
+  cipher: 2022-blake3-chacha20-poly1305
+  password: 8yO3ANWefuuGs1lRKXECQA1FEhxlWFV2ppQMcBaZo5Y=
+  udp: true
+- name: 🇩🇪DE_37|9.3MB/s|S004-260618 [6e8aaa24ad64]
+  type: ss
+  server: 47.245.173.25
+  port: 443
+  cipher: 2022-blake3-chacha20-poly1305
+  password: 8yO3ANWefuuGs1lRKXECQA1FEhxlWFV2ppQMcBaZo5Y=
+  udp: true
+- name: 🇬🇧GB_2|2.4MB/s|M003-260806 [73078a290a29]
+  type: ss
+  server: 142.202.51.22
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- name: ❓Other_26|228KB/s|S004-260618 [f7150123d547]
+  type: ss
+  server: 8.211.53.194
+  port: 443
+  cipher: 2022-blake3-chacha20-poly1305
+  password: 8yO3ANWefuuGs1lRKXECQA1FEhxlWFV2ppQMcBaZo5Y=
+  udp: true
+- name: 🇺🇸US_529|501KB/s|M003-260806 [6822198fe5ae]
+  type: vless
+  server: 216.106.185.158
+  port: 443
+  uuid: 03fcc618-b93d-6796-6aed-8a38c975d581
+  udp: true
+  tls: true
+  servername: kuruish.org
+  client-fingerprint: chrome
+- name: 🇫🇷FR_16|3.5MB/s|M003-260806 [4bade3587336]
+  type: ss
+  server: 167.17.64.175
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- name: 🇳🇱NL_62|6.4MB/s|B007-260618 [6cd6e2531bf6]
+  type: ss
+  server: 82.38.31.66
+  port: 8080
+  cipher: chacha20-ietf-poly1305
+  password: oZIoA69Q8yhcQV8ka3Pa3A
+  udp: true
+- name: 🇳🇱NL_76|8.7MB/s|A004-260618 [fba1f4142600]
+  type: ss
+  server: 82.38.31.195
+  port: 8080
+  cipher: chacha20-ietf-poly1305
+  password: k1dBOmOB4oqi7Ump37a1bQ
+  udp: true
+- name: 🇳🇱NL_49|4.4MB/s|A004-260618 [882018439583]
+  type: ss
+  server: 193.29.139.234
+  port: 8080
+  cipher: chacha20-ietf-poly1305
+  password: 4a2rfixophdjffa8KVA4Aa
+  udp: true
+- name: 🇫🇷FR_41|4.0MB/s|M003-260806 [6b86e9941c83]
+  type: ss
+  server: 167.17.64.27
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- name: 🇳🇱NL_31|7.1MB/s|A004-260618 [672fa0e5429e]
+  type: ss
+  server: 82.38.31.157
+  port: 8080
+  cipher: chacha20-ietf-poly1305
+  password: oZIoA69Q8yhcQV8ka3Pa3A
+  udp: true
+- name: 🇳🇱NL_57|6.8MB/s|C002-260622 [386c2a1cb63f]
+  type: ss
+  server: 82.38.31.156
+  port: 8080
+  cipher: chacha20-ietf-poly1305
+  password: oZIoA69Q8yhcQV8ka3Pa3A
+  udp: true
+- name: 🇫🇷FR_17|1.9MB/s|M003-260806 [06d477fee8ac]
+  type: ss
+  server: 167.17.64.22
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- name: 🇳🇱NL_93|7.4MB/s|A003-260618 [473fd5a28104]
+  type: ss
+  server: 82.38.31.179
+  port: 8080
+  cipher: chacha20-ietf-poly1305
+  password: k1dBOmOB4oqi7Ump37a1bQ
+  udp: true
+- name: 🇳🇱NL_119|4.9MB/s|B007-260618 [77be34b43878]
+  type: ss
+  server: 193.29.139.147
+  port: 8080
+  cipher: chacha20-ietf-poly1305
+  password: k1dBOmOB4oqi7Ump37a1bQ
+  udp: true
+- name: ❓Other_8|426KB/s|A003-260618 [072c49418c26]
+  type: ss
+  server: 82.38.31.203
+  port: 8080
+  cipher: chacha20-ietf-poly1305
+  password: k1dBOmOB4oqi7Ump37a1bQ
+  udp: true
+- name: 🇳🇱NL_21|8.0MB/s|A003-260618 [c1ea432c6eb7]
+  type: ss
+  server: 82.38.31.46
+  port: 8080
+  cipher: chacha20-ietf-poly1305
+  password: oZIoA69Q8yhcQV8ka3Pa3A
+  udp: true
+- name: 🇳🇱NL_50|6.9MB/s|B007-260618 [4dc3ff63bf17]
+  type: ss
+  server: 193.29.139.132
+  port: 8080
+  cipher: chacha20-ietf-poly1305
+  password: k1dBOmOB4oqi7Ump37a1bQ
+  udp: true
+- name: 🇨🇭CH_4|1.9MB/s|M003-260806 [7e9ce473e22c]
+  type: ss
+  server: 186.190.215.251
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- name: 🇳🇱NL_65|9.2MB/s|A003-260618 [3306cae1fd2e]
+  type: ss
+  server: 82.38.31.47
+  port: 8080
+  cipher: chacha20-ietf-poly1305
+  password: oZIoA69Q8yhcQV8ka3Pa3A
+  udp: true
+- name: 🇳🇱NL_141|7.7MB/s|B007-260618 [6c85e356338f]
+  type: ss
+  server: 82.38.31.162
+  port: 443
+  cipher: chacha20-ietf-poly1305
+  password: oZIoA69Q8yhcQV8ka3Pa3A
+  udp: true
+- name: 🇳🇱NL_85|8.6MB/s|A003-260618 [8373fd63a739]
+  type: ss
+  server: 82.38.31.214
+  port: 8080
+  cipher: chacha20-ietf-poly1305
+  password: k1dBOmOB4oqi7Ump37a1bQ
+  udp: true
+- name: 🇳🇱NL_91|6.6MB/s|B007-260618 [25e6c7e4464c]
+  type: ss
+  server: 82.38.31.201
+  port: 8080
+  cipher: chacha20-ietf-poly1305
+  password: k1dBOmOB4oqi7Ump37a1bQ
+  udp: true
+- name: 🇳🇱NL_38|3.5MB/s|B007-260618 [94950463ba1a]
+  type: ss
+  server: 193.29.139.198
+  port: 8080
+  cipher: chacha20-ietf-poly1305
+  password: k1dBOmOB4oqi7Ump37a1bQ
+  udp: true
+- cipher: aes-256-gcm
+  name: 🇮🇹IT意大利丨yoyapai.com (3)
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 202.50.253.90
+  skip-cert-verify: false
+  tls: false
+  type: ss
+  udp: true
+- name: 🇨🇭CH_9|2.9MB/s|M003-260806 [1b442a9a3a52]
+  type: ss
+  server: 23.166.88.189
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- name: 🇳🇱NL_28|8.0MB/s|A004-260618 [84e38b2dedf5]
+  type: ss
+  server: 82.38.31.211
+  port: 8080
+  cipher: chacha20-ietf-poly1305
+  password: k1dBOmOB4oqi7Ump37a1bQ
+  udp: true
+- name: 🇳🇱NL_20|6.5MB/s|A003-260618 [c8e6d22b4796]
+  type: ss
+  server: 82.38.31.217
+  port: 8080
+  cipher: chacha20-ietf-poly1305
+  password: k1dBOmOB4oqi7Ump37a1bQ
+  udp: true
+- name: 🇵🇱PL_51|1.6MB/s|M003-260806 [8b7e1c44035e]
+  type: ss
+  server: 217.30.10.70
+  port: 9073
+  cipher: aes-256-cfb
+  password: daFYagqDdBdA6VTX
+  udp: true
+- name: 🇳🇱NL_92|3.8MB/s|A004-260618 [ddc0537eca51]
+  type: ss
+  server: 178.83.185.156
+  port: 8080
+  cipher: chacha20-ietf-poly1305
+  password: oZIoA69Q8yhcQV8ka3Pa3A
+  udp: true
+- name: 🇨🇭CH_11|3.8MB/s|M003-260806 [e3d6056e172d]
+  type: ss
+  server: 23.166.88.127
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- cipher: aes-256-gcm
+  name: ❓未知丨yoyapai.com (6)
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 202.50.253.27
+  skip-cert-verify: false
+  tls: false
+  type: ss
+  udp: true
+- cipher: aes-256-gcm
+  name: 🇮🇹IT意大利丨yoyapai.com (7)
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 202.50.253.63
+  skip-cert-verify: false
+  tls: false
+  type: ss
+  udp: true
+- cipher: aes-256-gcm
+  name: 🇮🇹IT意大利丨yoyapai.com (2)
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 202.50.253.54
+  skip-cert-verify: false
+  tls: false
+  type: ss
+  udp: true
+- cipher: aes-256-gcm
+  name: ❓未知丨yoyapai.com (17)
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 202.50.253.99
+  skip-cert-verify: false
+  tls: false
+  type: ss
+  udp: true
+- cipher: aes-256-gcm
+  name: ❓未知丨yoyapai.com (18)
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 202.50.253.36
+  skip-cert-verify: false
+  tls: false
+  type: ss
+  udp: true
+- cipher: aes-256-gcm
+  name: ❓未知丨yoyapai.com (8)
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 202.50.253.18
+  skip-cert-verify: false
+  tls: false
+  type: ss
+  udp: true
+- name: 🇨🇭CH_28|3.9MB/s|S004-260618 [1cc5237c9a2d]
+  type: ss
+  server: leviko-ch7709.shopingggg.ir
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- cipher: aes-256-gcm
+  name: ❓未知丨yoyapai.com (4)
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 202.50.253.72
+  skip-cert-verify: false
+  tls: false
+  type: ss
+  udp: true
+- name: 🇵🇱PL_14|1.5MB/s|M003-260806 [984f19326d2e]
+  type: ss
+  server: 217.30.10.70
+  port: 9098
+  cipher: aes-256-cfb
+  password: aLpQtfEZe445QyHk
+  udp: true
+- name: 🇺🇸US_27|116KB/s|P002-260618 [9d68984591b5]
+  password: None
+  port: 443
+  server: purecambogiasl.live
+  skip-cert-verify: true
+  sni: purecambogiasl.live
+  sub_tag: P002-260618
+  tls: true
+  type: http
+  udp: true
+- name: 🇪🇸ES_13|3.4MB/s|M001-260618 [5d906bd347cd]
+  type: ss
+  server: 5.188.181.201
+  port: 9037
+  cipher: aes-256-cfb
+  password: TN2YqghxeFDKZfLU
+  udp: true
+- name: 🇵🇱PL_55|308KB/s|M003-260806 [a38eede913c7]
+  type: ss
+  server: 217.30.10.70
+  port: 9060
+  cipher: aes-256-cfb
+  password: ueLXVkvh4hckhErQ
+  udp: true
+- cipher: aes-256-gcm
+  name: ❓未知丨yoyapai.com (5)
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 202.50.253.45
+  skip-cert-verify: false
+  tls: false
+  type: ss
+  udp: true
+- name: 🇵🇱PL_49|1.3MB/s|M003-260806 [4dae86689e05]
+  type: ss
+  server: 217.30.10.70
+  port: 9070
+  cipher: aes-256-cfb
+  password: bf7v334KKDV3YDhH
+  udp: true
+- name: 🇵🇱PL_48|1.5MB/s|M003-260806 [b73226480cdc]
+  type: ss
+  server: 217.30.10.70
+  port: 9000
+  cipher: aes-256-cfb
+  password: a3GFYt36Sm82Vys9
+  udp: true
+- name: 🇵🇱PL_38|1.4MB/s|M003-260806 [7c4eaf297df0]
+  type: ss
+  server: 217.30.10.70
+  port: 9011
+  cipher: aes-256-cfb
+  password: M3t2ZEQcMGRWBjRa
+  udp: true
+- name: 🇵🇱PL_45|1.5MB/s|M003-260806 [7ecc3da1f66d]
+  type: ss
+  server: 217.30.10.70
+  port: 9041
+  cipher: aes-256-cfb
+  password: U6qnYRhfyDmn8sgn
+  udp: true
+- name: 🇵🇱PL_34|1.5MB/s|M003-260806 [1962b549a4ca]
+  type: ss
+  server: 217.30.10.70
+  port: 9006
+  cipher: aes-256-cfb
+  password: FAdUvMJUq5vDgKEq
+  udp: true
+- name: 🇵🇱PL_46|1.0MB/s|M003-260806 [724c0191ca6b]
+  type: ss
+  server: 217.30.10.70
+  port: 9033
+  cipher: aes-256-cfb
+  password: UTJA57ypk2XKQpnm
+  udp: true
+- name: 🇵🇱PL_36|1.5MB/s|M003-260806 [7ec369237f8e]
+  type: ss
+  server: 217.30.10.70
+  port: 9043
+  cipher: aes-256-cfb
+  password: HSZuyJQcWe8dxNdF
+  udp: true
+- name: 🇵🇱PL_40|295KB/s|M003-260806 [b53eaec7e13d]
+  type: ss
+  server: 217.30.10.70
+  port: 9097
+  cipher: aes-256-cfb
+  password: Sn5B7jTqr76aCJT8
+  udp: true
+- name: 🇵🇱PL_52|1.4MB/s|M003-260806 [11d89e858200]
+  type: ss
+  server: 217.30.10.70
+  port: 9010
+  cipher: aes-256-cfb
+  password: f63gg8EruDnUrmz4
+  udp: true
+- name: ❓Other_33|325KB/s|M003-260806 [4b8d9ea89f56]
+  type: ss
+  server: 217.30.10.70
+  port: 9007
+  cipher: aes-256-cfb
+  password: kSPmvwdFzGMMW5pY
+  udp: true
+- name: 🇳🇱NL_47|4.0MB/s|B007-260618 [b1e331065734]
+  type: vmess
+  server: 209.38.42.238
+  port: 1270
+  uuid: 5c040f1d-45db-43bd-8d46-e4950e433735
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: xmfhlpy.com
+- name: 🇵🇱PL_15|1.3MB/s|S004-260618 [b87b0055c0fc]
+  type: ss
+  server: 217.30.10.70
+  port: 9018
+  cipher: aes-256-cfb
+  password: fG2artUmHfNT2cX7
+  udp: true
+- name: 🇵🇱PL_29|1.6MB/s|M001-260618 [f7034d749b1f]
+  type: ss
+  server: 217.30.10.70
+  port: 9044
+  cipher: aes-256-cfb
+  password: KBGjZYcy4SyRShmA
+  udp: true
+- name: 🇬🇧GB_19|2.9MB/s|M003-260806 [64c476df063b]
+  type: vmess
+  server: 142.202.51.42
+  port: 1270
+  uuid: 5c040f1d-45db-43bd-8d46-e4950e433735
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: xmfhlpy.com
+- name: 🇵🇱PL_53|313KB/s|M003-260806 [d1078a682b58]
+  type: ss
+  server: 217.30.10.70
+  port: 9056
+  cipher: aes-256-cfb
+  password: rNBfNuuANFCAk7KB
+  udp: true
+- name: 🇵🇱PL_56|589KB/s|M003-260806 [fc9c0a714686]
+  type: ss
+  server: 217.30.10.70
+  port: 9008
+  cipher: aes-256-cfb
+  password: y9VURyNzJWNRYEGQ
+  udp: true
+- name: 🇵🇱PL_39|1.5MB/s|M003-260806 [06523e3bd485]
+  type: ss
+  server: 217.30.10.70
+  port: 9053
+  cipher: aes-256-cfb
+  password: SBM7R883jBmnqe6C
+  udp: true
+- name: 🇵🇱PL_35|1.8MB/s|M003-260806 [2d3fbbee732b]
+  type: ss
+  server: 217.30.10.70
+  port: 9014
+  cipher: aes-256-cfb
+  password: KnJGad3FqTvjqbaX
+  udp: true
+- name: 🇳🇱NL_113|193KB/s|B007-260618 [a6109b883d50]
+  type: ss
+  server: news.bushyjenz.cyou
+  port: 42878
+  cipher: chacha20-ietf-poly1305
+  password: ijoUwfdnkz7mX4pWdkSpmEixTZCt2TRm1JDr4BSaBAWkLxYGoXBHXadFKY5D5ZfoVTwqsx46jCmEUDnQUizJDYrM7B5anhnu
+  udp: true
+- name: 🇵🇱PL_47|1.4MB/s|M003-260806 [f204b24f66db]
+  type: ss
+  server: 217.30.10.70
+  port: 9025
+  cipher: aes-256-cfb
+  password: XPtzA9sCug3SPR4c
+  udp: true
+- name: 🇵🇱PL_21|1.6MB/s|B007-260618 [69dc38b5b875]
+  type: ss
+  server: 217.30.10.70
+  port: 9088
+  cipher: aes-256-cfb
+  password: f8npKgNzdkss2ytn
+  udp: true
+- name: 🇬🇧GB_18|2.7MB/s|B007-260618 [cac350cfb8fd]
+  type: vmess
+  server: 149.7.16.228
+  port: 1270
+  uuid: 5c040f1d-45db-43bd-8d46-e4950e433735
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: xmfhlpy.com
+- cipher: aes-256-gcm
+  name: 🇮🇹IT意大利丨yoyapai.com
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 202.50.253.81
+  skip-cert-verify: false
+  tls: false
+  type: ss
+  udp: true
+- name: 🇵🇱PL_16|1.5MB/s|M003-260806 [d73185208c4b]
+  type: ss
+  server: 217.30.10.70
+  port: 9040
+  cipher: aes-256-cfb
+  password: p9z5BVADH2YFs3MN
+  udp: true
+- name: 🇪🇸ES_4|3.4MB/s|M003-260806 [1218f9691f59]
+  type: ss
+  server: 79.127.139.242
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- name: 🇵🇱PL_6|1.5MB/s|M001-260618 [1396a5632544]
+  type: ss
+  server: 217.30.10.70
+  port: 9045
+  cipher: aes-256-cfb
+  password: Lp27rqyJq72bZsqX
+  udp: true
+- name: 🇵🇱PL_31|1.3MB/s|M003-260806 [15caa01bd3d0]
+  type: ss
+  server: 217.30.10.70
+  port: 9027
+  cipher: aes-256-cfb
+  password: EXN3S3eQpjE7EJu8
+  udp: true
+- name: 🇵🇱PL_7|3.1MB/s|A004-260618 [3ff078dd084d]
+  type: ss
+  server: 217.30.10.44
+  port: 9052
+  cipher: aes-256-cfb
+  password: jt2ekBNc9HuVtm2a
+  udp: true
+- name: 🇵🇱PL_50|296KB/s|M003-260806 [5c4d4385dd47]
+  type: ss
+  server: 217.30.10.70
+  port: 9038
+  cipher: aes-256-cfb
+  password: gYCYXfkUQEs2TaJQ
+  udp: true
+- name: 🇵🇱PL_8|2.5MB/s|A004-260618 [ceba13c5da8a]
+  type: ss
+  server: 217.30.10.44
+  port: 9071
+  cipher: aes-256-cfb
+  password: mENfxTFQpRKKh4As
+  udp: true
+- name: 🇪🇸ES_7|4.1MB/s|M003-260806 [f018ff6c24dd]
+  type: ss
+  server: 62.93.179.117
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- cipher: aes-256-cfb
+  name: 🇵🇱PL_8|377KB/s|B007-260618 [389ada0a70ec]
+  password: f8npKgNzdkss2ytn
+  port: 9088
+  server: 217.30.10.70
+  sub_tag: B007-260618
+  type: ss
+  udp: true
+- name: 🇪🇸ES_14|4.2MB/s|M003-260806 [feb17052628d]
+  type: ss
+  server: 62.93.179.97
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- name: 🇵🇱PL_30|1.8MB/s|M003-260806 [6efeb229bf09]
+  type: ss
+  server: 217.30.10.70
+  port: 9031
+  cipher: aes-256-cfb
+  password: BwcAUZk8hUFAkDGN
+  udp: true
+- name: 🇵🇱PL_32|1.5MB/s|M003-260806 [869b893965e7]
+  type: ss
+  server: 217.30.10.70
+  port: 9015
+  cipher: aes-256-cfb
+  password: ZpNDDKRu9MagNvaf
+  udp: true
+- name: 🇳🇱NL_108|700KB/s|M003-260806 [c0145fa21b89]
+  type: vless
+  server: fr-free.fastestrelay.com
+  port: 443
+  uuid: 364D2D52-E61E-4E52-80EC-2BC6BDF15349
+  udp: true
+  tls: true
+  servername: fr-free.fastestrelay.com
+  client-fingerprint: chrome
+  network: ws
+  ws-opts:
+    path: /700gvl
+    headers:
+      Host: fr-free.fastestrelay.com
+- name: 🇸🇪SE_3|2.6MB/s|M003-260806 [ae03e13dca57]
+  type: ss
+  server: 138.199.55.243
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- name: 🇫🇷FR_6|2.7MB/s|F003-260618 [142cea95e34f]
+  type: vless
+  server: 138.124.70.41
+  port: 14430
+  uuid: 6cc745e3-4eb9-46c8-a4a1-85dee7b87edc
+  udp: true
+  network: ws
+  ws-opts:
+    path: /vless
+    headers:
+      Host: 138.124.70.41
+- name: 🇵🇱PL_37|1.6MB/s|M003-260806 [66f5cc922a43]
+  type: ss
+  server: 217.30.10.70
+  port: 9003
+  cipher: aes-256-cfb
+  password: JdmRK9gMEqFgs8nP
+  udp: true
+- name: 🇵🇱PL_4|3.2MB/s|A004-260618 [ca5b8baebfda]
+  type: ss
+  server: 217.30.10.44
+  port: 9062
+  cipher: aes-256-cfb
+  password: tkhHVxxfM2QErBWe
+  udp: true
+- name: 🇵🇱PL_41|1.6MB/s|M003-260806 [7bfb99998570]
+  type: ss
+  server: 217.30.10.70
+  port: 9026
+  cipher: aes-256-cfb
+  password: QWDDvVE9npNurQfA
+  udp: true
+- name: 🇦🇹AT_1|3.2MB/s|A001-260618 [7f2bc0193eff]
+  type: ss
+  server: 82.110.60.9
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- name: 🇵🇱PL_44|1.4MB/s|M003-260806 [1be1d0b67c76]
+  type: ss
+  server: 217.30.10.70
+  port: 9079
+  cipher: aes-256-cfb
+  password: TPqX8edgbAURcAMb
+  udp: true
+- name: 🇵🇱PL_54|1.6MB/s|M003-260806 [3df452fa91a4]
+  type: ss
+  server: 217.30.10.70
+  port: 9093
+  cipher: aes-256-cfb
+  password: wfLC2y7rzZyCmuyt
+  udp: true
+- name: 🇵🇱PL_5|283KB/s|M001-260618 [683d1fdb022d]
+  type: ss
+  server: 217.30.10.70
+  port: 9084
+  cipher: aes-256-cfb
+  password: c3NtHJ5ujV2tGDfj
+  udp: true
+- name: 🇵🇱PL_22|2.5MB/s|S004-260618 [50ae89b5b133]
+  type: ss
+  server: 217.30.10.70
+  port: 9020
+  cipher: aes-256-cfb
+  password: BNmAXXxAHYpTRdzu
+  udp: true
+- name: 🇵🇱PL_42|237KB/s|M003-260806 [7d2bfd7a1416]
+  type: ss
+  server: 217.30.10.70
+  port: 9042
+  cipher: aes-256-cfb
+  password: S7KwUu7yBy58S3Ga
+  udp: true
+- name: 🇺🇸US_59|378KB/s|R002-260618 [13dede6e3b21]
+  port: 443
+  server: 149.22.88.65
+  skip-cert-verify: true
+  sub_tag: R002-260618
+  tls: true
+  type: http
+  udp: true
+- name: 🇳🇱NL_163|5.2MB/s|B007-260618 [7b37775ca194]
+  type: vmess
+  server: 188.166.81.135
+  port: 1270
+  uuid: 5c040f1d-45db-43bd-8d46-e4950e433735
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: xmfhlpy.com
+- name: 🇫🇷FR_6|311KB/s|A004-260618 [3a7e405961b5]
+  network: ws
+  packet-encoding: xudp
+  port: 14430
+  server: 138.124.70.41
+  sub_tag: A004-260618
+  type: vless
+  udp: true
+  uuid: 6cc745e3-4eb9-46c8-a4a1-85dee7b87edc
+  ws-opts:
+    headers:
+      Host: 138.124.70.41
+      User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like
+        Gecko) Chrome/70.0.3538.102 Safari/537.36
+    path: /vless
+  xudp: true
+- name: 🇫🇷FR_21|3.6MB/s|M003-260806 [3a3df63b32d5]
+  type: vmess
+  server: 46.105.222.157
+  port: 1270
+  uuid: 5c040f1d-45db-43bd-8d46-e4950e433735
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: xmfhlpy.com
+- name: 🇺🇸US_306|1.2MB/s|M003-260806 [5fefc332b601]
+  type: ss
+  server: 84.20.27.183
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- client-fingerprint: chrome
+  name: 🇩🇪DE_11|341KB/s|C002-260622 [3127c0c81a8b]
+  network: tcp
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 193.108.119.78
+  skip-cert-verify: false
+  sni: www.iloverussia2026.com
+  sub_tag: C002-260622
+  type: trojan
+  udp: true
+- name: 🇺🇸US_28|1010KB/s|C002-260622 [787198c68376]
+  type: vmess
+  server: 38.110.1.246
+  port: 18000
+  uuid: f8c8dc3d-0d37-46b0-8b34-a7232882fcfe
+  alterId: 0
+  cipher: auto
+  udp: true
+- name: 🇮🇹IT_22|1.1MB/s|A001-260618 [ff4706c8a728]
+  type: ss
+  server: 57.131.27.21
+  port: 8388
+  cipher: aes-256-gcm
+  password: itzvpn@321
+  udp: true
+- name: 🇩🇪DE_82|4.3MB/s|K001-260618 [5f079aaa15ba]
+  type: vmess
+  server: 193.108.119.87
+  port: 1270
+  uuid: 5c040f1d-45db-43bd-8d46-e4950e433735
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: xmfhlpy.com
+- name: 🇩🇪DE_13|3.6MB/s|B007-260618 [2c1abbe6f37b]
+  type: vmess
+  server: 185.177.229.95
+  port: 1270
+  uuid: 5c040f1d-45db-43bd-8d46-e4950e433735
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: xmfhlpy.com
+- name: 🇫🇷FR_54|1.5MB/s|M002-260618 [2154bdf14b09]
+  type: vless
+  server: ov-france1.09vpn.com
+  port: 80
+  uuid: f5c47e9c-914a-4a91-a81e-a5a77bc10fc1
+  udp: true
+  network: ws
+  ws-opts:
+    path: /vless/
+    headers:
+      Host: ov-france1.09vpn.com
+- name: 🇩🇪DE_76|3.0MB/s|B007-260618 [dc9283bdd3eb]
+  type: vmess
+  server: 193.108.117.61
+  port: 1270
+  uuid: 5c040f1d-45db-43bd-8d46-e4950e433735
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: xmfhlpy.com
+- client-fingerprint: chrome
+  name: 🇩🇪DE_22|577KB/s|S004-260618 [74bb800ff8cd]
+  network: tcp
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 193.108.119.96
+  skip-cert-verify: true
+  sub_tag: S004-260618
+  type: trojan
+  udp: true
+- encryption: none
+  name: ❓Other_84|221KB/s|M003-260806 [05e7c3da2433]
+  network: ws
+  packet-encoding: xudp
+  port: 80
+  server: OV-Germany1.09vpn.com
+  sub_tag: M003-260806
+  type: vless
+  udp: true
+  uuid: 18535741-e8b3-4b43-9348-785b55936751
+  ws-opts:
+    headers:
+      Host: OV-Germany1.09vpn.com
+      User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like
+        Gecko) Chrome/48.0.2564.109 Safari/537.36
+    path: /vless/
+  xudp: true
+- name: 🇵🇱PL_3|3.0MB/s|A004-260618 [6b319175a124]
+  type: ss
+  server: 217.30.10.44
+  port: 9006
+  cipher: aes-256-cfb
+  password: FAdUvMJUq5vDgKEq
+  udp: true
+- name: 🇩🇪DE_8|223KB/s|P002-260618 [b982eaaa5258]
+  password: None
+  port: 11111
+  server: 103.237.102.191
+  sub_tag: P002-260618
+  type: http
+  udp: true
+- name: 🇩🇪DE_115|5.2MB/s|M003-260806 [aa7d21fe243e]
+  type: vless
+  server: ytsdnol.localip.ir
+  port: 2087
+  uuid: 92a188aa-2e86-4557-bd30-b2079a70f824
+  udp: true
+  tls: true
+  servername: ytsdnol.localip.ir
+  alpn:
+  - h2
+  - http/1.1
+  - h3
+  client-fingerprint: chrome
+- name: 🇧🇬BG_8|2.6MB/s|A004-260618 [1009906771ca]
+  type: ss
+  server: 213.183.63.60
+  port: 9028
+  cipher: aes-256-cfb
+  password: 9eeJ2fwnZA5Fxgz8
+  udp: true
+- name: 🇳🇱NL_70|6.6MB/s|A004-260618 [3239d9d609ed]
+  type: ss
+  server: 82.38.31.206
+  port: 8080
+  cipher: chacha20-ietf-poly1305
+  password: k1dBOmOB4oqi7Ump37a1bQ
+  udp: true
+- name: 🇫🇷FR_97|2.6MB/s|K001-260618 [08f298b56608]
+  type: vmess
+  server: 172.99.189.239
+  port: 1270
+  uuid: 5c040f1d-45db-43bd-8d46-e4950e433735
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: xmfhlpy.com
+- name: 🇫🇷FR_44|4.4MB/s|M003-260806 [eb274eb125d2]
+  type: vmess
+  server: 91.134.35.72
+  port: 1270
+  uuid: 5c040f1d-45db-43bd-8d46-e4950e433735
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: xmfhlpy.com
+- name: 🇳🇱NL_135|5.1MB/s|A004-260618 [e5670593664c]
+  type: ss
+  server: 193.29.139.212
+  port: 8080
+  cipher: chacha20-ietf-poly1305
+  password: QCXDxuDlTTMD7jtgHUjIoj
+  udp: true
+- name: 🇱🇹LT_3|1.4MB/s|A004-260618 [122b6a0ce85e]
+  type: ss
+  server: 195.238.126.20
+  port: 9012
+  cipher: aes-256-cfb
+  password: xaupMUvhptwxdDUg
+  udp: true
+- name: 🇧🇬BG_4|2.3MB/s|A004-260618 [ee223e950e71]
+  type: ss
+  server: 213.183.63.60
+  port: 9066
+  cipher: aes-256-cfb
+  password: 2KUaE2a8NWTvuCZ3
+  udp: true
+- name: 🇫🇷FR_58|3.4MB/s|M003-260806 [040eee7a7846]
+  type: vmess
+  server: 162.19.82.57
+  port: 1270
+  uuid: 5c040f1d-45db-43bd-8d46-e4950e433735
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: xmfhlpy.com
+- cipher: aes-256-cfb
+  name: 🇱🇹LT_3|836KB/s|A004-260618 [3620273a8fc8]
+  password: M3t2ZEQcMGRWBjRa
+  port: 9011
+  server: 195.238.126.20
+  sub_tag: A004-260618
+  type: ss
+  udp: true
+- name: 🇮🇹IT_19|1.8MB/s|A004-260618 [2b31fbfcfd0e]
+  type: ss
+  server: 91.201.65.122
+  port: 9065
+  cipher: aes-256-cfb
+  password: PeHSHm5SqEjBuEXE
+  udp: true
+- name: 🇱🇹LT_7|1.7MB/s|A004-260618 [839cb526e8b7]
+  type: ss
+  server: 195.238.126.20
+  port: 9008
+  cipher: aes-256-cfb
+  password: y9VURyNzJWNRYEGQ
+  udp: true
+- name: 🇱🇹LT_2|1.6MB/s|A004-260618 [221f55596f87]
+  type: ss
+  server: 195.238.126.20
+  port: 9011
+  cipher: aes-256-cfb
+  password: M3t2ZEQcMGRWBjRa
+  udp: true
+- name: 🇱🇹LT_1|2.0MB/s|A004-260618 [7269e061d4fa]
+  type: ss
+  server: 195.238.126.20
+  port: 9002
+  cipher: aes-256-cfb
+  password: b8KkNDjEd5QqFyRm
+  udp: true
+- name: 🇩🇪DE_105|5.5MB/s|M003-260806 [72d43e48031c]
+  type: vless
+  server: leviko-de2473.shopingggg.ir
+  port: 2087
+  uuid: 92a188aa-2e86-4557-bd30-b2079a70f824
+  udp: true
+  tls: true
+  servername: uuyjnfbv.localip.ir
+  alpn:
+  - h2
+  - http/1.1
+  - h3
+  client-fingerprint: chrome
+- name: 🇳🇱NL_52|2.1MB/s|B007-260618 [578db894d612]
+  type: ss
+  server: 216.172.144.199
+  port: 40643
+  cipher: chacha20-ietf-poly1305
+  password: Xd4G9xn7AgT88msCYC9MZfavMUqd3dWFNAvswi6KfaD9YcexptMbPn4cSECEMzDgvAMomAWJHyweqJer99ssMVYGH6TK8k4c
+  udp: true
+- name: 🇩🇪DE_90|1.2MB/s|T001-260618 [d8d8962ea546]
+  type: vless
+  server: 57.129.41.216
+  port: 80
+  uuid: 7d90f043-ed7f-40c9-ac2f-352987904958
+  udp: true
+  network: ws
+  ws-opts:
+    path: /vless/
+    headers:
+      Host: ov-germany1.09vpn.com
+- name: 🇫🇷FR_62|3.6MB/s|M003-260806 [cbbbc5107ec4]
+  type: vmess
+  server: 46.105.222.155
+  port: 1270
+  uuid: 5c040f1d-45db-43bd-8d46-e4950e433735
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: xmfhlpy.com
+- cipher: aes-256-cfb
+  name: 🇱🇹LT_1|557KB/s|A004-260618 [a6c0aa7ced73]
+  password: y9VURyNzJWNRYEGQ
+  port: 9008
+  server: 195.238.126.20
+  sub_tag: A004-260618
+  type: ss
+  udp: true
+- cipher: rc4-md5
+  name: ❓Other_2|231KB/s|A004-260618 [b565fc18d33a]
+  password: 14fFPrbezE3HDZzsMOr6
+  port: 8080
+  server: 146.70.46.199
+  sub_tag: A004-260618
+  type: ss
+  udp: true
+- name: 🇱🇹LT_6|2.0MB/s|A004-260618 [2ede309cc531]
+  type: ss
+  server: 195.238.126.20
+  port: 9086
+  cipher: aes-256-cfb
+  password: 37Z4TFCYhfxcpc9Q
+  udp: true
+- name: 🇱🇹LT_8|1.6MB/s|A004-260618 [58f82e405c0e]
+  type: ss
+  server: 195.238.126.20
+  port: 9078
+  cipher: aes-256-cfb
+  password: JCJpbRbQZNw9XFZG
+  udp: true
+- name: 🇮🇹IT_17|2.3MB/s|A004-260618 [c8d9e1773837]
+  type: ss
+  server: 91.201.65.122
+  port: 9092
+  cipher: aes-256-cfb
+  password: TyNkGmp9hs6eGpDK
+  udp: true
+- name: 🇧🇬BG_6|2.9MB/s|A004-260618 [03885e721b27]
+  type: ss
+  server: 213.183.63.60
+  port: 9049
+  cipher: aes-256-cfb
+  password: PRBf4BS2HvJqtWxY
+  udp: true
+- name: 🇮🇹IT_20|1.9MB/s|A004-260618 [79565b066592]
+  type: ss
+  server: 91.201.65.122
+  port: 9097
+  cipher: aes-256-cfb
+  password: Sn5B7jTqr76aCJT8
+  udp: true
+- name: 🇺🇸US_98|684KB/s|B007-260618 [994ae0fe391c]
+  type: ss
+  server: 15.204.247.244
+  port: 4444
+  cipher: aes-256-gcm
+  password: pKEW8JPByTVTLtM
+  udp: true
+- name: 🇮🇹IT_9|1.5MB/s|A004-260618 [8aede96728c6]
+  type: ss
+  server: 91.201.65.122
+  port: 9039
+  cipher: aes-256-cfb
+  password: qYEN5HX4JKeVCdEC
+  udp: true
+- name: 🇨🇭CH_29|3.6MB/s|K001-260618 [a1a4f9126d9a]
+  type: vmess
+  server: 186.190.215.4
+  port: 1270
+  uuid: 5c040f1d-45db-43bd-8d46-e4950e433735
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: xmfhlpy.com
+- name: 🇬🇧GB_8|4.3MB/s|A004-260618 [6f608dc7092e]
+  type: ss
+  server: 146.70.61.18
+  port: 8080
+  cipher: rc4-md5
+  password: 14fFPrbezE3HDZzsMOr6
+  udp: true
+- name: 🇮🇹IT_4|2.2MB/s|A004-260618 [7147986e0c18]
+  type: ss
+  server: 91.201.65.122
+  port: 9070
+  cipher: aes-256-cfb
+  password: bf7v334KKDV3YDhH
+  udp: true
+- name: 🇧🇬BG_1|2.9MB/s|A004-260618 [2132dd3347a3]
+  type: ss
+  server: 213.183.63.60
+  port: 9098
+  cipher: aes-256-cfb
+  password: aLpQtfEZe445QyHk
+  udp: true
+- client-fingerprint: chrome
+  flow: xtls-rprx-vision
+  name: 荷兰_3EC8A7
+  port: 443
+  reality-opts:
+    public-key: fNfokzklCF4l_c8k8PciOCjm5ecNoF_sNLjEtaO-xzI
+    short-id: db04ce8bdb8900f1
+  server: 185.134.203.106
+  servername: api.vk.me
+  tls: true
+  type: vless
+  udp: true
+  uuid: 3af3f8f0-569f-4dd3-be99-2ef4bfe7867c
+- name: 🇸🇪SE_14|3.1MB/s|S004-260618 [0349c71aee34]
+  type: vless
+  server: leviko-se6979.shopingggg.ir
+  port: 48115
+  uuid: b2fe1fa4-6a79-4938-a3f4-63b54ae7f16b
+  udp: true
+  tls: true
+  servername: 138-124-86-230.sslip.io
+  client-fingerprint: chrome
+  network: grpc
+  grpc-opts:
+    grpc-service-name: 138-124-86-230-sslip-io
+- client-fingerprint: chrome
+  name: ❓Other_74|209KB/s|C002-260622 [4c9856eb143e]
+  network: tcp
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 66.163.118.203
+  skip-cert-verify: false
+  sni: blog.discovergreatjobsandadvanceyourcareer.com
+  sub_tag: C002-260622
+  type: trojan
+  udp: true
+- name: ❓Other_9|293KB/s|A004-260618 [c6891944c60a]
+  type: ss
+  server: 91.201.65.122
+  port: 9074
+  cipher: aes-256-cfb
+  password: p5wSkb2uM3pKSS3j
+  udp: true
+- name: 🇳🇱NL_10|423KB/s|K001-260618 [e3405c0a6209]
+  password: None
+  port: 9443
+  server: 149.36.51.161
+  skip-cert-verify: true
+  sub_tag: K001-260618
+  tls: true
+  type: http
+  udp: true
+  username: ''
+- cipher: aes-256-cfb
+  name: 🇱🇻LV_7|376KB/s|X001-260618 [959aaa67701d]
+  password: hbtvgUz5uNYyB3Rf
+  port: 9036
+  server: 185.135.86.175
+  sub_tag: X001-260618
+  type: ss
+  udp: true
+- name: 🇱🇻LV_3|2.0MB/s|X001-260618 [3f714bb60324]
+  type: ss
+  server: 185.135.86.175
+  port: 9017
+  cipher: aes-256-cfb
+  password: HAVAdE3nXhqA5nHp
+  udp: true
+- name: 🇮🇪IE_1|222KB/s|R002-260618 [5a0dd59f90fc]
+  port: 9443
+  server: 149.88.96.12
+  skip-cert-verify: true
+  sub_tag: R002-260618
+  tls: true
+  type: http
+  udp: true
+- client-fingerprint: chrome
+  name: 🇪🇸ES_12|136KB/s|M003-260806 [1d5a4a2a7acf]
+  network: tcp
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 66.163.118.244
+  skip-cert-verify: false
+  sni: api.discovergreatjobsandadvanceyourcareer.com
+  sub_tag: M003-260806
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇪🇸ES_9|427KB/s|M003-260806 [612c50afc483]
+  network: tcp
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 66.163.118.62
+  skip-cert-verify: true
+  sub_tag: M003-260806
+  type: trojan
+  udp: true
+- name: 🇧🇬BG_2|2.8MB/s|A004-260618 [65012ede8764]
+  type: ss
+  server: 213.183.63.60
+  port: 9064
+  cipher: aes-256-cfb
+  password: cp8pRSUAyLhTfVWH
+  udp: true
+- name: 🇦🇹AT_3|2.9MB/s|B007-260618 [ccb5c0118fdf]
+  type: vmess
+  server: 154.47.19.225
+  port: 1270
+  uuid: 5c040f1d-45db-43bd-8d46-e4950e433735
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: xmfhlpy.com
+- client-fingerprint: chrome
+  name: 🇪🇸ES_3|522KB/s|C002-260622 [08bc6830b725]
+  network: tcp
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 66.163.118.115
+  skip-cert-verify: false
+  sni: discovergreatjobsandadvanceyourcareer.com
+  sub_tag: C002-260622
+  type: trojan
+  udp: true
+- cipher: aes-256-cfb
+  name: 🇱🇻LV_2|366KB/s|X001-260618 [40308917f4d4]
+  password: UTJA57ypk2XKQpnm
+  port: 9033
+  server: 185.135.86.175
+  sub_tag: X001-260618
+  type: ss
+  udp: true
+- name: 🇯🇵JP_22|666KB/s|A001-260618 [8e55315a35e5]
+  type: ss
+  server: 149.22.87.241
+  port: 443
+  cipher: aes-128-gcm
+  password: shadowsocks
+  udp: true
+- name: 🇸🇪SE_1|1.4MB/s|A004-260618 [f59a0b6b47a4]
+  type: vless
+  server: 5.178.109.174
+  port: 14430
+  uuid: 80de563a-cac8-40ea-8cb0-4cb082dd92f9
+  udp: true
+  network: ws
+  ws-opts:
+    path: /vless
+    headers:
+      Host: 5.178.109.174
+- name: 🇧🇪BE_2|106KB/s|R002-260618 [25500d055da0]
+  password: None
+  port: 443
+  server: 146.70.176.242
+  skip-cert-verify: true
+  sub_tag: R002-260618
+  tls: true
+  type: http
+  udp: true
+- name: 🇫🇷FR_32|3.2MB/s|M003-260806 [cf9d297fc984]
+  type: vmess
+  server: 79.137.99.183
+  port: 1270
+  uuid: 5c040f1d-45db-43bd-8d46-e4950e433735
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: xmfhlpy.com
+- name: 🇱🇻LV_4|976KB/s|X001-260618 [e4105bb2d4e0]
+  type: ss
+  server: 185.135.86.175
+  port: 9034
+  cipher: aes-256-cfb
+  password: Yg4MbdXFQ9HFFVY6
+  udp: true
+- name: 🇯🇵JP_11|627KB/s|A001-260618 [511309ba61bb]
+  type: ss
+  server: 149.22.87.204
+  port: 443
+  cipher: aes-128-gcm
+  password: shadowsocks
+  udp: true
+- name: 🇯🇵JP_10|666KB/s|A001-260618 [72449bfc69d0]
+  type: ss
+  server: 149.22.87.240
+  port: 443
+  cipher: aes-128-gcm
+  password: shadowsocks
+  udp: true
+- name: 🇸🇪SE_13|944KB/s|M003-260806 [2d4c717f9793]
+  type: vless
+  server: sajed.kdns.fr
+  port: 443
+  uuid: cffa0e31-7cce-4541-8a2e-4e115873090b
+  udp: true
+  network: ws
+  ws-opts:
+    path: /@Ghiinvdikhfe@Ghiinvdikhfe@Ghiinvdikhfe@Ghiinvdikhfe@Ghiinvdikhfe
+    headers:
+      Host: sajed.kdns.fr
+- cipher: chacha20-ietf-poly1305
+  name: Russia_None_ss_1064
+  password: VVlAff77CnAU43Aoc5j15Y
+  port: 5112
+  server: 90.156.203.62
+  type: ss
+- name: 🇸🇪SE_7|2.3MB/s|B007-260618 [5747d7e5979c]
+  type: vmess
+  server: 62.93.166.184
+  port: 1270
+  uuid: 5c040f1d-45db-43bd-8d46-e4950e433735
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: xmfhlpy.com
+- name: 🇱🇻LV_9|1.8MB/s|X001-260618 [a399d9238364]
+  type: ss
+  server: 185.135.86.175
+  port: 9036
+  cipher: aes-256-cfb
+  password: hbtvgUz5uNYyB3Rf
+  udp: true
+- name: 🇨🇭CH_2|403KB/s|P002-260618 [58b636345fb8]
+  password: None
+  port: 9443
+  server: 37.120.213.210
+  skip-cert-verify: true
+  sub_tag: P002-260618
+  tls: true
+  type: http
+  udp: true
+- name: 🇩🇰DK_1|453KB/s|R002-260618 [6793b54a0b3f]
+  port: 443
+  server: 185.245.84.50
+  skip-cert-verify: true
+  sub_tag: R002-260618
+  tls: true
+  type: http
+  udp: true
+- name: 🇨🇭CH_5|567KB/s|M003-260806 [5638e26ae55c]
+  type: ss
+  server: 79.127.184.104
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- name: 🇺🇸US_33|493KB/s|R002-260618 [413eefe66dea]
+  port: 8090
+  server: 184.188.139.2
+  skip-cert-verify: true
+  sub_tag: R002-260618
+  tls: true
+  type: http
+  udp: true
+- name: 🇩🇪DE_17|401KB/s|R002-260618 [68eca41c1892]
+  port: 9443
+  server: 213.177.229.161
+  skip-cert-verify: true
+  sub_tag: R002-260618
+  tls: true
+  type: http
+  udp: true
+- client-fingerprint: chrome
+  name: 🇧🇷BR_1|189KB/s|M003-260806 [0d456c305aa8]
+  network: tcp
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 216.238.104.154
+  skip-cert-verify: true
+  sub_tag: M003-260806
+  type: trojan
+  udp: true
+- name: 🇸🇪SE_6|3.2MB/s|A001-260618 [1ba847b447e6]
+  type: vless
+  server: 138.124.86.230
+  port: 48115
+  uuid: b2fe1fa4-6a79-4938-a3f4-63b54ae7f16b
+  udp: true
+  tls: true
+  servername: 138-124-86-230.sslip.io
+  client-fingerprint: firefox
+  network: grpc
+  grpc-opts:
+    grpc-service-name: 138-124-86-230-sslip-io
+- name: 🇳🇱NL_115|4.7MB/s|A003-260618 [5c821f1f0f04]
+  type: ss
+  server: 82.38.31.216
+  port: 8080
+  cipher: chacha20-ietf-poly1305
+  password: k1dBOmOB4oqi7Ump37a1bQ
+  udp: true
+- name: 🇨🇭CH_27|598KB/s|M003-260806 [edcebc7947c1]
+  type: ss
+  server: leviko-ch9924.shopingggg.ir
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- name: 🇧🇷BR_5|666KB/s|S004-260618 [22c215ce0c4a]
+  type: vmess
+  server: 103.14.27.207
+  port: 1270
+  uuid: 5c040f1d-45db-43bd-8d46-e4950e433735
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: xmfhlpy.com
+- name: ❓Other_49|102KB/s|K001-260618 [d83296798d78]
+  password: None
+  port: 443
+  server: 185.221.132.242
+  skip-cert-verify: true
+  sub_tag: K001-260618
+  tls: true
+  type: http
+  udp: true
+  username: ''
+- name: 🇺🇸US_555|650KB/s|M003-260806 [ffb885e32589]
+  type: vless
+  server: 188.114.98.0
+  port: 443
+  uuid: FCEAD694-2E27-4EEB-8836-9D4ACF3E028B
+  udp: true
+  tls: true
+  servername: ws.liuzedong.ltd
+  alpn:
+  - http/1.1
+  client-fingerprint: unsafe
+  network: ws
+  ws-opts:
+    path: /ws
+    headers:
+      Host: ws.liuzedong.ltd
+- name: 🇭🇺HU_1|255KB/s|R002-260618 [08dae8b78153]
+  port: 443
+  server: 146.70.203.18
+  skip-cert-verify: true
+  sub_tag: R002-260618
+  tls: true
+  type: http
+  udp: true
+- name: ❓Other_43|756KB/s|R002-260618 [f0d35e38a488]
+  port: 443
+  server: 82.102.17.178
+  skip-cert-verify: true
+  sub_tag: R002-260618
+  tls: true
+  type: http
+  udp: true
+- name: 🇨🇭CH_4|73KB/s|P002-260618 [c966bbb4303e]
+  password: None
+  port: 443
+  server: 31.7.62.50
+  skip-cert-verify: true
+  sub_tag: P002-260618
+  tls: true
+  type: http
+  udp: true
+- name: 🇵🇱PL_4|300KB/s|R002-260618 [80541f765822]
+  port: 443
+  server: 37.120.156.34
+  skip-cert-verify: true
+  sub_tag: R002-260618
+  tls: true
+  type: http
+  udp: true
+- name: 🇪🇪EE_1|368KB/s|R002-260618 [988eaa3a6b59]
+  port: 9443
+  server: 95.153.31.66
+  skip-cert-verify: true
+  sub_tag: R002-260618
+  tls: true
+  type: http
+  udp: true
+- name: 🇩🇪DE_69|916KB/s|M003-260806 [ff0908ad131a]
+  type: vless
+  server: 189.30.65.203
+  port: 2083
+  uuid: 490dc3b4-8d1d-49fd-840e-bd5277b41557
+  udp: true
+  network: grpc
+  grpc-opts:
+    grpc-service-name: service-41f6a2a01377
+- name: 🇳🇱NL_3|4.8MB/s|A003-260618 [04d2e4330111]
+  type: ss
+  server: 82.38.31.176
+  port: 8080
+  cipher: chacha20-ietf-poly1305
+  password: k1dBOmOB4oqi7Ump37a1bQ
+  udp: true
+- name: ❓Other_62|244KB/s|R002-260618 [3e64ea0aaa01]
+  port: 443
+  server: 146.70.242.130
+  skip-cert-verify: true
+  sub_tag: R002-260618
+  tls: true
+  type: http
+  udp: true
+- name: 🇩🇪DE_14|494KB/s|R002-260618 [f302f0188e15]
+  port: 443
+  server: 185.44.107.166
+  skip-cert-verify: true
+  sub_tag: R002-260618
+  tls: true
+  type: http
+  udp: true
+- name: 🇧🇷BR_3|670KB/s|M003-260806 [535c8b497a53]
+  type: vmess
+  server: 103.88.232.55
+  port: 1270
+  uuid: 5c040f1d-45db-43bd-8d46-e4950e433735
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: xmfhlpy.com
+- name: 🇩🇪DE_92|3.7MB/s|M003-260806 [6cb9136fb878]
+  type: vless
+  server: uuyjnfbv.localip.ir
+  port: 2087
+  uuid: 92a188aa-2e86-4557-bd30-b2079a70f824
+  udp: true
+  tls: true
+  servername: uuyjnfbv.localip.ir
+  client-fingerprint: chrome
+- alpn:
+  - h2
+  - http/1.1
+  client-fingerprint: chrome
+  name: 🇹🇷[www.v2nodes.com] vless-TR-1...
+  port: 50738
+  server: turkey-ip1.mmdaqaorg.xyz
+  servername: turkey-ip1.mmdaqaorg.xyz
+  tls: true
+  type: vless
+  uuid: 56665684-5ac0-4ba9-9d49-8b258fb57974
+- name: ❓Other_48|878KB/s|P002-260618 [ab178ac01f10]
+  password: None
+  port: 443
+  server: 37.120.156.18
+  skip-cert-verify: true
+  sub_tag: P002-260618
+  tls: true
+  type: http
+  udp: true
+- name: GB英国(mibei77.com 米贝节点分享)-2
+  type: vless
+  server: 136.148.83.69
+  port: 443
+  uuid: 666821a2-5c3d-0001-a56f-5a3a562d7324
+  udp: true
+  tls: true
+  servername: szqbx-ru-77dc.my-fade.cloud
+  client-fingerprint: chrome
+- name: RU俄罗斯(mibei77.com 米贝节点分享)-7
+  type: vless
+  server: 136.148.83.69
+  port: 443
+  uuid: 666821a2-5c3d-0001-a56f-5a3a562d7324
+  udp: true
+  tls: true
+  servername: szqbx-ru-77dc.my-fade.cloud
+- name: US美国(mibei77.com 米贝节点分享)-17
+  type: vless
+  server: 136.148.83.69
+  port: 443
+  uuid: 666821a2-5c3d-0001-a56f-5a3a562d7324
+  udp: true
+  tls: true
+  servername: szqbx-ru-77dc.my-fade.cloud
+  alpn:
+  - h2
+  - http/1.1
+  client-fingerprint: qq
+- name: RU俄罗斯(mibei77.com 米贝节点分享)-6
+  type: vless
+  server: 136.148.83.69
+  port: 443
+  uuid: 7dff1be7-b930-0001-a8ad-dc7850168215
+  udp: true
+  tls: true
+  servername: szqbx-ru-77dc.my-fade.cloud
+  client-fingerprint: chrome
+- name: 🇯🇵JP_2|532KB/s|M003-260806 [035d916fced5]
+  type: vless
+  server: 155.248.175.201
+  port: 23169
+  uuid: 9da605d3-f5f7-4135-f806-450f036f9351
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  servername: djj.zjlo.top
+  client-fingerprint: chrome
+- name: ❓Other_7|436KB/s|R002-260618 [67cf59f4e100]
+  type: vless
+  server: djj.zjlo.top
+  port: 23169
+  uuid: f67b1159-a61f-4ae4-9844-0701b716a290
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  servername: djj.zjlo.top
+  client-fingerprint: chrome
+- name: 🇯🇵JP_6|288KB/s|M003-260806 [6ca97c6a6b26]
+  type: vless
+  server: 155.248.175.201
+  port: 23169
+  uuid: 3eb053cb-d6f8-4b31-8180-222e1cc6f8ff
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  servername: djj.zjlo.top
+  client-fingerprint: firefox
+- name: 🇯🇵JP_7|415KB/s|M003-260806 [103d4beeeb65]
+  type: vless
+  server: 155.248.175.201
+  port: 23169
+  uuid: 7318caa1-93d1-4a9d-c481-504599902700
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  servername: djj.zjlo.top
+  client-fingerprint: firefox
+- name: RU俄罗斯(mibei77.com 米贝节点分享)-2
+  type: vless
+  server: 136.148.83.69
+  port: 443
+  uuid: 666821a2-5c3d-0001-a56f-5a3a562d7324
+  udp: true
+  tls: true
+  servername: szqbx-ru-77dc.my-fade.cloud
+  client-fingerprint: qq
+- name: 🇷🇺RU_9|1.8MB/s|B007-260618 [aaccfc085bb8]
+  type: vless
+  server: 201.24.116.192
+  port: 443
+  uuid: 38308ff1-5aa9-494f-a25a-0f2870d56b3e
+  udp: true
+  tls: true
+  servername: vps3.nemnogogo.com
+  client-fingerprint: chrome
+  network: grpc
+  grpc-opts:
+    grpc-service-name: mobile.api.Event
+- name: 🇰🇷KR_22|738KB/s|A004-260618 [8eee8687bfd8]
+  type: vmess
+  server: 140.238.2.250
+  port: 443
+  uuid: 41a7089a-040b-4538-8b8d-010902405bde
+  alterId: 0
+  cipher: auto
+  udp: true
+- name: RU俄罗斯(mibei77.com 米贝节点分享)-5
+  type: vless
+  server: 136.148.83.69
+  port: 443
+  uuid: 7dff1be7-b930-0001-a8ad-dc7850168215
+  udp: true
+  tls: true
+  servername: szqbx-ru-77dc.my-fade.cloud
+- name: 🇸🇬SG_7|905KB/s|M003-260806 [c65ff64093de]
+  type: ss
+  server: 15.235.182.183
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- client-fingerprint: chrome
+  name: 🇳🇱NL_47|800KB/s|C002-260622 [00b16ee507c6]
+  network: tcp
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 66.163.127.215
+  skip-cert-verify: false
+  sni: courses.indyourperfectremotetechjobfromthecomfortofhome.com
+  sub_tag: C002-260622
+  type: trojan
+  udp: true
+- name: 🇯🇵JP_5|170KB/s|S004-260618 [69e1e602d965]
+  type: vmess
+  server: 168.138.43.75
+  port: 80
+  uuid: 11c3627f-31e8-4695-dfbd-34076e2f1f5d
+  alterId: 0
+  cipher: auto
+  udp: true
+  network: ws
+  ws-opts:
+    path: /cctv13.m3u8
+    headers:
+      Host: None
+- name: 🇯🇵JP_30|124KB/s|M003-260806 [4245d546f842]
+  type: vmess
+  server: 161.33.20.255
+  port: 8880
+  uuid: e0856508-d693-450a-a099-455091dc4f25
+  alterId: 0
+  cipher: auto
+  udp: true
+  network: ws
+  ws-opts:
+    path: /e0856508-d693-450a-a099-455091dc4f25-vm
+- alterId: 0
+  cipher: auto
+  name: 🇯🇵JP_1|486KB/s|S004-260618 [134e79930b40]
+  network: ws
+  packet-encoding: xudp
+  port: 80
+  server: 168.138.43.75
+  servername: None
+  skip-cert-verify: false
+  sub_tag: S004-260618
+  tls: false
+  type: vmess
+  udp: true
+  uuid: 11c3627f-31e8-4695-dfbd-34076e2f1f5d
+  ws-opts:
+    headers:
+      Host: None
+    path: /cctv13.m3u8
+  xudp: true
+- name: 🇸🇬SG_11|999KB/s|C002-260622 [5f5ed4c485d0]
+  type: vmess
+  server: 149.88.23.202
+  port: 18000
+  uuid: f8c8dc3d-0d37-46b0-8b34-a7232882fcfe
+  alterId: 0
+  cipher: auto
+  udp: true
+- name: 🇸🇬SG_14|1018KB/s|M003-260806 [23df05a68cdc]
+  type: ss
+  server: 149.88.107.74
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- name: 🇸🇬SG_65|862KB/s|S004-260618 [5545a852976c]
+  type: ss
+  server: leviko-sg2619.shopingggg.ir
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- name: 🇯🇵JP_32|579KB/s|R002-260618 [e5cf9c988282]
+  type: vless
+  server: djj.zjlo.top
+  port: 23169
+  uuid: 7318caa1-93d1-4a9d-c481-504599902700
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  servername: djj.zjlo.top
+  client-fingerprint: chrome
+- name: 🇱🇻LV_8|334KB/s|R002-260618 [eb62cdbcb03d]
+  port: 443
+  server: 109.248.149.34
+  skip-cert-verify: true
+  sub_tag: R002-260618
+  tls: true
+  type: http
+  udp: true
+- name: ❓Other_19|76KB/s|R002-260618 [9718bc1b2699]
+  port: 443
+  server: 185.94.192.210
+  skip-cert-verify: true
+  sub_tag: R002-260618
+  tls: true
+  type: http
+  udp: true
+- name: 🇸🇬SG_19|1.0MB/s|M003-260806 [9161b3b3b585]
+  type: ss
+  server: 149.88.106.74
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- name: 🇷🇴RO_1|365KB/s|P002-260618 [a5544d7c3585]
+  password: None
+  port: 9443
+  server: 169.150.199.1
+  skip-cert-verify: true
+  sub_tag: P002-260618
+  tls: true
+  type: http
+  udp: true
+- name: 🇸🇬SG_26|782KB/s|M003-260806 [0d0c7c28e5b0]
+  type: ss
+  server: 149.88.106.73
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- name: 🇸🇬SG_21|938KB/s|C002-260622 [19b30fe2aa1a]
+  type: vmess
+  server: 149.88.23.207
+  port: 18000
+  uuid: f8c8dc3d-0d37-46b0-8b34-a7232882fcfe
+  alterId: 0
+  cipher: auto
+  udp: true
+- name: 🇺🇸US_32|286KB/s|R002-260618 [1185d729498d]
+  port: 8090
+  server: 24.142.229.178
+  skip-cert-verify: true
+  sub_tag: R002-260618
+  tls: true
+  type: http
+  udp: true
+- name: 🇸🇬SG_3|993KB/s|A004-260618 [1912d17fd3b2]
+  type: vmess
+  server: ww11.levikogjgfdd.ir
+  port: 18000
+  uuid: f8c8dc3d-0d37-46b0-8b34-a7232882fcfe
+  alterId: 0
+  cipher: auto
+  udp: true
+- name: ❓Other_10|455KB/s|A004-260618 [199b9df6e12b]
+  network: ws
+  packet-encoding: xudp
+  port: 14430
+  server: 5.178.109.174
+  sub_tag: A004-260618
+  type: vless
+  udp: true
+  uuid: 80de563a-cac8-40ea-8cb0-4cb082dd92f9
+  ws-opts:
+    headers:
+      Host: 5.178.109.174
+      User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML,
+        like Gecko) Chrome/45.0.2454.93 Safari/537.36
+    path: /vless
+  xudp: true
+- name: 🇦🇱AL_1|399KB/s|P002-260618 [72b949279ff1]
+  password: None
+  port: 443
+  server: 87.120.103.242
+  skip-cert-verify: true
+  sub_tag: P002-260618
+  tls: true
+  type: http
+  udp: true
+- name: 🇸🇬SG_32|878KB/s|M003-260806 [10814844becf]
+  type: ss
+  server: 149.88.107.47
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- name: 🇺🇸US_43|234KB/s|R002-260618 [2fcd2ea6fb19]
+  port: 443
+  server: 68.235.56.59
+  skip-cert-verify: true
+  sub_tag: R002-260618
+  tls: true
+  type: http
+  udp: true
+- name: 🇩🇪DE_113|918KB/s|M003-260806 [e6db498ccdd2]
+  type: vless
+  server: leviko-hk5711.shopingggg.ir
+  port: 2083
+  uuid: 490dc3b4-8d1d-49fd-840e-bd5277b41557
+  udp: true
+  network: grpc
+  grpc-opts:
+    grpc-service-name: service-41f6a2a01377
+- name: 🇳🇱NL_77|6.4MB/s|A004-260618 [104b7ad76a31]
+  type: ss
+  server: 82.38.31.184
+  port: 8080
+  cipher: chacha20-ietf-poly1305
+  password: k1dBOmOB4oqi7Ump37a1bQ
+  udp: true
+- client-fingerprint: chrome
+  name: 🇳🇱NL_48|828KB/s|B007-260618 [03f46f4b1cce]
+  network: tcp
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 66.163.127.9
+  skip-cert-verify: false
+  sni: resources.indyourperfectremotetechjobfromthecomfortofhome.com
+  sub_tag: B007-260618
+  type: trojan
+  udp: true
+- name: 🇰🇷KR_3|659KB/s|A004-260618 [179227e92034]
+  type: vmess
+  server: 132.145.80.230
+  port: 80
+  uuid: 5155860e-d07d-46c3-9128-3afbd84626c7
+  alterId: 0
+  cipher: auto
+  udp: true
+  network: ws
+  ws-opts:
+    path: /cctv13.m3u8
+    headers:
+      Host: 132.145.80.230
+- name: 🇩🇪DE_38|482KB/s|B007-260618 [d1ce7a76c513]
+  type: ss
+  server: 47.254.174.203
+  port: 443
+  cipher: 2022-blake3-chacha20-poly1305
+  password: 8yO3ANWefuuGs1lRKXECQA1FEhxlWFV2ppQMcBaZo5Y=
+  udp: true
+- client-fingerprint: firefox
+  flow: xtls-rprx-vision
+  name: NL荷兰(mibei77.com 米贝节点分享) (5)
+  port: 443
+  reality-opts:
+    public-key: GiDgVRVYrTkv1mZJeFVWkr736Iey2kqLM6L0eUbffV8
+  server: 201.51.11.65
+  servername: absolute-disaster.org
+  skip-cert-verify: false
+  sni: absolute-disaster.org
+  tls: true
+  type: vless
+  udp: true
+  uuid: Fluffy_VPN-zKZUa4Ie
+- client-fingerprint: chrome
+  name: 🇳🇱NL_46|990KB/s|C002-260622 [529bc2174213]
+  network: tcp
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 66.163.127.154
+  skip-cert-verify: false
+  sni: www.indyourperfectremotetechjobfromthecomfortofhome.com
+  sub_tag: C002-260622
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  flow: xtls-rprx-vision
+  name: NL荷兰(mibei77.com 米贝节点分享)
+  port: 443
+  reality-opts:
+    public-key: mpo4BIcoWiMXAQGt5a8IJ4MFkPJQyLC50dO_bXzC7z0
+  server: 104.171.135.229
+  servername: absolute-disaster.org
+  skip-cert-verify: false
+  sni: absolute-disaster.org
+  tls: true
+  type: vless
+  udp: true
+  uuid: Fluffy_VPN-Oth8rOq3
+- alterId: 0
+  cipher: auto
+  name: Thailand_Bangkok_vmess_10114
+  network: tcp
+  port: 18565
+  server: 8.213.211.160
+  tls: false
+  type: vmess
+  uuid: 853a251f-de85-40cc-84a6-ab8748c7258c
+- cipher: chacha20-ietf-poly1305
+  name: 🇿🇦ZA_1|603KB/s|A004-260618 [361bc282627c]
+  password: aduB9HGxQHjA2SBMRjkHX6
+  port: 443
+  server: 102.37.156.224
+  sub_tag: A004-260618
+  type: ss
+  udp: true
+- name: 🇿🇦ZA_1|704KB/s|A004-260618 [cd6d9db3b97d]
+  type: ss
+  server: 102.37.156.224
+  port: 443
+  cipher: chacha20-ietf-poly1305
+  password: aduB9HGxQHjA2SBMRjkHX6
+  udp: true
+- name: 🇰🇷KR_30|525KB/s|M003-260806 [4e0ee7922f41]
+  type: vmess
+  server: 132.145.80.230
+  port: 80
+  uuid: 5155860e-d07d-46c3-9128-3afbd84626c7
+  alterId: 0
+  cipher: auto
+  udp: true
+  network: ws
+  ws-opts:
+    path: /cctv13.m3u8
+    headers:
+      Host: 'null'
+- name: 🇩🇪DE_42|1.6MB/s|R002-260618 [2fd5ec451d69]
+  type: socks5
+  server: 91.107.179.68
+  port: 10809
+  udp: true
+  username: Og==
+- name: 🇰🇷KR_21|654KB/s|M002-260618 [5bc3c61a032a]
+  type: vmess
+  server: 132.145.80.230
+  port: 80
+  uuid: 5155860e-d07d-46c3-9128-3afbd84626c7
+  alterId: 0
+  cipher: auto
+  udp: true
+  network: ws
+  ws-opts:
+    path: /cctv13.m3u8
+    headers:
+      Host: kr02.a0a.xyz
+- name: 🇳🇱NL_24|73KB/s|R002-260618 [28e6f82e9549]
+  port: 443
+  server: 185.246.153.28
+  skip-cert-verify: true
+  sni: 4a8c2906c96058315dffbc2b0e7ff19b-0c66a58858a795df.apache-iv.com
+  sub_tag: R002-260618
+  tls: true
+  type: http
+  udp: true
+- name: 🇦🇪AE_2|109KB/s|T001-260618 [4bf1364a26d2]
+  type: vless
+  server: 95.174.68.188
+  port: 14430
+  uuid: 965ffbbe-c6b6-4d5f-8dea-6d8abc55d9c0
+  udp: true
+  network: ws
+  ws-opts:
+    path: /vless
+    headers:
+      Host: 95.174.68.188
+- name: CA加拿大(mibei77.com 米贝节点分享)-13
+  type: vmess
+  server: 38.11.69.48
+  port: 30004
+  uuid: 418048af-a293-4b99-9b0c-98ca3580dd24
+  alterId: 64
+  cipher: auto
+  udp: true
+  tls: true
+  network: ws
+  ws-opts:
+    path: /path/1698843555400
+    headers:
+      Host: www.83761815.xyz
+- cipher: rc4-md5
+  name: ❓Other_3|261KB/s|A004-260618 [38e308b7dace]
+  password: 14fFPrbezE3HDZzsMOr6
+  port: 8080
+  server: 68.183.235.122
+  sub_tag: A004-260618
+  type: ss
+  udp: true
+- name: 🇺🇸US_103|623KB/s|A004-260618 [2e1617b8c657]
+  type: ss
+  server: 15.204.247.244
+  port: 443
+  cipher: aes-256-gcm
+  password: pKEW8JPByTVTLtM
+  udp: true
+- cipher: rc4-md5
+  name: ❓Other_23|272KB/s|A004-260618 [9fe74a86c27a]
+  password: 14fFPrbezE3HDZzsMOr6
+  port: 8080
+  server: 128.1.186.73
+  sub_tag: A004-260618
+  type: ss
+  udp: true
+- cipher: rc4-md5
+  name: ❓Other_27|218KB/s|B007-260618 [9e55b74cbec0]
+  password: 14fFPrbezE3HDZzsMOr6
+  port: 8080
+  server: 68.183.227.4
+  sub_tag: B007-260618
+  type: ss
+  udp: true
+- name: AU澳大利亚(mibei77.com 米贝节点分享)
+  obfs: salamander
+  obfs-password: b42d90fa667942aebc734d60
+  password: b42d90fa667942aebc734d60
+  port: 20000
+  server: 159.13.55.48
+  servername: hy2-au2.whuiy.xyz
+  skip-cert-verify: false
+  sni: hy2-au2.whuiy.xyz
+  type: hysteria2
+  udp: true
+- name: 🇫🇮FI_7|365KB/s|M003-260806 [8241b164fff2]
+  type: ss
+  server: 213.176.92.148
+  port: 40647
+  cipher: aes-256-gcm
+  password: DgMywXKqojHXeuXY8hOJaYGPFcjweCIJeD5cdg/cUUY=
+  udp: true
+- name: 🇸🇬SG_1|447KB/s|P002-260618 [7385d869a22b]
+  port: 9090
+  server: 128.199.113.85
+  skip-cert-verify: true
+  sub_tag: P002-260618
+  type: http
+  udp: true
+- name: 🇳🇱NL_86|6.8MB/s|M001-260618 [5db17aa5846e]
+  type: ss
+  server: 82.38.31.62
+  port: 8080
+  cipher: chacha20-ietf-poly1305
+  password: oZIoA69Q8yhcQV8ka3Pa3A
+  udp: true
+- cipher: rc4-md5
+  name: ❓Other_1|77KB/s|A004-260618 [7f1746c4ae6d]
+  password: 14fFPrbezE3HDZzsMOr6
+  port: 8080
+  server: 68.183.235.240
+  sub_tag: A004-260618
+  type: ss
+  udp: true
+- name: 🇰🇷KR_36|516KB/s|M003-260806 [a5c29353f0cb]
+  type: trojan
+  server: ikr200.zxom.eu.org
+  port: 20045
+  password: 463f7453753f4d47
+  udp: true
+- client-fingerprint: chrome
+  name: ❓Other_86|225KB/s|B007-260618 [1bc32f2af041]
+  network: tcp
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 66.163.127.44
+  skip-cert-verify: false
+  sni: learn.indyourperfectremotetechjobfromthecomfortofhome.com
+  sub_tag: B007-260618
+  type: trojan
+  udp: true
+- name: 🇬🇧GB_27|404KB/s|K001-260618 [56a02ca0bac2]
+  type: socks5
+  server: 157.90.113.23
+  port: 9052
+  udp: true
+  username: Og==
+- name: 🇩🇪DE_78|1.1MB/s|A004-260618 [901cb624c220]
+  type: ss
+  server: 213.202.208.199
+  port: 7001
+  cipher: aes-256-gcm
+  password: RexnBgU7EV5ADxG
+  udp: true
+- client-fingerprint: chrome
+  flow: xtls-rprx-vision
+  name: 8元老牌专线机场：cczzuu.top
+  port: 443
+  reality-opts:
+    public-key: vhu6gifBQ8-hRzW1gqKFkEXDlQbf6Ex8kKj1FcxhmzA
+    short-id: d78318845237d9a9
+  server: 8.210.92.38
+  servername: www.ebay.com
+  tls: true
+  type: vless
+  udp: true
+  uuid: 4fc9dc3d-0d57-49e7-9bc0-e323165241bf
+- cipher: chacha20-ietf-poly1305
+  name: 🇳🇱NL_1|223KB/s [755ad3db773a]
+  password: k1dBOmOB4oqi7Ump37a1bQ
+  port: 8080
+  server: 82.38.31.180
+  type: ss
+  udp: true
+- name: 🇫🇷FR_42|235KB/s|M003-260806 [c83bb2f903aa]
+  network: ws
+  packet-encoding: xudp
+  port: 80
+  server: suh.cryptofront.uk
+  sub_tag: M003-260806
+  type: vless
+  udp: true
+  uuid: c762af05-2e92-4133-bc30-8cf45dd40a28
+  ws-opts:
+    headers:
+      Host: suh.cryptofront.uk
+      User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like
+        Gecko) Chrome/47.0.2526.111 Safari/537.36
+    path: /
+  xudp: true
+- name: 🇸🇬SG_30|318KB/s|A004-260618 [80c29d11c05e]
+  type: vless
+  server: 139.162.27.96
+  port: 2096
+  uuid: 6e59d5c5-7aa3-4c36-a4c4-e3b899525ed2
+  udp: true
+  tls: true
+  servername: free-server.techsonic.dev
+  client-fingerprint: chrome
+  network: ws
+  ws-opts:
+    path: /free-server.techsonic.dev
+    headers:
+      Host: free-server.techsonic.dev
+- name: 🇫🇷FR_51|87KB/s|M003-260806 [bb02b449ec3f]
+  type: vless
+  server: suh.cryptofront.uk
+  port: 80
+  uuid: c762af05-2e92-4133-bc30-8cf45dd40a28
+  udp: true
+  network: ws
+  ws-opts:
+    path: /
+    headers:
+      Host: suh.cryptofront.uk
+- name: 🇺🇸US_235|806KB/s|C002-260622 [2e9c84346ca1]
+  type: vmess
+  server: 169.197.142.22
+  port: 18000
+  uuid: f8c8dc3d-0d37-46b0-8b34-a7232882fcfe
+  alterId: 0
+  cipher: auto
+  udp: true
+- name: 🇮🇹IT_11|4.4MB/s|S001-260618 [c33c5f071128]
+  type: ss
+  server: 185.164.175.81
+  port: 19999
+  cipher: aes-256-gcm
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  udp: true
+- name: US美国(mibei77.com 米贝节点分享)
+  type: vless
+  server: xray-dmr3b3hy-calm-maple-7.cloady.io
+  port: 443
+  uuid: 06a5afa1-2bbc-a5d1-1770-becd1089c636
+  udp: true
+  tls: true
+  servername: xray-dmr3b3hy-calm-maple-7.cloady.io
+  client-fingerprint: chrome
+  network: ws
+  ws-opts:
+    path: /0175469f14317d82
+- client-fingerprint: chrome
+  flow: xtls-rprx-vision
+  name: 西班牙_6A7823
+  port: 443
+  reality-opts:
+    public-key: ZSmetD4e9QG5CiXhniHg5HJB68L4kwbgAkJmMHtVwEE
+    short-id: 42426c882c5fcd41
+  server: 196.199.122.2
+  servername: 7aa271t.es1.h1clayd.click
+  tls: true
+  type: vless
+  udp: true
+  uuid: 4201786b-d99b-4147-a5f0-20d47acddb81
+- name: 🇸🇬SG_51|65KB/s|S004-260618 [8d4519e59e34]
+  type: vless
+  server: support.zoom.us
+  port: 80
+  uuid: 9ce32242-557a-4d18-864d-c9c385b3dfa4
+  udp: true
+  network: ws
+  ws-opts:
+    path: /
+    headers:
+      Host: matrix.learnpodedu.com
+- name: 🇨🇦CA_31|1.5MB/s|V001-260618 [977f9a053ed5]
+  type: ss
+  server: 51.222.200.165
+  port: 5000
+  cipher: aes-256-gcm
+  password: Y6R9pAtvxxzmGC
+  udp: true
+- name: RU俄罗斯(mibei77.com 米贝节点分享)-9
+  type: vless
+  server: 136.148.83.70
+  port: 443
+  uuid: 00000000-0000-0001-0000-000000000000
+  udp: true
+  tls: true
+  servername: aszbk-ru-78dc.my-fade.cloud
+  client-fingerprint: qq
+- client-fingerprint: chrome
+  flow: xtls-rprx-vision
+  name: JP日本(mibei77.com 米贝节点分享)
+  port: 443
+  reality-opts:
+    public-key: ZSmetD4e9QG5CiXhniHg5HJB68L4kwbgAkJmMHtVwEE
+    short-id: 42426c882c5fcd41
+  server: 196.196.149.80
+  servername: 7aa271t.es1.h1clayd.click
+  skip-cert-verify: false
+  sni: 7aa271t.es1.h1clayd.click
+  tls: true
+  type: vless
+  udp: true
+  uuid: 4201786b-d99b-4147-a5f0-20d47acddb81
+- client-fingerprint: unsafe
+  name: SG新加坡(mibei77.com 米贝节点分享) (2)
+  network: ws
+  port: 443
+  server: 43.170.8.95
+  servername: jp3.yohototo.top
+  skip-cert-verify: false
+  sni: jp3.yohototo.top
+  tls: true
+  type: vless
+  udp: true
+  uuid: 4e4f1f70-5e56-4a76-bb9d-db087f4690c4
+  ws-opts:
+    headers:
+      Host: jp3.yohototo.top
+    path: /tyxyws
+- name: 🇯🇵JP_15|526KB/s|S004-260618 [54ef3aad1a81]
+  type: vmess
+  server: 168.138.43.75
+  port: 80
+  uuid: 11c3627f-31e8-4695-dfbd-34076e2f1f5d
+  alterId: 0
+  cipher: auto
+  udp: true
+  network: ws
+  ws-opts:
+    path: /cctv13.m3u8
+    headers:
+      Host: 168.138.43.75
+- name: 🇫🇮FI_12|970KB/s|M003-260806 [e2bf468a1c67]
+  type: vless
+  server: 31.76.3.51
+  port: 443
+  uuid: 58e22afd-bf74-4736-984d-63a8ca03d7f0
+  udp: true
+  tls: true
+  servername: accessfooter.cleanfoodshop.org
+  client-fingerprint: firefox
+  network: ws
+  ws-opts:
+    path: /media/ws/
+- name: RU俄罗斯(mibei77.com 米贝节点分享)-12
+  type: vless
+  server: 136.148.83.71
+  port: 443
+  uuid: 00000000-0000-0001-0000-000000000000
+  udp: true
+  tls: true
+  servername: wccfu-ru-79dc.my-fade.cloud
+  client-fingerprint: qq
+- name: 🇦🇪AE_3|278KB/s|A003-260618 [6eaf5737334e]
+  type: vless
+  server: uae.unixzone.us
+  port: 22573
+  uuid: 39947382-3212-41c9-bc3a-589574ac8b23
+  udp: true
+  network: ws
+  ws-opts:
+    path: /
+    headers:
+      Host: uae.unixzone.us
+- name: 🇯🇵JP_17|678KB/s|M003-260806 [d9bbb44abe04]
+  type: ss
+  server: jpa.123069.xyz
+  port: 53758
+  cipher: aes-128-gcm
+  password: Bwlqh7GcFB
+  udp: true
+- client-fingerprint: firefox
+  grpc-opts:
+    grpc-service-name: 204adda7e3da
+  name: US美国(mibei77.com 米贝节点分享) (13)
+  network: grpc
+  port: 443
+  reality-opts:
+    public-key: PD8Jdlg3xB9QY--jwQjp8PFPzCS8-Oryw6-HWBcHMFU
+    short-id: d3bd772514c87d28
+  server: 196.196.148.63
+  servername: 717252g.nl8.h1clayd.click
+  skip-cert-verify: false
+  sni: 717252g.nl8.h1clayd.click
+  tls: true
+  type: vless
+  udp: true
+  uuid: cda0862a-0f87-4be9-8ed8-1d0c9e382839
+- client-fingerprint: chrome
+  name: 🇨🇭CH_3|269KB/s|M003-260806 [bdce9b997af3]
+  network: tcp
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 208.69.78.158
+  skip-cert-verify: false
+  sni: api.yourultimateprofessionalcareerhub.com
+  sub_tag: M003-260806
+  type: trojan
+  udp: true
+- name: 未知51 73.0KB/s
+  type: vmess
+  server: 104.21.91.53
+  port: 8443
+  cipher: auto
+  uuid: 60441548-b68e-43b2-8191-e3b884be4b3c
+  alterId: 0
+  tls: true
+  skip-cert-verify: true
+  network: ws
+  ws-opts:
+    path: /lMnsZUN4/
+    headers:
+      host: v2ray1.dozapp.xyz
+- name: 🇰🇷KR_10|299KB/s|A004-260618 [b383e9cbe7ac]
+  type: vless
+  server: 152.69.226.63
+  port: 25555
+  uuid: 27c5483f-17f4-48ae-9a04-def53d88440d
+  udp: true
+  network: ws
+  ws-opts:
+    path: /
+- client-fingerprint: chrome
+  name: 🇨🇭CH_9|271KB/s|C002-260622 [d47515488b66]
+  network: tcp
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 208.69.78.222
+  skip-cert-verify: false
+  sni: yourultimateprofessionalcareerhub.com
+  sub_tag: C002-260622
+  type: trojan
+  udp: true
+- name: 🇧🇾BY_7|342KB/s|A004-260618 [2db0b23d46e4]
+  type: vless
+  server: 178.172.227.124
+  port: 10443
+  uuid: 1af36694-b548-4b18-89a0-bc076eab4ed7
+  udp: true
+- name: 🇭🇰HK_55|277KB/s|R002-260618 [b688f077b12c]
+  type: ss
+  server: 27.124.5.86
+  port: 8388
+  cipher: 2022-blake3-aes-256-gcm
+  password: j4DddfVh3zON1s3Wfbmdn2WWhLCWAaOJyKqdeKvxh4A=
+  udp: true
+- client-fingerprint: chrome
+  grpc-opts:
+    grpc-service-name: 204adda7e3da
+  name: US美国(mibei77.com 米贝节点分享) (20)
+  network: grpc
+  port: 443
+  reality-opts:
+    public-key: PD8Jdlg3xB9QY--jwQjp8PFPzCS8-Oryw6-HWBcHMFU
+    short-id: d3bd772514c87d28
+  server: 79.182.39.131
+  servername: 717252g.nl8.h1clayd.click
+  skip-cert-verify: false
+  sni: 717252g.nl8.h1clayd.click
+  tls: true
+  type: vless
+  udp: true
+  uuid: cda0862a-0f87-4be9-8ed8-1d0c9e382839
+- alterId: '0'
+  cipher: auto
+  name: 🇲🇾MY_1|532KB/s|C002-260622 [379f89f6c63d]
+  network: tcp
+  packet-encoding: xudp
+  port: 10000
+  server: 47.250.135.244
+  skip-cert-verify: false
+  sub_tag: C002-260622
+  tls: false
+  type: vmess
+  udp: true
+  uuid: aedc66b8-99d7-4a21-8310-61870e7f870d
+  xudp: true
+- client-fingerprint: edge
+  grpc-opts:
+    grpc-service-name: 99f2107b03f8
+  name: 美国_A14487
+  network: grpc
+  port: 443
+  reality-opts:
+    public-key: cO3wYHISTeorXcM8ffaDCDdqZ-olBQL-GyZqb-W7rTk
+    short-id: bd8f712209a9c283
+  server: 162.35.101.177
+  servername: 0592efg.us8.h1clayd.click
+  tls: true
+  type: vless
+  udp: true
+  uuid: cda0862a-0f87-4be9-8ed8-1d0c9e382839
+- name: 🇸🇬SG_25|373KB/s|M003-260806 [bf7af3dfa89b]
+  type: vless
+  server: 104.17.3.81
+  port: 80
+  uuid: fdd8f4d0-4500-11ef-8227-1577c1651679
+  udp: true
+  network: ws
+  ws-opts:
+    path: //worryfree
+    headers:
+      Host: sg-vless-ws.bypass.id
+- name: ❓Other_80|224KB/s|R002-260618 [681b35c5fcc0]
+  port: 443
+  server: 20.42.108.114
+  skip-cert-verify: true
+  sub_tag: R002-260618
+  tls: true
+  type: http
+  udp: true
+- name: 🇰🇿KZ_3|655KB/s|M003-260806 [67ae5b1b42a1]
+  type: vmess
+  server: 38.107.234.57
+  port: 80
+  uuid: 567f4be5-12ab-42e1-b8d9-db6fd1fdd31c
+  alterId: 0
+  cipher: auto
+  udp: true
+  network: ws
+  ws-opts:
+    path: /vmess/
+    headers:
+      Host: viber.com
+- client-fingerprint: firefox
+  flow: xtls-rprx-vision
+  name: 尼日利亚(mibei77.com 米贝节点分享)
+  port: 443
+  reality-opts:
+    public-key: ZSmetD4e9QG5CiXhniHg5HJB68L4kwbgAkJmMHtVwEE
+    short-id: 42426c882c5fcd41
+  server: 196.196.149.81
+  servername: 7aa271t.es1.h1clayd.click
+  skip-cert-verify: false
+  sni: 7aa271t.es1.h1clayd.click
+  tls: true
+  type: vless
+  udp: true
+  uuid: 4201786b-d99b-4147-a5f0-20d47acddb81
+- client-fingerprint: chrome
+  flow: xtls-rprx-vision
+  name: 南非(mibei77.com 米贝节点分享)
+  port: 443
+  reality-opts:
+    public-key: ZSmetD4e9QG5CiXhniHg5HJB68L4kwbgAkJmMHtVwEE
+    short-id: 42426c882c5fcd41
+  server: 196.199.122.2
+  servername: 7aa271t.es1.h1clayd.click
+  skip-cert-verify: false
+  sni: 7aa271t.es1.h1clayd.click
+  tls: true
+  type: vless
+  udp: true
+  uuid: 4201786b-d99b-4147-a5f0-20d47acddb81
+- client-fingerprint: firefox
+  grpc-opts:
+    grpc-service-name: 204adda7e3da
+  name: NL荷兰(mibei77.com 米贝节点分享) (2)
+  network: grpc
+  port: 443
+  reality-opts:
+    public-key: PD8Jdlg3xB9QY--jwQjp8PFPzCS8-Oryw6-HWBcHMFU
+    short-id: d3bd772514c87d28
+  server: 79.182.39.131
+  servername: 717252g.nl8.h1clayd.click
+  skip-cert-verify: false
+  sni: 717252g.nl8.h1clayd.click
+  tls: true
+  type: vless
+  udp: true
+  uuid: cda0862a-0f87-4be9-8ed8-1d0c9e382839
+- client-fingerprint: firefox
+  flow: xtls-rprx-vision
+  name: US美国(mibei77.com 米贝节点分享) (11)
+  port: 443
+  reality-opts:
+    public-key: ZSmetD4e9QG5CiXhniHg5HJB68L4kwbgAkJmMHtVwEE
+    short-id: 42426c882c5fcd41
+  server: 196.196.149.80
+  servername: 7aa271t.es1.h1clayd.click
+  skip-cert-verify: false
+  sni: 7aa271t.es1.h1clayd.click
+  tls: true
+  type: vless
+  udp: true
+  uuid: 4201786b-d99b-4147-a5f0-20d47acddb81
+- client-fingerprint: chrome
+  name: 🇨🇭CH_12|229KB/s|M003-260806 [aac85e5b8669]
+  network: tcp
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 208.69.78.208
+  skip-cert-verify: true
+  sni: resources.yourultimateprofessionalcareerhub.com
+  sub_tag: M003-260806
+  type: trojan
+  udp: true
+- name: 🇩🇪DE_100|1.4MB/s|M003-260806 [146f2466e9a0]
+  type: vless
+  server: 191.217.215.228
+  port: 2096
+  uuid: fbe22815-0718-4eae-816f-e91c67d15b54
+  udp: true
+  tls: true
+  servername: st3b6e5.rumedia-cdn.com
+  client-fingerprint: firefox
+  network: ws
+  ws-opts:
+    path: /cdn/v3/live
+    headers:
+      Host: st3b6e5.rumedia-cdn.com
+- name: 🇩🇪DE_101|1.4MB/s|M003-260806 [a7019f9f3f47]
+  type: vless
+  server: 94.159.98.82
+  port: 2053
+  uuid: fbe22815-0718-4eae-816f-e91c67d15b54
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  servername: 94.159.98.82
+  client-fingerprint: firefox
+- name: 🇺🇸US_126|1.5MB/s|M002-260618 [04989f198bbd]
+  type: vmess
+  server: 67.220.85.46
+  port: 18000
+  uuid: f8c8dc3d-0d37-46b0-8b34-a7232882fcfe
+  alterId: 0
+  cipher: auto
+  udp: true
+- name: 🇳🇴NO_2|264KB/s|A004-260618 [3643c3ed7d6c]
+  type: ss
+  server: 185.213.23.63
+  port: 990
+  cipher: chacha20-ietf-poly1305
+  password: ARgvGZywA+gacgGV26Bvmu05+wZmRW/j+AdU+Z8Bt44=
+  udp: true
+- name: 🇩🇪DE_94|441KB/s|M003-260806 [34d292c29cc8]
+  type: ss
+  server: 8.209.117.187
+  port: 443
+  cipher: 2022-blake3-chacha20-poly1305
+  password: 8yO3ANWefuuGs1lRKXECQA1FEhxlWFV2ppQMcBaZo5Y=
+  udp: true
+- client-fingerprint: chrome
+  name: US美国(mibei77.com 米贝节点分享) (26)
+  network: ws
+  port: 443
+  server: 172.67.156.147
+  servername: jp3.yohototo.top
+  skip-cert-verify: false
+  sni: jp3.yohototo.top
+  tls: true
+  type: vless
+  udp: true
+  uuid: 4e4f1f70-5e56-4a76-bb9d-db087f4690c4
+  ws-opts:
+    headers:
+      Host: jp3.yohototo.top
+    path: /tyxyws
+- cipher: aes-256-gcm
+  name: Canada_None_ss_1018
+  password: g5MeD6Ft3CWlJId
+  port: 5003
+  server: 51.222.155.32
+  type: ss
+- client-fingerprint: random
+  flow: xtls-rprx-vision
+  name: 荷兰_C4CD03
+  port: 443
+  reality-opts:
+    public-key: VZS639V1i-35g7VXb9EoTYL-Srm7858sxcvFAunncmA
+    short-id: 8d0d0679f42ffd98
+  server: 8a2e72t.nl20.h1clayd.shop
+  servername: 8a2e72t.nl20.h1clayd.shop
+  tls: true
+  type: vless
+  udp: true
+  uuid: 4201786b-d99b-4147-a5f0-20d47acddb81
+- name: 🇩🇪DE_77|975KB/s|B007-260618 [aada89282fa5]
+  type: ss
+  server: 8.209.72.224
+  port: 443
+  cipher: 2022-blake3-chacha20-poly1305
+  password: 8yO3ANWefuuGs1lRKXECQA1FEhxlWFV2ppQMcBaZo5Y=
+  udp: true
+- client-fingerprint: chrome
+  name: 🇬🇧GB_3|896KB/s|C002-260622 [aa55d16d53df]
+  network: ws
+  packet-encoding: xudp
+  port: 443
+  server: uk1.connectsuite.org
+  servername: uk1.connectsuite.org
+  sub_tag: C002-260622
+  tls: true
+  type: vless
+  udp: true
+  uuid: fda89998-7e9a-4494-857a-cd0d00661b58
+  ws-opts:
+    headers:
+      Host: ''
+      User-Agent: Mozilla/5.0 (Linux; Android 6.0; CAM-L03 Build/HUAWEICAM-L03) AppleWebKit/537.36
+        (KHTML, like Gecko) Chrome/69.0.3497.100 Mobile Safari/537.36
+    path: /cdn-cgi/ws
+  xudp: true
+- client-fingerprint: chrome
+  name: 🇨🇭CH_7|257KB/s|M003-260806 [9db38fc61b5b]
+  network: tcp
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 208.69.78.29
+  skip-cert-verify: true
+  sni: learn.yourultimateprofessionalcareerhub.com
+  sub_tag: M003-260806
+  type: trojan
+  udp: true
+- name: ❓Other_63|84KB/s|A004-260618 [2d1ea3de825a]
+  network: ws
+  packet-encoding: xudp
+  port: 14430
+  server: 178.172.227.228
+  sub_tag: A004-260618
+  type: vless
+  udp: true
+  uuid: b6e5dc56-836f-48c1-9163-b0b0b43b647d
+  ws-opts:
+    headers:
+      Host: 178.172.227.228
+      User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like
+        Gecko) Chrome/54.0.2840.71 Safari/537.36
+    path: /vless
+  xudp: true
+- name: DE德国(mibei77.com 米贝节点分享)-2
+  type: vless
+  server: 104.18.42.98
+  port: 443
+  uuid: 4e4f1f70-5e56-4a76-bb9d-db087f4690c4
+  udp: true
+  tls: true
+  servername: jp3.yohototo.top
+  client-fingerprint: chrome
+  network: ws
+  ws-opts:
+    path: /tyxyws
+    headers:
+      Host: jp3.yohototo.top
+- cipher: 2022-blake3-chacha20-poly1305
+  name: US美国(mibei77.com 米贝节点分享) (28)
+  password: 8yO3ANWefuuGs1lRKXECQA1FEhxlWFV2ppQMcBaZo5Y=
+  port: 443
+  server: 47.254.143.251
+  skip-cert-verify: false
+  tls: false
+  type: ss
+  udp: true
+- client-fingerprint: firefox
+  grpc-opts:
+    grpc-service-name: 5b79e8a94241
+  name: 西班牙(mibei77.com 米贝节点分享) (2)
+  network: grpc
+  port: 443
+  reality-opts:
+    public-key: zbz--PMjcIC4Ggr3j-ibDf0fzXRTj0lM_HzjPJyMkVE
+    short-id: 50a749f0eccb628c
+  server: 196.245.52.183
+  servername: 15b171g.nl7.h1clayd.click
+  skip-cert-verify: false
+  sni: 15b171g.nl7.h1clayd.click
+  tls: true
+  type: vless
+  udp: true
+  uuid: cda0862a-0f87-4be9-8ed8-1d0c9e382839
+- alterId: 0
+  cipher: auto
+  name: US美国(mibei77.com 米贝节点分享) (34)
+  network: ws
+  port: 443
+  server: cf.090227.xyz
+  skip-cert-verify: false
+  tls: true
+  type: vmess
+  udp: true
+  uuid: 0cf6d970-3f1d-4aae-a989-92a8f76ae3db
+  ws-opts:
+    headers:
+      Host: vmess.lbw666.dpdns.org
+    path: /ws
+- name: 未知50
+  type: vmess
+  server: 104.17.77.77
+  port: 8443
+  cipher: auto
+  uuid: 60441548-b68e-43b2-8191-e3b884be4b3c
+  alterId: 0
+  tls: true
+  skip-cert-verify: true
+  network: ws
+  ws-opts:
+    path: /lMnsZUN4/
+    headers:
+      host: v2ray1.dozapp.xyz
+- name: US美国(mibei77.com 米贝节点分享)-40
+  type: vless
+  server: 104.18.153.10
+  port: 443
+  uuid: 4e4f1f70-5e56-4a76-bb9d-db087f4690c4
+  udp: true
+  tls: true
+  servername: jp3.yohototo.top
+  client-fingerprint: unsafe
+  network: ws
+  ws-opts:
+    path: /tyxyws
+    headers:
+      Host: jp3.yohototo.top
+- name: 🇧🇾BY_5|426KB/s|S004-260618 [c63e0e094873]
+  type: vless
+  server: 178.172.227.124
+  port: 14430
+  uuid: 1af36694-b548-4b18-89a0-bc076eab4ed7
+  udp: true
+  network: ws
+  ws-opts:
+    path: /vless
+    headers:
+      Host: 178.172.227.124
+- name: 🇺🇸US_401|488KB/s|F003-260618 [ba510eb1e789]
+  type: vmess
+  server: 38.11.69.48
+  port: 30004
+  uuid: 418048af-a293-4b99-9b0c-98ca3580dd24
+  alterId: 64
+  cipher: auto
+  udp: true
+  tls: true
+  servername: www.83761815.xyz
+  network: ws
+  ws-opts:
+    path: /path/1698843555400
+    headers:
+      Host: www.83761815.xyz
+- client-fingerprint: chrome
+  name: 🇨🇭CH_8|239KB/s|M003-260806 [92094d0bae0e]
+  network: tcp
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 208.69.78.222
+  skip-cert-verify: false
+  sni: yourultimateprofessionalcareerhub.com
+  sub_tag: M003-260806
+  type: trojan
+  udp: true
+- name: 🇫🇮FI_11|178KB/s|M003-260806 [941fd008d5d3]
+  type: vless
+  server: 31.76.3.52
+  port: 443
+  uuid: 58e22afd-bf74-4736-984d-63a8ca03d7f0
+  udp: true
+  tls: true
+  servername: payablemeta.cleanfoodshop.org
+  client-fingerprint: firefox
+  network: ws
+  ws-opts:
+    path: /media/ws/
+- client-fingerprint: chrome
+  flow: xtls-rprx-vision
+  name: 🇮🇱IL以色列丨yoyapai.com
+  port: 443
+  reality-opts:
+    public-key: VZS639V1i-35g7VXb9EoTYL-Srm7858sxcvFAunncmA
+    short-id: 8d0d0679f42ffd98
+  server: 136.148.208.221
+  servername: 8a2e72t.nl20.h1clayd.shop
+  skip-cert-verify: false
+  sni: 8a2e72t.nl20.h1clayd.shop
+  tls: true
+  type: vless
+  udp: true
+  uuid: 4201786b-d99b-4147-a5f0-20d47acddb81
+- client-fingerprint: firefox
+  name: 🇳🇱NL荷兰丨yoyapai.com (5)
+  network: xhttp
+  port: 443
+  reality-opts:
+    public-key: jIRVNEf9SpuWP2nJrAbHGGIUnfzOmwZZlrNGw-Y-O2Q
+    short-id: 2d2598d60447a967
+  server: 196.245.52.183
+  servername: e60833x.nl7.h1clayd.click
+  skip-cert-verify: false
+  sni: e60833x.nl7.h1clayd.click
+  tls: true
+  type: vless
+  udp: true
+  uuid: cda0862a-0f87-4be9-8ed8-1d0c9e382839
+  xhttp-opts:
+    mode: auto
+    path: /d20896a4ce30
+- name: 🇺🇸US_201|1.7MB/s|C002-260622 [8ff7f6bf8246]
+  type: vmess
+  server: 67.220.95.3
+  port: 18000
+  uuid: f8c8dc3d-0d37-46b0-8b34-a7232882fcfe
+  alterId: 0
+  cipher: aes-128-gcm
+  udp: true
+- client-fingerprint: firefox
+  name: 荷兰_98E233
+  port: 443
+  reality-opts:
+    public-key: l-GzBDuNuhnjxoRlZqKvT7jAt_sbVAxhGFsAttO5kXs
+    short-id: 361d0dd59c70516f
+  server: 196.196.148.85
+  servername: 5d0319t.nl7.h1clayd.click
+  tls: true
+  type: vless
+  udp: true
+  uuid: cda0862a-0f87-4be9-8ed8-1d0c9e382839
+- name: 🇺🇸US_344|278KB/s|M002-260618 [fc88354ba34f]
+  type: vmess
+  server: 129.146.143.80
+  port: 48111
+  uuid: d4603cc2-e0ee-4651-83f5-1db5b7168177
+  alterId: 0
+  cipher: auto
+  udp: true
+- client-fingerprint: unsafe
+  name: CA加拿大(mibei77.com 米贝节点分享) (3)
+  network: ws
+  port: 443
+  server: 172.64.152.19
+  servername: jp3.yohototo.top
+  skip-cert-verify: false
+  sni: jp3.yohototo.top
+  tls: true
+  type: vless
+  udp: true
+  uuid: 4e4f1f70-5e56-4a76-bb9d-db087f4690c4
+  ws-opts:
+    headers:
+      Host: jp3.yohototo.top
+    path: /tyxyws
+- alpn:
+  - ''
+  alterId: '0'
+  cipher: auto
+  http-opts:
+    headers:
+      Host:
+      - down-cdn.dingtalk.com
+    path:
+    - /3x
+  name: 🇫🇮FI_2|92KB/s|B007-260618 [bec781bc4192]
+  network: http
+  packet-encoding: xudp
+  port: 2053
+  server: 185.212.149.7
+  skip-cert-verify: false
+  sub_tag: B007-260618
+  tls: false
+  type: vmess
+  udp: true
+  uuid: aeb3c019-ae83-4677-af97-846baa787ad5
+  xudp: true
+- name: 🇺🇸US_256|1.2MB/s|K001-260618 [0c9180597f2f]
+  type: vmess
+  server: 162.251.60.97
+  port: 1270
+  uuid: 5c040f1d-45db-43bd-8d46-e4950e433735
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: xmfhlpy.com
+- name: 🇻🇳VN_4|398KB/s|P002-260618 [459cb3a3f111]
+  type: vless
+  server: 150.95.109.109
+  port: 2086
+  uuid: b83faafc-cbb7-4655-99d4-2c4c39a49d1b
+  udp: true
+- client-fingerprint: chrome
+  name: SG新加坡(mibei77.com 米贝节点分享) (3)
+  port: 443
+  reality-opts:
+    public-key: l-GzBDuNuhnjxoRlZqKvT7jAt_sbVAxhGFsAttO5kXs
+    short-id: 361d0dd59c70516f
+  server: 196.196.148.85
+  servername: 5d0319t.nl7.h1clayd.click
+  skip-cert-verify: false
+  sni: 5d0319t.nl7.h1clayd.click
+  tls: true
+  type: vless
+  udp: true
+  uuid: cda0862a-0f87-4be9-8ed8-1d0c9e382839
+- name: 未知136
+  type: vmess
+  server: 188.114.96.3
+  port: 8443
+  cipher: auto
+  uuid: 60441548-b68e-43b2-8191-e3b884be4b3c
+  alterId: 0
+  tls: true
+  skip-cert-verify: true
+  network: ws
+  ws-opts:
+    path: /lMnsZUN4/
+    headers:
+      host: v2ray1.dozapp.xyz
+- name: 🇮🇳IN_12|215KB/s|M003-260806 [8611f745e25c]
+  type: vless
+  server: 13.140.253.35
+  port: 443
+  uuid: 06a5afa1-2bbc-a5d1-1770-becd1089c636
+  udp: true
+  tls: true
+  servername: xray-dmr3b3hy-calm-maple-7.cloady.io
+  client-fingerprint: chrome
+  network: ws
+  ws-opts:
+    path: /0175469f14317d82
+    headers:
+      Host: xray-dmr3b3hy-calm-maple-7.cloady.io
+- name: 🇮🇹IT_2|104KB/s|R002-260618 [ad206ad6cf52]
+  password: None
+  port: 443
+  server: 93.42.177.250
+  skip-cert-verify: true
+  sub_tag: R002-260618
+  tls: true
+  type: http
+  udp: true
+- alterId: '0'
+  cipher: auto
+  name: 🇺🇸US_44|142KB/s|F003-260618 [af0506cdd2c0]
+  network: ws
+  packet-encoding: xudp
+  port: 8443
+  server: 172.67.167.78
+  servername: v2ray1.dozapp.xyz
+  skip-cert-verify: false
+  sub_tag: F003-260618
+  tls: true
+  type: vmess
+  udp: true
+  uuid: 60441548-b68e-43b2-8191-e3b884be4b3c
+  ws-opts:
+    headers:
+      Host: v2ray1.dozapp.xyz
+    path: /lMnsZUN4/
+  xudp: true
+- client-fingerprint: firefox
+  name: 西班牙(mibei77.com 米贝节点分享) (4)
+  port: 443
+  reality-opts:
+    public-key: UoS8qZ74hP_ECcncCz55lzvlcVss3R7VA0WYZE0YQCY
+    short-id: ba2a3dce62b99092
+  server: 196.245.52.187
+  servername: 04535dt.us8.h1clayd.click
+  skip-cert-verify: false
+  sni: 04535dt.us8.h1clayd.click
+  tls: true
+  type: vless
+  udp: true
+  uuid: cda0862a-0f87-4be9-8ed8-1d0c9e382839
+- name: 🇺🇸US_30|1.6MB/s|M002-260618 [4efd3af6e698]
+  type: vmess
+  server: 67.220.95.3
+  port: 18000
+  uuid: f8c8dc3d-0d37-46b0-8b34-a7232882fcfe
+  alterId: 0
+  cipher: auto
+  udp: true
+- client-fingerprint: chrome
+  name: DE德国(mibei77.com 米贝节点分享) (3)
+  network: ws
+  port: 443
+  server: 104.18.42.98
+  servername: jp3.yohototo.top
+  skip-cert-verify: false
+  sni: jp3.yohototo.top
+  tls: true
+  type: vless
+  udp: true
+  uuid: 4e4f1f70-5e56-4a76-bb9d-db087f4690c4
+  ws-opts:
+    headers:
+      Host: jp3.yohototo.top
+    path: /tyxyws
+- client-fingerprint: firefox
+  flow: xtls-rprx-vision
+  name: 德国_62C0C6
+  port: 443
+  reality-opts:
+    public-key: MzgB17ZFbKqs8pbC3EscTzHid_ENc-k_Cp6nXl-2knw
+    short-id: 6976d670818644cc
+  server: 13.141.36.63
+  servername: 4935e4t.de25.h1clayd.click
+  tls: true
+  type: vless
+  udp: true
+  uuid: 4201786b-d99b-4147-a5f0-20d47acddb81
+- name: SG新加坡(mibei77.com 米贝节点分享)-2
+  type: vless
+  server: 43.170.8.95
+  port: 443
+  uuid: 4e4f1f70-5e56-4a76-bb9d-db087f4690c4
+  udp: true
+  tls: true
+  servername: jp3.yohototo.top
+  client-fingerprint: unsafe
+  network: ws
+  ws-opts:
+    path: /tyxyws
+    headers:
+      Host: jp3.yohototo.top
+- name: 🇸🇬SG_23|72KB/s|M003-260806 [784b3e6893b0]
+  type: vmess
+  server: 195.133.135.238
+  port: 10086
+  uuid: b831381d-6324-4d53-ad4f-8cda48b30811
+  alterId: 0
+  cipher: auto
+  udp: true
+- client-fingerprint: firefox
+  name: US美国(mibei77.com 米贝节点分享) (14)
+  port: 443
+  reality-opts:
+    public-key: l-GzBDuNuhnjxoRlZqKvT7jAt_sbVAxhGFsAttO5kXs
+    short-id: 361d0dd59c70516f
+  server: 196.196.148.85
+  servername: 5d0319t.nl7.h1clayd.click
+  skip-cert-verify: false
+  sni: 5d0319t.nl7.h1clayd.click
+  tls: true
+  type: vless
+  udp: true
+  uuid: cda0862a-0f87-4be9-8ed8-1d0c9e382839
+- name: ❓Other_58|233KB/s|S001-260618 [e79d3780e159]
+  password: test123
+  port: 1080
+  server: 185.145.99.41
+  skip-cert-verify: true
+  sub_tag: S001-260618
+  type: socks5
+  udp: true
+  username: test123
