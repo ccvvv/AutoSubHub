@@ -36,12 +36,16 @@ PROBE_PORT_BASE = 17890
 
 
 def resolve_source_url(url: str, today: date | None = None) -> str:
-    """Resolve supported date placeholders using the Shanghai calendar date."""
-    if "{Ymd}" not in url:
+    """Resolve date placeholders using the Shanghai calendar date."""
+    if not any(token in url for token in ("{Y}", "{mm}", "{Ymd}")):
         return url
     if today is None:
         today = datetime.now(ZoneInfo("Asia/Shanghai")).date()
-    return url.replace("{Ymd}", today.strftime("%Y%m%d"))
+    return (
+        url.replace("{Ymd}", today.strftime("%Y%m%d"))
+        .replace("{Y}", today.strftime("%Y"))
+        .replace("{mm}", today.strftime("%m"))
+    )
 
 SUPPORTED_PROXY_TYPES = {
     "ss", "vmess", "vless", "trojan", "socks5", "http", "snell",
