@@ -547,6 +547,20 @@ def main() -> None:
         with open("subscriptions.txt", encoding="utf-8") as f:
             urls = [x.strip() for x in f if x.strip() and not x.lstrip().startswith("#")]
         source_mode = "subscriptions.txt"
+
+    # Additional public sources are additive, including when Actions secrets
+    # provide the primary source list. Keep the existing secret/fallback behavior.
+    extra_path = "extra-subscriptions.txt"
+    if os.path.exists(extra_path):
+        with open(extra_path, encoding="utf-8") as f:
+            extra_urls = [x.strip() for x in f if x.strip() and not x.lstrip().startswith("#")]
+        known_urls = set(urls)
+        for extra_url in extra_urls:
+            if extra_url not in known_urls:
+                urls.append(extra_url)
+                known_urls.add(extra_url)
+        if extra_urls:
+            source_mode += " + extra-subscriptions.txt"
     if not urls:
         raise SystemExit("No subscription sources configured")
     print(f"Loaded {len(urls)} sources from {source_mode}")
