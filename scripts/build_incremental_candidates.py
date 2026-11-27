@@ -6,6 +6,7 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import sys
 import tempfile
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -14,6 +15,7 @@ from datetime import datetime, timezone
 import requests
 import yaml
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import build as builder
 from scripts.source_cache import load_cache, empty_cache, conditional_headers, record_response, save_cache
 from scripts.source_snapshots import (
