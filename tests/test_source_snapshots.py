@@ -149,5 +149,18 @@ class SourceSnapshotTests(unittest.TestCase):
         self.assertEqual(pending["nodes"], [])
 
 
+    def test_duplicate_receipt_is_idempotent_but_conflicting_receipt_is_rejected(self):
+        a, _ = apply_source_response(None, "source-001", "https://feed.example/1",
+                                     200, [proxy("a", "a.example")])
+        _, queue, state = reconcile_sources({"source-001": a})
+        manifest = {"nodes": queue["nodes"]}
+        result = {"results": [{"node_id": queue["nodes"][0]["node_id"], "status": "passed"}]}
+        first = apply_completed_receipt(state, manifest, {**result, "task_id": "same"})
+        second = apply_completed_receipt(first, manifest, {**result, "task_id": "same"})
+        self.assertEqual(first, second)
+        with self.assertRaises(ValueError):
+            apply_completed_receipt(first, manifest, {**result, "task_id": "different"})
+
+
 if __name__ == "__main__":
     unittest.main()
