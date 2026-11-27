@@ -1,9 +1,9 @@
 {
-  "checked_at": "2026-11-27T22:15:33.744888+00:00",
+  "checked_at": "2026-11-27T22:20:30.376347+00:00",
   "etag": "W/\"72853e121ff9b4d99cdabac4b3eec5871731910ea02112b77e3065cdc3848e9d\"",
   "fetched_at": "2026-11-27T22:15:33.744888+00:00",
   "last_modified": null,
-  "last_status": 200,
+  "last_status": 304,
   "nodes": [
     {
       "client-fingerprint": "qq",

@@ -1,9 +1,9 @@
 {
-  "checked_at": "2026-11-27T22:15:33.505241+00:00",
+  "checked_at": "2026-11-27T22:20:30.447560+00:00",
   "etag": "W/\"b41a2c1f79d1a7002c8e683da4fb674b7bde14cb12cf47b72fb5f98a8367a631\"",
   "fetched_at": "2026-11-27T22:15:33.505241+00:00",
   "last_modified": null,
-  "last_status": 200,
+  "last_status": 304,
   "nodes": [
     {
       "cipher": "chacha20-ietf-poly1305",

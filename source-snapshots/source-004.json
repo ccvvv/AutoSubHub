@@ -1,9 +1,9 @@
 {
-  "checked_at": "2026-11-27T22:15:29.314210+00:00",
+  "checked_at": "2026-11-27T22:20:30.123093+00:00",
   "etag": "W/\"b5014c19664d55683cda4975bec9c05cf21b437d2615f33acc7fe227a1bf789a\"",
   "fetched_at": "2026-11-27T22:15:29.314210+00:00",
   "last_modified": null,
-  "last_status": 200,
+  "last_status": 304,
   "nodes": [
     {
       "cipher": "aes-256-gcm",

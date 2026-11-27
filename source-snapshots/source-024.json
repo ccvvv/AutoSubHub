@@ -1,9 +1,9 @@
 {
-  "checked_at": "2026-11-27T22:15:34.019636+00:00",
+  "checked_at": "2026-11-27T22:20:30.474376+00:00",
   "etag": "W/\"fbd1630f73d5579cb45a234fab5c3a2dc2db3593a13a13495229e631f8977901\"",
   "fetched_at": "2026-11-27T22:15:34.019636+00:00",
   "last_modified": null,
-  "last_status": 200,
+  "last_status": 304,
   "nodes": [
     {
       "alpn": [

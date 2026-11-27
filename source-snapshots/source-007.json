@@ -1,9 +1,9 @@
 {
-  "checked_at": "2026-11-27T22:15:29.363477+00:00",
+  "checked_at": "2026-11-27T22:20:30.181884+00:00",
   "etag": "W/\"9a492dffea4b31718e1df05d9cbedc697ee8cade263a570a16e29cf296350e3c\"",
   "fetched_at": "2026-11-27T22:15:29.363477+00:00",
   "last_modified": null,
-  "last_status": 200,
+  "last_status": 304,
   "nodes": [
     {
       "name": "[271.8ms +/-2ms] http-172.64.69.89",

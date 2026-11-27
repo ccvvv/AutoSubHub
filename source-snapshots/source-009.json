@@ -1,9 +1,9 @@
 {
-  "checked_at": "2026-11-27T22:15:31.912604+00:00",
+  "checked_at": "2026-11-27T22:20:30.211560+00:00",
   "etag": "W/\"35268a4f335b903d28691216b6e8f1c82ca550b00cdbfac10b06d15fd5c97cb1\"",
   "fetched_at": "2026-11-27T22:15:31.912604+00:00",
   "last_modified": null,
-  "last_status": 200,
+  "last_status": 304,
   "nodes": [
     {
       "client-fingerprint": "chrome",
