@@ -104,11 +104,18 @@ def fetch_one(index: int, url: str, cache: dict, previous: dict | None):
     # A validator is safe only when its matching full source snapshot exists.
     if previous is not None and previous.get("source_url_sha256") == url_fingerprint(url):
         headers.update(conditional_headers(cache, url))
-    response = requests.get(url, headers=headers, timeout=25)
-    if response.status_code == 304:
-        snapshot, _ = apply_source_response(previous, source_id, url, 304, None)
-        return source_id, snapshot, [], 304, dict(response.headers)
-    response.raise_for_status()
+    response = None
+    for attempt in range(3):
+        response = requests.get(url, headers=headers, timeout=25)
+        if response.status_code == 304:
+            snapshot, _ = apply_source_response(previous, source_id, url, 304, None)
+            return source_id, snapshot, [], 304, dict(response.headers)
+        if response.status_code == 429 or response.status_code >= 500:
+            if attempt < 2:
+                time.sleep(2 ** (attempt + 1))
+                continue
+        response.raise_for_status()
+        break
     parsed, rejected = builder.parse_source(response.text)
     snapshot, _ = apply_source_response(
         previous, source_id, url, response.status_code, parsed, dict(response.headers)
@@ -165,10 +172,14 @@ def main() -> None:
             print(f"{source_id}: HTTP {status}; snapshot nodes={len(snapshot['nodes'])}; rejected HTTP={rejected}")
             continue
         if previous is None:
-            raise RuntimeError(
-                f"{source_id} has no usable previous snapshot and its fetch failed "
-                f"({type(error).__name__}); initial snapshot must be complete"
-            ) from error
+            source_status[source_id] = {
+                "status": "missing", "node_count": 0,
+                "error": type(error).__name__,
+                "source_url_sha256": url_fingerprint(url),
+            }
+            failures.append(source_id)
+            print(f"{source_id}: initial fetch failed ({type(error).__name__}); no empty snapshot created")
+            continue
         fetched[source_id] = previous
         source_status[source_id] = {
             "status": "error", "node_count": len(previous.get("nodes", [])),
@@ -176,6 +187,9 @@ def main() -> None:
         }
         failures.append(source_id)
         print(f"{source_id}: fetch/parse failed; retained previous snapshot ({type(error).__name__})")
+
+    if not fetched:
+        raise RuntimeError("No usable source snapshots are available; refusing to replace the existing pool")
 
     # Remove stale source groups only when the configured source list itself changed.
     snapshot_dir.mkdir(parents=True, exist_ok=True)
@@ -188,15 +202,18 @@ def main() -> None:
         "updated_at": now_iso(),
         "sources": [
             {
-                "source_id": source_id,
-                "source_url_sha256": snapshot["source_url_sha256"],
-                "fetched_at": snapshot.get("fetched_at"),
-                "checked_at": snapshot.get("checked_at"),
-                "last_status": source_status[source_id]["status"],
-                "node_count": source_status[source_id]["node_count"],
-                "error": source_status[source_id].get("error"),
+                "source_id": f"source-{index:03d}",
+                "source_url_sha256": source_status.get(f"source-{index:03d}", {}).get(
+                    "source_url_sha256",
+                    fetched.get(f"source-{index:03d}", {}).get("source_url_sha256"),
+                ),
+                "fetched_at": fetched.get(f"source-{index:03d}", {}).get("fetched_at"),
+                "checked_at": fetched.get(f"source-{index:03d}", {}).get("checked_at"),
+                "last_status": source_status.get(f"source-{index:03d}", {}).get("status", "missing"),
+                "node_count": source_status.get(f"source-{index:03d}", {}).get("node_count", 0),
+                "error": source_status.get(f"source-{index:03d}", {}).get("error"),
             }
-            for source_id, snapshot in sorted(fetched.items())
+            for index in range(1, len(urls) + 1)
         ],
     }
     atomic_json(Path("source-manifest.json"), source_manifest)
