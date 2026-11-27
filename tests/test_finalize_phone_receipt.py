@@ -132,11 +132,24 @@ class FinalizePhoneReceiptTests(unittest.TestCase):
         self.assertIn("hash mismatch", (result.stderr + result.stdout).lower())
         self.assertFalse(self.output.exists())
 
-    def test_failed_application_gate_excludes_node(self):
+    def test_one_passing_application_check_is_sufficient(self):
         receipt = dict(self.base_receipt)
         receipt["results"] = [dict(item) for item in self.base_receipt["results"]]
-        receipt["results"][0]["application_checks"] = dict(receipt["results"][0]["application_checks"])
-        receipt["results"][0]["application_checks"]["chatgpt"] = {"status": "failed"}
+        checks = dict(receipt["results"][0]["application_checks"])
+        for app in ("telegram", "google", "chatgpt", "github"):
+            checks[app] = {"status": "failed"}
+        receipt["results"][0]["application_checks"] = checks
+        result = self.run_validator(receipt)
+        self.assertEqual(result.returncode, 0, result.stderr + result.stdout)
+        final = yaml.safe_load(self.output.read_text(encoding="utf-8"))
+        self.assertEqual([p["name"] for p in final["proxies"]], ["fast-node [高速]", "slow-node [普通]"])
+
+    def test_all_application_checks_failed_excludes_node(self):
+        receipt = dict(self.base_receipt)
+        receipt["results"] = [dict(item) for item in self.base_receipt["results"]]
+        receipt["results"][0]["application_checks"] = {
+            app: {"status": "failed"} for app in ("youtube", "telegram", "google", "chatgpt", "github")
+        }
         result = self.run_validator(receipt)
         self.assertEqual(result.returncode, 0, result.stderr + result.stdout)
         final = yaml.safe_load(self.output.read_text(encoding="utf-8"))
