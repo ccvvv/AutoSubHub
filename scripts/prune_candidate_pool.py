@@ -12,8 +12,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 import yaml
 
-from scripts.candidate_pool import remove_tested_nodes, build_manifest
-from scripts.source_snapshots import apply_completed_receipt, build_queue_from_pool
+from scripts.candidate_pool import build_manifest
+from scripts.source_snapshots import apply_completed_receipt, build_queue_from_pool, node_fingerprint
 
 
 def atomic_json(path: Path, value: dict) -> None:
@@ -74,24 +74,57 @@ def prune_and_refresh(pool_path: Path, manifest_path: Path, receipt_path: Path) 
         atomic_json(state_path, completed_state)
         return
 
-    # Legacy migration path only. Once pool-manifest.json exists, this destructive
-    # behavior is unreachable and receipt processing no longer prunes the pool.
-    pruned = remove_tested_nodes(pool, set(expected))
-    pool_path.write_text(yaml.safe_dump(pruned, allow_unicode=True, sort_keys=False), encoding="utf-8")
+    # One-time non-destructive migration for the old pool format, which did not
+    # store provenance metadata. Reconstruct fingerprints from the existing pool,
+    # mark the exact receipt nodes completed, and leave pool.yaml untouched.
+    proxies = pool.get("proxies")
+    if not isinstance(proxies, list):
+        raise SystemExit("Legacy pool has no proxy list; pool left unchanged")
+    by_name = {item.get("name"): item for item in proxies if isinstance(item, dict)}
+    if len(by_name) != len(proxies):
+        raise SystemExit("Legacy pool has invalid or duplicate names; pool left unchanged")
+    enriched_nodes = []
+    for item in manifest_nodes:
+        name = item.get("name")
+        proxy = by_name.get(name)
+        if proxy is None:
+            raise SystemExit("Legacy receipt node is not present in the pool; pool left unchanged")
+        fingerprint = node_fingerprint(proxy)
+        if fingerprint[:20] != item.get("node_id"):
+            raise SystemExit("Legacy receipt fingerprint mismatch; pool left unchanged")
+        enriched_nodes.append({**item, "fingerprint": fingerprint, "sources": []})
+    enriched_manifest = {**manifest, "nodes": enriched_nodes}
+    state = {"schema_version": 1, "nodes": {}}
+    completed_state = apply_completed_receipt(state, enriched_manifest, receipt)
+    pool_nodes = [
+        {
+            "node_id": node_fingerprint(proxy)[:20],
+            "fingerprint": node_fingerprint(proxy),
+            "name": proxy["name"],
+            "sources": [],
+            "source_names": [proxy["name"]],
+        }
+        for proxy in proxies
+    ]
+    queue, completed_state = build_queue_from_pool(
+        {"proxies": proxies, "nodes": pool_nodes}, completed_state
+    )
+    pool_manifest = {
+        "schema_version": 1,
+        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "nodes": pool_nodes,
+    }
+    atomic_json(pool_path.parent / "pool-manifest.json", pool_manifest)
+    atomic_json(state_path, completed_state)
     candidate_path = pool_path.parent / "subscription.yaml"
-    candidate_path.write_text(
-        yaml.safe_dump(pruned, allow_unicode=True, sort_keys=False), encoding="utf-8"
-    )
-    candidate_bytes = candidate_path.read_bytes()
-    refreshed_manifest = build_manifest(
-        pruned,
-        datetime.now(timezone.utc).isoformat(),
-        hashlib.sha256(candidate_bytes).hexdigest(),
-    )
-    (pool_path.parent / "manifest.json").write_text(
-        json.dumps(refreshed_manifest, ensure_ascii=False, indent=2) + "\n",
-        encoding="utf-8",
-    )
+    candidate_bytes = atomic_yaml(candidate_path, {"proxies": queue["proxies"]})
+    refreshed_manifest = {
+        "schema_version": 1,
+        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "candidate_sha256": hashlib.sha256(candidate_bytes).hexdigest(),
+        "nodes": queue["nodes"],
+    }
+    atomic_json(pool_path.parent / "manifest.json", refreshed_manifest)
 
 
 def main() -> None:
