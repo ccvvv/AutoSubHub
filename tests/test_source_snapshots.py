@@ -2,6 +2,7 @@ import unittest
 
 from scripts.source_snapshots import (
     apply_source_response, reconcile_sources, node_fingerprint,
+    build_queue_from_pool, apply_completed_receipt,
 )
 
 
@@ -112,6 +113,39 @@ class SourceSnapshotTests(unittest.TestCase):
         _, queue, _ = reconcile_sources({"source-001": changed}, state)
         self.assertEqual(len(queue["nodes"]), 1)
         self.assertEqual(queue["nodes"][0]["fingerprint"], node_fingerprint(new))
+
+
+    def test_receipt_marks_passed_and_failed_as_completed_and_never_requeues(self):
+        a, _ = apply_source_response(None, "source-001", "https://feed.example/1",
+                                     200, [proxy("a", "a.example"), proxy("b", "b.example")])
+        pool, queue, state = reconcile_sources({"source-001": a})
+        manifest = {"nodes": queue["nodes"]}
+        receipt = {"task_id": "receipt-1", "results": [
+            {"node_id": item["node_id"], "status": status}
+            for item, status in zip(queue["nodes"], ("passed", "failed"))
+        ]}
+        completed = apply_completed_receipt(state, manifest, receipt)
+        pending, _ = build_queue_from_pool(pool, completed)
+        self.assertEqual(pending["nodes"], [])
+        outcomes = {v["result"] for v in completed["nodes"].values()}
+        self.assertEqual(outcomes, {"passed", "failed"})
+
+    def test_receipt_must_match_full_fingerprint_manifest_exactly(self):
+        a, _ = apply_source_response(None, "source-001", "https://feed.example/1",
+                                     200, [proxy("a", "a.example")])
+        _, queue, state = reconcile_sources({"source-001": a})
+        with self.assertRaises(ValueError):
+            apply_completed_receipt(state, {"nodes": queue["nodes"]},
+                                    {"results": []})
+
+    def test_precheck_failed_nodes_are_not_requeued(self):
+        a, _ = apply_source_response(None, "source-001", "https://feed.example/1",
+                                     200, [proxy("a", "a.example")])
+        pool, queue, state = reconcile_sources({"source-001": a})
+        fp = queue["nodes"][0]["fingerprint"]
+        state["nodes"][fp]["status"] = "precheck_failed"
+        pending, _ = build_queue_from_pool(pool, state)
+        self.assertEqual(pending["nodes"], [])
 
 
 if __name__ == "__main__":
