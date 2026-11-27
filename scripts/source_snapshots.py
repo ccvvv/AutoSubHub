@@ -1,0 +1,184 @@
+"""Per-source subscription snapshots and a fingerprint-based incremental probe queue.
+
+Raw subscription URLs are never persisted: only their SHA-256 identifiers are stored.
+A 304 response reuses that source's previous snapshot. A failed or empty 200 response
+must be rejected by the caller and must never replace a known-good snapshot.
+"""
+from __future__ import annotations
+
+import hashlib
+import json
+from collections import OrderedDict
+from datetime import datetime, timezone
+from typing import Any
+
+
+def url_fingerprint(url: str) -> str:
+    return hashlib.sha256(url.encode("utf-8")).hexdigest()
+
+
+def node_fingerprint(proxy: dict[str, Any]) -> str:
+    if not isinstance(proxy, dict):
+        raise ValueError("Proxy entry must be an object")
+    identity = {key: value for key, value in proxy.items() if key != "name"}
+    encoded = json.dumps(identity, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+    return hashlib.sha256(encoded.encode("utf-8")).hexdigest()
+
+
+def validate_nodes(nodes: Any) -> list[dict[str, Any]]:
+    if not isinstance(nodes, list) or not nodes:
+        raise ValueError("Subscription snapshot is empty or has no proxy list")
+    validated: list[dict[str, Any]] = []
+    for index, proxy in enumerate(nodes, 1):
+        if not isinstance(proxy, dict):
+            raise ValueError(f"Proxy #{index} is not an object")
+        if not isinstance(proxy.get("name"), str) or not proxy["name"].strip():
+            raise ValueError(f"Proxy #{index} has no valid name")
+        if not isinstance(proxy.get("server"), str) or not proxy["server"].strip():
+            raise ValueError(f"Proxy #{index} has no valid server")
+        port = proxy.get("port")
+        if isinstance(port, bool) or not isinstance(port, int) or not 1 <= port <= 65535:
+            raise ValueError(f"Proxy #{index} has an invalid port")
+        validated.append(dict(proxy))
+    return validated
+
+
+def apply_source_response(
+    previous: dict[str, Any] | None,
+    source_id: str,
+    url: str,
+    status_code: int,
+    nodes: list[dict[str, Any]] | None = None,
+    headers: dict[str, str] | None = None,
+    fetched_at: str | None = None,
+) -> tuple[dict[str, Any], bool]:
+    """Return the next snapshot and whether its node set was replaced."""
+    url_hash = url_fingerprint(url)
+    now = fetched_at or datetime.now(timezone.utc).isoformat()
+    if status_code == 304:
+        if not isinstance(previous, dict):
+            raise ValueError(f"{source_id}: HTTP 304 without an existing snapshot")
+        if previous.get("source_url_sha256") != url_hash:
+            raise ValueError(f"{source_id}: HTTP 304 does not match the saved source URL")
+        saved_nodes = validate_nodes(previous.get("nodes"))
+        snapshot = dict(previous)
+        snapshot.update({"checked_at": now, "last_status": 304, "nodes": saved_nodes})
+        return snapshot, False
+    if status_code != 200:
+        raise ValueError(f"{source_id}: unexpected HTTP status {status_code}")
+    clean_nodes = validate_nodes(nodes)
+    snapshot = {
+        "schema_version": 1,
+        "source_id": source_id,
+        "source_url_sha256": url_hash,
+        "fetched_at": now,
+        "checked_at": now,
+        "last_status": 200,
+        "etag": (headers or {}).get("ETag") or (headers or {}).get("etag"),
+        "last_modified": (headers or {}).get("Last-Modified") or (headers or {}).get("last-modified"),
+        "nodes": clean_nodes,
+    }
+    return snapshot, True
+
+
+def reconcile_sources(
+    snapshots: dict[str, dict[str, Any]],
+    previous_state: dict[str, Any] | None = None,
+    generated_at: str | None = None,
+) -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
+    """Merge current source snapshots and enqueue only never-tested fingerprints.
+
+    A fingerprint is retained while it exists in at least one source. Completed
+    results survive source removal so an identical node is not automatically retested
+    if it later reappears.
+    """
+    now = generated_at or datetime.now(timezone.utc).isoformat()
+    merged: OrderedDict[str, dict[str, Any]] = OrderedDict()
+    for source_id in sorted(snapshots):
+        snapshot = snapshots[source_id]
+        if not isinstance(snapshot, dict) or snapshot.get("source_id") != source_id:
+            raise ValueError(f"Invalid source snapshot: {source_id}")
+        for proxy in validate_nodes(snapshot.get("nodes")):
+            fingerprint = node_fingerprint(proxy)
+            entry = merged.setdefault(fingerprint, {
+                "proxy": dict(proxy), "sources": [], "source_names": [],
+            })
+            if source_id not in entry["sources"]:
+                entry["sources"].append(source_id)
+            if proxy["name"] not in entry["source_names"]:
+                entry["source_names"].append(proxy["name"])
+
+    state = previous_state if isinstance(previous_state, dict) else {}
+    if state.get("schema_version", 1) != 1 or not isinstance(state.get("nodes", {}), dict):
+        raise ValueError("Unsupported probe state schema")
+    state_nodes = {key: dict(value) for key, value in state.get("nodes", {}).items()
+                   if isinstance(value, dict)}
+    current_ids = set(merged)
+
+    proxies: list[dict[str, Any]] = []
+    manifest_nodes: list[dict[str, Any]] = []
+    used_names: set[str] = set()
+    queue_nodes: list[dict[str, Any]] = []
+    for fingerprint, entry in merged.items():
+        proxy = dict(entry["proxy"])
+        base_name = str(proxy["name"])
+        name = base_name
+        if name in used_names:
+            name = f"{base_name} [{fingerprint[:6]}]"
+        if name in used_names:
+            name = f"{base_name} [{fingerprint[:12]}]"
+        if name in used_names:
+            raise ValueError("Unable to generate unique node names")
+        proxy["name"] = name
+        used_names.add(name)
+        proxies.append(proxy)
+        manifest_nodes.append({
+            "node_id": fingerprint[:20],
+            "fingerprint": fingerprint,
+            "name": name,
+            "sources": entry["sources"],
+            "source_names": entry["source_names"],
+        })
+        record = state_nodes.get(fingerprint, {})
+        status = record.get("status")
+        if status not in {"completed", "passed", "failed"}:
+            record = {
+                "status": "pending",
+                "first_seen_at": record.get("first_seen_at") or now,
+                "last_seen_at": now,
+            }
+            state_nodes[fingerprint] = record
+            queue_nodes.append({
+                "node_id": fingerprint[:20],
+                "fingerprint": fingerprint,
+                "name": name,
+                "sources": entry["sources"],
+            })
+        else:
+            record["last_seen_at"] = now
+            state_nodes[fingerprint] = record
+
+    # Pending entries that disappeared from every source are cancelled, not tested.
+    for fingerprint, record in list(state_nodes.items()):
+        if fingerprint not in current_ids and record.get("status") == "pending":
+            record["status"] = "removed"
+            record["removed_at"] = now
+            state_nodes[fingerprint] = record
+
+    pool = {
+        "schema_version": 1,
+        "generated_at": now,
+        "proxies": proxies,
+        "nodes": manifest_nodes,
+    }
+    queue = {
+        "schema_version": 1,
+        "generated_at": now,
+        "nodes": queue_nodes,
+    }
+    next_state = {
+        "schema_version": 1,
+        "updated_at": now,
+        "nodes": state_nodes,
+    }
+    return pool, queue, next_state
