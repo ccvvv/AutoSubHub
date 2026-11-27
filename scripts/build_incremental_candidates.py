@@ -48,8 +48,11 @@ def atomic_json(path: Path, value: dict) -> None:
 
 
 def atomic_yaml(path: Path, value: dict) -> bytes:
-    raw = yaml.safe_dump(value, allow_unicode=True, sort_keys=False).encode("utf-8")
-    atomic_bytes(path, raw)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = path.with_suffix(path.suffix + ".tmp")
+    builder.write_yaml(str(temporary), value)
+    raw = temporary.read_bytes()
+    temporary.replace(path)
     return raw
 
 
