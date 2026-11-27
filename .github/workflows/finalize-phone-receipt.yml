@@ -57,6 +57,7 @@ jobs:
           echo "has_receipt=true" >> "${GITHUB_OUTPUT}"
 
       - name: Validate receipt and build final
+        id: finalize
         if: steps.receipt.outputs.has_receipt == 'true'
         env:
           MIN_SPEED_BPS: "200000"
@@ -66,7 +67,7 @@ jobs:
           python scripts/finalize_phone_receipt.py incoming/subscription.yaml incoming/manifest.json incoming/receipt.json incoming/final.yaml incoming/final-v2raytun.txt
 
       - name: Publish final versions without overwriting concurrent data
-        if: steps.receipt.outputs.has_receipt == 'true'
+        if: steps.receipt.outputs.has_receipt == 'true' && steps.finalize.outputs.has_final_nodes == 'true'
         run: |
           set -euo pipefail
           cd published
@@ -165,7 +166,7 @@ jobs:
             exit 1
           fi
       - name: Notify NodeLife after successful finalization
-        if: steps.receipt.outputs.has_receipt == 'true'
+        if: steps.receipt.outputs.has_receipt == 'true' && steps.finalize.outputs.has_final_nodes == 'true'
         uses: actions/github-script@v7
         env:
           LIFEDISPATCH_TOKEN: ${{ secrets.LIFEDISPATCH_TOKEN }}
