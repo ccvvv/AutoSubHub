@@ -183,11 +183,17 @@ def apply_completed_receipt(
     for node_id, fingerprint in by_id.items():
         item = result_by_id[node_id]
         record = state_nodes.get(fingerprint, {})
+        if record.get("status") == "completed":
+            prior_receipt = record.get("receipt_id")
+            if prior_receipt and prior_receipt != receipt_id:
+                raise ValueError("Node was already completed by a different receipt")
+            if record.get("result") and record.get("result") != item["status"]:
+                raise ValueError("Duplicate receipt conflicts with the recorded node result")
         record.update({
             "status": "completed",
             "result": item["status"],
-            "completed_at": now,
-            "receipt_id": receipt_id,
+            "completed_at": record.get("completed_at") or now,
+            "receipt_id": receipt_id or record.get("receipt_id"),
         })
         state_nodes[fingerprint] = record
     return {"schema_version": 1, "updated_at": now, "nodes": state_nodes}
