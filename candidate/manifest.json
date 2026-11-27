@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-27T22:01:24.960793+00:00",
-  "candidate_sha256": "ca5cc5fce3588df498d9360eaf8eecbd6f4602d3980ced72b4f4d27c8d72d5b3",
+  "generated_at": "2026-11-27T22:02:59.707685+00:00",
+  "candidate_sha256": "0de9a687b0f1652de8fcb27ca8d3cb65c4f5240e5d7b200f635e5a7b2b54adc3",
   "nodes": [
     {
       "node_id": "6349007e786452bf3af7",
@@ -12094,6 +12094,10 @@
     {
       "node_id": "731f83d3258d3a55f354",
       "name": "🇺🇸 United States, Chicago | 🌐 | [BL]-10"
+    },
+    {
+      "node_id": "05c16dd3e9fc1218cadf",
+      "name": "Canada_None_ss_1018"
     }
   ]
 }
