@@ -2277,8 +2277,8 @@
     },
     "90ccb33f10a54975f3e57b6dbda3bd58e17e3119ab4de4d26b459eadf4973a05": {
       "first_seen_at": "2026-11-23T14:47:35Z",
-      "last_seen_at": "2026-11-26T08:45:41Z",
-      "name": "🇹🇼 🇨🇳 台湾 | TWN 2 [普通]"
+      "last_seen_at": "2026-11-27T13:19:16Z",
+      "name": "🇹🇼TW_2|2.8MB/s [高速]"
     },
     "91037d355a46305fea265ab2cec4625e481973c22c8bc5ea8befd17adede2d06": {
       "first_seen_at": "2026-11-24T08:59:32Z",
@@ -2347,8 +2347,8 @@
     },
     "94e0f1abefe1670983f64fc9147e9ac6c4eb9989a1eda276fe05bb16495aa3ce": {
       "first_seen_at": "2026-11-26T21:51:19Z",
-      "last_seen_at": "2026-11-26T21:51:19Z",
-      "name": "🇺🇸US_125|610KB/s|R002-260618 [高速]"
+      "last_seen_at": "2026-11-27T13:19:16Z",
+      "name": "🇺🇸US_569|720KB/s|R002-260618 [高速]"
     },
     "952331d0be9a6243d7a829bef70dfa16ff06c8e9f45e5a5fc94d9051266255e9": {
       "first_seen_at": "2026-11-26T07:52:13Z",
@@ -2474,6 +2474,11 @@
       "first_seen_at": "2026-11-26T21:51:19Z",
       "last_seen_at": "2026-11-26T21:51:19Z",
       "name": "🇻🇳VN_4|510KB/s|K001-260618 [高速]"
+    },
+    "9e668fbde0ac4a5dfb387d48640291297f28e0ecbfd71337cb746840520d722b": {
+      "first_seen_at": "2026-11-27T13:19:16Z",
+      "last_seen_at": "2026-11-27T13:19:16Z",
+      "name": "🇹🇼 台湾3|@ripaojiedian [高速]"
     },
     "9f45414d33462a3364751422c1d29ef40642f7f40d91a2ba455411c810aa1214": {
       "first_seen_at": "2026-11-24T08:59:32Z",
@@ -3620,6 +3625,11 @@
       "last_seen_at": "2026-11-26T08:45:41Z",
       "name": "🇺🇸US_346|813KB/s|R002-260618 [高速]"
     },
+    "e8349316a36ac377e609b60df32f4b2929cd624d91a3de000fd79fd25c80087f": {
+      "first_seen_at": "2026-11-27T13:19:16Z",
+      "last_seen_at": "2026-11-27T13:19:16Z",
+      "name": "🇮🇹IT_30|1.5MB/s|M003-260806 [高速]"
+    },
     "e83e590e65c71eb35d188f2fefb4179ad4b8f56cbf310f5cddaa6b40000e5eda": {
       "first_seen_at": "2026-11-25T06:07:48Z",
       "last_seen_at": "2026-11-25T06:07:48Z",
@@ -3690,6 +3700,11 @@
       "last_seen_at": "2026-11-26T21:51:19Z",
       "name": "🇮🇪IE_3|2.6MB/s|K001-260618 [高速]"
     },
+    "ec5b708a7f8373ff895105a1d5cf5ce7aea7ae8dab226f5a36fccda211c3b6be": {
+      "first_seen_at": "2026-11-27T13:19:16Z",
+      "last_seen_at": "2026-11-27T13:19:16Z",
+      "name": "🇹🇼TW_3|5.1MB/s [高速]"
+    },
     "ec8136602aef02d137e81a4e44ee5a4a57fe8d8c0c247aff17ef963bf87dfb02": {
       "first_seen_at": "2026-11-23T14:47:35Z",
       "last_seen_at": "2026-11-24T07:34:09Z",
@@ -3717,8 +3732,8 @@
     },
     "edd8cba5a68e680d42fcd3becd32b3dd025dd7e2b8f2ade18ab6527d625dfa68": {
       "first_seen_at": "2026-11-23T14:47:35Z",
-      "last_seen_at": "2026-11-26T08:45:41Z",
-      "name": "🇹🇼 🇨🇳 台湾 | TWN 3 [高速]"
+      "last_seen_at": "2026-11-27T13:19:16Z",
+      "name": "🇹🇼TW_1|1.6MB/s [高速]"
     },
     "edefc1e55ed7f8a6e941917aea3378daf5fe6db683ce53a327f303097dacf7d4": {
       "first_seen_at": "2026-11-26T07:52:13Z",
@@ -3927,8 +3942,8 @@
     },
     "fa52015dee354d5f6e81d06edcb86773db51f484ede1b8eee6f876a07812f09f": {
       "first_seen_at": "2026-11-24T08:59:32Z",
-      "last_seen_at": "2026-11-26T21:51:19Z",
-      "name": "🇳🇱NL_113|862KB/s|R002-260618 [普通]"
+      "last_seen_at": "2026-11-27T13:19:16Z",
+      "name": "🇳🇱NL_166|2.1MB/s|R002-260618 [高速]"
     },
     "fa6667df59f15c865f3cbd0651b44f5ec1dedabbbc267719230474339b5c9539": {
       "first_seen_at": "2026-11-26T07:52:13Z",
@@ -4041,8 +4056,8 @@
       "name": "Igareck Node 046 | 🇺🇸 United States， Teterboro | [BL] [高速]"
     }
   },
-  "published_node_count": 145,
+  "published_node_count": 7,
   "schema_version": 1,
   "source": "final/latest.yaml",
-  "updated_at": "2026-11-27T02:22:25Z"
+  "updated_at": "2026-11-27T13:19:16Z"
 }
