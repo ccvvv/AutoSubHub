@@ -70,6 +70,7 @@ class SourceSnapshotTests(unittest.TestCase):
         a, _ = apply_source_response(None, "source-001", "https://feed.example/1", 200, [shared])
         b, _ = apply_source_response(None, "source-002", "https://feed.example/2", 200, [shared])
         pool1, _, state = reconcile_sources({"source-001": a, "source-002": b})
+        state["nodes"][node_fingerprint(shared)]["status"] = "completed"
         a_empty_replacement, _ = apply_source_response(a, "source-001", "https://feed.example/1",
                                                         200, [proxy("other", "other.example")])
         pool2, queue2, state2 = reconcile_sources(
