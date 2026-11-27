@@ -99,7 +99,21 @@ if receipt_count is not None and receipt_count != len(seen):
 
 final_nodes = [proxy_by_name[id_to_name[nid]] for nid in id_to_name if nid in passed_ids]
 if not final_nodes:
-    raise SystemExit("No phone-tested nodes met the minimum download speed; existing final versions remain untouched")
+    # A complete all-failed receipt is still valuable lifecycle data. Emit a
+    # harmless placeholder so the workflow can consume the receipt and mark
+    # every tested fingerprint completed, but explicitly skip final publication.
+    with open(out_path, "w", encoding="utf-8") as handle:
+        yaml.safe_dump({"proxies": [], "proxy-groups": [], "rules": []},
+                       handle, allow_unicode=True, sort_keys=False)
+    if len(sys.argv) > 5:
+        with open(sys.argv[5], "w", encoding="utf-8") as handle:
+            handle.write("")
+    output_path = os.getenv("GITHUB_OUTPUT")
+    if output_path:
+        with open(output_path, "a", encoding="utf-8") as handle:
+            handle.write("has_final_nodes=false\\n")
+    print("No node passed the publication gates; final/latest.yaml is preserved, but the complete receipt can be consumed.")
+    raise SystemExit(0)
 
 # Keep one subscription, with speed categories exposed as selectable proxy groups.
 high_nodes = []
@@ -232,6 +246,11 @@ def build_v2raytun_subscription(nodes):
 
 with open(out_path, "w", encoding="utf-8") as f:
     yaml.safe_dump(final_config, f, allow_unicode=True, sort_keys=False)
+
+output_path = os.getenv("GITHUB_OUTPUT")
+if output_path:
+    with open(output_path, "a", encoding="utf-8") as handle:
+        handle.write("has_final_nodes=true\\n")
 
 if len(sys.argv) > 5:
     v2ray_path = sys.argv[5]
