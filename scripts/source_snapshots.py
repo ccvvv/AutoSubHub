@@ -231,6 +231,7 @@ def reconcile_sources(
     manifest_nodes: list[dict[str, Any]] = []
     used_names: set[str] = set()
     queue_nodes: list[dict[str, Any]] = []
+    queue_proxies: list[dict[str, Any]] = []
     for fingerprint, entry in merged.items():
         proxy = dict(entry["proxy"])
         base_name = str(proxy["name"])
@@ -260,6 +261,7 @@ def reconcile_sources(
                 "last_seen_at": now,
             }
             state_nodes[fingerprint] = record
+            queue_proxies.append(dict(proxy))
             queue_nodes.append({
                 "node_id": fingerprint[:20],
                 "fingerprint": fingerprint,
@@ -286,6 +288,7 @@ def reconcile_sources(
     queue = {
         "schema_version": 1,
         "generated_at": now,
+        "proxies": queue_proxies,
         "nodes": queue_nodes,
     }
     next_state = {
