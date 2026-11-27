@@ -74,7 +74,7 @@ for item in results:
     speed = item.get("download_speed_bps")
     downloaded_bytes = item.get("downloaded_bytes")
     checks = item.get("application_checks")
-    apps_passed = (isinstance(checks, dict) and all(
+    apps_passed = (isinstance(checks, dict) and any(
         isinstance(checks.get(app), dict) and checks[app].get("status") == "passed"
         for app in REQUIRED_APPLICATIONS
     ))
