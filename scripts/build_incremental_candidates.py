@@ -143,8 +143,6 @@ def main() -> None:
         index, url = item
         source_id = f"source-{index:03d}"
         previous = old_snapshots.get(source_id)
-        if previous and previous.get("source_url_sha256") != url_fingerprint(url):
-            previous = None
         try:
             return ("ok", index, url, previous, fetch_one(index, url, cache, previous), None)
         except Exception as exc:
@@ -165,7 +163,7 @@ def main() -> None:
             rejected = tail[0] if tail else 0
             source_status[source_id] = {
                 "status": status, "node_count": len(snapshot["nodes"]),
-                "rejected_http": rejected,
+                "rejected_http": rejected, "configured_url_sha256": url_fingerprint(url),
             }
             if status == 200:
                 cache_changed = record_response(cache, url, status, headers) or cache_changed
@@ -176,6 +174,7 @@ def main() -> None:
                 "status": "missing", "node_count": 0,
                 "error": type(error).__name__,
                 "source_url_sha256": url_fingerprint(url),
+                "configured_url_sha256": url_fingerprint(url),
             }
             failures.append(source_id)
             print(f"{source_id}: initial fetch failed ({type(error).__name__}); no empty snapshot created")
@@ -184,6 +183,7 @@ def main() -> None:
         source_status[source_id] = {
             "status": "error", "node_count": len(previous.get("nodes", [])),
             "error": type(error).__name__,
+            "configured_url_sha256": url_fingerprint(url),
         }
         failures.append(source_id)
         print(f"{source_id}: fetch/parse failed; retained previous snapshot ({type(error).__name__})")
@@ -203,9 +203,10 @@ def main() -> None:
         "sources": [
             {
                 "source_id": f"source-{index:03d}",
-                "source_url_sha256": source_status.get(f"source-{index:03d}", {}).get(
-                    "source_url_sha256",
-                    fetched.get(f"source-{index:03d}", {}).get("source_url_sha256"),
+                "source_url_sha256": fetched.get(f"source-{index:03d}", {}).get("source_url_sha256"),
+                "configured_url_sha256": source_status.get(f"source-{index:03d}", {}).get(
+                    "configured_url_sha256",
+                    source_status.get(f"source-{index:03d}", {}).get("source_url_sha256"),
                 ),
                 "fetched_at": fetched.get(f"source-{index:03d}", {}).get("fetched_at"),
                 "checked_at": fetched.get(f"source-{index:03d}", {}).get("checked_at"),
