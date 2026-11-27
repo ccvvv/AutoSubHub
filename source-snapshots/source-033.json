@@ -1,0 +1,23 @@
+{
+  "checked_at": "2026-11-27T22:15:35.060457+00:00",
+  "etag": "W/\"fd01cac91da69a97ae6f3c1d4ca1881359ea9b1f00b41e4ef3a3fd6db6789ef1\"",
+  "fetched_at": "2026-11-27T22:15:35.060457+00:00",
+  "last_modified": null,
+  "last_status": 200,
+  "nodes": [
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知 VMESS-01 | free-nodes",
+      "port": 1,
+      "server": "192.0.2.1",
+      "skip-cert-verify": false,
+      "tls": false,
+      "type": "vmess",
+      "uuid": "6c6a0625-ac3f-4bd8-9cc8-0545e4e11409"
+    }
+  ],
+  "schema_version": 1,
+  "source_id": "source-033",
+  "source_url_sha256": "71d9c8e93cdb8be4ec42293a976bffafd1b7c4be891278f160b32ffa0f675162"
+}

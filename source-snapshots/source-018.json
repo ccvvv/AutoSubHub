@@ -1,0 +1,2918 @@
+{
+  "checked_at": "2026-11-27T22:15:34.226024+00:00",
+  "etag": "W/\"83b75ca166a3677860ee3d99102c6ede1435182005e49969d8fe73192c2f8605\"",
+  "fetched_at": "2026-11-27T22:15:34.226024+00:00",
+  "last_modified": null,
+  "last_status": 200,
+  "nodes": [
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知",
+      "network": "ws",
+      "port": 443,
+      "server": "82.139.242.5",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "db50a20e-7ff5-4e70-948f-17cc9ca7c154",
+      "ws-opts": {
+        "headers": {
+          "host": "renderer-stream-2-62.mirra.now"
+        },
+        "path": "/api/v1/gpu-stream/socket"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知2",
+      "network": "ws",
+      "port": 443,
+      "server": "153.52.92.43",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "2dd46701-dc47-5cad-997e-0a770090b178",
+      "ws-opts": {
+        "path": "/"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知3",
+      "network": "tcp",
+      "port": 56268,
+      "server": "fin-3.povrak.ir",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "2f203c0e-4533-4bab-a093-d30d97a95634"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知4",
+      "network": "tcp",
+      "port": 46763,
+      "server": "sub.niggaishere.ir",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "4f07dc53-a0df-4507-b308-899aad841601"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知5",
+      "network": "tcp",
+      "port": 52747,
+      "server": "185.19.33.179",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "9ef92204-8e0c-49e7-a1e9-a2209eaf6959"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知6",
+      "network": "tcp",
+      "port": 42812,
+      "server": "195.26.26.7",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "5e109cd6-e8b0-4957-a9bb-71aa68b56f6d"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知7",
+      "network": "ws",
+      "port": 80,
+      "server": "vmgr1-multi.multiserver-adelshoop.com",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "949572f3-2792-4615-adae-51368d0bb61b"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知8",
+      "network": "ws",
+      "port": 443,
+      "server": "yichueng.org",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "03fcc618-b93d-6796-6aed-8a38c975d581",
+      "ws-opts": {
+        "headers": {
+          "host": "yichueng.org"
+        },
+        "path": "linkvws"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知9",
+      "network": "ws",
+      "port": 443,
+      "server": "capellare.com",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "03fcc618-b93d-6796-6aed-8a38c975d581",
+      "ws-opts": {
+        "headers": {
+          "host": "capellare.com"
+        },
+        "path": "/linkvws"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知10",
+      "network": "ws",
+      "port": 443,
+      "server": "time.ir",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "last-update-time",
+      "ws-opts": {
+        "headers": {
+          "host": "time.ir"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "US",
+      "network": "tcp",
+      "port": 22324,
+      "server": "216.152.152.187",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "04621bae-ab36-11ec-b909-0242ac120002"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知11",
+      "network": "ws",
+      "port": 443,
+      "server": "www.gptcloudai.com",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "e70a5b70-f63c-4450-af8b-94990cdf80c0",
+      "ws-opts": {
+        "path": "/truth?TELEGRAM--B2Hub-B2Hub-B2Hub-B2Hub-B2Hub-B2Hub-B2Hub-B2Hub-B2Hub-B2Hub--TELEGRAM"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知12",
+      "network": "tcp",
+      "port": 443,
+      "server": "91.216.217.181",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "db392ddc-5ac9-459b-9ce3-6f6dc87b650e"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知13",
+      "network": "ws",
+      "port": 443,
+      "server": "siderail-production-fbfe.up.railway.app",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "a039c6ac-5e2f-4f7e-a79b-27582a8d61e0",
+      "ws-opts": {
+        "headers": {
+          "host": "siderail-production-fbfe.up.railway.app"
+        },
+        "path": "/api/IVSugr"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知14",
+      "network": "tcp",
+      "port": 27393,
+      "server": "13.140.90.123",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "923eab63-8c92-45ac-a15c-4acc4a9f244f"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知15",
+      "network": "tcp",
+      "port": 443,
+      "server": "de.zhuu-yufan.com",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "f38e591d-d13a-4c30-9763-6be3ad65f3ec"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知16",
+      "network": "ws",
+      "port": 443,
+      "server": "personalws22-production.up.railway.app",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "f5ddeb40-ec81-4af5-8689-f09e09b838a1",
+      "ws-opts": {
+        "headers": {
+          "host": "personalws22-production.up.railway.app"
+        },
+        "path": "/api/o1FLIq"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知17",
+      "network": "tcp",
+      "port": 3389,
+      "server": "139.59.24.215",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "9c050a86-d612-48f1-ec32-e573df08a1b7"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知18",
+      "network": "ws",
+      "port": 2083,
+      "server": "162.159.130.234",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "ac251237-576f-40c8-a543-554960c958b1",
+      "ws-opts": {
+        "headers": {
+          "host": "or3.sfacg.uk"
+        },
+        "path": "/or3"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知19",
+      "network": "ws",
+      "port": 443,
+      "server": "us122209.ssgreen.org",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "28eccbbd-c22b-4fec-88b3-4fcaf8718f84",
+      "ws-opts": {
+        "path": "/wes"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知20",
+      "network": "tcp",
+      "port": 56268,
+      "server": "fin-4.povrak.ir",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "0ba9969c-dcf0-44e4-96c6-ade3626a5f6c"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知21",
+      "network": "ws",
+      "port": 443,
+      "server": "178.248.75.57",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "db50a20e-7ff5-4e70-948f-17cc9ca7c154",
+      "ws-opts": {
+        "headers": {
+          "host": "renderer-stream-2-62.mirra.now"
+        },
+        "path": "/api/v1/gpu-stream/socket"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知22",
+      "network": "ws",
+      "port": 20222,
+      "server": "51.75.118.5",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "418ddc75-aa9c-4e5d-a9a3-82c50a5a02b6",
+      "ws-opts": {
+        "headers": {
+          "host": "51.75.118.5"
+        },
+        "path": "/parham-confing-vmess?ed=2048&u=kma_vqHvj6gOpirojyJf5Q85P44FJpu7NnnYnhYNtCuKI7Sh6QFdZRnkYjsy8E6dgcMq8nNoGA"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知23",
+      "network": "ws",
+      "port": 443,
+      "server": "Qmh49RE8c0DCqpFU.v.3dns.vip",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "260d52aa163546b5a6cca8a13462f0dd",
+      "ws-opts": {
+        "headers": {
+          "host": "Qmh49RE8c0DCqpFU.v.3dns.vip"
+        },
+        "path": "/ws-vmess"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知24",
+      "network": "tcp",
+      "port": 32153,
+      "server": "38.60.224.173",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "5cf1f470-3f70-4589-a2a4-4657ea3a1edf"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知25",
+      "network": "grpc",
+      "port": 2096,
+      "server": "ca.connfull.org",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "f2d7f0d2-9520-4d5c-9714-58cc138513a8"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "US2",
+      "network": "ws",
+      "port": 443,
+      "server": "rib9jxayoqjgn2kw.v.3dns.vip",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "9b31490d-190e-4ef1-af0a-7ccab3e7c3b5",
+      "ws-opts": {
+        "headers": {
+          "host": "Rib9JXAYoqjGN2KW.v.3dns.vip"
+        },
+        "path": "/ws-vmess"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知26",
+      "network": "ws",
+      "port": 443,
+      "server": "20.235.220.189",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "f23bb427c1f94373876c2f43e9f790f3",
+      "ws-opts": {
+        "headers": {
+          "host": "6JDvArazgU3qQR6Q.v.3dns.vip"
+        },
+        "path": "/ws-vmess"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "HK",
+      "network": "tcp",
+      "port": 29009,
+      "server": "366-1095.rabbitpro-in-3.com",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "e351d6d8-c167-3e07-8fda-3f2f4ec0760b"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知27",
+      "network": "tcp",
+      "port": 28966,
+      "server": "iran1.danqela.ir",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "9de7119b-c407-4677-955b-2679567c72c8"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知28",
+      "network": "ws",
+      "port": 443,
+      "server": "JP032011.ssgreen.org",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "aab7db8d-eed8-4f7c-94ef-5a6afb978c0f",
+      "ws-opts": {
+        "path": "/wes"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知29",
+      "network": "httpupgrade",
+      "port": 80,
+      "server": "cf1.blogboy.ir",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "7a1770a1-d8e7-4794-9646-835450d9f38a"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知30",
+      "network": "ws",
+      "port": 443,
+      "server": "rush-t2tvv.ceeopp.site",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "03fcc618-b93d-6796-6aed-8a38c975d581",
+      "ws-opts": {
+        "headers": {
+          "host": "rush-t2tvv.ceeopp.site"
+        },
+        "path": "/video/ke716z/7x219hzy.m3u8"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知31",
+      "network": "tcp",
+      "port": 80,
+      "server": "46.8.237.242",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "7d85828a-906b-43c4-8dc9-0785cd4801af"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知32",
+      "network": "tcp",
+      "port": 11556,
+      "server": "158.160.211.200",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "e2733dbc-1bc6-4835-b90a-447806f9efcd"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知33",
+      "network": "tcp",
+      "port": 22324,
+      "server": "216.106.187.60",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "04621bae-ab36-11ec-b909-0242ac120002"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知34",
+      "network": "tcp",
+      "port": 22821,
+      "server": "195.26.26.179",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "6f3885b5-6e47-420e-8ecb-ccae991b2521"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知35",
+      "network": "tcp",
+      "port": 44357,
+      "server": "206.1.100.161",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "b7feba46-9b15-4e99-935a-10093baf6739"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知36",
+      "network": "ws",
+      "port": 443,
+      "server": "dklietestyui-production.up.railway.app",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "50de15cf-c737-42f1-bbe5-6ad3ab433a07",
+      "ws-opts": {
+        "headers": {
+          "host": "dklietestyui-production.up.railway.app"
+        },
+        "path": "/api/oBQ3uf"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知37",
+      "network": "ws",
+      "port": 4056,
+      "server": "V2r.seervexo.ir",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "0b3be258-3456-444c-9ecb-2e77e62ef2e0",
+      "ws-opts": {
+        "path": "/"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知38",
+      "network": "tcp",
+      "port": 52897,
+      "server": "our.tune",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "1940fac2-2d1b-4330-aebd-69a29271688e"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知39",
+      "network": "ws",
+      "port": 443,
+      "server": "JP032009.ssgreen.org",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "3734800b-3191-470b-ac36-86b18e3a826e",
+      "ws-opts": {
+        "headers": {
+          "host": "JP032009.ssgreen.org"
+        },
+        "path": "/wes"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知40",
+      "network": "tcp",
+      "port": 2053,
+      "server": "5.252.26.23",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "0e00c2fb-fa06-4913-b3f8-8f71e805ad25"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "US3",
+      "network": "ws",
+      "port": 2086,
+      "server": "108.186.180.148",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "af24a0e4-f5a2-4b97-a678-992d45346147",
+      "ws-opts": {
+        "headers": {
+          "host": "www.bing.com"
+        },
+        "path": "af24a0e4-f5a2-4b97-a678-992d45346147-vm"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知41",
+      "network": "grpc",
+      "port": 2053,
+      "server": "speed.cloudflare.com",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "00fb7867-95ad-4eaf-99f1-22255beb6251"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知42",
+      "network": "ws",
+      "port": 40708,
+      "server": "170.239.86.176",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "53005ac8-eed1-4e32-8183-7152e099877a",
+      "ws-opts": {
+        "path": "/arki?ed=2048"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知43",
+      "network": "tcp",
+      "port": 47907,
+      "server": "212.224.88.117",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "dbbd9c3f-d4cf-48bb-8bb4-2912a04dc8d5"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "HK2",
+      "network": "ws",
+      "port": 443,
+      "server": "8.217.229.155",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "f23bb427-c1f9-4373-876c-2f43e9f790f3",
+      "ws-opts": {
+        "headers": {
+          "host": "qTKDR8jXE3wEFxJM.v.3dns.vip"
+        },
+        "path": "/ws-vmess"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "US4",
+      "network": "tcp",
+      "port": 10028,
+      "server": "us-nohessss.privnet.store",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "e7d4d923-c8f6-4b94-bf05-c5e07a83e2f6"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知44",
+      "network": "tcp",
+      "port": 5383,
+      "server": "dashboard.afrasoft.top",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "63a01857-93c1-490b-95f5-991bd79116c5"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知45",
+      "network": "tcp",
+      "port": 2086,
+      "server": "188.132.174.236",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "f6361af8-bb8f-4609-bf5d-3fc0f688f47b"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知46",
+      "network": "tcp",
+      "port": 9090,
+      "server": "alonipi.shadoww345.ir",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "36b80cff-dfc2-430c-8ed7-5799485cd588"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知47",
+      "network": "tcp",
+      "port": 2087,
+      "server": "ezdqguqp7faf.dop69.com",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "6b306661-93c7-4653-94d6-a8adb742b82f"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知48",
+      "network": "httpupgrade",
+      "port": 443,
+      "server": "94.237.124.252",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "3956b779-ff76-49e0-9076-9727a913eaa4"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知49",
+      "network": "tcp",
+      "port": 2083,
+      "server": "91.107.154.192",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "50788032-0e47-4c3d-97e7-513563f526b8"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知50",
+      "network": "tcp",
+      "port": 443,
+      "server": "de.zhou-yufan.com",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "f38e591d-d13a-4c30-9763-6be3ad65f3ec"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知51",
+      "network": "tcp",
+      "port": 55277,
+      "server": "fertest3.povrak.ir",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "5551d2e8-d3d4-42d2-95c8-fb780b4f6e6d"
+    },
+    {
+      "alterId": 0,
+      "cipher": "aes-256-gcm",
+      "name": "🇳🇿NZ新西兰 18.8MB/s",
+      "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=",
+      "port": 19999,
+      "server": "202.50.253.90",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "ss"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知52",
+      "network": "httpupgrade",
+      "port": 5071,
+      "server": "169.40.32.48",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "f54e93d1-cd8e-434f-8122-4887e62c97f5"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知53",
+      "network": "tcp",
+      "port": 2053,
+      "server": "fr.connfull.org",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "500e29aa-c40b-43e1-905c-e6e7ac4a5b83"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知54",
+      "network": "ws",
+      "port": 8443,
+      "server": "104.21.91.53",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "60441548-b68e-43b2-8191-e3b884be4b3c",
+      "ws-opts": {
+        "headers": {
+          "host": "v2ray1.dozapp.xyz"
+        },
+        "path": "/lMnsZUN4/"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知55",
+      "network": "ws",
+      "port": 8080,
+      "server": "185.143.232.178",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "fd26012b-e43b-4d6f-814f-c2c058e0d2eb",
+      "ws-opts": {
+        "headers": {
+          "host": "cdn.tr.one.nemava.com"
+        },
+        "path": "/s2BSpP6uUOPQ499phpYH87TsXl"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知56",
+      "network": "ws",
+      "port": 443,
+      "server": "cf.090227.xyz",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
+      "ws-opts": {
+        "headers": {
+          "host": "vmess.lbw666.dpdns.org"
+        },
+        "path": "/ws?ed=2048"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知57",
+      "network": "tcp",
+      "port": 2080,
+      "server": "ovhpok.goalir.co.uk",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "8e675427-4595-45a5-bab3-8a34598d741a"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知58",
+      "network": "httpupgrade",
+      "port": 8080,
+      "server": "172.66.44.97",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "4b9cee18-8a9c-45f2-be2b-8e585783c4b5"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知59",
+      "network": "tcp",
+      "port": 50011,
+      "server": "157.148.7.55",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "1b30f413-2865-4d40-9146-4207778718cd"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知60",
+      "network": "ws",
+      "port": 443,
+      "server": "104.17.26.211",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "c08d2444-cc3c-43ad-9a41-f5ea60f99293",
+      "ws-opts": {
+        "headers": {
+          "host": "wonbill.1565995.xyz"
+        },
+        "path": "/wonbill"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "US5",
+      "network": "ws",
+      "port": 443,
+      "server": "104.160.191.43",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "598395e6-f4e3-46fa-ba85-0a8e48c9d677",
+      "ws-opts": {
+        "headers": {
+          "host": "cg1c02.waimaojd.com"
+        },
+        "path": "/api/v1/graphql"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知61",
+      "network": "ws",
+      "port": 443,
+      "server": "185.92.74.108",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "db50a20e-7ff5-4e70-948f-17cc9ca7c154",
+      "ws-opts": {
+        "headers": {
+          "host": "renderer-stream-2-62.mirra.now"
+        },
+        "path": "/api/v1/gpu-stream/socket"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知62",
+      "network": "tcp",
+      "port": 33554,
+      "server": "195.26.26.74",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "b2619c4b-2f47-4464-8de9-bb0576be7687"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知63",
+      "network": "ws",
+      "port": 443,
+      "server": "34.175.202.195",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "db50a20e-7ff5-4e70-948f-17cc9ca7c154",
+      "ws-opts": {
+        "headers": {
+          "host": "renderer-stream-2-62.mirra.now"
+        },
+        "path": "/api/v1/gpu-stream/socket"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知64",
+      "network": "ws",
+      "port": 443,
+      "server": "172.64.229.21",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
+      "ws-opts": {
+        "headers": {
+          "host": "vmess.lbw666.dpdns.org"
+        },
+        "path": "/ws?ed=2048"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知65",
+      "network": "ws",
+      "port": 443,
+      "server": "5.39.249.167",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "db50a20e-7ff5-4e70-948f-17cc9ca7c154",
+      "ws-opts": {
+        "headers": {
+          "host": "renderer-stream-2-62.mirra.now"
+        },
+        "path": "/api/v1/gpu-stream/socket"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知66",
+      "network": "tcp",
+      "port": 4200,
+      "server": "aeli.orevix.ir",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "40052699-47f0-4815-9725-c1698d1b0648"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知67",
+      "network": "ws",
+      "port": 8443,
+      "server": "104.19.47.20",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "39135a39-e6ca-43df-a360-d859eea58d86",
+      "ws-opts": {
+        "headers": {
+          "host": "hk01.linkitnow.net"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知68",
+      "network": "ws",
+      "port": 2083,
+      "server": "104.16.0.1",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "ac251237-576f-40c8-a543-554960c958b1",
+      "ws-opts": {
+        "headers": {
+          "host": "or3.sfacg.uk"
+        },
+        "path": "/or3"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "US6",
+      "network": "tcp",
+      "port": 443,
+      "server": "165.140.217.56",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "b65a2d69-5634-42a2-e4be-54e8a6176900"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知69",
+      "network": "httpupgrade",
+      "port": 5060,
+      "server": "169.40.32.48",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "f54e93d1-cd8e-434f-8122-4887e62c97f5"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知70",
+      "network": "tcp",
+      "port": 5059,
+      "server": "economic.ip-static.com",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "8eadd43d-388c-4436-a9d7-c6a1c5fd9ddb"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知71",
+      "network": "ws",
+      "port": 443,
+      "server": "max.mankadmu.com",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "03fcc618-b93d-6796-6aed-8a38c975d581",
+      "ws-opts": {
+        "headers": {
+          "host": "max.mankadmu.com"
+        },
+        "path": "/linkvws"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知72",
+      "network": "ws",
+      "port": 443,
+      "server": "mot6fvb-production.up.railway.app",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "39020442-120b-417f-bb3f-4763f873b68d",
+      "ws-opts": {
+        "headers": {
+          "host": "mot6fvb-production.up.railway.app"
+        },
+        "path": "/api/8zfkVx"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "US7",
+      "network": "tcp",
+      "port": 58073,
+      "server": "104.237.250.91",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "233e0ae0-b143-4b6d-bf4c-fc12104a266c"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知73",
+      "network": "tcp",
+      "port": 5065,
+      "server": "economic.ip-static.com",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "8eadd43d-388c-4436-a9d7-c6a1c5fd9ddb"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知74",
+      "network": "ws",
+      "port": 14812,
+      "server": "130.94.93.63",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "777d0ead-970a-4144-b8aa-e3aaf3a621f6",
+      "ws-opts": {
+        "path": "/777d0ead"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知75",
+      "network": "ws",
+      "port": 2083,
+      "server": "162.159.135.234",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "ac251237-576f-40c8-a543-554960c958b1",
+      "ws-opts": {
+        "headers": {
+          "host": "or3.sfacg.uk"
+        },
+        "path": "/or3"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知76",
+      "network": "httpupgrade",
+      "port": 2052,
+      "server": "172.66.44.97",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "80c6a4e4-3b99-4ae8-9681-c24d551e444d"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知77",
+      "network": "ws",
+      "port": 443,
+      "server": "more678ij-production.up.railway.app",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "91c8ba1b-d0fe-4706-a958-2db8709931b2",
+      "ws-opts": {
+        "headers": {
+          "host": "more678ij-production.up.railway.app"
+        },
+        "path": "/api/-eXWZC"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知78",
+      "network": "ws",
+      "port": 443,
+      "server": "185.137.223.71",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "db50a20e-7ff5-4e70-948f-17cc9ca7c154",
+      "ws-opts": {
+        "headers": {
+          "host": "renderer-stream-2-62.mirra.now"
+        },
+        "path": "/api/v1/gpu-stream/socket"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知79",
+      "network": "ws",
+      "port": 443,
+      "server": "89.127.218.61",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "db50a20e-7ff5-4e70-948f-17cc9ca7c154",
+      "ws-opts": {
+        "headers": {
+          "host": "renderer-stream-2-62.mirra.now"
+        },
+        "path": "/api/v1/gpu-stream/socket"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知80",
+      "network": "tcp",
+      "port": 2000,
+      "server": "outside.feuma.ir",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "8e035cbe-3f02-4b64-8ba8-82cc05b83214"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知81",
+      "network": "ws",
+      "port": 443,
+      "server": "pMH11GC5OUVBikGm.v.3dns.vip",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "ba7f523686914da1b35c62ae7927a8dd",
+      "ws-opts": {
+        "headers": {
+          "host": "pMH11GC5OUVBikGm.v.3dns.vip"
+        },
+        "path": "/ws-vmess"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知82",
+      "network": "ws",
+      "port": 2082,
+      "server": "s10.tiiizshop.com",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "5aa3424e-b5c5-460c-bbf1-d6f6169d30f5",
+      "ws-opts": {
+        "path": "/"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知83",
+      "network": "ws",
+      "port": 443,
+      "server": "dgfrtryesdgff-production.up.railway.app",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "e28f9236-5301-44a8-bb16-3a8f99f3f169",
+      "ws-opts": {
+        "headers": {
+          "host": "dgfrtryesdgff-production.up.railway.app"
+        },
+        "path": "/api/W4VBcc"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知84",
+      "network": "tcp",
+      "port": 6060,
+      "server": "spiin.shadoww345.ir",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "36b80cff-dfc2-430c-8ed7-5799485cd588"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知85",
+      "network": "ws",
+      "port": 443,
+      "server": "nodejs.org",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "6b880b07-e952-4c0b-b4a3-6c9ac4cf9d3f",
+      "ws-opts": {
+        "headers": {
+          "host": "hdfy1c1.cpiforpersia.uk"
+        },
+        "path": "/QvtvPdDXXIlSdZMqnuxG"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知86",
+      "network": "ws",
+      "port": 443,
+      "server": "StreaMcORENODE8-aPilInkHub4-NetWeBGaTE.clOUdsYnC9.coM",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "dc598800-f4fa-46dd-abd4-218f1ba2f0b4",
+      "ws-opts": {
+        "headers": {
+          "host": "sTreamcoReNoDe8-APilInkHub4-nETWeBGaTE.cLOUdsYNc9.CoM"
+        },
+        "path": "/mU5O3LNBc0Byn1BgoYh8"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知87",
+      "network": "tcp",
+      "port": 2121,
+      "server": "tokien.mrmtn.xyz",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "29c4a3bd-9d8c-4ac3-b279-8b201560c227"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "TW",
+      "network": "ws",
+      "port": 443,
+      "server": "654168416355441.oylfmxz.cn",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "d90e4077-bc7e-414d-a650-70bf1baae4d6",
+      "ws-opts": {
+        "headers": {
+          "host": "654168416355441.oylfmxz.cn"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知88",
+      "network": "ws",
+      "port": 443,
+      "server": "fYIVBOhD2JXOA4ds.v.3dns.vip",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "5179c85ca942460e81e02bb711fd3e9c",
+      "ws-opts": {
+        "headers": {
+          "host": "fYIVBOhD2JXOA4ds.v.3dns.vip"
+        },
+        "path": "/ws-vmess"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知89",
+      "network": "tcp",
+      "port": 58413,
+      "server": "206.1.103.179",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "5d456b70-0c63-488e-b245-32f694854390"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知90",
+      "network": "tcp",
+      "port": 34204,
+      "server": "206.245.166.132",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "320f09d5-f8f7-4de5-9774-217ef1d2fdc5"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知91",
+      "network": "ws",
+      "port": 80,
+      "server": "leviko-kz9629.shopingggg.ir",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "567f4be5-12ab-42e1-b8d9-db6fd1fdd31c",
+      "ws-opts": {
+        "path": "/vmess/"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知92",
+      "network": "ws",
+      "port": 443,
+      "server": "sciffreredswa-production.up.railway.app",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "539a8666-f8e0-4987-a55c-59a23b370b9e",
+      "ws-opts": {
+        "headers": {
+          "host": "sciffreredswa-production.up.railway.app"
+        },
+        "path": "/api/qtRt1u"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知93",
+      "network": "tcp",
+      "port": 2086,
+      "server": "gr.qjcm.ir",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "43c7c028-4309-41c8-99f2-0896766615f1"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知94",
+      "network": "ws",
+      "port": 80,
+      "server": "151.101.193.57",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "b7dae211-7472-48bf-996c-57d6538d1ef4",
+      "ws-opts": {
+        "headers": {
+          "host": "Dbdjhiw72ebsu272hs519j.com"
+        },
+        "path": "ws/?ed=2048"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知95",
+      "network": "ws",
+      "port": 443,
+      "server": "mkioy789j-production.up.railway.app",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "2165a15c-53f2-4b70-bb63-d188c8c71f2d",
+      "ws-opts": {
+        "headers": {
+          "host": "mkioy789j-production.up.railway.app"
+        },
+        "path": "/api/aVM5qj"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "US8",
+      "network": "xhttp",
+      "port": 443,
+      "server": "nice.iranapplecenter.com",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "6ba68c69-e108-502d-7b1c-e806fbc3cccd"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知96",
+      "network": "httpupgrade",
+      "port": 80,
+      "server": "US.1.diginoisb.ir",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "abf65df7-1456-49c5-a3a5-e07a260d7d32"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知97",
+      "network": "tcp",
+      "port": 64628,
+      "server": "vpnhub.armanspeed.ir",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "38915005-5fe4-486e-b10b-be29f1d9ada2"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知98",
+      "network": "tcp",
+      "port": 30553,
+      "server": "109.70.74.113",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "0490055e-41b4-4deb-a171-c8ec5c31cd46"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "HK3",
+      "network": "tcp",
+      "port": 55216,
+      "server": "206.237.20.44",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "154dbc39-0921-cf11-29bd-156c5000d763"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知99",
+      "network": "ws",
+      "port": 2083,
+      "server": "cdn.sfacg.uk",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "ac251237-576f-40c8-a543-554960c958b1",
+      "ws-opts": {
+        "headers": {
+          "host": "or3.sfacg.uk"
+        },
+        "path": "/or3"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知100",
+      "network": "xhttp",
+      "port": 31568,
+      "server": "nsmartdns.ariprivateservice.ir",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "fff7ac0a-dcce-4fa9-9f01-412e4eda59ea"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知101",
+      "network": "tcp",
+      "port": 443,
+      "server": "vizonetvip.rarqilo.ir",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "d10f3eb1-2b08-4970-9a88-7ba9b42eb317"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知102",
+      "network": "ws",
+      "port": 80,
+      "server": "45.15.170.237",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "820d4b4f-3357-4dc7-9381-6e5fd52b5f39",
+      "ws-opts": {
+        "headers": {
+          "host": "pelang.org"
+        },
+        "path": "/vmess/"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知103",
+      "network": "tcp",
+      "port": 54738,
+      "server": "109.70.74.94",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "23c23e75-4a68-48ec-89db-bc3d45fa0351"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知104",
+      "network": "tcp",
+      "port": 2086,
+      "server": "nll.qjcm.ir",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "5ee10130-8810-44e1-bc3c-36a34ba9e121"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知105",
+      "network": "ws",
+      "port": 10086,
+      "server": "39.108.113.127",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "2b910c43-51e3-4b15-9be8-b658106ba35e"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知106",
+      "network": "ws",
+      "port": 443,
+      "server": "node.socks5.kdns.fr",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "e1ed0569-bfe4-468f-aa9a-63819e8229ef",
+      "ws-opts": {
+        "headers": {
+          "host": "chest-own-llp-collections.trycloudflare.com"
+        },
+        "path": "/e1ed0569-bfe4-468f-aa9a-63819e8229ef-vm"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知107",
+      "network": "ws",
+      "port": 443,
+      "server": "ezraeilking445-production.up.railway.app",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "e7a0ff04-010f-42e7-b257-c64a2a9bd6b5",
+      "ws-opts": {
+        "headers": {
+          "host": "ezraeilking445-production.up.railway.app"
+        },
+        "path": "/gw/b8cd6416-ae90-4b5f-bb98-72d7df659625?ed=2560"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知108",
+      "network": "ws",
+      "port": 443,
+      "server": "wwww.speedtest.org",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "80be2deb-3b27-4775-9bd1-7f2a2b9c261b",
+      "ws-opts": {
+        "headers": {
+          "host": "www.windowsmsidownloads.com"
+        },
+        "path": "/truth"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知109",
+      "network": "ws",
+      "port": 2021,
+      "server": "image.colorviolet.ir",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "6b8dbc66-ea40-444a-b93d-cb20c008af10",
+      "ws-opts": {
+        "path": "/"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "US9",
+      "network": "ws",
+      "port": 443,
+      "server": "173.249.198.111",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "XEXEVIL",
+      "ws-opts": {
+        "path": "/tel=@VPNine1"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知110",
+      "network": "tcp",
+      "port": 56268,
+      "server": "13.140.91.129",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "d7b9fe42-6116-466e-b0b5-bd83ff827a91"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "US10",
+      "network": "ws",
+      "port": 28167,
+      "server": "142.171.48.179",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "273695bd-c2fb-4c54-9477-4b702a606242",
+      "ws-opts": {
+        "headers": {
+          "host": "gw.alicdn.com"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知111",
+      "network": "tcp",
+      "port": 10086,
+      "server": "192.228.145.118",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "b831381d-6324-4d53-ad4f-8cda48b30811"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知112",
+      "network": "ws",
+      "port": 80,
+      "server": "104.21.228.40",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "7022982f-da4c-48c9-c660-b2315abdcf7e",
+      "ws-opts": {
+        "headers": {
+          "host": "a.prapt4.ir"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知113",
+      "network": "tcp",
+      "port": 2083,
+      "server": "31.184.244.163",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "e4769292-66a6-45f7-be3a-1ebbdb7f8448"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知114",
+      "network": "tcp",
+      "port": 56080,
+      "server": "45.144.48.32",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "f4daaec7-0e1e-4c8e-97e8-cff5347c2dae"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知115",
+      "network": "tcp",
+      "port": 13829,
+      "server": "206.1.100.161",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "b7feba46-9b15-4e99-935a-10093baf6739"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知116",
+      "network": "ws",
+      "port": 443,
+      "server": "AUSbEb7vTjqR13wy.v.3dns.vip",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "545a503ba94849b38105e6a0fbc493e8",
+      "ws-opts": {
+        "headers": {
+          "host": "AUSbEb7vTjqR13wy.v.3dns.vip"
+        },
+        "path": "/ws-vmess"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知117",
+      "network": "tcp",
+      "port": 24336,
+      "server": "fera4.povrak.ir",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "481074b2-ad8e-4c3f-bb75-b5d3b3d64559"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知118",
+      "network": "tcp",
+      "port": 45002,
+      "server": "91.107.153.232",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "518814fb-79a7-4e6f-ae8a-ab5bf0e77381"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知119",
+      "network": "httpupgrade",
+      "port": 8080,
+      "server": "connecto3.kolman.com.de",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "5190813e-35e1-45dc-b915-189ab4bf46bf"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "US11",
+      "network": "tcp",
+      "port": 8881,
+      "server": "108.61.205.144",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "db5afae4-ac23-41a6-8378-f307a9a47436"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知120",
+      "network": "tcp",
+      "port": 41797,
+      "server": "gtgrtgg.vurneq.ir",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "b31c579c-fede-421d-8361-fd84405ec4c2"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知121",
+      "network": "ws",
+      "port": 443,
+      "server": "kfldderwefcf-production.up.railway.app",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "4c26228c-a8f4-439a-b202-33d2babe3e57",
+      "ws-opts": {
+        "headers": {
+          "host": "kfldderwefcf-production.up.railway.app"
+        },
+        "path": "/api/ZefLcr"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知122",
+      "network": "ws",
+      "port": 443,
+      "server": "37.220.161.247",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "27653b37-603c-4c90-b1f5-25c4d23f8932",
+      "ws-opts": {
+        "headers": {
+          "host": "renderer-stream-2-129.mirra.now"
+        },
+        "path": "/api/v1/gpu-stream/socket"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知123",
+      "network": "tcp",
+      "port": 9443,
+      "server": "sefr.ishizaki.ir",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "1e8aa5e5-78e1-41d0-9f33-cd04286b8a5c"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知124",
+      "network": "tcp",
+      "port": 15834,
+      "server": "20.193.153.19",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "39a8c374-76b1-4e90-ab85-85cd9a42ded2"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知125",
+      "network": "ws",
+      "port": 8080,
+      "server": "srv8.seo-link.ir",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "e4f17f20-49a1-43b3-83fc-29b2ed37055a",
+      "ws-opts": {
+        "headers": {
+          "host": "srv8.seo-link.ir"
+        },
+        "path": "/vmess-notls-45ba89830086"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "US12",
+      "network": "ws",
+      "port": 80,
+      "server": "us-23.hihu.net",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "8a9aaa70-ced9-11f1-b934-205c6d5f5d78",
+      "ws-opts": {
+        "path": "/870ao26f"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知126",
+      "network": "ws",
+      "port": 443,
+      "server": "web-production-0392e.up.railway.app",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "e4ea74dd-2663-43a1-b843-14443cf70ddb",
+      "ws-opts": {
+        "headers": {
+          "host": "web-production-0392e.up.railway.app"
+        },
+        "path": "/vm-ws"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知127",
+      "network": "tcp",
+      "port": 2096,
+      "server": "free.diginoisb.ir",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "a3a02846-fc3d-461a-8cf5-69bd9fa958db"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知128",
+      "network": "ws",
+      "port": 8080,
+      "server": "shahinnet-freenetcdn.melodyshopone2.ir",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "96588912-3bcb-491c-8ce3-7a965bbec07f",
+      "ws-opts": {
+        "headers": {
+          "host": "sog.shahinnet.shop"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "US13",
+      "network": "ws",
+      "port": 443,
+      "server": "d3cdy6viklzpq1.cloudfront.net",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "4da05f36-7918-488e-b07e-808e4992cee0",
+      "ws-opts": {
+        "headers": {
+          "host": "d3cdy6viklzpq1.cloudfront.net"
+        },
+        "path": "/vmess"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知129",
+      "network": "ws",
+      "port": 2082,
+      "server": "tun1.warzhost.ir",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "c6685dbb-ded3-4c3c-b2c5-f631892a3fe6",
+      "ws-opts": {
+        "headers": {
+          "host": "play.google.com"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知130",
+      "network": "grpc",
+      "port": 2053,
+      "server": "www.speedtest.net",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "00fb7867-95ad-4eaf-99f1-22255beb6251"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知131",
+      "network": "ws",
+      "port": 2083,
+      "server": "104.16.61.8",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "05641cf5-58d2-4ba4-a9f1-b3cda0b1fb1d",
+      "ws-opts": {
+        "headers": {
+          "host": "6ba6-sound-6ba6.siliy37818.workers.dev"
+        },
+        "path": "/obdii.cfd/linkws"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知132",
+      "network": "ws",
+      "port": 443,
+      "server": "ertyuioiuyhb-production.up.railway.app",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "9f509453-c192-409f-beb3-4b87e0dfc387",
+      "ws-opts": {
+        "headers": {
+          "host": "ertyuioiuyhb-production.up.railway.app"
+        },
+        "path": "/api/QZ0m_J"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "HK4",
+      "network": "ws",
+      "port": 443,
+      "server": "47.243.92.155",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "f23bb427-c1f9-4373-876c-2f43e9f790f3",
+      "ws-opts": {
+        "headers": {
+          "host": "mTCKUNDiGePwU3uP.v.3dns.vip"
+        },
+        "path": "/ws-vmess"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知133",
+      "network": "ws",
+      "port": 443,
+      "server": "108.165.236.142",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "db50a20e-7ff5-4e70-948f-17cc9ca7c154",
+      "ws-opts": {
+        "headers": {
+          "host": "renderer-stream-2-62.mirra.now"
+        },
+        "path": "/api/v1/gpu-stream/socket"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知134",
+      "network": "tcp",
+      "port": 22324,
+      "server": "158.51.121.63",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "04621bae-ab36-11ec-b909-0242ac120002"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知135",
+      "network": "tcp",
+      "port": 30621,
+      "server": "185.19.33.102",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "cb316949-07c2-4c49-b03c-4d4011b96c74"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "US14",
+      "network": "tcp",
+      "port": 1270,
+      "server": "38.68.135.131",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "5c040f1d-45db-43bd-8d46-e4950e433735"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "US15",
+      "network": "tcp",
+      "port": 10086,
+      "server": "107.172.75.141",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "e02c67a8-d769-4d73-833a-ab6acdb86e6e"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知136",
+      "network": "tcp",
+      "port": 2083,
+      "server": "93.114.98.221",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "552ca1e2-d1d4-4d9d-b0ea-9fabd287ad14"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知137",
+      "network": "tcp",
+      "port": 8443,
+      "server": "sr-vip6.arwandping.com",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "e49eb540-0e7f-4072-909a-4305b5fde5c1"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知138",
+      "network": "ws",
+      "port": 2007,
+      "server": "login.datagrid.cl",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "telegram-ID-conf0088",
+      "ws-opts": {
+        "path": "/"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "US16",
+      "network": "ws",
+      "port": 8443,
+      "server": "www.nextkyc.com",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "60441548-b68e-43b2-8191-e3b884be4b3c",
+      "ws-opts": {
+        "headers": {
+          "host": "v2ray1.dozapp.xyz"
+        },
+        "path": "/lMnsZUN4/"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知139",
+      "network": "tcp",
+      "port": 1270,
+      "server": "151.241.19.44",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "5c040f1d-45db-43bd-8d46-e4950e433735"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知140",
+      "network": "ws",
+      "port": 2083,
+      "server": "172.67.77.76",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "ac251237-576f-40c8-a543-554960c958b1",
+      "ws-opts": {
+        "headers": {
+          "host": "or.521166.xyz"
+        },
+        "path": "/or3"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知141",
+      "network": "ws",
+      "port": 49667,
+      "server": "118.193.57.167",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "d46bf492-45f4-4c33-82d1-ea2a1cb54eb6",
+      "ws-opts": {
+        "path": "/d46bf492"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知142",
+      "network": "ws",
+      "port": 443,
+      "server": "104.20.77.131",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "91a4ed1f-f693-4685-a6be-f0981d6f2613",
+      "ws-opts": {
+        "headers": {
+          "host": "tree.blanku.me"
+        },
+        "path": "/wss28885"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知143",
+      "network": "ws",
+      "port": 443,
+      "server": "64.188.82.159",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "db50a20e-7ff5-4e70-948f-17cc9ca7c154",
+      "ws-opts": {
+        "headers": {
+          "host": "renderer-stream-2-62.mirra.now"
+        },
+        "path": "/api/v1/gpu-stream/socket"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知144",
+      "network": "tcp",
+      "port": 36393,
+      "server": "gerall-1.povrak.ir",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "29301b30-3e0b-419e-9153-2737195d8824"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知145",
+      "network": "ws",
+      "port": 80,
+      "server": "57.128.164.21",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "10029c03-5d2f-4185-aab2-cbf91eef7361",
+      "ws-opts": {
+        "headers": {
+          "host": "https.http.www.net.com.ramseyv2.ir."
+        },
+        "path": "/d3d3LmlyYW5ob3N0LmNvbQ=="
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "US17",
+      "network": "tcp",
+      "port": 8880,
+      "server": "mahdipoktstm.iranfilm.space",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "bb6e2be0-5dd8-419c-acf2-8ac378ca4646"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知146",
+      "network": "ws",
+      "port": 443,
+      "server": "US032011.westmgreen.com",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "6375cb87-42e5-40ab-b381-204432dca7b5",
+      "ws-opts": {
+        "headers": {
+          "host": "US032011.westmgreen.com"
+        },
+        "path": "/wes"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知147",
+      "network": "tcp",
+      "port": 1070,
+      "server": "193.24.120.6",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "098f7482-7e4d-4395-92a9-c57584af9154"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知148",
+      "network": "tcp",
+      "port": 44580,
+      "server": "94.184.17.130",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "03508b01-f824-43d9-993f-cc491664ab2e"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知149",
+      "network": "tcp",
+      "port": 1015,
+      "server": "176.120.17.21",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "358679fb-5d9f-4ac2-b0b2-47e6593a11d8"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知150",
+      "network": "tcp",
+      "port": 46466,
+      "server": "153.52.92.43",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "@Nitro_Skybot"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知151",
+      "network": "ws",
+      "port": 80,
+      "server": "104.16.219.108",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "441da342-ce90-441e-bff9-d2ceb55e68ca",
+      "ws-opts": {
+        "headers": {
+          "host": "rubika.ir.google.com.xn--cr8haaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.xn--cr8haaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.aparat.com.V2ray.com.shf2.ir.xn--cr8haaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.xn--g28h.dns-dynamic.net."
+        },
+        "path": "/Telegram/XV2ray"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知152",
+      "network": "tcp",
+      "port": 1718,
+      "server": "conjoro90.yellowsky.ir",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "60408b38-7e91-417d-9652-fa739c4472ac"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知153",
+      "network": "ws",
+      "port": 443,
+      "server": "HN1XXWdhVZiVJLpD.v.3dns.vip",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "185229d401c34fc988127db14324c98b",
+      "ws-opts": {
+        "headers": {
+          "host": "HN1XXWdhVZiVJLpD.v.3dns.vip"
+        },
+        "path": "/ws-vmess"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知154",
+      "network": "ws",
+      "port": 443,
+      "server": "TsfZhJMBVTaKzhVE.v.3dns.vip",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "75f02dc9df7042a084bfd303537ae3e3",
+      "ws-opts": {
+        "headers": {
+          "host": "TsfZhJMBVTaKzhVE.v.3dns.vip"
+        },
+        "path": "/ws-vmess"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知155",
+      "network": "ws",
+      "port": 443,
+      "server": "168.100.9.81",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "db50a20e-7ff5-4e70-948f-17cc9ca7c154",
+      "ws-opts": {
+        "headers": {
+          "host": "renderer-stream-2-62.mirra.now"
+        },
+        "path": "/api/v1/gpu-stream/socket"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知156",
+      "network": "ws",
+      "port": 443,
+      "server": "US122208.ssgreen.org",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "3abc6739-0b3a-40f4-a428-917d33619764",
+      "ws-opts": {
+        "path": "/wes"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知157",
+      "network": "tcp",
+      "port": 19829,
+      "server": "109.70.74.217",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "0faa5919-03d3-4393-b056-3ccc35f2e3fc"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知158",
+      "network": "ws",
+      "port": 443,
+      "server": "de.connfull.org",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "2131c089-4af5-4354-b01d-d833bbd06d0b",
+      "ws-opts": {
+        "path": "/api/v1/connect"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知159",
+      "network": "ws",
+      "port": 443,
+      "server": "104.19.166.218",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "a9f9a249-1832-424c-9820-57af75107acc",
+      "ws-opts": {
+        "headers": {
+          "host": "assumption-universities-weekend-litigation.trycloudflare.com"
+        },
+        "path": "/ferdolans7"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知160",
+      "network": "ws",
+      "port": 443,
+      "server": "gov.uk",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "77848824-93b7-4b89-ffd0-e91afff406ce",
+      "ws-opts": {
+        "headers": {
+          "host": "zheshiscp.com"
+        },
+        "path": "/77848824"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知161",
+      "network": "httpupgrade",
+      "port": 443,
+      "server": "www.speedtest.net",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "c8b3fd38-cb60-434c-bd7e-63638226f4a8"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "HK5",
+      "network": "ws",
+      "port": 443,
+      "server": "47.76.137.85",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "f23bb427c1f94373876c2f43e9f790f3",
+      "ws-opts": {
+        "headers": {
+          "host": "I2PSm3Knof5qjjix.v.3dns.vip"
+        },
+        "path": "/ws-vmess"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知162",
+      "network": "httpupgrade",
+      "port": 80,
+      "server": "free2.rajaserver2.web.id",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "4d4708ef-0729-44ac-b2b0-411ce0242e89"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知163",
+      "network": "tcp",
+      "port": 38320,
+      "server": "124.151.45.60",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "d643d6ea-2e48-4ad5-b96e-d11b889cc6a6"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "US18",
+      "network": "tcp",
+      "port": 16176,
+      "server": "Fast.jexmuk.ir",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "b28bfd04-0b91-4bfb-ab88-4d5c33fd1131"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "US19",
+      "network": "tcp",
+      "port": 8881,
+      "server": "155.138.164.71",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "db5afae4-ac23-41a6-8378-f307a9a47436"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "US20",
+      "network": "ws",
+      "port": 8443,
+      "server": "188.114.99.137",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "60441548-b68e-43b2-8191-e3b884be4b3c",
+      "ws-opts": {
+        "headers": {
+          "host": "v2ray1.dozapp.xyz"
+        },
+        "path": "/lMnsZUN4/"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知164",
+      "network": "tcp",
+      "port": 1270,
+      "server": "149.22.91.20",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "5c040f1d-45db-43bd-8d46-e4950e433735"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "US21",
+      "network": "tcp",
+      "port": 1270,
+      "server": "169.197.142.68",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "5c040f1d-45db-43bd-8d46-e4950e433735"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知165",
+      "network": "tcp",
+      "port": 41274,
+      "server": "206.1.99.36",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "1c1c7dc2-6966-4171-979a-fbd569a15e34"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知166",
+      "network": "xhttp",
+      "port": 27361,
+      "server": "194.146.68.109",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "f393d9f5-9d92-4b07-8728-d2edf2a5dbf5"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知167",
+      "network": "tcp",
+      "port": 2026,
+      "server": "alonipi.shadoww345.ir",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "36b80cff-dfc2-430c-8ed7-5799485cd588"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知168",
+      "network": "tcp",
+      "port": 5009,
+      "server": "economic.ip-static.com",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "8eadd43d-388c-4436-a9d7-c6a1c5fd9ddb"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知169",
+      "network": "tcp",
+      "port": 1270,
+      "server": "leviko-at1137.shopingggg.ir",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "5c040f1d-45db-43bd-8d46-e4950e433735"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知170",
+      "network": "ws",
+      "port": 8880,
+      "server": "s7.tiiizshop.com",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "bc7c3ef8-e853-469c-8feb-6b2d88576957",
+      "ws-opts": {
+        "path": "/"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知171",
+      "network": "tcp",
+      "port": 20250,
+      "server": "51.83.6.5",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "de883d6d-4099-41bc-ba86-82ffed64a380"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "未知172",
+      "network": "tcp",
+      "port": 41925,
+      "server": "109.248.162.194",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vmess",
+      "uuid": "bd9b9eb5-2b21-4303-8bdb-21c6e71663fe"
+    }
+  ],
+  "schema_version": 1,
+  "source_id": "source-018",
+  "source_url_sha256": "4ec5b6be165b6e540cd2fb7380269f41fa55e36e71ecc52d0f3892ae993ac7b6"
+}

@@ -1,0 +1,1490 @@
+{
+  "checked_at": "2026-11-27T22:15:33.505241+00:00",
+  "etag": "W/\"b41a2c1f79d1a7002c8e683da4fb674b7bde14cb12cf47b72fb5f98a8367a631\"",
+  "fetched_at": "2026-11-27T22:15:33.505241+00:00",
+  "last_modified": null,
+  "last_status": 200,
+  "nodes": [
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "🇦🇺 Australia, Sydney | [BL]",
+      "password": "a937938b4fbffbdc3257d83e9d68cb2baf3cb65400d9ca3f",
+      "port": 443,
+      "server": "australia.astroapps.io",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "🇦🇺 Australia, Sydney | [BL]",
+      "password": "a937938b4fbffbdc3257d83e9d68cb2baf3cb65400d9ca3f",
+      "port": 443,
+      "server": "australia.astroapps.io",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "🇧🇪 Belgium, Zaventem | [BL]",
+      "password": "c40d60d1c847e63098058c7524680f349c9042f932d8e79c",
+      "port": 443,
+      "server": "belgium.astroapps.io",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "🇧🇪 Belgium, Zaventem | [BL]",
+      "password": "c40d60d1c847e63098058c7524680f349c9042f932d8e79c",
+      "port": 443,
+      "server": "belgium.astroapps.io",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "🇧🇪 Belgium, Zaventem | [BL]",
+      "password": "c40d60d1c847e63098058c7524680f349c9042f932d8e79c",
+      "port": 443,
+      "server": "belgium.astroapps.io",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "🇧🇬 Bulgaria, Sofia | [BL]",
+      "password": "5acf789dd7c2bf40a670a342800eff57003c2b164c3c8f53",
+      "port": 443,
+      "server": "bulgaria.astroapps.io",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "🇩🇰 Denmark, Copenhagen | [BL]",
+      "password": "c917b96e084ea67a0f21031f1284f9ee9e1d837321ce6362",
+      "port": 443,
+      "server": "denmark.astroapps.io",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "🇩🇰 Denmark, Copenhagen | [BL]",
+      "password": "c917b96e084ea67a0f21031f1284f9ee9e1d837321ce6362",
+      "port": 443,
+      "server": "denmark.astroapps.io",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "🇪🇪 Estonia, Tallinn | [BL]",
+      "password": "104243d8a410f4e54013b7fdb57c4b688d929c7b5b89e86b",
+      "port": 443,
+      "server": "estonia.astroapps.io",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "🇪🇪 Estonia, Tallinn | [BL]",
+      "password": "104243d8a410f4e54013b7fdb57c4b688d929c7b5b89e86b",
+      "port": 443,
+      "server": "estonia.astroapps.io",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "🇫🇮 Finland, Helsinki | [BL]",
+      "password": "1c57654308df6d9b93b2bf749dd9f21ed7355aab8fd7ffbb",
+      "port": 443,
+      "server": "finland.astroapps.io",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "🇫🇮 Finland, Helsinki | [BL]",
+      "password": "1c57654308df6d9b93b2bf749dd9f21ed7355aab8fd7ffbb",
+      "port": 443,
+      "server": "finland.astroapps.io",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "🇭🇰 Hong Kong, Hong Kong | [BL]",
+      "password": "f8256fdf607a8015a02b46df1563c2f35ebaff0d56f2923a",
+      "port": 443,
+      "server": "hongkong.astroapps.io",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "🇭🇰 Hong Kong, Hong Kong | [BL]",
+      "password": "f8256fdf607a8015a02b46df1563c2f35ebaff0d56f2923a",
+      "port": 443,
+      "server": "hongkong.astroapps.io",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "🇭🇰 Hong Kong, Hong Kong | [BL]",
+      "password": "f8256fdf607a8015a02b46df1563c2f35ebaff0d56f2923a",
+      "port": 443,
+      "server": "hongkong.astroapps.io",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "🇮🇳 India, Mumbai | 🌐 | [BL]",
+      "password": "806a291d6fa98489025802ae1285df63811ed499011dcf35",
+      "port": 443,
+      "server": "india.astroapps.io",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "🇮🇳 India, Mumbai | 🌐 | [BL]",
+      "password": "806a291d6fa98489025802ae1285df63811ed499011dcf35",
+      "port": 443,
+      "server": "india.astroapps.io",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "🇮🇹 Italy, Milan | [BL]",
+      "password": "034b5d9404b79a2df62fcb77a49cf748306765448d8b5e93",
+      "port": 443,
+      "server": "italy.astroapps.io",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "🇮🇹 Italy, Milan | [BL]",
+      "password": "034b5d9404b79a2df62fcb77a49cf748306765448d8b5e93",
+      "port": 443,
+      "server": "italy.astroapps.io",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": ".𖥔 ݁ ˖ִ🛸༄˖°. | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "104.17.136.198",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
+      "ws-opts": {
+        "headers": {
+          "Host": "vmess.lbw666.dpdns.org"
+        },
+        "path": "/ws?ed=2048"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇨🇳 China, Shenzhen | [BL]",
+      "network": "ws",
+      "port": 10086,
+      "server": "39.108.113.127",
+      "type": "vmess",
+      "udp": true,
+      "uuid": "ce4d0652-11f8-4531-9c59-98ceaef8fd86",
+      "ws-opts": {
+        "path": "/"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇸🇬 Singapore, Eunos | [BL]",
+      "port": 10086,
+      "server": "195.133.135.238",
+      "type": "vmess",
+      "udp": true,
+      "uuid": "b831381d-6324-4d53-ad4f-8cda48b30811"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇺🇸 United States, Chicago | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "172.67.152.183",
+      "servername": "vmess.lbw666.dpdns.org",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
+      "ws-opts": {
+        "path": "/ws?ed=2048"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇺🇸 United States, Chicago | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "172.67.152.183",
+      "servername": "vmess.lbw666.dpdns.org",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
+      "ws-opts": {
+        "headers": {
+          "Host": "vmess.lbw666.dpdns.org"
+        },
+        "path": "/ws"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇺🇸 United States, Chicago | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "172.64.229.21",
+      "servername": "vmess.lbw666.dpdns.org",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
+      "ws-opts": {
+        "path": "/ws?ed=2048"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇺🇸 United States, Chicago | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "172.66.0.1",
+      "servername": "vmess.lbw666.dpdns.org",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
+      "ws-opts": {
+        "headers": {
+          "Host": "vmess.lbw666.dpdns.org"
+        },
+        "path": "/ws"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇺🇸 United States, Chicago | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "cf.877771.xyz",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
+      "ws-opts": {
+        "headers": {
+          "Host": "vmess.lbw666.dpdns.org"
+        },
+        "path": "/ws?ed=2048"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇺🇸 United States, Chicago | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "cf.090227.xyz",
+      "servername": "vmess.lbw666.dpdns.org",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
+      "ws-opts": {
+        "path": "/ws?ed=2048"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇺🇸 United States, Chicago | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "cf.877771.xyz",
+      "servername": "vmess.lbw666.dpdns.org",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
+      "ws-opts": {
+        "headers": {
+          "Host": "vmess.lbw666.dpdns.org"
+        },
+        "path": "/ws"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇺🇸 United States, Chicago | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "cf.0sm.com",
+      "servername": "vmess.lbw666.dpdns.org",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
+      "ws-opts": {
+        "headers": {
+          "Host": "vmess.lbw666.dpdns.org"
+        },
+        "path": "/ws"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇺🇸 United States, Chicago | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "cf.090227.xyz",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
+      "ws-opts": {
+        "headers": {
+          "Host": "vmess.lbw666.dpdns.org"
+        },
+        "path": "/ws?ed=2048"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇺🇸 United States, Chicago | 🌐 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "104.17.136.198",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
+      "ws-opts": {
+        "headers": {
+          "Host": "vmess.lbw666.dpdns.org"
+        },
+        "path": "/ws"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇺🇸 United States, Chicago | 🌐 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "104.17.136.198",
+      "servername": "vmess.lbw666.dpdns.org",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
+      "ws-opts": {
+        "headers": {
+          "Host": "vmess.lbw666.dpdns.org"
+        },
+        "path": "/ws"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇺🇸 United States, Chicago | 🌐 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "104.27.0.1",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
+      "ws-opts": {
+        "headers": {
+          "Host": "vmess.lbw666.dpdns.org"
+        },
+        "path": "/ws"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇺🇸 United States, Chicago | 🌐 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "104.27.0.1",
+      "servername": "vmess.lbw666.dpdns.org",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
+      "ws-opts": {
+        "headers": {
+          "Host": "vmess.lbw666.dpdns.org"
+        },
+        "path": "/ws"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇺🇸 United States, Chicago | 🌐 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "172.64.229.21",
+      "servername": "vmess.lbw666.dpdns.org",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
+      "ws-opts": {
+        "path": "/ws"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇺🇸 United States, Chicago | 🌐 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "172.64.229.21",
+      "servername": "vmess.lbw666.dpdns.org",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
+      "ws-opts": {
+        "headers": {
+          "Host": "vmess.lbw666.dpdns.org"
+        },
+        "path": "/ws"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇺🇸 United States, Chicago | 🌐 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "172.64.229.21",
+      "servername": "vmess.lbw666.dpdns.org",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
+      "ws-opts": {
+        "headers": {
+          "Host": "vmess.lbw666.dpdns.org"
+        },
+        "path": "/ws"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇺🇸 United States, Chicago | 🌐 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "172.66.0.1",
+      "servername": "vmess.lbw666.dpdns.org",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
+      "ws-opts": {
+        "headers": {
+          "Host": "vmess.lbw666.dpdns.org"
+        },
+        "path": "/ws"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇺🇸 United States, Chicago | 🌐 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "188.114.99.137",
+      "servername": "vmess.lbw666.dpdns.org",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
+      "ws-opts": {
+        "path": "/ws"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇺🇸 United States, Chicago | 🌐 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "104.21.7.133",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
+      "ws-opts": {
+        "headers": {
+          "Host": "vmess.lbw666.dpdns.org"
+        },
+        "path": "/ws"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇺🇸 United States, Chicago | 🌐 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "104.21.7.133",
+      "servername": "vmess.lbw666.dpdns.org",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
+      "ws-opts": {
+        "headers": {
+          "Host": "vmess.lbw666.dpdns.org"
+        },
+        "path": "/ws"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇺🇸 United States, Chicago | 🌐 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "104.21.7.133",
+      "servername": "vmess.lbw666.dpdns.org",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
+      "ws-opts": {
+        "headers": {
+          "Host": "vmess.lbw666.dpdns.org"
+        },
+        "path": "/ws"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇺🇸 United States, Chicago | 🌐 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "104.17.136.198",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
+      "ws-opts": {
+        "headers": {
+          "Host": "vmess.lbw666.dpdns.org"
+        },
+        "path": "/ws"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇺🇸 United States, Chicago | 🌐 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "104.17.136.198",
+      "servername": "vmess.lbw666.dpdns.org",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
+      "ws-opts": {
+        "headers": {
+          "Host": "vmess.lbw666.dpdns.org"
+        },
+        "path": "/ws"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇺🇸 United States, Chicago | 🌐 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "104.17.136.198",
+      "servername": "vmess.lbw666.dpdns.org",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
+      "ws-opts": {
+        "headers": {
+          "Host": "vmess.lbw666.dpdns.org"
+        },
+        "path": "/ws"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇺🇸 United States, Chicago | 🌐 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "104.17.136.198",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
+      "ws-opts": {
+        "headers": {
+          "Host": "vmess.lbw666.dpdns.org"
+        },
+        "path": "/ws"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇺🇸 United States, Chicago | 🌐 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "172.64.229.21",
+      "servername": "vmess.lbw666.dpdns.org",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
+      "ws-opts": {
+        "headers": {
+          "Host": "vmess.lbw666.dpdns.org"
+        },
+        "path": "/ws"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇺🇸 United States, Chicago | 🌐 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "172.64.229.21",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
+      "ws-opts": {
+        "headers": {
+          "Host": "vmess.lbw666.dpdns.org"
+        },
+        "path": "/ws"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇺🇸 United States, Chicago | 🌐 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "172.66.203.67",
+      "servername": "vmess.lbw666.dpdns.org",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
+      "ws-opts": {
+        "headers": {
+          "Host": "vmess.lbw666.dpdns.org"
+        },
+        "path": "/ws"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇺🇸 United States, Chicago | 🌐 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "172.66.203.67",
+      "servername": "vmess.lbw666.dpdns.org",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
+      "ws-opts": {
+        "headers": {
+          "Host": "vmess.lbw666.dpdns.org"
+        },
+        "path": "/ws"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇺🇸 United States, Chicago | 🌐 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "172.66.203.67",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
+      "ws-opts": {
+        "headers": {
+          "Host": "vmess.lbw666.dpdns.org"
+        },
+        "path": "/ws"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇺🇸 United States, Chicago | 🌐 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "188.114.99.137",
+      "servername": "vmess.lbw666.dpdns.org",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
+      "ws-opts": {
+        "headers": {
+          "Host": "vmess.lbw666.dpdns.org"
+        },
+        "path": "/ws"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇺🇸 United States, Chicago | 🌐 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "cf.877771.xyz",
+      "servername": "vmess.lbw666.dpdns.org",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
+      "ws-opts": {
+        "headers": {
+          "Host": "vmess.lbw666.dpdns.org"
+        },
+        "path": "/ws"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇺🇸 United States, Chicago | 🌐 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "cf.0sm.com",
+      "servername": "vmess.lbw666.dpdns.org",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
+      "ws-opts": {
+        "headers": {
+          "Host": "vmess.lbw666.dpdns.org"
+        },
+        "path": "/ws"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇺🇸 United States, Chicago | 🌐 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "cf.0sm.com",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
+      "ws-opts": {
+        "headers": {
+          "Host": "vmess.lbw666.dpdns.org"
+        },
+        "path": "/ws"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇺🇸 United States, Chicago | 🌐 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "cf.090227.xyz",
+      "servername": "vmess.lbw666.dpdns.org",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
+      "ws-opts": {
+        "headers": {
+          "Host": "vmess.lbw666.dpdns.org"
+        },
+        "path": "/ws"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇺🇸 United States, Columbus | 🌐 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "104.19.166.218",
+      "servername": "assumption-universities-weekend-litigation.trycloudflare.com",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "a9f9a249-1832-424c-9820-57af75107acc",
+      "ws-opts": {
+        "headers": {
+          "Host": "assumption-universities-weekend-litigation.trycloudflare.com"
+        },
+        "path": "/ferdolans7"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇺🇸 United States, St Louis (Downtown) | [BL]",
+      "network": "ws",
+      "port": 8443,
+      "server": "104.21.0.1",
+      "servername": "v2ray1.dozapp.xyz",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "60441548-b68e-43b2-8191-e3b884be4b3c",
+      "ws-opts": {
+        "headers": {
+          "Host": "v2ray1.dozapp.xyz"
+        },
+        "path": "/lMnsZUN4/"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇺🇸 United States, St Louis (Downtown) | [BL]",
+      "network": "ws",
+      "port": 8443,
+      "server": "104.21.91.53",
+      "servername": "v2ray1.dozapp.xyz",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "60441548-b68e-43b2-8191-e3b884be4b3c",
+      "ws-opts": {
+        "headers": {
+          "Host": "v2ray1.dozapp.xyz"
+        },
+        "path": "/lMnsZUN4/"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "none",
+      "name": "🇺🇸 United States, St Louis (Downtown) | [BL]",
+      "network": "ws",
+      "port": 8443,
+      "server": "104.17.77.77",
+      "servername": "v2ray1.dozapp.xyz",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "60441548-b68e-43b2-8191-e3b884be4b3c",
+      "ws-opts": {
+        "headers": {
+          "Host": "v2ray1.dozapp.xyz"
+        },
+        "path": "/lMnsZUN4/"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇺🇸 United States, St Louis (Downtown) | [BL]",
+      "network": "ws",
+      "port": 8443,
+      "server": "104.18.0.1",
+      "servername": "v2ray1.dozapp.xyz",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "60441548-b68e-43b2-8191-e3b884be4b3c",
+      "ws-opts": {
+        "path": "/lMnsZUN4/"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇺🇸 United States, St Louis (Downtown) | [BL]",
+      "network": "ws",
+      "port": 8443,
+      "server": "172.67.167.78",
+      "servername": "v2ray1.dozapp.xyz",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "60441548-b68e-43b2-8191-e3b884be4b3c",
+      "ws-opts": {
+        "path": "/lMnsZUN4/"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇺🇸 United States, St Louis (Downtown) | [BL]",
+      "network": "ws",
+      "port": 8443,
+      "server": "172.64.80.1",
+      "servername": "v2ray1.dozapp.xyz",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "60441548-b68e-43b2-8191-e3b884be4b3c",
+      "ws-opts": {
+        "headers": {
+          "Host": "v2ray1.dozapp.xyz"
+        },
+        "path": "/lMnsZUN4/"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇺🇸 United States, St Louis (Downtown) | [BL]",
+      "network": "ws",
+      "port": 8443,
+      "server": "chatgpt.com",
+      "servername": "v2ray1.dozapp.xyz",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "60441548-b68e-43b2-8191-e3b884be4b3c",
+      "ws-opts": {
+        "headers": {
+          "Host": "v2ray1.dozapp.xyz"
+        },
+        "path": "/lMnsZUN4/"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇺🇸 United States, St Louis (Downtown) | [BL]",
+      "network": "ws",
+      "port": 8443,
+      "server": "chatgpt.com",
+      "servername": "v2ray1.dozapp.xyz",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "60441548-b68e-43b2-8191-e3b884be4b3c",
+      "ws-opts": {
+        "path": "/lMnsZUN4/"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇺🇸 United States, St Louis (Downtown) | [BL]",
+      "network": "ws",
+      "port": 8443,
+      "server": "104.21.57.84",
+      "servername": "v2ray1.dozapp.xyz",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "60441548-b68e-43b2-8191-e3b884be4b3c",
+      "ws-opts": {
+        "headers": {
+          "Host": "v2ray1.dozapp.xyz"
+        },
+        "path": "/lMnsZUN4/"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇺🇸 United States, St Louis (Downtown) | [BL]",
+      "network": "ws",
+      "port": 8443,
+      "server": "104.21.57.84",
+      "servername": "v2ray1.dozapp.xyz",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "60441548-b68e-43b2-8191-e3b884be4b3c",
+      "ws-opts": {
+        "headers": {
+          "Host": "v2ray1.dozapp.xyz"
+        },
+        "path": "/lMnsZUN4/"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇺🇸 United States, St Louis (Downtown) | [BL]",
+      "network": "ws",
+      "port": 8443,
+      "server": "104.21.57.84",
+      "servername": "v2ray1.dozapp.xyz",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "60441548-b68e-43b2-8191-e3b884be4b3c",
+      "ws-opts": {
+        "path": "/lMnsZUN4/"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇺🇸 United States, St Louis (Downtown) | [BL]",
+      "network": "ws",
+      "port": 8443,
+      "server": "104.21.57.84",
+      "servername": "v2ray1.dozapp.xyz",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "60441548-b68e-43b2-8191-e3b884be4b3c",
+      "ws-opts": {
+        "headers": {
+          "Host": "v2ray1.dozapp.xyz"
+        },
+        "path": "/lMnsZUN4/"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇺🇸 United States, St Louis (Downtown) | [BL]",
+      "network": "ws",
+      "port": 8443,
+      "server": "104.24.0.1",
+      "servername": "v2ray1.dozapp.xyz",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "60441548-b68e-43b2-8191-e3b884be4b3c",
+      "ws-opts": {
+        "headers": {
+          "Host": "v2ray1.dozapp.xyz"
+        },
+        "path": "/lMnsZUN4/"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇺🇸 United States, St Louis (Downtown) | [BL]",
+      "network": "ws",
+      "port": 8443,
+      "server": "104.24.0.1",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "60441548-b68e-43b2-8191-e3b884be4b3c",
+      "ws-opts": {
+        "headers": {
+          "Host": "v2ray1.dozapp.xyz"
+        },
+        "path": "/lMnsZUN4/"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇺🇸 United States, St Louis (Downtown) | [BL]",
+      "network": "ws",
+      "port": 8443,
+      "server": "104.18.32.47",
+      "servername": "v2ray1.dozapp.xyz",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "60441548-b68e-43b2-8191-e3b884be4b3c",
+      "ws-opts": {
+        "path": "/lMnsZUN4/"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇺🇸 United States, St Louis (Downtown) | [BL]",
+      "network": "ws",
+      "port": 8443,
+      "server": "172.67.167.78",
+      "servername": "v2ray1.dozapp.xyz",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "60441548-b68e-43b2-8191-e3b884be4b3c",
+      "ws-opts": {
+        "headers": {
+          "Host": "v2ray1.dozapp.xyz"
+        },
+        "path": "/lMnsZUN4/"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇺🇸 United States, St Louis (Downtown) | [BL]",
+      "network": "ws",
+      "port": 8443,
+      "server": "172.67.167.78",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "60441548-b68e-43b2-8191-e3b884be4b3c",
+      "ws-opts": {
+        "headers": {
+          "Host": "v2ray1.dozapp.xyz"
+        },
+        "path": "/lMnsZUN4/"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇺🇸 United States, St Louis (Downtown) | [BL]",
+      "network": "ws",
+      "port": 8443,
+      "server": "172.64.155.209",
+      "servername": "v2ray1.dozapp.xyz",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "60441548-b68e-43b2-8191-e3b884be4b3c",
+      "ws-opts": {
+        "headers": {
+          "Host": "v2ray1.dozapp.xyz"
+        },
+        "path": "/lMnsZUN4/"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇺🇸 United States, St Louis (Downtown) | [BL]",
+      "network": "ws",
+      "port": 8443,
+      "server": "188.114.96.3",
+      "servername": "v2ray1.dozapp.xyz",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "60441548-b68e-43b2-8191-e3b884be4b3c",
+      "ws-opts": {
+        "headers": {
+          "Host": "v2ray1.dozapp.xyz"
+        },
+        "path": "/lMnsZUN4/"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇺🇸 United States, St Louis (Downtown) | [BL]",
+      "network": "ws",
+      "port": 8443,
+      "server": "188.114.99.137",
+      "servername": "v2ray1.dozapp.xyz",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "60441548-b68e-43b2-8191-e3b884be4b3c",
+      "ws-opts": {
+        "headers": {
+          "Host": "v2ray1.dozapp.xyz"
+        },
+        "path": "/lMnsZUN4/"
+      }
+    },
+    {
+      "alpn": [
+        "http/1.1"
+      ],
+      "name": ".𖥔 ݁ ˖ִ🛸༄˖°. | [BL]",
+      "network": "ws",
+      "password": "963A4918-A630-29DA-A873-093CDF8AD784",
+      "port": 443,
+      "server": "172.67.199.12",
+      "servername": "dry-snowflake-b29f.vpnetwork3567.workers.dev",
+      "tls": true,
+      "type": "trojan",
+      "udp": true,
+      "ws-opts": {
+        "headers": {
+          "Host": "dry-snowflake-b29f.vpnetwork3567.workers.dev"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "alpn": [
+        "http/1.1"
+      ],
+      "client-fingerprint": "chrome",
+      "name": ".𖥔 ݁ ˖ִ🛸༄˖°. | [BL]",
+      "network": "ws",
+      "password": "963A4918-A630-29DA-A873-093CDF8AD784",
+      "port": 443,
+      "server": "lingering-fire-1fe9.vpnetwork3567.workers.dev",
+      "servername": "lingering-fire-1fe9.vpnetwork3567.workers.dev",
+      "tls": true,
+      "type": "trojan",
+      "udp": true,
+      "ws-opts": {
+        "headers": {
+          "Host": "lingering-fire-1fe9.vpnetwork3567.workers.dev"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "alpn": [
+        "http/1.1"
+      ],
+      "name": "🇲🇩 Moldova, Chisinau | [BL]",
+      "network": "ws",
+      "password": "963A4918-A630-29DA-A873-093CDF8AD784",
+      "port": 443,
+      "server": "dry-snowflake-b29f.vpnetwork3567.workers.dev",
+      "servername": "dry-snowflake-b29f.vpnetwork3567.workers.dev",
+      "tls": true,
+      "type": "trojan",
+      "udp": true,
+      "ws-opts": {
+        "headers": {
+          "Host": "dry-snowflake-b29f.vpnetwork3567.workers.dev"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "alpn": [
+        "http/1.1"
+      ],
+      "client-fingerprint": "chrome",
+      "name": "🇸🇬 Singapore, Singapore (Queenstown Estate) | [BL]",
+      "network": "ws",
+      "password": "963A4918-A630-29DA-A873-093CDF8AD784",
+      "port": 443,
+      "server": "lingering-fire-1fe9.vpnetwork3567.workers.dev",
+      "servername": "lingering-fire-1fe9.vpnetwork3567.workers.dev",
+      "tls": true,
+      "type": "trojan",
+      "udp": true,
+      "ws-opts": {
+        "headers": {
+          "Host": "lingering-fire-1fe9.vpnetwork3567.workers.dev"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "alpn": [
+        "http/1.1"
+      ],
+      "client-fingerprint": "ios",
+      "name": "🇸🇬 Singapore, Singapore (Queenstown Estate) | [BL]",
+      "network": "ws",
+      "password": "963A4918-A630-29DA-A873-093CDF8AD784",
+      "port": 443,
+      "server": "lingering-fire-1fe9.vpnetwork3567.workers.dev",
+      "servername": "lingering-fire-1fe9.vpnetwork3567.workers.dev",
+      "tls": true,
+      "type": "trojan",
+      "udp": true,
+      "ws-opts": {
+        "headers": {
+          "Host": "lingering-fire-1fe9.vpnetwork3567.workers.dev"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "alpn": [
+        "http/1.1"
+      ],
+      "client-fingerprint": "safari",
+      "name": "🇸🇬 Singapore, Singapore (Queenstown Estate) | [BL]",
+      "network": "ws",
+      "password": "963A4918-A630-29DA-A873-093CDF8AD784",
+      "port": 443,
+      "server": "lingering-fire-1fe9.vpnetwork3567.workers.dev",
+      "servername": "lingering-fire-1fe9.vpnetwork3567.workers.dev",
+      "tls": true,
+      "type": "trojan",
+      "udp": true,
+      "ws-opts": {
+        "headers": {
+          "Host": "lingering-fire-1fe9.vpnetwork3567.workers.dev"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "alpn": [
+        "http/1.1"
+      ],
+      "name": "🇸🇬 Singapore, Singapore (Queenstown Estate) | [BL]",
+      "network": "ws",
+      "password": "963A4918-A630-29DA-A873-093CDF8AD784",
+      "port": 443,
+      "server": "lingering-fire-1fe9.vpnetwork3567.workers.dev",
+      "servername": "lingering-fire-1fe9.vpnetwork3567.workers.dev",
+      "tls": true,
+      "type": "trojan",
+      "udp": true,
+      "ws-opts": {
+        "headers": {
+          "Host": "lingering-fire-1fe9.vpnetwork3567.workers.dev"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "name": "🇺🇸 United States | 🌐 | [BL]",
+      "network": "ws",
+      "password": "Z-jckziI1rW4yrUMorrv0Q",
+      "port": 443,
+      "server": "ipfast.kingmna.com",
+      "servername": "cdn.akamai.steamstatic.com",
+      "tls": true,
+      "type": "trojan",
+      "udp": true,
+      "ws-opts": {
+        "headers": {
+          "Host": "looasaaa2boijji.global.ssl.fastly.net"
+        },
+        "path": "/TELEGRAM-@NUFiLTER-TELEGRAM-@NUFiLTER-TELEGRAM-@NUFiLTER-TELEGRAM-@NUFiLTER-TELEGRAM-@NUFiLTER-TELEGRAM-@NUFiLTER-TELEGRAM-@NUFiLTER-TELEGRAM-@NUFiLTER"
+      }
+    },
+    {
+      "name": "🇺🇸 United States | 🌐 | [BL]",
+      "network": "ws",
+      "password": "Z-jckziI1rW4yrUMorrv0Q",
+      "port": 443,
+      "server": "ipfast.kingmna.com",
+      "servername": "cdn.akamai.steamstatic.com",
+      "tls": true,
+      "type": "trojan",
+      "udp": true,
+      "ws-opts": {
+        "headers": {
+          "Host": "looasaaaboijji.global.ssl.fastly.net."
+        },
+        "path": "/TELEGRAM-@NUFiLTER-TELEGRAM-@NUFiLTER-TELEGRAM-@NUFiLTER-TELEGRAM-@NUFiLTER-TELEGRAM-@NUFiLTER-TELEGRAM-@NUFiLTER-TELEGRAM-@NUFiLTER-TELEGRAM-@NUFiLTER"
+      }
+    },
+    {
+      "name": "🇺🇸 United States | 🌐 | [BL]",
+      "network": "ws",
+      "password": "Z-jckziI1rW4yrUMorrv0Q",
+      "port": 443,
+      "server": "ipfast.kingmna.com",
+      "servername": "cdn.akamai.steamstatic.com",
+      "tls": true,
+      "type": "trojan",
+      "udp": true,
+      "ws-opts": {
+        "headers": {
+          "Host": "looazzboijji.global.ssl.fastly.net."
+        },
+        "path": "/TELEGRAM-@NUFiLTER-TELEGRAM-@NUFiLTER-TELEGRAM-@NUFiLTER-TELEGRAM-@NUFiLTER-TELEGRAM-@NUFiLTER-TELEGRAM-@NUFiLTER-TELEGRAM-@NUFiLTER-TELEGRAM-@NUFiLTER"
+      }
+    },
+    {
+      "name": "🇺🇸 United States | 🌐 | [BL]",
+      "network": "ws",
+      "password": "Z-jckziI1rW4yrUMorrv0Q",
+      "port": 443,
+      "server": "ipfast.kingmna.com",
+      "servername": "cdn.akamai.steamstatic.com",
+      "tls": true,
+      "type": "trojan",
+      "udp": true,
+      "ws-opts": {
+        "headers": {
+          "Host": "loosnsj5aboijji.global.ssl.fastly.net"
+        },
+        "path": "/TELEGRAM-@NUFiLTER-TELEGRAM-@NUFiLTER-TELEGRAM-@NUFiLTER-TELEGRAM-@NUFiLTER-TELEGRAM-@NUFiLTER-TELEGRAM-@NUFiLTER-TELEGRAM-@NUFiLTER-TELEGRAM-@NUFiLTER"
+      }
+    },
+    {
+      "name": "🇺🇸 United States, Dallas | [BL]",
+      "network": "ws",
+      "password": "c48qMRRfLJ3kwD4P_XpgfIq6",
+      "port": 443,
+      "server": "3x-sub.linzhonghong.com",
+      "servername": "3x-sub.linzhonghong.com",
+      "tls": true,
+      "type": "trojan",
+      "udp": true,
+      "ws-opts": {
+        "path": "/tjbbb7eab89c9a"
+      }
+    },
+    {
+      "name": "🇺🇸 United States, Reston (Hunter Mill District) | 🌐 | [BL]",
+      "network": "ws",
+      "password": "Z-jckziI1rW4yrUMorrv0Q",
+      "port": 443,
+      "server": "ipfast.kingmna.com",
+      "servername": "cdn.akamai.steamstatic.com",
+      "tls": true,
+      "type": "trojan",
+      "udp": true,
+      "ws-opts": {
+        "headers": {
+          "Host": "looaboi4jji.global.ssl.fastly.net."
+        },
+        "path": "/TELEGRAM-@NUFiLTER-TELEGRAM-@NUFiLTER-TELEGRAM-@NUFiLTER-TELEGRAM-@NUFiLTER-TELEGRAM-@NUFiLTER-TELEGRAM-@NUFiLTER-TELEGRAM-@NUFiLTER-TELEGRAM-@NUFiLTER"
+      }
+    }
+  ],
+  "schema_version": 1,
+  "source_id": "source-022",
+  "source_url_sha256": "dec9f22840269bfe561419f7356721900815ed394989cd62451e2b18899227e4"
+}

@@ -1,0 +1,918 @@
+{
+  "checked_at": "2026-11-27T22:15:29.363477+00:00",
+  "etag": "W/\"9a492dffea4b31718e1df05d9cbedc697ee8cade263a570a16e29cf296350e3c\"",
+  "fetched_at": "2026-11-27T22:15:29.363477+00:00",
+  "last_modified": null,
+  "last_status": 200,
+  "nodes": [
+    {
+      "name": "[271.8ms +/-2ms] http-172.64.69.89",
+      "port": 443,
+      "server": "172.64.69.89",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "http"
+    },
+    {
+      "name": "[280.0ms +/-11ms] http-198.44.138.27",
+      "port": 9443,
+      "server": "198.44.138.27",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "http"
+    },
+    {
+      "name": "[321.3ms +/-2ms] http-38.95.111.226",
+      "port": 9443,
+      "server": "38.95.111.226",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "http"
+    },
+    {
+      "name": "[332.6ms +/-2ms] http-138.199.35.198",
+      "password": "null",
+      "port": 9002,
+      "server": "138.199.35.198",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "http",
+      "username": "null"
+    },
+    {
+      "name": "[379.0ms +/-3ms] http-138.199.35.200",
+      "port": 9002,
+      "server": "138.199.35.200",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "http"
+    },
+    {
+      "name": "[326.9ms +/-0ms] http-138.199.35.207",
+      "port": 9002,
+      "server": "138.199.35.207",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "http"
+    },
+    {
+      "name": "[497.0ms +/-0ms] http-34.249.214.108",
+      "port": 443,
+      "server": "34.249.214.108",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "http"
+    },
+    {
+      "name": "[508.6ms +/-2ms] http-18.200.158.139",
+      "port": 443,
+      "server": "18.200.158.139",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "http"
+    },
+    {
+      "name": "[546.9ms +/-3ms] http-149.36.51.129",
+      "port": 443,
+      "server": "149.36.51.129",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "http"
+    },
+    {
+      "name": "[537.7ms +/-1ms] http-84.17.47.123",
+      "port": 9002,
+      "server": "84.17.47.123",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "http"
+    },
+    {
+      "name": "[535.4ms +/-3ms] http-84.17.47.149",
+      "port": 9002,
+      "server": "84.17.47.149",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "http"
+    },
+    {
+      "cipher": "aes-256-gcm",
+      "name": "🇮🇹 [531.3ms +/-1ms] shadowsocks-1875023019",
+      "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=",
+      "port": 19999,
+      "server": "202.50.253.63",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "name": "[546.1ms +/-1ms] http-84.17.47.148",
+      "password": "null",
+      "port": 9002,
+      "server": "84.17.47.148",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "http",
+      "username": "null"
+    },
+    {
+      "name": "[542.5ms +/-9ms] http-84.17.47.147",
+      "password": "null",
+      "port": 9002,
+      "server": "84.17.47.147",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "http",
+      "username": "null"
+    },
+    {
+      "name": "[563.4ms +/-2ms] http-158.173.154.2",
+      "port": 9002,
+      "server": "158.173.154.2",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "http"
+    },
+    {
+      "name": "[550.1ms +/-0ms] http-84.17.47.124",
+      "port": 9002,
+      "server": "84.17.47.124",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "http"
+    },
+    {
+      "name": "[564.1ms +/-4ms] http-158.173.154.1",
+      "port": 9002,
+      "server": "158.173.154.1",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "http"
+    },
+    {
+      "name": "[571.0ms +/-5ms] http-158.173.154.3",
+      "port": 9002,
+      "server": "158.173.154.3",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "http"
+    },
+    {
+      "name": "[566.2ms +/-5ms] http-158.173.154.5",
+      "port": 9002,
+      "server": "158.173.154.5",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "http"
+    },
+    {
+      "name": "[575.9ms +/-6ms] http-158.173.154.4",
+      "port": 9002,
+      "server": "158.173.154.4",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "http"
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "[332.5ms +/-1ms] 4Nika-374f6c35e6",
+      "network": "ws",
+      "port": 443,
+      "reality-opts": {
+        "public-key": "r__vI0YVD9j6Fttsb4aZ0TwvUggV493v6GILKXWIZwA",
+        "short-id": "ac184496",
+        "support-x25519mlkem768": true
+      },
+      "server": "172.235.32.253",
+      "servername": "itunes.apple.com",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "62fe4c8e-2620-478c-9c39-3d4e12848ff4",
+      "ws-opts": {
+        "headers": {
+          "Host": "itunes.apple.com"
+        },
+        "path": "/ws"
+      }
+    },
+    {
+      "name": "[623.8ms +/-2ms] http-149.36.50.1",
+      "port": 443,
+      "server": "149.36.50.1",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "http"
+    },
+    {
+      "name": "[638.2ms +/-1ms] http-212.102.63.31",
+      "port": 443,
+      "server": "212.102.63.31",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "http"
+    },
+    {
+      "name": "[586.4ms +/-26ms] http-103.97.88.154",
+      "password": "null",
+      "port": 443,
+      "server": "103.97.88.154",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "http",
+      "username": "null"
+    },
+    {
+      "name": "[610.6ms +/-1ms] http-84.17.50.214",
+      "port": 9443,
+      "server": "84.17.50.214",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "http"
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "[347.0ms +/-2ms] 4Kian-01db735cba",
+      "network": "ws",
+      "port": 443,
+      "reality-opts": {
+        "public-key": "ZtWVf2gAix3etGziWVZ9apsWfWb5UOepCWQqVyIGxHI",
+        "short-id": "4d3f31a1",
+        "support-x25519mlkem768": true
+      },
+      "server": "172.233.139.98",
+      "servername": "itunes.apple.com",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "62b5a30a-89de-4da7-b1c0-08abfad0cd1d",
+      "ws-opts": {
+        "headers": {
+          "Host": "itunes.apple.com"
+        },
+        "path": "/ws"
+      }
+    },
+    {
+      "name": "[664.1ms +/-2ms] http-95.153.31.66",
+      "port": 9443,
+      "server": "95.153.31.66",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "http"
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🇺🇸 [437.8ms +/-168ms] vless-1835128666",
+      "network": "ws",
+      "port": 443,
+      "reality-opts": {
+        "public-key": "6nTROV2ELz-3vNUl0A00hp378QngpYABrPgjCpUknD0",
+        "short-id": "f436f707",
+        "support-x25519mlkem768": true
+      },
+      "server": "45.63.53.81",
+      "servername": "itunes.apple.com",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "c512dcbd-1847-40a2-9c99-989c8bfe4717",
+      "ws-opts": {
+        "headers": {
+          "Host": "itunes.apple.com"
+        },
+        "path": "/ws"
+      }
+    },
+    {
+      "name": "[650.0ms +/-26ms] http-84.17.47.125",
+      "port": 9002,
+      "server": "84.17.47.125",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "http"
+    },
+    {
+      "cipher": "aes-256-gcm",
+      "name": "🇮🇹 [573.5ms +/-109ms] shadowsocks-1875023009",
+      "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=",
+      "port": 19999,
+      "server": "202.50.253.27",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "name": "[756.4ms +/-4ms] http-152.233.16.174",
+      "port": 9443,
+      "server": "152.233.16.174",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "http"
+    },
+    {
+      "name": "[731.1ms +/-4ms] http-185.225.28.50",
+      "port": 443,
+      "server": "185.225.28.50",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "http"
+    },
+    {
+      "cipher": "aes-256-gcm",
+      "name": "🇮🇹 [558.5ms +/-127ms] shadowsocks-1875022929",
+      "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=",
+      "port": 19999,
+      "server": "202.50.253.90",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "name": "[753.4ms +/-10ms] http-193.176.84.30",
+      "port": 9002,
+      "server": "193.176.84.30",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "http"
+    },
+    {
+      "name": "[764.1ms +/-6ms] http-193.176.84.35",
+      "port": 9002,
+      "server": "193.176.84.35",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "http"
+    },
+    {
+      "name": "[773.4ms +/-4ms] http-193.176.84.36",
+      "port": 9002,
+      "server": "193.176.84.36",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "http"
+    },
+    {
+      "name": "[776.0ms +/-10ms] http-193.176.84.24",
+      "port": 9002,
+      "server": "193.176.84.24",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "http"
+    },
+    {
+      "name": "[769.3ms +/-18ms] http-193.176.84.27",
+      "port": 9002,
+      "server": "193.176.84.27",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "http"
+    },
+    {
+      "name": "[842.0ms +/-4ms] http-185.183.105.130",
+      "port": 443,
+      "server": "185.183.105.130",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "http"
+    },
+    {
+      "name": "🇺🇸 [435.1ms +/-0ms] 🇺🇸",
+      "password": "6ac6d17d-040c-4fab-940e-8f5d72c3fed6",
+      "port": 443,
+      "server": "135.126.21.107",
+      "skip-cert-verify": true,
+      "sni": "de2-balance.rezproffx.ru",
+      "type": "hysteria2"
+    },
+    {
+      "cipher": "aes-256-gcm",
+      "name": "🇮🇹 [594.3ms +/-147ms] shadowsocks-1875023048",
+      "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=",
+      "port": 19999,
+      "server": "202.50.253.72",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "aes-256-gcm",
+      "name": "🇮🇹 [571.6ms +/-148ms] shadowsocks-1875022946",
+      "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=",
+      "port": 19999,
+      "server": "202.50.253.54",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "name": "[817.6ms +/-5ms] http-193.176.84.19",
+      "port": 9002,
+      "server": "193.176.84.19",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "http"
+    },
+    {
+      "name": "[815.1ms +/-12ms] http-193.176.84.38",
+      "port": 9002,
+      "server": "193.176.84.38",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "http"
+    },
+    {
+      "cipher": "aes-256-gcm",
+      "name": "🇮🇹 [514.6ms +/-3ms] ⚜️𝗝𝗼𝗶𝗻",
+      "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=",
+      "port": 19999,
+      "server": "202.50.253.18",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "name": "[859.9ms +/-3ms] http-87.98.174.157",
+      "port": 6103,
+      "server": "87.98.174.157",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "http"
+    },
+    {
+      "cipher": "aes-256-gcm",
+      "name": "🇮🇹 [514.5ms +/-10ms] @sora1co",
+      "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=",
+      "port": 19999,
+      "server": "202.50.253.36",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "name": "[857.5ms +/-8ms] http-193.176.84.21",
+      "port": 9002,
+      "server": "193.176.84.21",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "http"
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "[545.3ms +/-46ms] 🇯🇵25@exclavevpn",
+      "network": "ws",
+      "port": 443,
+      "reality-opts": {
+        "public-key": "wmbc3kcjbG9-A9Fi7zaHuRVPH7A7UQkKNNvqyqJtMEk",
+        "short-id": "e5b03494",
+        "support-x25519mlkem768": true
+      },
+      "server": "139.162.91.224",
+      "servername": "itunes.apple.com",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "ff3038b1-a2f5-428f-89cd-5d5e4efba8e7",
+      "ws-opts": {
+        "headers": {
+          "Host": "itunes.apple.com"
+        },
+        "path": "/ws"
+      }
+    },
+    {
+      "cipher": "aes-256-gcm",
+      "name": "🇮🇹 [518.1ms +/-4ms] @VPsave",
+      "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=",
+      "port": 19999,
+      "server": "202.50.253.99",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "name": "[833.7ms +/-51ms] http-87.120.103.242",
+      "port": 443,
+      "server": "87.120.103.242",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "http"
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "[509.3ms +/-2ms] 4Jadi-0ba43d49b4",
+      "network": "ws",
+      "port": 443,
+      "reality-opts": {
+        "public-key": "ujYDprigWFLxcj4BtitDNa-hoPjIbpSzrnEcqp3cgjk",
+        "short-id": "c8559ca1",
+        "support-x25519mlkem768": true
+      },
+      "server": "172.104.86.181",
+      "servername": "itunes.apple.com",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "010431f3-04f6-4404-a801-b93bf2e3c2b2",
+      "ws-opts": {
+        "headers": {
+          "Host": "itunes.apple.com"
+        },
+        "path": "/ws"
+      }
+    },
+    {
+      "name": "[797.1ms +/-2ms] http-149.22.85.65",
+      "port": 443,
+      "server": "149.22.85.65",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "http"
+    },
+    {
+      "name": "[968.3ms +/-2ms] http-146.70.123.98",
+      "port": 443,
+      "server": "146.70.123.98",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "http"
+    },
+    {
+      "name": "[745.6ms +/-1ms] http-89.124.11.9",
+      "password": "null",
+      "port": 443,
+      "server": "89.124.11.9",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "http",
+      "username": "null"
+    },
+    {
+      "name": "[805.5ms +/-5ms] http-193.176.84.34",
+      "port": 9002,
+      "server": "193.176.84.34",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "http"
+    },
+    {
+      "name": "[759.9ms +/-2ms] http-193.176.84.26",
+      "password": "null",
+      "port": 9002,
+      "server": "193.176.84.26",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "http",
+      "username": "null"
+    },
+    {
+      "cipher": "aes-256-gcm",
+      "name": "🇮🇹 [541.2ms +/-124ms] @Shh_Proxy-New⁵",
+      "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=",
+      "port": 19999,
+      "server": "202.50.253.81",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "[524.5ms +/-0ms] 4FreeIran-78bcdcba0b",
+      "network": "ws",
+      "port": 443,
+      "reality-opts": {
+        "public-key": "UPeN2wAl3WQKsj-IchFF-81OnbhP1FQJ0EtcBFQn0Ak",
+        "short-id": "6093f81a",
+        "support-x25519mlkem768": true
+      },
+      "server": "172.237.14.142",
+      "servername": "itunes.apple.com",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "323aa578-bddb-47ed-bdb6-5650ade5825c",
+      "ws-opts": {
+        "headers": {
+          "Host": "itunes.apple.com"
+        },
+        "path": "/ws"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "grpc-opts": {
+        "grpc-service-name": ""
+      },
+      "name": "[676.7ms +/-13ms] 🇪🇸",
+      "network": "grpc",
+      "port": 443,
+      "reality-opts": {
+        "public-key": "7efBhLzPwoTtEC1GlukCdiTllobUfa2_XuAKNSLJx30",
+        "short-id": "e7cffac9f8cfb434",
+        "support-x25519mlkem768": true
+      },
+      "server": "196.196.149.80",
+      "servername": "b3cd32g.es1.h1clayd.click",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "4201786b-d99b-4147-a5f0-20d47acddb81"
+    },
+    {
+      "client-fingerprint": "chrome",
+      "grpc-opts": {
+        "grpc-service-name": "livestreamcontent"
+      },
+      "name": "[599.7ms +/-3ms] 4Sarina-ab64889cb8",
+      "network": "grpc",
+      "port": 443,
+      "reality-opts": {
+        "public-key": "PVlnR_I9tZ8hKhOHW6ySpSofhsaShcBQ_JV2-0TePVA",
+        "short-id": "c5548af15927b698",
+        "support-x25519mlkem768": true
+      },
+      "server": "194.58.60.228",
+      "servername": "node43.lmdscdn.ru",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "bbbee51e-021e-4e65-ba03-bf7de175116f"
+    },
+    {
+      "cipher": "aes-256-gcm",
+      "name": "🇮🇹 [559.7ms +/-170ms] @Shh_Proxy-New¹⁰",
+      "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=",
+      "port": 19999,
+      "server": "202.50.253.45",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "client-fingerprint": "chrome",
+      "grpc-opts": {
+        "grpc-service-name": "livestreamcontent"
+      },
+      "name": "[772.5ms +/-2ms] Telegram",
+      "network": "grpc",
+      "port": 443,
+      "reality-opts": {
+        "public-key": "PVlnR_I9tZ8hKhOHW6ySpSofhsaShcBQ_JV2-0TePVA",
+        "short-id": "b8abb26d3cfadcfb",
+        "support-x25519mlkem768": true
+      },
+      "server": "195.58.46.231",
+      "servername": "node43.lmdscdn.ru",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "bbb945a6-7d16-4099-b802-d3a7ccebd3ca"
+    },
+    {
+      "client-fingerprint": "chrome",
+      "flow": "xtls-rprx-vision",
+      "name": "[810.8ms +/-1ms] @VPsave",
+      "port": 443,
+      "reality-opts": {
+        "public-key": "kpQWnVk3fEJXfPGFsMerUoPV_ZqUJUJFRnF1FvKyhRY",
+        "short-id": "7a7d19880a9ee786",
+        "support-x25519mlkem768": true
+      },
+      "server": "83.141.92.168",
+      "servername": "sladovna.russianpiwo.fun",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "a7595994-695d-484e-bfcb-e9fbb73cfa39"
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "[728.5ms +/-1ms] 🔷97@oneclickvpnkeys",
+      "port": 119,
+      "server": "172.236.145.200",
+      "servername": "whatsapp.net",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "e084837e-c738-4ce5-b691-cf4637356cd6"
+    },
+    {
+      "name": "[783.4ms +/-2ms] Telegram",
+      "network": "ws",
+      "port": 443,
+      "server": "104.20.28.74",
+      "servername": "krc.80782636.xyz",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "db906786-8c49-4b17-9182-cea680ef954d",
+      "ws-opts": {
+        "headers": {
+          "Host": "krc.80782636.xyz"
+        },
+        "path": "/kw7x2mq9"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "[789.8ms +/-1ms] Telegram",
+      "network": "ws",
+      "port": 443,
+      "server": "104.26.13.54",
+      "servername": "krc.80782636.xyz",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "db906786-8c49-4b17-9182-cea680ef954d",
+      "ws-opts": {
+        "headers": {
+          "Host": "krc.80782636.xyz"
+        },
+        "path": "/kw7x2mq9"
+      }
+    },
+    {
+      "name": "[938.9ms +/-47ms] vless-1832764138",
+      "network": "ws",
+      "port": 443,
+      "server": "104.17.210.74",
+      "servername": "jp3.yohototo.top",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "4e4f1f70-5e56-4a76-bb9d-db087f4690c4",
+      "ws-opts": {
+        "headers": {
+          "Host": "jp3.yohototo.top"
+        },
+        "path": "/tyxyws"
+      }
+    },
+    {
+      "cipher": "2022-blake3-chacha20-poly1305",
+      "name": "[500.5ms +/-1ms] 🇬🇧232556 | ⚡️Telegram = t.me(…)",
+      "password": "Cg2Dw4OhdBZhqbeO9ZTA3g/Gk/AvsrYZGhAJeGnQIx4=",
+      "port": 443,
+      "server": "18.135.5.220",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "2022-blake3-chacha20-poly1305",
+      "name": "[580.1ms +/-10ms] 🇩🇪232554 | ⚡️Telegram = t.m(…)",
+      "password": "8yO3ANWefuuGs1lRKXECQA1FEhxlWFV2ppQMcBaZo5Y=",
+      "port": 443,
+      "server": "8.211.56.24",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "client-fingerprint": "chrome",
+      "flow": "xtls-rprx-vision",
+      "name": "[903.8ms +/-35ms] 🇷🇺RU-🚀@VPNine1",
+      "port": 443,
+      "server": "85.8.201.186",
+      "servername": "cdn.mornismp.ru",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "7aa77858-f235-000c-9434-7ab060848b17"
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "[983.1ms +/-25ms] @ConfigV2RayNG",
+      "network": "ws",
+      "port": 8443,
+      "server": "141.193.213.20",
+      "servername": "matrix.learnpodedu.com",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "4d8d9640-7cc7-4c55-ba54-6ce0d1709541",
+      "ws-opts": {
+        "headers": {
+          "Host": "matrix.learnpodedu.com"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "[895.3ms +/-115ms] @VPsave",
+      "port": 443,
+      "reality-opts": {
+        "public-key": "l-GzBDuNuhnjxoRlZqKvT7jAt_sbVAxhGFsAttO5kXs",
+        "short-id": "361d0dd59c70516f",
+        "support-x25519mlkem768": true
+      },
+      "server": "13.141.36.10",
+      "servername": "5d0319t.nl7.h1clayd.click",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "cda0862a-0f87-4be9-8ed8-1d0c9e382839"
+    },
+    {
+      "name": "[519.3ms +/-0ms] ProxyPool | 🇭🇰 香港 | HKG",
+      "password": "0324fbc29561",
+      "port": 443,
+      "server": "5641sdds.df6h451rh.xin",
+      "skip-cert-verify": true,
+      "sni": "images.ctfassets.net",
+      "type": "anytls"
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "[948.9ms +/-6ms] 4Nika-c1034dcd11",
+      "network": "ws",
+      "port": 8443,
+      "server": "104.27.97.42",
+      "servername": "free.sahanwickramasinghe.com",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "3692de53-42e6-4aed-a522-40ec355dcd2f",
+      "ws-opts": {
+        "headers": {
+          "Host": "free.sahanwickramasinghe.com"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "name": "[1381.9ms +/-1ms] Telegram",
+      "network": "ws",
+      "port": 443,
+      "server": "162.159.160.73",
+      "servername": "krc.80782636.xyz",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "db906786-8c49-4b17-9182-cea680ef954d",
+      "ws-opts": {
+        "headers": {
+          "Host": "krc.80782636.xyz"
+        },
+        "path": "/kw7x2mq9"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "[1063.1ms +/-269ms] 🇮🇳",
+      "network": "ws",
+      "port": 8443,
+      "server": "147.93.171.8",
+      "servername": "147-93-171-8.sslip.io",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "591e7de6-f2dd-4ff9-ae21-8e00d5affa2a",
+      "ws-opts": {
+        "headers": {
+          "Host": "147-93-171-8.sslip.io"
+        },
+        "path": "/vpn-live"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "flow": "xtls-rprx-vision",
+      "name": "🇭🇰 [2173.8ms +/-1026ms] @ConfigV2RayNG",
+      "port": 11106,
+      "reality-opts": {
+        "public-key": "-13uTSuqk44pCU0x6yvldaskzyRIlO2ihmDvM0FsBns",
+        "short-id": "da12e31124830d42",
+        "support-x25519mlkem768": true
+      },
+      "server": "116.213.43.43",
+      "servername": "www.apple.com",
+      "skip-cert-verify": true,
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "2e7bd251-52be-4ffa-b79e-108e1fe07185"
+    },
+    {
+      "cipher": "2022-blake3-chacha20-poly1305",
+      "name": "[1000.7ms +/-668ms] 🇩🇪232563 | ⚡️Telegram = t(…)",
+      "password": "8yO3ANWefuuGs1lRKXECQA1FEhxlWFV2ppQMcBaZo5Y=",
+      "port": 443,
+      "server": "8.209.115.219",
+      "type": "ss",
+      "udp": true
+    }
+  ],
+  "schema_version": 1,
+  "source_id": "source-007",
+  "source_url_sha256": "ebdd056b0407abfef756cc0cdf9eb3273f5ed3b53c77ff69f3a140a7ba5335d5"
+}

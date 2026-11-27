@@ -1,0 +1,128 @@
+{
+  "checked_at": "2026-11-27T22:15:29.314210+00:00",
+  "etag": "W/\"b5014c19664d55683cda4975bec9c05cf21b437d2615f33acc7fe227a1bf789a\"",
+  "fetched_at": "2026-11-27T22:15:29.314210+00:00",
+  "last_modified": null,
+  "last_status": 200,
+  "nodes": [
+    {
+      "cipher": "aes-256-gcm",
+      "country": "🇳🇿 NZ",
+      "delay": 2389,
+      "name": "意大利 - Milan - 1",
+      "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=",
+      "port": 19999,
+      "server": "202.50.253.36",
+      "type": "ss"
+    },
+    {
+      "cipher": "aes-256-gcm",
+      "delay": 1354,
+      "name": "意大利 - Milan - 2",
+      "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=",
+      "port": 19999,
+      "server": "202.50.253.54",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "aes-256-gcm",
+      "delay": 577,
+      "name": "意大利 - Milan - 3",
+      "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=",
+      "port": 19999,
+      "server": "202.50.253.99",
+      "type": "ss"
+    },
+    {
+      "cipher": "aes-256-gcm",
+      "delay": 1558,
+      "name": "意大利 - Milan - 4",
+      "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=",
+      "port": 19999,
+      "server": "202.50.253.90",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "aes-256-gcm",
+      "delay": 1554,
+      "name": "意大利 - Milan - 5",
+      "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=",
+      "port": 19999,
+      "server": "202.50.253.45",
+      "type": "ss"
+    },
+    {
+      "cipher": "aes-256-gcm",
+      "delay": 559,
+      "name": "意大利 - Milan - 6",
+      "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=",
+      "port": 19999,
+      "server": "202.50.253.72",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "aes-256-gcm",
+      "delay": 594,
+      "name": "意大利 - Milan - 7",
+      "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=",
+      "port": 19999,
+      "server": "202.50.253.63",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "aes-256-gcm",
+      "delay": 593,
+      "name": "意大利 - Milan - 8",
+      "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=",
+      "port": 19999,
+      "server": "202.50.253.18",
+      "type": "ss"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "country": "🇨🇳CN",
+      "delay": 521,
+      "h2-opts": {},
+      "http-opts": {},
+      "name": "中国 - 北京 - 2",
+      "network": "ws",
+      "port": 10086,
+      "server": "120.48.133.162",
+      "skip-cert-verify": true,
+      "type": "vmess",
+      "uuid": "c89f8a9e-a2c4-480e-b9af-debc1998b725",
+      "ws-opts": {
+        "path": "/"
+      }
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "country": "🇺🇸 US",
+      "delay": 262,
+      "name": "中国 - 香港 - 1",
+      "password": "abc62f00-95a8-4c2e-a85d-36a2cdc977da",
+      "port": 28014,
+      "server": "waic.pro.main.sys-metric-report.com",
+      "type": "ss"
+    },
+    {
+      "country": "🇨🇳CN",
+      "delay": 89,
+      "name": "undefined - undefined - 1",
+      "password": "06cf12a7fab279375e55e2f0cfdef381",
+      "port": 59443,
+      "server": "ja304.magiclampcloud.cn",
+      "skip-cert-verify": true,
+      "type": "trojan",
+      "udp": true
+    }
+  ],
+  "schema_version": 1,
+  "source_id": "source-004",
+  "source_url_sha256": "e5c3a206c9bdcfaf66f934938502fa3fc611ef156e6e95406fb65a1cdb4e48d8"
+}
