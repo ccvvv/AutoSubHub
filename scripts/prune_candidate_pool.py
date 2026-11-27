@@ -70,7 +70,7 @@ def prune_and_refresh(pool_path: Path, manifest_path: Path, receipt_path: Path) 
             "candidate_sha256": hashlib.sha256(candidate_bytes).hexdigest(),
             "nodes": queue["nodes"],
         }
-        atomic_json(manifest_path, next_manifest)
+        atomic_json(pool_path.parent / "manifest.json", next_manifest)
         atomic_json(state_path, completed_state)
         return
 
