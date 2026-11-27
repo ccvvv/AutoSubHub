@@ -155,7 +155,7 @@ class FinalizePhoneReceiptTests(unittest.TestCase):
         final = yaml.safe_load(self.output.read_text(encoding="utf-8"))
         self.assertEqual([p["name"] for p in final["proxies"]], ["slow-node [普通]"])
 
-    def test_no_passing_nodes_is_rejected_without_output(self):
+    def test_all_failed_receipt_is_consumed_without_replacing_final(self):
         receipt = dict(self.base_receipt)
         receipt["results"] = [
             {"node_id": "id-fast", "status": "passed", "download_speed_bps": 199999,
@@ -166,9 +166,11 @@ class FinalizePhoneReceiptTests(unittest.TestCase):
              "application_checks": {app: {"status": "passed"} for app in ("youtube", "telegram", "google", "chatgpt", "github")}},
         ]
         result = self.run_validator(receipt)
-        self.assertNotEqual(result.returncode, 0)
-        self.assertIn("No phone-tested nodes", result.stderr + result.stdout)
-        self.assertFalse(self.output.exists())
+        self.assertEqual(result.returncode, 0, result.stderr + result.stdout)
+        self.assertIn("final/latest.yaml is preserved", result.stdout)
+        self.assertTrue(self.output.exists())
+        final = yaml.safe_load(self.output.read_text(encoding="utf-8"))
+        self.assertEqual(final["proxies"], [])
 
 
 if __name__ == "__main__":
