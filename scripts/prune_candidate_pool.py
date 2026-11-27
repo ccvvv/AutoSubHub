@@ -24,9 +24,30 @@ def atomic_json(path: Path, value: dict) -> None:
     temporary.replace(path)
 
 
+class QuotedYamlString(str):
+    pass
+
+
+class AutoHubSafeDumper(yaml.SafeDumper):
+    pass
+
+
+def represent_quoted_string(dumper, value):
+    return dumper.represent_scalar("tag:yaml.org,2002:str", value, style="'")
+
+
+AutoHubSafeDumper.add_representer(QuotedYamlString, represent_quoted_string)
+
+
 def atomic_yaml(path: Path, value: dict) -> bytes:
     path.parent.mkdir(parents=True, exist_ok=True)
-    raw = yaml.safe_dump(value, allow_unicode=True, sort_keys=False).encode("utf-8")
+    for proxy in value.get("proxies", []):
+        if not isinstance(proxy, dict):
+            continue
+        options = proxy.get("reality-opts")
+        if isinstance(options, dict) and isinstance(options.get("short-id"), str):
+            options["short-id"] = QuotedYamlString(options["short-id"])
+    raw = yaml.dump(value, Dumper=AutoHubSafeDumper, allow_unicode=True, sort_keys=False).encode("utf-8")
     temporary = path.with_suffix(path.suffix + ".tmp")
     temporary.write_bytes(raw)
     temporary.replace(path)
