@@ -81,6 +81,118 @@ def apply_source_response(
     return snapshot, True
 
 
+
+def build_queue_from_pool(
+    pool: dict[str, Any],
+    previous_state: dict[str, Any] | None = None,
+    generated_at: str | None = None,
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    """Rebuild the pending phone queue from the current source-derived pool."""
+    now = generated_at or datetime.now(timezone.utc).isoformat()
+    proxies = pool.get("proxies")
+    nodes = pool.get("nodes")
+    if not isinstance(proxies, list) or not isinstance(nodes, list):
+        raise ValueError("Candidate pool requires proxies and node metadata lists")
+    by_fingerprint = {node_fingerprint(proxy): proxy for proxy in validate_nodes(proxies)}
+    if len(by_fingerprint) != len(proxies):
+        raise ValueError("Candidate pool contains duplicate node fingerprints")
+    if {item.get("fingerprint") for item in nodes if isinstance(item, dict)} != set(by_fingerprint):
+        raise ValueError("Candidate pool manifest does not match its proxy list")
+
+    state = previous_state if isinstance(previous_state, dict) else {}
+    if state.get("schema_version", 1) != 1 or not isinstance(state.get("nodes", {}), dict):
+        raise ValueError("Unsupported probe state schema")
+    state_nodes = {key: dict(value) for key, value in state.get("nodes", {}).items()
+                   if isinstance(value, dict)}
+    queue_proxies: list[dict[str, Any]] = []
+    queue_nodes: list[dict[str, Any]] = []
+    used_names: set[str] = set()
+    for meta in nodes:
+        fingerprint = meta["fingerprint"]
+        proxy = dict(by_fingerprint[fingerprint])
+        record = state_nodes.get(fingerprint, {})
+        if record.get("status") in {"completed", "passed", "failed", "precheck_failed"}:
+            continue
+        name = str(meta.get("name") or proxy.get("name") or fingerprint[:12])
+        if name in used_names:
+            name = f"{name} [{fingerprint[:6]}]"
+        if name in used_names:
+            raise ValueError("Unable to generate unique queue node names")
+        used_names.add(name)
+        proxy["name"] = name
+        queue_proxies.append(proxy)
+        queue_nodes.append({
+            "node_id": fingerprint[:20],
+            "fingerprint": fingerprint,
+            "name": name,
+            "sources": list(meta.get("sources") or []),
+        })
+        record.update({"status": "pending", "last_seen_at": now})
+        record.setdefault("first_seen_at", now)
+        state_nodes[fingerprint] = record
+
+    return (
+        {"schema_version": 1, "generated_at": now, "proxies": queue_proxies,
+         "nodes": queue_nodes},
+        {"schema_version": 1, "updated_at": now, "nodes": state_nodes},
+    )
+
+
+def apply_completed_receipt(
+    previous_state: dict[str, Any],
+    manifest: dict[str, Any],
+    receipt: dict[str, Any],
+    processed_at: str | None = None,
+) -> dict[str, Any]:
+    """Mark every node in a fully matched receipt as completed, regardless of pass/fail."""
+    nodes = manifest.get("nodes")
+    results = receipt.get("results")
+    if not isinstance(nodes, list) or not isinstance(results, list):
+        raise ValueError("Receipt or manifest is malformed")
+    by_id: dict[str, str] = {}
+    for node in nodes:
+        if not isinstance(node, dict):
+            raise ValueError("Manifest contains an invalid node")
+        node_id = node.get("node_id")
+        fingerprint = node.get("fingerprint")
+        if (not isinstance(node_id, str) or not isinstance(fingerprint, str)
+                or len(fingerprint) != 64 or fingerprint[:20] != node_id):
+            raise ValueError("Manifest is missing a verifiable full node fingerprint")
+        if node_id in by_id:
+            raise ValueError("Manifest contains duplicate node IDs")
+        by_id[node_id] = fingerprint
+    seen: set[str] = set()
+    result_by_id: dict[str, dict[str, Any]] = {}
+    for item in results:
+        if not isinstance(item, dict):
+            raise ValueError("Receipt contains an invalid result")
+        node_id = item.get("node_id")
+        if not isinstance(node_id, str) or node_id not in by_id or node_id in seen:
+            raise ValueError("Receipt contains an unknown or duplicate node ID")
+        if item.get("status") not in {"passed", "failed"}:
+            raise ValueError("Receipt contains a non-final node status")
+        seen.add(node_id)
+        result_by_id[node_id] = item
+    if seen != set(by_id):
+        raise ValueError("Receipt does not cover the exact candidate manifest")
+    now = processed_at or datetime.now(timezone.utc).isoformat()
+    state = previous_state if isinstance(previous_state, dict) else {}
+    state_nodes = {key: dict(value) for key, value in state.get("nodes", {}).items()
+                   if isinstance(value, dict)}
+    receipt_id = receipt.get("task_id") or receipt.get("receipt_id") or receipt.get("candidate_sha256")
+    for node_id, fingerprint in by_id.items():
+        item = result_by_id[node_id]
+        record = state_nodes.get(fingerprint, {})
+        record.update({
+            "status": "completed",
+            "result": item["status"],
+            "completed_at": now,
+            "receipt_id": receipt_id,
+        })
+        state_nodes[fingerprint] = record
+    return {"schema_version": 1, "updated_at": now, "nodes": state_nodes}
+
+
 def reconcile_sources(
     snapshots: dict[str, dict[str, Any]],
     previous_state: dict[str, Any] | None = None,
@@ -141,7 +253,7 @@ def reconcile_sources(
         })
         record = state_nodes.get(fingerprint, {})
         status = record.get("status")
-        if status not in {"completed", "passed", "failed"}:
+        if status not in {"completed", "passed", "failed", "precheck_failed"}:
             record = {
                 "status": "pending",
                 "first_seen_at": record.get("first_seen_at") or now,
