@@ -101,7 +101,9 @@ def load_snapshots(directory: Path) -> dict[str, dict]:
 def fetch_one(index: int, url: str, cache: dict, previous: dict | None):
     source_id = f"source-{index:03d}"
     headers = {"User-Agent": USER_AGENT}
-    headers.update(conditional_headers(cache, url))
+    # A validator is safe only when its matching full source snapshot exists.
+    if previous is not None and previous.get("source_url_sha256") == url_fingerprint(url):
+        headers.update(conditional_headers(cache, url))
     response = requests.get(url, headers=headers, timeout=25)
     if response.status_code == 304:
         snapshot, _ = apply_source_response(previous, source_id, url, 304, None)
@@ -129,13 +131,28 @@ def main() -> None:
     source_status: dict[str, dict] = {}
     cache_changed = False
     failures = []
-    for index, url in enumerate(urls, 1):
+
+    def fetch_job(item):
+        index, url = item
         source_id = f"source-{index:03d}"
         previous = old_snapshots.get(source_id)
         if previous and previous.get("source_url_sha256") != url_fingerprint(url):
             previous = None
         try:
-            result = fetch_one(index, url, cache, previous)
+            return ("ok", index, url, previous, fetch_one(index, url, cache, previous), None)
+        except Exception as exc:
+            return ("error", index, url, previous, None, exc)
+
+    results = []
+    workers = max(1, min(int(os.getenv("SOURCE_WORKERS", "10") or "10"), len(urls)))
+    with ThreadPoolExecutor(max_workers=workers) as executor:
+        futures = [executor.submit(fetch_job, item) for item in enumerate(urls, 1)]
+        for future in as_completed(futures):
+            results.append(future.result())
+
+    for outcome, index, url, previous, result, error in sorted(results, key=lambda row: row[1]):
+        source_id = f"source-{index:03d}"
+        if outcome == "ok":
             source_id, snapshot, parsed, status, headers, *tail = result
             fetched[source_id] = snapshot
             rejected = tail[0] if tail else 0
@@ -146,19 +163,19 @@ def main() -> None:
             if status == 200:
                 cache_changed = record_response(cache, url, status, headers) or cache_changed
             print(f"{source_id}: HTTP {status}; snapshot nodes={len(snapshot['nodes'])}; rejected HTTP={rejected}")
-        except Exception as exc:
-            if previous is None:
-                raise RuntimeError(
-                    f"{source_id} has no usable previous snapshot and its fetch failed "
-                    f"({type(exc).__name__}); initial snapshot must be complete"
-                ) from exc
-            fetched[source_id] = previous
-            source_status[source_id] = {
-                "status": "error", "node_count": len(previous.get("nodes", [])),
-                "error": type(exc).__name__,
-            }
-            failures.append(source_id)
-            print(f"{source_id}: fetch/parse failed; retained previous snapshot ({type(exc).__name__})")
+            continue
+        if previous is None:
+            raise RuntimeError(
+                f"{source_id} has no usable previous snapshot and its fetch failed "
+                f"({type(error).__name__}); initial snapshot must be complete"
+            ) from error
+        fetched[source_id] = previous
+        source_status[source_id] = {
+            "status": "error", "node_count": len(previous.get("nodes", [])),
+            "error": type(error).__name__,
+        }
+        failures.append(source_id)
+        print(f"{source_id}: fetch/parse failed; retained previous snapshot ({type(error).__name__})")
 
     # Remove stale source groups only when the configured source list itself changed.
     snapshot_dir.mkdir(parents=True, exist_ok=True)
