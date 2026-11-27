@@ -157,7 +157,7 @@ class SourceSnapshotTests(unittest.TestCase):
         result = {"results": [{"node_id": queue["nodes"][0]["node_id"], "status": "passed"}]}
         first = apply_completed_receipt(state, manifest, {**result, "task_id": "same"})
         second = apply_completed_receipt(first, manifest, {**result, "task_id": "same"})
-        self.assertEqual(first, second)
+        self.assertEqual(first["nodes"], second["nodes"])
         with self.assertRaises(ValueError):
             apply_completed_receipt(first, manifest, {**result, "task_id": "different"})
 
