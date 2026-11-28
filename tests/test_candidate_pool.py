@@ -68,7 +68,7 @@ class CandidatePoolTests(unittest.TestCase):
                 "nodes": {node["fingerprint"]: {"status": "pending"} for node in pool_nodes},
             }))
             manifest_path.write_text(json.dumps(manifest))
-            receipt_path.write_text(json.dumps({"task_id": "legacy-receipt", "results": [
+            receipt_path.write_text(json.dumps({"task_id": "full-fingerprint-receipt", "candidate_sha256": hashlib.sha256(candidate_bytes).hexdigest(), "results": [
                 {"node_id": node_id(self.a), "status": "passed"},
                 {"node_id": node_id(self.b), "status": "failed"},
             ]}))
