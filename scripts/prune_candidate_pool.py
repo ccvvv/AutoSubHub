@@ -72,36 +72,72 @@ def prune_and_refresh(pool_path: Path, manifest_path: Path, receipt_path: Path) 
     pool_manifest_path = pool_path.parent / "pool-manifest.json"
     state_path = pool_path.parent / "probe-state.json"
     if pool_manifest_path.is_file():
-        # Receipt is exact-matched above. Failed phone nodes are removed from
-        # the live pool; source snapshots remain untouched as change detectors.
+        # The phone-facing manifest and receipt use only the 20-hex node_id.
+        # Resolve those IDs against the trusted full-fingerprint pool metadata;
+        # never require the phone to upload internal 256-bit fingerprints.
         pool_meta = json.loads(pool_manifest_path.read_text(encoding="utf-8"))
         state = (json.loads(state_path.read_text(encoding="utf-8"))
                  if state_path.is_file() else {"schema_version": 1, "nodes": {}})
-        completed_state = apply_completed_receipt(state, manifest, receipt)
+        pool_proxies = pool.get("proxies")
+        pool_nodes = pool_meta.get("nodes")
+        if not isinstance(pool_proxies, list) or not isinstance(pool_nodes, list) or len(pool_proxies) != len(pool_nodes):
+            raise SystemExit("Persistent pool metadata does not match pool; pool left unchanged")
+
+        meta_by_id = {}
+        for proxy, meta in zip(pool_proxies, pool_nodes):
+            if not isinstance(proxy, dict) or not isinstance(meta, dict):
+                raise SystemExit("Persistent pool contains invalid node metadata; pool left unchanged")
+            fingerprint = meta.get("fingerprint")
+            current_id = node_fingerprint(proxy)[:20]
+            if (not isinstance(fingerprint, str) or len(fingerprint) != 64
+                    or fingerprint != node_fingerprint(proxy)
+                    or meta.get("node_id") != current_id
+                    or fingerprint[:20] != current_id or current_id in meta_by_id):
+                raise SystemExit("Persistent pool fingerprint/20-character ID mismatch; pool left unchanged")
+            meta_by_id[current_id] = fingerprint
+
+        enriched_nodes = []
+        for item in manifest_nodes:
+            node_id = item.get("node_id")
+            fingerprint = meta_by_id.get(node_id)
+            if fingerprint is None:
+                raise SystemExit("Receipt manifest contains an ID absent from the persistent pool; pool left unchanged")
+            enriched_nodes.append({**item, "fingerprint": fingerprint})
+        internal_manifest = {**manifest, "nodes": enriched_nodes}
+        completed_state = apply_completed_receipt(state, internal_manifest, receipt)
+        result_by_id = {item["node_id"]: item for item in results}
         failed_ids = {
-            item["fingerprint"] for item in manifest_nodes
-            if next(result for result in results if result["node_id"] == item["node_id"])["status"] == "failed"
+            item["node_id"] for item in manifest_nodes
+            if result_by_id[item["node_id"]]["status"] == "failed"
         }
         kept_pairs = [
-            (proxy, meta) for proxy, meta in zip(pool.get("proxies", []), pool_meta.get("nodes", []))
-            if meta.get("fingerprint") not in failed_ids
+            (proxy, meta) for proxy, meta in zip(pool_proxies, pool_nodes)
+            if meta["node_id"] not in failed_ids
         ]
-        pool["proxies"] = [proxy for proxy, _ in kept_pairs]
-        pool_meta["nodes"] = [meta for _, meta in kept_pairs]
-        atomic_yaml(pool_path, pool)
-        atomic_json(pool_manifest_path, pool_meta)
+        next_pool = {"proxies": [proxy for proxy, _ in kept_pairs]}
+        next_pool_meta = {"schema_version": pool_meta.get("schema_version", 1),
+                          "generated_at": pool_meta.get("generated_at"),
+                          "nodes": [meta for _, meta in kept_pairs]}
         queue, completed_state = build_queue_from_pool(
-            {"proxies": pool.get("proxies"), "nodes": pool_meta.get("nodes")},
+            {"proxies": next_pool["proxies"], "nodes": next_pool_meta["nodes"]},
             completed_state,
         )
         candidate_path = pool_path.parent / "subscription.yaml"
-        candidate_bytes = atomic_yaml(candidate_path, {"proxies": queue["proxies"]})
+        candidate_bytes = yaml.safe_dump({"proxies": queue["proxies"]}, allow_unicode=True,
+                                         sort_keys=False).encode("utf-8")
         next_manifest = {
             "schema_version": 1,
             "generated_at": datetime.now(timezone.utc).isoformat(),
             "candidate_sha256": hashlib.sha256(candidate_bytes).hexdigest(),
             "nodes": queue["nodes"],
         }
+        # All validation and derived outputs are complete before any live file changes.
+        atomic_yaml(pool_path, next_pool)
+        atomic_json(pool_manifest_path, next_pool_meta)
+        candidate_path.parent.mkdir(parents=True, exist_ok=True)
+        temporary = candidate_path.with_suffix(candidate_path.suffix + ".tmp")
+        temporary.write_bytes(candidate_bytes)
+        temporary.replace(candidate_path)
         atomic_json(pool_path.parent / "manifest.json", next_manifest)
         atomic_json(state_path, completed_state)
         return
