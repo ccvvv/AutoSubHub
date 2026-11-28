@@ -26,7 +26,8 @@ class CandidatePoolTests(unittest.TestCase):
         manifest = build_manifest(candidate, "2026-11-26T00:00:00Z", "a" * 64)
         self.assertEqual(manifest["schema_version"], 1)
         self.assertEqual(manifest["candidate_sha256"], "a" * 64)
-        self.assertTrue(all(len(n["node_id"]) == 20 for n in manifest["nodes"]))
+        self.assertTrue(all(len(n["node_id"]) == 64 for n in manifest["nodes"]))
+        self.assertTrue(all(n["node_id"] == n["fingerprint"] for n in manifest["nodes"]))
         self.assertTrue(all(set(n["node_id"]) <= set("0123456789abcdef") for n in manifest["nodes"]))
 
     def test_receipt_removes_only_tested_ids_and_preserves_new_nodes(self):
@@ -36,7 +37,7 @@ class CandidatePoolTests(unittest.TestCase):
 
     def test_unknown_receipt_id_fails_closed(self):
         with self.assertRaises(ValueError):
-            remove_tested_nodes({"proxies": [self.a]}, {"f" * 20})
+            remove_tested_nodes({"proxies": [self.a]}, {"f" * 64})
 
     def test_receipt_pruning_refreshes_phone_snapshot_and_manifest(self):
         c = {"name": "c", "type": "ss", "server": "three.example", "port": 443}
@@ -55,7 +56,7 @@ class CandidatePoolTests(unittest.TestCase):
             for proxy in [self.a, self.b, c]:
                 fingerprint = node_fingerprint(proxy)
                 pool_nodes.append({
-                    "node_id": fingerprint[:20], "fingerprint": fingerprint,
+                    "node_id": fingerprint, "fingerprint": fingerprint,
                     "name": proxy["name"], "sources": ["source-001"],
                 })
             (root / "pool-manifest.json").write_text(json.dumps({
