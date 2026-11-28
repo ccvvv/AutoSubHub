@@ -55,6 +55,13 @@ def main() -> None:
     candidate, manifest, commits, tip = collect_pending_candidate_batches(
         remote, REPO, BRANCH, session, state_path, bootstrap_limit=20
     )
+    proxies = candidate.get("proxies")
+    if not isinstance(proxies, list) or not proxies:
+        raise SystemExit(
+            "Pending history contains no testable nodes (for example, an empty "
+            "snapshot created after receipt cleanup). Existing candidate cache "
+            "was preserved; wait for a non-empty candidate batch."
+        )
     candidate_bytes = yaml.safe_dump(
         candidate, allow_unicode=True, sort_keys=False
     ).encode("utf-8")
