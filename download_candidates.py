@@ -15,6 +15,7 @@ import requests
 import yaml
 
 from scripts.candidate_queue import collect_pending_candidate_batches
+from scripts.node_identity import validate_candidate_identity
 
 REPO = "ccvvv/AutoSubHub"
 BRANCH = "published-subscriptions"
@@ -73,6 +74,10 @@ def main() -> None:
     ).encode("utf-8")
     digest = hashlib.sha256(candidate_bytes).hexdigest()
     manifest["candidate_sha256"] = digest
+    try:
+        validate_candidate_identity(candidate, manifest)
+    except ValueError as exc:
+        raise SystemExit(f"Downloaded candidate full-fingerprint verification failed: {exc}") from exc
 
     # Use the exact candidate tip returned by the queue collector. FETCH_HEAD is
     # a mutable Git pseudo-ref and may not be available/reliable after nested
