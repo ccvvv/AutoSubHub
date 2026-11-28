@@ -24,6 +24,7 @@ import requests
 import yaml
 
 from scripts.candidate_queue import collect_pending_candidate_batches
+from scripts.node_identity import validate_candidate_identity
 from scripts.streaming_checker import check_streaming_services
 
 REPO = os.getenv("GITHUB_REPOSITORY", "ccvvv/AutoSubHub")
@@ -330,6 +331,11 @@ def main() -> None:
     manifest_nodes = manifest.get("nodes")
     if not isinstance(proxies, list) or not proxies or not isinstance(manifest_nodes, list):
         raise SystemExit("Candidate or manifest structure is invalid")
+    try:
+        validate_candidate_identity(candidate, manifest)
+    except ValueError as exc:
+        raise SystemExit(f"Phone full-fingerprint verification failed: {exc}") from exc
+    print(f"手机端完整 SHA256 指纹验证通过：{len(proxies)} 个节点")
     by_name = {p.get("name"): p for p in proxies if isinstance(p, dict) and p.get("name")}
     valid_manifest_nodes = [n for n in manifest_nodes if isinstance(n, dict)]
     id_by_name = {n.get("name"): n.get("node_id") for n in valid_manifest_nodes}
