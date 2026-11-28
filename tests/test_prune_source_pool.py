@@ -61,8 +61,8 @@ class SourcePoolReceiptTests(unittest.TestCase):
             queue_manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
             state_after = json.loads(state_path.read_text(encoding="utf-8"))
             self.assertEqual(pool_after["proxies"], [a])
-            self.assertEqual(queue_after["proxies"], [])
-            self.assertEqual(queue_manifest["nodes"], [])
+            self.assertEqual([p["server"] for p in queue_after["proxies"]], ["one.example"])
+            self.assertEqual([item["node_id"] for item in queue_manifest["nodes"]], [fingerprints[0]])
             self.assertEqual(queue_manifest["candidate_sha256"],
                              hashlib.sha256((root / "subscription.yaml").read_bytes()).hexdigest())
             self.assertEqual({state_after["nodes"][fp]["result"] for fp in fingerprints},
