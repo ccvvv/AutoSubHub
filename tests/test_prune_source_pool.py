@@ -29,7 +29,7 @@ class SourcePoolReceiptTests(unittest.TestCase):
             fingerprints = [node_fingerprint(p) for p in proxies]
             stale_fingerprint = node_fingerprint(c)
             pool_manifest_path.write_text(json.dumps({"nodes": [
-                {"fingerprint": fp, "node_id": fp[:20], "name": p["name"], "sources": ["source-001"]}
+                {"fingerprint": fp, "node_id": fp, "name": p["name"], "sources": ["source-001"]}
                 for p, fp in zip(proxies, fingerprints)
             ]}), encoding="utf-8")
             state_path.write_text(json.dumps({"schema_version": 1, "nodes": {
@@ -41,16 +41,16 @@ class SourcePoolReceiptTests(unittest.TestCase):
                 "schema_version": 1,
                 "candidate_sha256": hashlib.sha256(candidate_bytes).hexdigest(),
                 "nodes": [
-                    {"node_id": fp[:20], "name": p["name"], "sources": ["source-001"]}
+                    {"node_id": fp, "fingerprint": fp, "name": p["name"], "sources": ["source-001"]}
                     for p, fp in zip(proxies, fingerprints)
                 ] + [
-                    {"node_id": stale_fingerprint[:20], "name": c["name"], "sources": ["source-001"]}
+                    {"node_id": stale_fingerprint, "name": c["name"], "sources": ["source-001"]}
                 ],
             }
             manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
-            receipt_path.write_text(json.dumps({"task_id": "receipt-1", "results": [
-                {"node_id": fingerprints[0][:20], "status": "passed"},
-                {"node_id": fingerprints[1][:20], "status": "failed"},
+            receipt_path.write_text(json.dumps({"task_id": "receipt-1", "candidate_sha256": hashlib.sha256(candidate_bytes).hexdigest(), "results": [
+                {"node_id": fingerprints[0], "status": "passed"},
+                {"node_id": fingerprints[1], "status": "failed"},
                 {"node_id": stale_fingerprint[:20], "status": "passed"},
             ]}), encoding="utf-8")
 
