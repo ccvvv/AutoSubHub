@@ -130,7 +130,9 @@ def build_queue_from_pool(
             "name": name,
             "sources": list(meta.get("sources") or []),
         })
-        record.update({"status": "pending", "last_seen_at": now})
+        if record.get("status") not in {"passed", "completed"}:
+            record["status"] = "pending"
+        record["last_seen_at"] = now
         record.setdefault("first_seen_at", now)
         state_nodes[fingerprint] = record
 
