@@ -83,7 +83,7 @@ class ReceiptBundleCompletenessTests(unittest.TestCase):
         invalid = {"results": [
             {"node_id": "a" * 64}, {"node_id": "c" * 64}
         ]}
-        with self.assertRaisesRegex(ValueError, "unknown=1"):
+        with self.assertRaisesRegex(ValueError, "unknown=2"):
             upload_receipt.validate_complete_receipt_bundle(
                 invalid, self.candidate, self.manifest
             )
