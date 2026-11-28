@@ -1,114 +1,27 @@
 {
-  "checked_at": "2026-11-27T22:20:30.474376+00:00",
-  "etag": "W/\"fbd1630f73d5579cb45a234fab5c3a2dc2db3593a13a13495229e631f8977901\"",
-  "fetched_at": "2026-11-27T22:15:34.019636+00:00",
+  "checked_at": "2026-11-28T03:18:48.989646+00:00",
+  "etag": "W/\"556359e18b5e245c9c3f1fb4b4cc41ba02b72179ad985c8ec3dbbe3390d8c0fc\"",
+  "fetched_at": "2026-11-28T03:18:48.989646+00:00",
   "last_modified": null,
-  "last_status": 304,
+  "last_status": 200,
   "nodes": [
     {
-      "alpn": [
-        "http/1.1"
-      ],
-      "name": "🇧🇬 Bulgaria, Sofia | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "still-bar-5702.vpnetwork3567.workers.dev",
-      "servername": "still-bar-5702.vpnetwork3567.workers.dev",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "963A4918-A630-29DA-A873-093CDF8AD784",
-      "ws-opts": {
-        "headers": {
-          "Host": "still-bar-5702.vpnetwork3567.workers.dev"
-        },
-        "path": "/"
-      }
-    },
-    {
-      "alpn": [
-        "http/1.1"
-      ],
       "client-fingerprint": "chrome",
-      "name": "🇧🇬 Bulgaria, Sofia | [BL]",
+      "name": "🇨🇦 Canada, Toronto | [BL]",
       "network": "ws",
-      "port": 443,
-      "server": "still-bar-5702.vpnetwork3567.workers.dev",
-      "servername": "still-bar-5702.vpnetwork3567.workers.dev",
+      "port": 8443,
+      "server": "104.21.6.60",
+      "servername": "dimu-vz7e.ezaccess1717bbf.workers.dev",
       "tls": true,
       "type": "vless",
       "udp": true,
-      "uuid": "963A4918-A630-29DA-A873-093CDF8AD784",
+      "uuid": "53035563-df32-463c-b23a-5e14535793b2",
       "ws-opts": {
         "headers": {
-          "Host": "still-bar-5702.vpnetwork3567.workers.dev"
+          "Host": "dimu-vz7e.ezaccess1717bbf.workers.dev"
         },
-        "path": "/"
+        "path": "/stream/DEVCOP/5e14535793b2?ed=2048"
       }
-    },
-    {
-      "client-fingerprint": "edge",
-      "flow": "xtls-rprx-vision",
-      "name": "🇫🇮 Finland, Helsinki | [BL]",
-      "port": 443,
-      "reality-opts": {
-        "public-key": "",
-        "short-id": "b4146cf5c1af7f90"
-      },
-      "server": "ee.prosetupvideo.shop",
-      "servername": "ee.prosetupvideo.shop",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "f8d52ece-fad4-478d-875d-df6eed3befa7"
-    },
-    {
-      "client-fingerprint": "firefox",
-      "flow": "xtls-rprx-vision",
-      "name": "🇫🇮 Finland, Helsinki | [BL]",
-      "port": 443,
-      "reality-opts": {
-        "public-key": "",
-        "short-id": "b4146cf5c1af7f90"
-      },
-      "server": "ee.prosetupvideo.shop",
-      "servername": "ee.prosetupvideo.shop",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "f8d52ece-fad4-478d-875d-df6eed3befa7"
-    },
-    {
-      "client-fingerprint": "ios",
-      "flow": "xtls-rprx-vision",
-      "name": "🇫🇮 Finland, Helsinki | [BL]",
-      "port": 443,
-      "reality-opts": {
-        "public-key": "",
-        "short-id": "b4146cf5c1af7f90"
-      },
-      "server": "ee.prosetupvideo.shop",
-      "servername": "ee.prosetupvideo.shop",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "f8d52ece-fad4-478d-875d-df6eed3befa7"
-    },
-    {
-      "client-fingerprint": "safari",
-      "flow": "xtls-rprx-vision",
-      "name": "🇫🇮 Finland, Helsinki | [BL]",
-      "port": 443,
-      "reality-opts": {
-        "public-key": "",
-        "short-id": "b4146cf5c1af7f90"
-      },
-      "server": "ee.prosetupvideo.shop",
-      "servername": "ee.prosetupvideo.shop",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "f8d52ece-fad4-478d-875d-df6eed3befa7"
     },
     {
       "flow": "xtls-rprx-vision",
@@ -127,616 +40,41 @@
     },
     {
       "client-fingerprint": "firefox",
-      "name": "🇫🇮 Finland, Helsinki | [BL]",
-      "port": 61374,
-      "reality-opts": {
-        "public-key": ""
-      },
-      "server": "ee.prosetupvideo.shop",
-      "servername": "ee.prosetupvideo.shop",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "f8d52ece-fad4-478d-875d-df6eed3befa7"
-    },
-    {
-      "alpn": [
-        "http/1.1"
-      ],
-      "client-fingerprint": "edge",
-      "name": "🇩🇪 Germany | 🌐 | [BL]",
-      "network": "ws",
-      "port": 8443,
-      "server": "104.17.70.206",
-      "servername": "free.sahanwickramasinghe.com",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "3692de53-42e6-4aed-a522-40ec355dcd2f",
-      "ws-opts": {
-        "headers": {
-          "Host": "free.sahanwickramasinghe.com"
-        },
-        "path": "/"
-      }
-    },
-    {
-      "alpn": [
-        "http/1.1"
-      ],
-      "client-fingerprint": "safari",
-      "name": "🇩🇪 Germany | 🌐 | [BL]",
-      "network": "ws",
-      "port": 8443,
-      "server": "104.17.70.206",
-      "servername": "free.sahanwickramasinghe.com",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "3692de53-42e6-4aed-a522-40ec355dcd2f",
-      "ws-opts": {
-        "headers": {
-          "Host": "free.sahanwickramasinghe.com"
-        },
-        "path": "/"
-      }
-    },
-    {
-      "alpn": [
-        "http/1.1"
-      ],
-      "client-fingerprint": "firefox",
-      "name": "🇩🇪 Germany | 🌐 | [BL]",
-      "network": "ws",
-      "port": 8443,
-      "server": "104.17.70.206",
-      "servername": "free.sahanwickramasinghe.com",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "3692de53-42e6-4aed-a522-40ec355dcd2f",
-      "ws-opts": {
-        "headers": {
-          "Host": "free.sahanwickramasinghe.com"
-        },
-        "path": "/"
-      }
-    },
-    {
-      "alpn": [
-        "http/1.1"
-      ],
-      "client-fingerprint": "ios",
-      "name": "🇩🇪 Germany | 🌐 | [BL]",
-      "network": "ws",
-      "port": 8443,
-      "server": "104.17.70.206",
-      "servername": "free.sahanwickramasinghe.com",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "3692de53-42e6-4aed-a522-40ec355dcd2f",
-      "ws-opts": {
-        "headers": {
-          "Host": "free.sahanwickramasinghe.com"
-        },
-        "path": "/"
-      }
-    },
-    {
-      "alpn": [
-        "http/1.1"
-      ],
-      "client-fingerprint": "safari",
-      "name": "🇩🇪 Germany | 🌐 | [BL]",
-      "network": "ws",
-      "port": 8443,
-      "server": "104.17.70.206",
-      "servername": "104.17.70.206",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "3692de53-42e6-4aed-a522-40ec355dcd2f",
-      "ws-opts": {
-        "headers": {
-          "Host": "free.sahanwickramasinghe.com"
-        },
-        "path": "/"
-      }
-    },
-    {
-      "alpn": [
-        "http/1.1"
-      ],
-      "name": "🇩🇪 Germany | 🌐 | [BL]",
-      "network": "ws",
-      "port": 8443,
-      "server": "104.17.70.206",
-      "servername": "free.sahanwickramasinghe.com",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "3692de53-42e6-4aed-a522-40ec355dcd2f",
-      "ws-opts": {
-        "headers": {
-          "Host": "free.sahanwickramasinghe.com"
-        },
-        "path": "/"
-      }
-    },
-    {
-      "alpn": [
-        "http/1.1"
-      ],
-      "client-fingerprint": "chrome",
-      "name": "🇩🇪 Germany | 🌐 | [BL]",
-      "network": "ws",
-      "port": 8443,
-      "server": "104.17.70.206",
-      "servername": "104.17.70.206",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "3692de53-42e6-4aed-a522-40ec355dcd2f",
-      "ws-opts": {
-        "headers": {
-          "Host": "free.sahanwickramasinghe.com"
-        },
-        "path": "/"
-      }
-    },
-    {
-      "client-fingerprint": "chrome",
-      "name": "🇩🇪 Germany | 🌐 | [BL]",
-      "network": "ws",
-      "port": 8443,
-      "server": "104.17.70.206",
-      "servername": "104.17.70.206",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "3692de53-42e6-4aed-a522-40ec355dcd2f",
-      "ws-opts": {
-        "headers": {
-          "Host": "free.sahanwickramasinghe.com"
-        },
-        "path": "/"
-      }
-    },
-    {
-      "client-fingerprint": "chrome",
-      "name": "🇩🇪 Germany | 🌐 | [BL]",
-      "network": "ws",
-      "port": 8443,
-      "server": "104.17.70.206",
-      "servername": "free.sahanwickramasinghe.com",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "3692de53-42e6-4aed-a522-40ec355dcd2f",
-      "ws-opts": {
-        "headers": {
-          "Host": "free.sahanwickramasinghe.com"
-        },
-        "path": "/"
-      }
-    },
-    {
-      "client-fingerprint": "firefox",
-      "name": "🇩🇪 Germany | 🌐 | [BL]",
-      "network": "ws",
-      "port": 8443,
-      "server": "104.17.70.206",
-      "servername": "free.sahanwickramasinghe.com",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "3692de53-42e6-4aed-a522-40ec355dcd2f",
-      "ws-opts": {
-        "headers": {
-          "Host": "free.sahanwickramasinghe.com"
-        },
-        "path": "/"
-      }
-    },
-    {
-      "client-fingerprint": "ios",
-      "name": "🇩🇪 Germany | 🌐 | [BL]",
-      "network": "ws",
-      "port": 8443,
-      "server": "104.17.70.206",
-      "servername": "free.sahanwickramasinghe.com",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "3692de53-42e6-4aed-a522-40ec355dcd2f",
-      "ws-opts": {
-        "headers": {
-          "Host": "free.sahanwickramasinghe.com"
-        },
-        "path": "/"
-      }
-    },
-    {
-      "client-fingerprint": "safari",
-      "name": "🇩🇪 Germany | 🌐 | [BL]",
-      "network": "ws",
-      "port": 8443,
-      "server": "104.17.70.206",
-      "servername": "free.sahanwickramasinghe.com",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "3692de53-42e6-4aed-a522-40ec355dcd2f",
-      "ws-opts": {
-        "headers": {
-          "Host": "free.sahanwickramasinghe.com"
-        },
-        "path": "/"
-      }
-    },
-    {
-      "client-fingerprint": "safari",
-      "name": "🇩🇪 Germany | 🌐 | [BL]",
-      "network": "ws",
-      "port": 8443,
-      "server": "104.17.70.206",
-      "servername": "104.17.70.206",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "3692de53-42e6-4aed-a522-40ec355dcd2f",
-      "ws-opts": {
-        "headers": {
-          "Host": "free.sahanwickramasinghe.com"
-        },
-        "path": "/"
-      }
-    },
-    {
-      "alpn": [
-        "http/1.1"
-      ],
-      "client-fingerprint": "edge",
-      "name": "🇩🇪 Germany | 🌐 | [BL]",
-      "network": "ws",
-      "port": 8443,
-      "server": "104.27.97.42",
-      "servername": "free.sahanwickramasinghe.com",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "3692de53-42e6-4aed-a522-40ec355dcd2f",
-      "ws-opts": {
-        "headers": {
-          "Host": "free.sahanwickramasinghe.com"
-        },
-        "path": "/"
-      }
-    },
-    {
-      "alpn": [
-        "http/1.1"
-      ],
-      "client-fingerprint": "chrome",
-      "name": "🇩🇪 Germany | 🌐 | [BL]",
-      "network": "ws",
-      "port": 8443,
-      "server": "104.27.97.42",
-      "servername": "free.sahanwickramasinghe.com",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "3692de53-42e6-4aed-a522-40ec355dcd2f",
-      "ws-opts": {
-        "headers": {
-          "Host": "free.sahanwickramasinghe.com"
-        },
-        "path": "/"
-      }
-    },
-    {
-      "client-fingerprint": "chrome",
-      "name": "🇩🇪 Germany, Frankfurt am Main | [BL]",
-      "network": "ws",
-      "port": 8443,
-      "server": "104.21.67.80",
-      "servername": "cdn.memoracle.ir",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "cbfdab46-e183-4cc3-bab9-df954c8c601e",
-      "ws-opts": {
-        "headers": {
-          "Host": "cdn.memoracle.ir"
-        },
-        "path": "/vless-ws"
-      }
-    },
-    {
-      "client-fingerprint": "chrome",
-      "name": "🇩🇪 Germany, Frankfurt am Main | [BL]",
-      "network": "ws",
-      "port": 8443,
-      "server": "104.21.68.231",
-      "servername": "cdn.memepunk.ir",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "cbfdab46-e183-4cc3-bab9-df954c8c601e",
-      "ws-opts": {
-        "headers": {
-          "Host": "cdn.memepunk.ir"
-        },
-        "path": "/vless-ws"
-      }
-    },
-    {
-      "client-fingerprint": "edge",
-      "name": "🇩🇪 Germany, Saarbrücken (Mitte) | [BL]",
-      "network": "ws",
-      "port": 8443,
-      "server": "104.17.70.206",
-      "servername": "free.sahanwickramasinghe.com",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "3692de53-42e6-4aed-a522-40ec355dcd2f",
-      "ws-opts": {
-        "headers": {
-          "Host": "free.sahanwickramasinghe.com"
-        },
-        "path": "/"
-      }
-    },
-    {
-      "flow": "xtls-rprx-vision",
-      "name": "🇯🇵 Japan, Inzai (Otsuka) | [BL]",
-      "port": 23169,
-      "server": "155.248.175.201",
-      "servername": "djj.zjlo.top",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "3eb053cb-d6f8-4b31-8180-222e1cc6f8ff"
-    },
-    {
-      "client-fingerprint": "edge",
-      "flow": "xtls-rprx-vision",
-      "name": "🇯🇵 Japan, Inzai (Otsuka) | 🌐 | [BL]",
-      "port": 23169,
-      "server": "155.248.175.201",
-      "servername": "djj.zjlo.top",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "f67b1159-a61f-4ae4-9844-0701b716a290"
-    },
-    {
-      "alpn": [
-        "http/1.1"
-      ],
-      "client-fingerprint": "chrome",
-      "name": "🇸🇬 Singapore, Singapore (Outram) | 🌐 | [BL]",
-      "network": "ws",
-      "port": 8443,
-      "server": "141.193.213.21",
-      "servername": "matrix.learnpodedu.com",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "4d8d9640-7cc7-4c55-ba54-6ce0d1709541",
-      "ws-opts": {
-        "headers": {
-          "Host": "matrix.learnpodedu.com"
-        },
-        "path": "/"
-      }
-    },
-    {
-      "client-fingerprint": "firefox",
-      "name": "🇸🇬 Singapore, Singapore (Outram) | 🌐 | [BL]",
-      "network": "ws",
-      "port": 8443,
-      "server": "141.193.213.21",
-      "servername": "matrix.learnpodedu.com",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "4d8d9640-7cc7-4c55-ba54-6ce0d1709541",
-      "ws-opts": {
-        "headers": {
-          "Host": "matrix.learnpodedu.com"
-        },
-        "path": "/"
-      }
-    },
-    {
-      "client-fingerprint": "chrome",
-      "name": "🇸🇬 Singapore, Singapore (Outram) | 🌐 | [BL]",
-      "network": "ws",
-      "port": 8443,
-      "server": "141.193.213.21",
-      "servername": "matrix.learnpodedu.com",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "4d8d9640-7cc7-4c55-ba54-6ce0d1709541",
-      "ws-opts": {
-        "headers": {
-          "Host": "matrix.learnpodedu.com"
-        },
-        "path": "/"
-      }
-    },
-    {
-      "alpn": [
-        "http/1.1"
-      ],
-      "client-fingerprint": "chrome",
-      "name": "🇸🇬 Singapore, Singapore (Outram) | 🌐 | [BL]",
-      "network": "ws",
-      "port": 8443,
-      "server": "news.zoom.us",
-      "servername": "matrix.learnpodedu.com",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "4d8d9640-7cc7-4c55-ba54-6ce0d1709541",
-      "ws-opts": {
-        "headers": {
-          "Host": "matrix.learnpodedu.com"
-        },
-        "path": "/"
-      }
-    },
-    {
-      "client-fingerprint": "chrome",
-      "name": "🇸🇬 Singapore, Singapore (Outram) | 🌐 | [BL]",
-      "network": "ws",
-      "port": 8443,
-      "server": "news.zoom.us",
-      "servername": "matrix.learnpodedu.com",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "4d8d9640-7cc7-4c55-ba54-6ce0d1709541",
-      "ws-opts": {
-        "headers": {
-          "Host": "matrix.learnpodedu.com"
-        },
-        "path": "/"
-      }
-    },
-    {
-      "client-fingerprint": "edge",
-      "name": "🇸🇬 Singapore, Singapore (Outram) | 🌐 | [BL]",
-      "network": "ws",
-      "port": 8443,
-      "server": "news.zoom.us",
-      "servername": "matrix.learnpodedu.com",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "4d8d9640-7cc7-4c55-ba54-6ce0d1709541",
-      "ws-opts": {
-        "headers": {
-          "Host": "matrix.learnpodedu.com"
-        },
-        "path": "/"
-      }
-    },
-    {
-      "client-fingerprint": "chrome",
-      "name": "🇰🇷 South Korea, Yongsan-dong | [BL]",
+      "name": "🇳🇱 The Netherlands | 🌐 | [BL]",
       "network": "ws",
       "port": 443,
-      "server": "104.20.28.74",
-      "servername": "krc.80782636.xyz",
+      "server": "104.18.151.231",
+      "servername": "104.18.151.231",
       "tls": true,
       "type": "vless",
       "udp": true,
-      "uuid": "db906786-8c49-4b17-9182-cea680ef954d",
+      "uuid": "eaf76557-2219-4799-8171-d7020adfefd0",
       "ws-opts": {
         "headers": {
-          "Host": "krc.80782636.xyz"
-        },
-        "path": "/kw7x2mq9"
-      }
-    },
-    {
-      "client-fingerprint": "chrome",
-      "name": "🇰🇷 South Korea, Yongsan-dong | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "104.26.13.54",
-      "servername": "krc.80782636.xyz",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "db906786-8c49-4b17-9182-cea680ef954d",
-      "ws-opts": {
-        "headers": {
-          "Host": "krc.80782636.xyz"
-        },
-        "path": "/kw7x2mq9"
-      }
-    },
-    {
-      "name": "🇰🇷 South Korea, Yongsan-dong | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "162.159.160.73",
-      "servername": "krc.80782636.xyz",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "db906786-8c49-4b17-9182-cea680ef954d",
-      "ws-opts": {
-        "headers": {
-          "Host": "krc.80782636.xyz"
-        },
-        "path": "/kw7x2mq9"
-      }
-    },
-    {
-      "client-fingerprint": "chrome",
-      "name": "🇰🇷 South Korea, Yongsan-dong | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "162.159.160.73",
-      "servername": "krc.80782636.xyz",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "db906786-8c49-4b17-9182-cea680ef954d",
-      "ws-opts": {
-        "headers": {
-          "Host": "krc.80782636.xyz"
-        },
-        "path": "/kw7x2mq9"
-      }
-    },
-    {
-      "name": "🇪🇸 Spain, Valencia | [BL]",
-      "port": 443,
-      "server": "api.ferrin.uk",
-      "servername": "api.ferrin.uk",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "7d1a74fd-8a38-4a29-863f-5da53a9e557e"
-    },
-    {
-      "client-fingerprint": "chrome",
-      "name": "🇸🇪 Sweden, Stockholm | 🌐 | [BL]",
-      "network": "ws",
-      "port": 2053,
-      "server": "ws.dhafhdtjdti.site",
-      "servername": "ws.dhafhdtjdti.site",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "9f749472-c636-4c5a-af51-7f8feefaac81",
-      "ws-opts": {
-        "headers": {
-          "Host": "ws.dhafhdtjdti.site"
+          "Host": "cool-credit-6728.dobiy47415.workers.dev"
         },
         "path": "/"
       }
     },
     {
-      "name": "🇸🇪 Sweden, Stockholm | 🌐 | [BL]",
+      "alpn": [
+        "http/1.1"
+      ],
+      "client-fingerprint": "chrome",
+      "name": "🇳🇱 The Netherlands | 🌐 | [BL]",
       "network": "ws",
-      "port": 2053,
-      "server": "ws.dhafhdtjdti.site",
-      "servername": "ws.dhafhdtjdti.site",
+      "port": 443,
+      "server": "45.130.125.151",
+      "servername": "fancy-mouse-6aff.wixit71180.workers.dev",
       "tls": true,
       "type": "vless",
       "udp": true,
-      "uuid": "9f749472-c636-4c5a-af51-7f8feefaac81",
+      "uuid": "eaf76557-2219-4799-8171-d7020adfefd0",
       "ws-opts": {
-        "path": "/"
+        "headers": {
+          "Host": "fancy-mouse-6aff.wixit71180.workers.dev"
+        },
+        "path": "/ws"
       }
     },
     {
@@ -776,12 +114,2303 @@
       }
     },
     {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇦🇪 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "104.21.108.4",
+      "servername": "xo3ubk-c97eql-n2d4a9.shoameni17.workers.dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "fa45096d-bed0-ad80-c773-23c300000018",
+      "ws-opts": {
+        "headers": {
+          "Host": "xo3ubk-c97eql-n2d4a9.shoameni17.workers.dev"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "name": "🌐 Anycast-IP | 🇦🇷 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "77.232.140.7",
+      "servername": "bbz1x6eau6gs.88bahpu62r.workers.dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "50414e45-4c5f-5a45-5553-5a447647929f",
+      "ws-opts": {
+        "headers": {
+          "Host": "bbz1x6eau6gs.88bahpu62r.workers.dev"
+        },
+        "path": "/stream/PANEL_ZEUS/5a447647929f"
+      }
+    },
+    {
+      "name": "🌐 Anycast-IP | 🇧🇪 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "172.67.209.13",
+      "servername": "xo3ubk-c97eql-n2d4a9.shoameni17.workers.dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "fa45096d-bed0-ad80-c773-23c30000001b",
+      "ws-opts": {
+        "headers": {
+          "Host": "xo3ubk-c97eql-n2d4a9.shoameni17.workers.dev"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇩🇪 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 2053,
+      "server": "172.67.130.187",
+      "servername": "fans.liverpool.qzz.io",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "2b8738de-1af5-4267-b101-c05707769ed4",
+      "ws-opts": {
+        "headers": {
+          "Host": "fans.liverpool.qzz.io"
+        },
+        "path": "/eyJqdW5rIjoiZXlpMnFWRURmWkp5ZCIsInByb3RvY29sIjoidmwiLCJtb2RlIjoicHJveHlpcCIsInBhbmVsSVBzIjpbXX0="
+      }
+    },
+    {
       "alpn": [
-        "h2",
         "http/1.1"
       ],
+      "name": "🌐 Anycast-IP | 🇨🇦 🇩🇪 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "188.114.96.9",
+      "servername": "idb8onmvbntuyt5t7t6cejfw8vlrb.pages.dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "2e305ebe-f6e6-4689-b32f-cd04ab5ff541",
+      "ws-opts": {
+        "headers": {
+          "Host": "idb8onmvbntuyt5t7t6cejfw8vlrb.pages.dev"
+        },
+        "path": "/vl/9yvcoLdzdOXLUYfH7r5gwJhu1CHrjfp=chrome"
+      }
+    },
+    {
+      "alpn": [
+        "http/1.1"
+      ],
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇩🇪 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "188.114.96.9",
+      "servername": "IdB8ONMVbntuYT5t7t6cEJfw8vLrb.paGEs.DeV",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "2e305ebe-f6e6-4689-b32f-cd04ab5ff541",
+      "ws-opts": {
+        "headers": {
+          "Host": "idb8onmvbntuyt5t7t6cejfw8vlrb.pages.dev"
+        },
+        "path": "/vl/9yvcoLdzdOXLUYfH7r5gwJhu1CHrj"
+      }
+    },
+    {
+      "client-fingerprint": "firefox",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇩🇪 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "8.6.112.0",
+      "servername": "worker3.jiyaho8345.workers.dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "2ef30a82-2f35-42a7-8908-da4b6124f293",
+      "ws-opts": {
+        "headers": {
+          "Host": "worker3.jiyaho8345.workers.dev"
+        },
+        "path": "/gkOut3g6sZDs9hSO"
+      }
+    },
+    {
+      "client-fingerprint": "firefox",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇩🇪 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "8.6.112.0",
+      "servername": "8.6.112.0",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "4f5deb9f-3354-45ec-8f55-b2c6b4cb149a",
+      "ws-opts": {
+        "headers": {
+          "Host": "worker3.tixid15058.workers.dev"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "name": "🌐 Anycast-IP | 🇨🇦 🇩🇪 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 2096,
+      "server": "172.67.208.235",
+      "servername": "courses.mftplus.qzz.io",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "b9ede7a5-5b4b-4aee-ac37-2c307e587e47",
+      "ws-opts": {
+        "headers": {
+          "Host": "courses.mftplus.qzz.io"
+        },
+        "path": "/eyJqdW5rIjoidVkzQm1ROUg4dyIsInByb3RvY29sIjoidmwiLCJtb2RlIjoicHJveHlpcCIsInBhbmVsSVBzIjpbXX0="
+      }
+    },
+    {
+      "alpn": [
+        "http/1.1"
+      ],
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇩🇪 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "104.21.43.115",
+      "servername": "nETra-28E601.rUzgarsiS053GmaiLCoMSAccOunT.wOrKErs.DEV",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "ccaa9413-2163-466e-a915-29c215b0be0a",
+      "ws-opts": {
+        "headers": {
+          "Host": "netra-28e601.ruzgarsis053gmailcomsaccount.workers.dev"
+        },
+        "path": "/vl/77fpEQtFkK8EbA8c6?ed=2560"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇩🇪 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 2083,
+      "server": "172.66.44.211",
+      "servername": "wk1.f1w.de5.net",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "d342d11e-d424-4583-b36e-524ab1f0afa4",
+      "ws-opts": {
+        "headers": {
+          "Host": "wk1.f1w.de5.net"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇩🇪 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 2083,
+      "server": "172.67.74.177",
+      "servername": "wk1.f1w.de5.net",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "d342d11e-d424-4583-b36e-524ab1f0afa4",
+      "ws-opts": {
+        "headers": {
+          "Host": "wk1.f1w.de5.net"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "name": "🌐 Anycast-IP | 🇨🇦 🇩🇪 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 2083,
+      "server": "188.114.97.3",
+      "servername": "newwk1.f1w.de5.net",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "d342d11e-d424-4583-b36e-524ab1f0afa4",
+      "ws-opts": {
+        "headers": {
+          "Host": "newwk1.f1w.de5.net"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "client-fingerprint": "firefox",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇩🇪 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 2083,
+      "server": "8.47.69.6",
+      "servername": "newwk1.f1w.de5.net",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "d342d11e-d424-4583-b36e-524ab1f0afa4",
+      "ws-opts": {
+        "headers": {
+          "Host": "newwk1.f1w.de5.net"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "client-fingerprint": "firefox",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇩🇪 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "8.6.112.0",
+      "servername": "8.6.112.0",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "eac64826-e281-49c2-88bf-cd0078675b09",
+      "ws-opts": {
+        "headers": {
+          "Host": "worker3.cexewob845.workers.dev"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "kclx.eu.org",
+      "servername": "kclx.eu.org",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "0575005f-0ba9-4d6d-85e0-4a6a8cbafc1b",
+      "ws-opts": {
+        "headers": {
+          "Host": "kclx.eu.org"
+        },
+        "path": "/154.16.10.34-8080"
+      }
+    },
+    {
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "104.18.152.233",
+      "servername": "support.zoom.us.ex33r.eu.cc",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "08b006dc-17e4-411d-9528-4369d72ad646",
+      "ws-opts": {
+        "headers": {
+          "Host": "support.zoom.us.ex33r.eu.cc"
+        },
+        "path": "/sg-melbi"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "8.39.125.213",
+      "servername": "8.39.125.213",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "099244b9-2168-4dbd-870e-cbbe9d6eb573",
+      "ws-opts": {
+        "headers": {
+          "Host": "whitecreeper.pages.dev"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "14f7f5f0.mrbl69black.pages.dev",
+      "servername": "14f7f5f0.mrbl69black.pages.dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "0d5a2112-789f-4755-88e6-61a1a8f8067b",
+      "ws-opts": {
+        "headers": {
+          "Host": "14f7f5f0.mrbl69black.pages.dev"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "14f7f5f0.mrbl69black.pages.dev",
+      "servername": "14f7f5f0.mrbl69black.pages.dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "0d5a2112-789f-4755-88e6-61a1a8f8067b",
+      "ws-opts": {
+        "path": "/"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "172.66.44.78",
+      "servername": "14f7f5F0.MRBL69bLaCk.PagEs.dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "0d5a2112-789f-4755-88e6-61a1a8f8067b",
+      "ws-opts": {
+        "headers": {
+          "Host": "14f7f5F0.MRBL69bLaCk.PagEs.dev"
+        },
+        "path": "/I0IHonn0TGa2xaOO?ed"
+      }
+    },
+    {
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "188.114.97.6",
+      "servername": "dfsuporte.garena.com.ex33r.eu.cc",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "1043634e-8d9d-4736-83fa-f14ddc9d464c",
+      "ws-opts": {
+        "headers": {
+          "Host": "dfsuporte.garena.com.ex33r.eu.cc"
+        },
+        "path": "/id-amz"
+      }
+    },
+    {
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "wangcai.cf.877774.xyz",
+      "servername": "ex3r.qzz.io",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "16e80f38-e97e-4b14-ba89-77d87a3e637f",
+      "ws-opts": {
+        "headers": {
+          "Host": "ex3r.qzz.io"
+        },
+        "path": "/sg-orcl"
+      }
+    },
+    {
+      "client-fingerprint": "random",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 8443,
+      "server": "104.18.13.229",
+      "servername": "ydyg0908.mynameiszt.eu.org",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "1753c03f-39c4-4bf2-ae83-38e90c847e8e",
+      "ws-opts": {
+        "headers": {
+          "Host": "ydyg0908.mynameiszt.eu.org"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "client-fingerprint": "random",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 8443,
+      "server": "www.visa.com.sg",
+      "servername": "ydyg0908.mynameiszt.eu.org",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "1753c03f-39c4-4bf2-ae83-38e90c847e8e",
+      "ws-opts": {
+        "headers": {
+          "Host": "ydyg0908.mynameiszt.eu.org"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "172.67.217.241",
+      "servername": "pg.fm6dw.dpdns.org",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "1c0250ec-2dbc-40be-bd18-90b5e812ceaa",
+      "ws-opts": {
+        "headers": {
+          "Host": "pg.fm6dw.dpdns.org"
+        },
+        "path": "/?ed=2048"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "172.66.169.34",
+      "servername": "tn1r.eu.cc",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "22424ee2-6fe3-42ca-9749-6d4c5a8acc82",
+      "ws-opts": {
+        "headers": {
+          "Host": "tn1r.eu.cc"
+        },
+        "path": "/id-pusat"
+      }
+    },
+    {
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "tn1r.eu.cc",
+      "servername": "tn1r.eu.cc",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "22424ee2-6fe3-42ca-9749-6d4c5a8acc82",
+      "ws-opts": {
+        "headers": {
+          "Host": "tn1r.eu.cc"
+        },
+        "path": "/id-pusat"
+      }
+    },
+    {
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 2083,
+      "server": "172.67.78.150",
+      "servername": "kv.074167.xyz",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "24916ad0-847d-4522-9e17-f4347dee57fd",
+      "ws-opts": {
+        "headers": {
+          "Host": "kv.074167.xyz"
+        },
+        "path": "/?ed=2560fp=random"
+      }
+    },
+    {
+      "alpn": [
+        "http/1.1"
+      ],
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 2053,
+      "server": "104.21.3.133",
+      "servername": "FaNs.livErpoOl.qZZ.io",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "2b8738de-1af5-4267-b101-c05707769ed4",
+      "ws-opts": {
+        "headers": {
+          "Host": "fans.liverpool.qzz.io"
+        },
+        "path": "/eyJqdW5rIjoiZXlpMnFWRURmWkp5ZCIsInByb3RvY29sIjoidmwiLCJtb2RlIjoicHJveHlpcCIsInBhbmVsSVBzIjpbXX0="
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 2053,
+      "server": "172.64.80.1",
+      "servername": "FaNs.livErpoOl.qZZ.io",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "2b8738de-1af5-4267-b101-c05707769ed4",
+      "ws-opts": {
+        "headers": {
+          "Host": "FaNs.livErpoOl.qZZ.io"
+        },
+        "path": "/eyJqdW5rIjoiZXlpMnFWRURmWkp5ZCIsInByb3RvY29sIjoidmwiLCJtb2RlIjoicHJveHlpcCIsInBhbmVsSVBzIjpbXX0="
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 2083,
+      "server": "172.64.80.1",
+      "servername": "fans.liverpool.qzz.io",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "2b8738de-1af5-4267-b101-c05707769ed4",
+      "ws-opts": {
+        "headers": {
+          "Host": "fans.liverpool.qzz.io"
+        },
+        "path": "/eyJqdW5rIjoiY0Y0cENQUmxsNyIsInByb3RvY29sIjoidmwiLCJtb2RlIjoicHJveHlpcCIsInBhbmVsSVBzIjpbXX0"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "104.20.22.159",
+      "servername": "cf.zhahui.de5.net",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "2d4b819d-6fa6-4db2-8434-61e7db0fe93c",
+      "ws-opts": {
+        "headers": {
+          "Host": "cf.zhahui.de5.net"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "cfnode-11ivy8.pages.dev",
+      "servername": "cfnode-11ivy8.pages.dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "2ea2719c-23e1-4cde-b192-c8652d55d9e5",
+      "ws-opts": {
+        "headers": {
+          "Host": "cfnode-11ivy8.pages.dev"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "cfnode-11ivy8.pages.dev",
+      "servername": "cfnode-11ivy8.pages.dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "2ea2719c-23e1-4cde-b192-c8652d55d9e5",
+      "ws-opts": {
+        "path": "/"
+      }
+    },
+    {
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "cfnode-11ivy8.pages.dev",
+      "servername": "cfnode-11ivy8.pages.dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "2ea2719c-23e1-4cde-b192-c8652d55d9e5",
+      "ws-opts": {
+        "path": "/ws"
+      }
+    },
+    {
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "cfnode-11ivy8.pages.dev",
+      "servername": "cfnode-11ivy8.pages.dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "2ea2719c-23e1-4cde-b192-c8652d55d9e5",
+      "ws-opts": {
+        "headers": {
+          "Host": "cfnode-11ivy8.pages.dev"
+        },
+        "path": "/fp=chrome"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "cfnode-11ivy8.pages.dev",
+      "servername": "cfnode-11ivy8.pages.dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "2ea2719c-23e1-4cde-b192-c8652d55d9e5",
+      "ws-opts": {
+        "path": "/"
+      }
+    },
+    {
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "cfnode-11ivy8.pages.dev",
+      "servername": "cfnode-11ivy8.pages.dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "2ea2719c-23e1-4cde-b192-c8652d55d9e5",
+      "ws-opts": {
+        "path": "/fp=chrome"
+      }
+    },
+    {
+      "alpn": [
+        "http/1.1"
+      ],
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "172.67.75.172",
+      "servername": "9t94rOaC1ew8n93SdrQ.pAgeS.DEV",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "386d67dc-bf88-49fd-a570-301cbb013a33",
+      "ws-opts": {
+        "headers": {
+          "Host": "9t94roac1ew8n93sdrq.pages.dev"
+        },
+        "path": "/vl/x1qQUZWxHs5IRVeRUjz7AteYS?ed=2560"
+      }
+    },
+    {
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "kozel.cc.cd",
+      "servername": "kozel.cc.cd",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "3b01a777-55e7-49f6-8637-d94ee69607c6",
+      "ws-opts": {
+        "headers": {
+          "Host": "kozel.cc.cd"
+        },
+        "path": "/118.151.222.66=17317"
+      }
+    },
+    {
+      "client-fingerprint": "randomized",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "k9-85j.pages.dev",
+      "servername": "K9-85J.paGEs.Dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "3dc83518-4002-485e-a066-d3bbcaaa2b2e",
+      "ws-opts": {
+        "path": "/1WWzkWgNslKTcceU?ed=2560"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "104.21.71.249",
+      "servername": "oooyo.bi8bo.cyou",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "3de5a94c-aadc-4e40-ba1a-7d4b6545f8a3",
+      "ws-opts": {
+        "headers": {
+          "Host": "oooyo.bi8bo.cyou"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 2087,
+      "server": "proxy-34l.pages.dev",
+      "servername": "proxy-34l.pages.dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "40af9131-d540-448a-bc56-5bba147a1dc3",
+      "ws-opts": {
+        "headers": {
+          "Host": "proxy-34l.pages.dev"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 2096,
+      "server": "104.21.74.214",
+      "servername": "levikoconfig.levikogjgfdd.ir",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "50414e45-4c5f-5a45-5553-6f51879c0594",
+      "ws-opts": {
+        "headers": {
+          "Host": "levikoconfig.levikogjgfdd.ir"
+        },
+        "path": "/fp=chrome"
+      }
+    },
+    {
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 2087,
+      "server": "188.114.97.6",
+      "servername": "levikoconfig.levikogjgfdd.ir",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "50414e45-4c5f-5a45-5553-6f51879c0594",
+      "ws-opts": {
+        "headers": {
+          "Host": "levikoconfig.levikogjgfdd.ir"
+        },
+        "path": "/fp=chrome"
+      }
+    },
+    {
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 2053,
+      "server": "one-for-all.levikogjgfdd.ir",
+      "servername": "levikoconfig.levikogjgfdd.ir",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "50414e45-4c5f-5a45-5553-6f51879c0594",
+      "ws-opts": {
+        "headers": {
+          "Host": "levikoconfig.levikogjgfdd.ir"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "client-fingerprint": "ios",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 2053,
+      "server": "one-for-all.levikogjgfdd.ir",
+      "servername": "levikoconfig.levikogjgfdd.ir",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "50414e45-4c5f-5a45-5553-6f51879c0594",
+      "ws-opts": {
+        "headers": {
+          "Host": "levikoconfig.levikogjgfdd.ir"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 2096,
+      "server": "one-for-all.levikogjgfdd.ir",
+      "servername": "levikoconfig.levikogjgfdd.ir",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "50414e45-4c5f-5a45-5553-6f51879c0594",
+      "ws-opts": {
+        "headers": {
+          "Host": "levikoconfig.levikogjgfdd.ir"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "client-fingerprint": "ios",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 2096,
+      "server": "one-for-all.levikogjgfdd.ir",
+      "servername": "levikoconfig.levikogjgfdd.ir",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "50414e45-4c5f-5a45-5553-6f51879c0594",
+      "ws-opts": {
+        "headers": {
+          "Host": "levikoconfig.levikogjgfdd.ir"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 2096,
+      "server": "one-for-all.levikogjgfdd.ir",
+      "servername": "levikoconfig.levikogjgfdd.ir",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "50414e45-4c5f-5a45-5553-6f51879c0594",
+      "ws-opts": {
+        "headers": {
+          "Host": "levikoconfig.levikogjgfdd.ir"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "client-fingerprint": "ios",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "104.21.73.135",
+      "servername": "web-app-ji3j1z.app-wuuhuw.workers.dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "50414e45-4c5f-5a45-5553-7bac159e3b40",
+      "ws-opts": {
+        "headers": {
+          "Host": "web-app-ji3j1z.app-wuuhuw.workers.dev"
+        },
+        "path": "/api/ws"
+      }
+    },
+    {
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "104.21.73.135",
+      "servername": "web-app-ji3j1z.app-wuuhuw.workers.dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "50414e45-4c5f-5a45-5553-7bac159e3b40",
+      "ws-opts": {
+        "headers": {
+          "Host": "web-app-ji3j1z.app-wuuhuw.workers.dev"
+        },
+        "path": "/api/wsfp=ios"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "aslanbilit.ir",
+      "servername": "web-app-ji3j1z.app-wuuhuw.workers.dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "50414e45-4c5f-5a45-5553-7bac159e3b40",
+      "ws-opts": {
+        "headers": {
+          "Host": "web-app-ji3j1z.app-wuuhuw.workers.dev"
+        },
+        "path": "/api/ws"
+      }
+    },
+    {
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "172.67.69.152",
+      "servername": "vltj.qzz.io",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "506e4a91-1d05-5683-b84c-2113f673cb19",
+      "ws-opts": {
+        "headers": {
+          "Host": "vltj.qzz.io"
+        },
+        "path": "/id-pusat"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "support.zoom.us.vltj.qzz.io",
+      "servername": "support.zoom.us.vltj.qzz.io",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "506e4a91-1d05-5683-b84c-2113f673cb19",
+      "ws-opts": {
+        "path": "/id-pusat"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 2096,
+      "server": "104.20.30.179",
+      "servername": "ahmad99hoseini.pages.dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "51a0af77-a60c-4d9b-81a4-f50e1b38d90b",
+      "ws-opts": {
+        "headers": {
+          "Host": "ahmad99hoseini.pages.dev"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 2053,
+      "server": "104.26.14.111",
+      "servername": "j4mr-d9oj1at9i-8kuayba9kocwx7uzn.pages.dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "51a0af77-a60c-4d9b-81a4-f50e1b38d90b",
+      "ws-opts": {
+        "headers": {
+          "Host": "j4mr-d9oj1at9i-8kuayba9kocwx7uzn.pages.dev"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 2053,
+      "server": "104.26.14.111",
+      "servername": "vf3uymn6bu20313tqlfvws58mnqrhxxi.pages.dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "51a0af77-a60c-4d9b-81a4-f50e1b38d90b",
+      "ws-opts": {
+        "headers": {
+          "Host": "vf3uymn6bu20313tqlfvws58mnqrhxxi.pages.dev"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 2053,
+      "server": "104.26.6.109",
+      "servername": "pilot4f8f.pages.dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "51a0af77-a60c-4d9b-81a4-f50e1b38d90b",
+      "ws-opts": {
+        "headers": {
+          "Host": "pilot4f8f.pages.dev"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 2083,
+      "server": "172.67.67.89",
+      "servername": "j4mr-d9oj1at9i-8kuayba9kocwx7uzn.pages.dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "51a0af77-a60c-4d9b-81a4-f50e1b38d90b",
+      "ws-opts": {
+        "headers": {
+          "Host": "j4mr-d9oj1at9i-8kuayba9kocwx7uzn.pages.dev"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 2087,
+      "server": "172.67.67.89",
+      "servername": "172.67.67.89",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "51a0af77-a60c-4d9b-81a4-f50e1b38d90b",
+      "ws-opts": {
+        "headers": {
+          "Host": "ns4t32a2zc38o0on-ghqgwsswrh4mqda.pages.dev"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 2053,
+      "server": "172.67.74.177",
+      "servername": "j4mr-d9oj1at9i-8kuayba9kocwx7uzn.pages.dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "51a0af77-a60c-4d9b-81a4-f50e1b38d90b",
+      "ws-opts": {
+        "headers": {
+          "Host": "j4mr-d9oj1at9i-8kuayba9kocwx7uzn.pages.dev"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 2083,
+      "server": "172.67.74.177",
+      "servername": "j4mr-d9oj1at9i-8kuayba9kocwx7uzn.pages.dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "51a0af77-a60c-4d9b-81a4-f50e1b38d90b",
+      "ws-opts": {
+        "headers": {
+          "Host": "j4mr-d9oj1at9i-8kuayba9kocwx7uzn.pages.dev"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "alpn": [
+        "http/1.1"
+      ],
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "188.114.96.6",
+      "servername": "freeceshi6.frii.site",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
+      "ws-opts": {
+        "headers": {
+          "Host": "freeceshi6.frii.site"
+        },
+        "path": "/?Telegram---PLANB_NET---PLANB_NET---PLANB_NET---PLANB_NET"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "188.114.96.3",
+      "servername": "snc9ne2f7zclhn5uzth7hcfgsrnympmmrnej7w2uzdjtsyt2fssssssssssssss.n0xp4ed8mc.workers.Dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "5b716e51-489e-4e97-b5c8-dd10803eff93",
+      "ws-opts": {
+        "headers": {
+          "Host": "snc9ne2f7zclhn5uzth7hcfgsrnympmmrnej7w2uzdjtsyt2fssssssssssssss.n0xp4ed8mc.workers.Dev"
+        },
+        "path": "Telegram+channel+:+@pandavpntc"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "188.114.96.3",
+      "servername": "snc9ne2f7zclhn5uzth7hcfgsrnympmmrnej7w2uzdjtsyt2fssssssssssssss.n0xp4ed8mc.workers.Dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "5b716e51-489e-4e97-b5c8-dd10803eff93",
+      "ws-opts": {
+        "headers": {
+          "Host": "snc9ne2f7zclhn5uzth7hcfgsrnympmmrnej7w2uzdjtsyt2fssssssssssssss.n0xp4ed8mc.workers.Dev"
+        },
+        "path": "Telegram channel : @VPNine1"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "104.26.14.111",
+      "servername": "v2n5.11676767.xyz",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "5d7b401c-78fa-4254-872e-6d42bf7e75ec",
+      "ws-opts": {
+        "headers": {
+          "Host": "v2n5.11676767.xyz"
+        },
+        "path": "/doujin/channels/cb"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "quiz.int.vidio.com.ex33r.eu.cc",
+      "servername": "quiz.int.vidio.com.ex33r.eu.cc",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "63ec2a82-e47c-4782-a89e-9aca2baf17ef",
+      "ws-opts": {
+        "headers": {
+          "Host": "quiz.int.vidio.com.ex33r.eu.cc"
+        },
+        "path": "/id-pusat"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "104.21.14.123",
+      "servername": "wallweb11.wallwebc992h7.workers.dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "66969b2e-5e49-4750-9419-167d4bb64c07",
+      "ws-opts": {
+        "headers": {
+          "Host": "wallweb11.wallwebc992h7.workers.dev"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "104.21.14.123",
+      "servername": "104.21.14.123",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "66969b2e-5e49-4750-9419-167d4bb64c07",
+      "ws-opts": {
+        "headers": {
+          "Host": "wallweb11.wallwebc992h7.workers.dev"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "client-fingerprint": "firefox",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "104.21.14.123",
+      "servername": "104.21.14.123",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "66969b2e-5e49-4750-9419-167d4bb64c07",
+      "ws-opts": {
+        "headers": {
+          "Host": "wallweb11.wallwebc992h7.workers.dev"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "188.114.97.3",
+      "servername": "xa6jgykbpcfy6na3tt4zeefsquy2x5kank9hmzdqieofbqkbv3kukzmdfsssaaa.b5mq1ob64b.workers.Dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "72f10005-8849-4072-b081-db3258c1350f",
+      "ws-opts": {
+        "headers": {
+          "Host": "xa6jgykbpcfy6na3tt4zeefsquy2x5kank9hmzdqieofbqkbv3kukzmdfsssaaa.b5mq1ob64b.workers.Dev"
+        },
+        "path": "telegram channel : @pandavpntc"
+      }
+    },
+    {
+      "client-fingerprint": "random",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 2053,
+      "server": "104.26.4.60",
+      "servername": "104.26.4.60",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "767b6340-96dc-4aa0-8013-a8af7513d920",
+      "ws-opts": {
+        "headers": {
+          "Host": "c7dabe95.proxy-978.pages.dev"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "172.67.67.89",
+      "servername": "vp58.cc.cd",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "7b102311-43fd-4e8f-877e-8090623c101d",
+      "ws-opts": {
+        "headers": {
+          "Host": "vp58.cc.cd"
+        },
+        "path": "/TelegramU0001F1E8U0001F1F3 @VPNine1fp=chromefp=chrome"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "172.67.70.3",
+      "servername": "vp58.cc.cd",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "7b102311-43fd-4e8f-877e-8090623c101d",
+      "ws-opts": {
+        "headers": {
+          "Host": "vp58.cc.cd"
+        },
+        "path": "/Telegram🇨🇳 fp=chrome"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "172.67.76.128",
+      "servername": "vp58.cc.cd",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "7b102311-43fd-4e8f-877e-8090623c101d",
+      "ws-opts": {
+        "headers": {
+          "Host": "vp58.cc.cd"
+        },
+        "path": "/Telegram馃嚚馃嚦 @VPNine1"
+      }
+    },
+    {
+      "alpn": [
+        "http/1.1"
+      ],
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "188.114.97.6",
+      "servername": "pmpmppm.pages.dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "87c467e9-f0af-4b03-8fbd-65fd375d3a26",
+      "ws-opts": {
+        "headers": {
+          "Host": "pmpmppm.pages.dev"
+        },
+        "path": "?ed=2048"
+      }
+    },
+    {
+      "alpn": [
+        "http/1.1"
+      ],
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "188.114.97.6",
+      "servername": "pmpmppm.pages.dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "87c467e9-f0af-4b03-8fbd-65fd375d3a26",
+      "ws-opts": {
+        "headers": {
+          "Host": "pmpmppm.pages.dev"
+        },
+        "path": "/?ed=2048"
+      }
+    },
+    {
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "104.18.40.171",
+      "servername": "wallweb-boi.pages.dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "8895be79-9817-4011-b81a-14a35a3d328e",
+      "ws-opts": {
+        "headers": {
+          "Host": "wallweb-boi.pages.dev"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "172.67.73.213",
+      "servername": "aio.eth0.dpdns.org",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "8d42d29a-ed53-4684-a9ff-6b33826149de",
+      "ws-opts": {
+        "headers": {
+          "Host": "aio.eth0.dpdns.org"
+        },
+        "path": "/aioproxybot/94.23.144.99-2053"
+      }
+    },
+    {
+      "alpn": [
+        "http/1.1"
+      ],
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "104.25.5.52",
+      "servername": "FORnEwIRAn.ADE-1000.worKeRS.dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "93fa8bdb-9cca-4a3e-8355-b7c12e4f595e",
+      "ws-opts": {
+        "headers": {
+          "Host": "fornewiran.ade-1000.workers.dev"
+        },
+        "path": "/vl/yLWNcuUuw1jlJpkDhGy?ed=2560"
+      }
+    },
+    {
+      "client-fingerprint": "firefox",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 2087,
+      "server": "104.21.93.170",
+      "servername": "worker3.daticah6555.workers.dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "9f3d27a0-df9a-468d-9889-5dcdcccea6f3",
+      "ws-opts": {
+        "headers": {
+          "Host": "worker3.daticah6555.workers.dev"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "client-fingerprint": "ios",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 2083,
+      "server": "104.18.1.1",
+      "servername": "vlsovip.1d.mom",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "a1de0630-5786-48a0-84f6-dc6f2de10d6d",
+      "ws-opts": {
+        "headers": {
+          "Host": "vlsovip.1d.mom"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "172.67.74.90",
+      "servername": "cvhpyn.pages.dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "a4a951b9-901d-4db8-8a7d-6df82c4b5c23",
+      "ws-opts": {
+        "headers": {
+          "Host": "cvhpyn.pages.dev"
+        },
+        "path": "/fp=chrome"
+      }
+    },
+    {
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "172.67.74.90",
+      "servername": "cvhpyn.pages.dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "a4a951b9-901d-4db8-8a7d-6df82c4b5c23",
+      "ws-opts": {
+        "headers": {
+          "Host": "cvhpyn.pages.dev"
+        },
+        "path": "/fp"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "mybb.com",
+      "servername": "rayan-007.nastaran.dpdns.org",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "aebe5a70-0ca3-46ce-8208-8b5bab1346ce",
+      "ws-opts": {
+        "headers": {
+          "Host": "rayan-007.nastaran.dpdns.org"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "alpn": [
+        "http/1.1"
+      ],
+      "client-fingerprint": "randomized",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 2096,
+      "server": "172.66.44.124",
+      "servername": "stf839dvvyog9d2qa4-b8z6ahgn7b7qi.pages.dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "b2f2f9f2-1864-48ea-839b-22815faff1f1",
+      "ws-opts": {
+        "headers": {
+          "Host": "stf839dvvyog9d2qa4-b8z6ahgn7b7qi.pages.dev"
+        },
+        "path": "/9BozNyvQ8VdRvsYX?ed=2560"
+      }
+    },
+    {
+      "alpn": [
+        "http/1.1"
+      ],
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "172.67.178.143",
+      "servername": "nEtRa-28e601.rUZgArSiS053GmAIlCoMsaccOunT.WORKERs.DEV",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "ccaa9413-2163-466e-a915-29c215b0be0a",
+      "ws-opts": {
+        "headers": {
+          "Host": "netra-28e601.ruzgarsis053gmailcomsaccount.workers.dev"
+        },
+        "path": "/vl/D1utewa490l8iCymueVABy77F5t?ed=2560"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "epam.com",
+      "servername": "wallweb6.pages.dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "cced2d3b-9840-4579-a6b3-5de365f3bf50",
+      "ws-opts": {
+        "headers": {
+          "Host": "wallweb6.pages.dev"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "spacex.com",
+      "servername": "wallweb6.pages.dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "cced2d3b-9840-4579-a6b3-5de365f3bf50",
+      "ws-opts": {
+        "headers": {
+          "Host": "wallweb6.pages.dev"
+        },
+        "path": "/fp=chrome"
+      }
+    },
+    {
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "172.67.141.182",
+      "servername": "6qwoom7kdrcoan3ui4ra5dy.pages.dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "ce440dcf-e570-4a50-af37-bf588ee8a988",
+      "ws-opts": {
+        "headers": {
+          "Host": "6qwoom7kdrcoan3ui4ra5dy.pages.dev"
+        },
+        "path": "/vl/KSPdmco70dfoXFS292o2Nv6yPt?ed=2560"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "104.18.121.228",
+      "servername": "edg-2oo.pages.dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "d342d11e-d424-4583-b36e-524ab1f0afa4",
+      "ws-opts": {
+        "headers": {
+          "Host": "edg-2oo.pages.dev"
+        },
+        "path": "/archives/test?ed=2560"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 8443,
+      "server": "104.26.7.96",
+      "servername": "edgetunnel-pages-di9.pages.dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "d8a2ffbb-1c44-4e83-8a62-5e5fe79cc42a",
+      "ws-opts": {
+        "headers": {
+          "Host": "edgetunnel-pages-di9.pages.dev"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "172.66.47.202",
+      "servername": "172.66.47.202",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "d8a2ffbb-1c44-4e83-8a62-5e5fe79cc42a",
+      "ws-opts": {
+        "headers": {
+          "Host": "edgetunnel-pages-di9.pages.dev"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "alpn": [
+        "http/1.1"
+      ],
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 2087,
+      "server": "188.114.97.26",
+      "servername": "EDGETUNNEL-PAGES-DI9.PAGES.DEV",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "d8a2ffbb-1c44-4e83-8a62-5e5fe79cc42a",
+      "ws-opts": {
+        "headers": {
+          "Host": "EDGETUNNEL-PAGES-DI9.PAGES.DEV"
+        },
+        "path": "/ws/proxyip=proxyip.us.cmliussss.net:443,proxyip.nl.cmliussss.net:443,proxyip.tp1.090227.xyz:443,proxyip.fr.cmliussss.net:443,proxyip.kr.cmliussss.net:443"
+      }
+    },
+    {
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "104.18.40.171",
+      "servername": "wallweb-4r0.pages.dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "e53eacb6-cd30-4964-a57c-febcb5151b98",
+      "ws-opts": {
+        "headers": {
+          "Host": "wallweb-4r0.pages.dev"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "104.18.40.171",
+      "servername": "104.18.40.171",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "e53eacb6-cd30-4964-a57c-febcb5151b98",
+      "ws-opts": {
+        "headers": {
+          "Host": "wallweb-4r0.pages.dev"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "172.67.74.177",
+      "servername": "wallweb-4r0.pages.dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "e53eacb6-cd30-4964-a57c-febcb5151b98",
+      "ws-opts": {
+        "headers": {
+          "Host": "wallweb-4r0.pages.dev"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "alpn": [
+        "http/1.1"
+      ],
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "172.66.47.45",
+      "servername": "EZAcCESS-pROjECt-F62c30.PAGES.dEv",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "e56059f1-5a1a-4d0a-a2d0-58ecb4eb2f3f",
+      "ws-opts": {
+        "headers": {
+          "Host": "ezaccess-project-f62c30.pages.dev"
+        },
+        "path": "/eyJqdW5rIjoiZWlPODVjTnhnaSIsInByb3RvY29sIjoidmwiLCJtb2RlIjoicHJveHlpcCIsInBhbmVsSVBzIjpbXX0="
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "188.114.97.3",
+      "servername": "kjjwrmfezmelh9amswcvmuscxxuuqdzzgw9khj7cfgcp59yju9edrihsssssss6.oh7mn.workers.Dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "e7727c1e-c5a7-4810-b31a-2eeb22f95d6d",
+      "ws-opts": {
+        "headers": {
+          "Host": "kjjwrmfezmelh9amswcvmuscxxuuqdzzgw9khj7cfgcp59yju9edrihsssssss6.oh7mn.workers.Dev"
+        },
+        "path": "telegram channel : @pandavpntc"
+      }
+    },
+    {
+      "client-fingerprint": "qq",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "188.114.97.3",
+      "servername": "kjjwrmfezmelh9amswcvmuscxxuuqdzzgw9khj7cfgcp59yju9edrihsssssss6.oh7mn.workers.Dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "e7727c1e-c5a7-4810-b31a-2eeb22f95d6d",
+      "ws-opts": {
+        "headers": {
+          "Host": "kjjwrmfezmelh9amswcvmuscxxuuqdzzgw9khj7cfgcp59yju9edrihsssssss6.oh7mn.workers.Dev"
+        },
+        "path": "telegram channel : @pandavpntc"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "188.114.97.3",
+      "servername": "188.114.97.3",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "e7727c1e-c5a7-4810-b31a-2eeb22f95d6d",
+      "ws-opts": {
+        "headers": {
+          "Host": "kjjwrmfezmelh9amswcvmuscxxuuqdzzgw9khj7cfgcp59yju9edrihsssssss6.oh7mn.workers.dev"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "104.18.17.236",
+      "servername": "wallweb-4ez.pages.dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "e818a20d-9bcd-4744-9061-ca51b9c8aeea",
+      "ws-opts": {
+        "headers": {
+          "Host": "wallweb-4ez.pages.dev"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "fool.com",
+      "servername": "wallweb-4ez.pages.dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "e818a20d-9bcd-4744-9061-ca51b9c8aeea",
+      "ws-opts": {
+        "headers": {
+          "Host": "wallweb-4ez.pages.dev"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "londonstockexchange.com",
+      "servername": "wallweb-4ez.pages.dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "e818a20d-9bcd-4744-9061-ca51b9c8aeea",
+      "ws-opts": {
+        "headers": {
+          "Host": "wallweb-4ez.pages.dev"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "nhl.com",
+      "servername": "wallweb-4ez.pages.dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "e818a20d-9bcd-4744-9061-ca51b9c8aeea",
+      "ws-opts": {
+        "headers": {
+          "Host": "wallweb-4ez.pages.dev"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "yd.2.hhhhh.eu.org",
+      "servername": "ssj-wkg.pages.dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "f0d6aa7c-0b34-4b68-9af8-1ea5e0b39bdc",
+      "ws-opts": {
+        "headers": {
+          "Host": "ssj-wkg.pages.dev"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "yd.2.hhhhh.eu.org",
+      "servername": "ssj-wkg.pages.dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "f0d6aa7c-0b34-4b68-9af8-1ea5e0b39bdc",
+      "ws-opts": {
+        "headers": {
+          "Host": "ssj-wkg.pages.dev"
+        },
+        "path": "/fp=chrome"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "vless3.gem-audio2.us.ci",
+      "servername": "vless3.gem-audio2.us.ci",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "f14f0e7d-bcb0-416b-855a-17344b0242b9",
+      "ws-opts": {
+        "path": "/"
+      }
+    },
+    {
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "172.67.134.136",
+      "servername": "xo3ubk-c97eql-n2d4a9.shoameni17.workers.dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "fa45096d-bed0-ad80-c773-23c300000003",
+      "ws-opts": {
+        "headers": {
+          "Host": "xo3ubk-c97eql-n2d4a9.shoameni17.workers.dev"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "alpn": [
+        "http/1.1"
+      ],
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 🇬🇧 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "104.26.0.1",
+      "servername": "ezaccess-project-f62c30.pages.dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "e56059f1-5a1a-4d0a-a2d0-58ecb4eb2f3f",
+      "ws-opts": {
+        "headers": {
+          "Host": "ezaccess-project-f62c30.pages.dev"
+        },
+        "path": "/eyJqdW5rIjoiZWlPODVjTnhnaSIsInByb3RvY29sIjoidmwiLCJtb2RlIjoicHJveHlpcCIsInBhbmVsSVBzIjpbXX0="
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 🇭🇰 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "104.26.14.111",
+      "servername": "joeypg.ezbiz.dynv6.net",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "cd3d8e5c-794f-4c34-8222-59d3e99e35fe",
+      "ws-opts": {
+        "headers": {
+          "Host": "joeypg.ezbiz.dynv6.net"
+        },
+        "path": "/?ed=2048"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 🇭🇺 | [BL]",
+      "network": "ws",
+      "port": 2083,
+      "server": "172.67.131.125",
+      "servername": "smart-edge-424.arti98399-1905.workers.dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "f418674e-f518-4318-8ff9-e10000000046",
+      "ws-opts": {
+        "headers": {
+          "Host": "smart-edge-424.arti98399-1905.workers.dev"
+        },
+        "path": "/sync"
+      }
+    },
+    {
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 🇭🇺 | [BL]",
+      "network": "ws",
+      "port": 2083,
+      "server": "172.67.131.125",
+      "servername": "smart-edge-424.arti98399-1905.workers.dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "f418674e-f518-4318-8ff9-e10000000046",
+      "ws-opts": {
+        "headers": {
+          "Host": "smart-edge-424.arti98399-1905.workers.dev"
+        },
+        "path": "/syncfp=chrome"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 🇳🇱 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "172.67.184.45",
+      "servername": "pi7ews-woj41w-7wx0gk.ho3ein13-3af.workers.dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "82b279c6-5cba-3a96-f8bd-780a00000045",
+      "ws-opts": {
+        "headers": {
+          "Host": "pi7ews-woj41w-7wx0gk.ho3ein13-3af.workers.dev"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 🇳🇱 | [BL]",
+      "network": "ws",
+      "port": 8443,
+      "server": "floral-grass-aa1e.dianawpewpek1.workers.dev",
+      "servername": "floral-grass-aa1e.dianawpewpek1.workers.dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "9047219a-470f-4a3f-b319-1178ae1a3c87",
+      "ws-opts": {
+        "headers": {
+          "Host": "floral-grass-aa1e.dianawpewpek1.workers.dev"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 🇸🇪 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "cambridge.org",
+      "servername": "cambridge.org",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "e818a20d-9bcd-4744-9061-ca51b9c8aeea",
+      "ws-opts": {
+        "headers": {
+          "Host": "wallweb-4ez.pages.dev"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 🇸🇬 | [BL]",
+      "network": "ws",
+      "port": 2053,
+      "server": "172.67.65.56",
+      "servername": "whitecreeper.pages.dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "099244b9-2168-4dbd-870e-cbbe9d6eb573",
+      "ws-opts": {
+        "headers": {
+          "Host": "whitecreeper.pages.dev"
+        },
+        "path": "/proxyip=ProxyIP.SG.CMLiussss.Net"
+      }
+    },
+    {
+      "client-fingerprint": "random",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 🇺🇸 | [BL]",
+      "network": "ws",
+      "port": 8443,
+      "server": "www.visa.com.sg",
+      "servername": "ydyg0908.mynameiszt.eu.org",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "1753c03f-39c4-4bf2-ae83-38e90c847e8e",
+      "ws-opts": {
+        "headers": {
+          "Host": "ydyg0908.mynameiszt.eu.org"
+        },
+        "path": "/?ed=2560"
+      }
+    },
+    {
+      "client-fingerprint": "firefox",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 🇺🇸 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "8.6.112.242",
+      "servername": "8.6.112.242",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "64726966-0000-4000-8000-740000000000",
+      "ws-opts": {
+        "headers": {
+          "Host": "parsa-panel-dy55x.railway1385-2a46.workers.dev"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "client-fingerprint": "random",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 🇺🇸 | [BL]",
+      "network": "ws",
+      "port": 2087,
+      "server": "104.26.4.57",
+      "servername": "c7dabe95.proxy-978.pages.dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "767b6340-96dc-4aa0-8013-a8af7513d920",
+      "ws-opts": {
+        "headers": {
+          "Host": "c7dabe95.proxy-978.pages.dev"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "client-fingerprint": "random",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 🇺🇸 | [BL]",
+      "network": "ws",
+      "port": 2053,
+      "server": "japan.com",
+      "servername": "c7dabe95.proxy-978.pages.dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "767b6340-96dc-4aa0-8013-a8af7513d920",
+      "ws-opts": {
+        "headers": {
+          "Host": "c7dabe95.proxy-978.pages.dev"
+        },
+        "path": "/?ed=2560"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇷 🇮🇶 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "104.20.45.141",
+      "servername": "razk50e1uvss.amirhoseyn-meshki.workers.dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "50414e45-4c5f-5a45-5553-7e7818beb9aa",
+      "ws-opts": {
+        "headers": {
+          "Host": "razk50e1uvss.amirhoseyn-meshki.workers.dev"
+        },
+        "path": "/stream/PANEL_ZEUS/7e7818beb9aa"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇷 🇮🇶 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "104.20.45.141",
+      "servername": "razk50e1uvss.amirhoseyn-meshki.workers.dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "50414e45-4c5f-5a45-5553-7e7818beb9aa",
+      "ws-opts": {
+        "headers": {
+          "Host": "razk50e1uvss.amirhoseyn-meshki.workers.dev"
+        },
+        "path": "/stream/PANEL_ZEUS/7e7818beb9aafp=unsafe"
+      }
+    },
+    {
+      "alpn": [
+        "http/1.1"
+      ],
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇸🇪 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "162.159.254.201",
+      "servername": "freeceshi6.frii.site",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
+      "ws-opts": {
+        "headers": {
+          "Host": "freeceshi6.frii.site"
+        },
+        "path": "/?TELEGRAM---MARAMBASHI---MARAMBASHI---MARAMBASHI---MARAMBASHI"
+      }
+    },
+    {
+      "alpn": [
+        "http/1.1"
+      ],
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "162.159.249.92",
+      "servername": "DD-xx.PAGES.DEV",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "00c82fcb-2c67-465d-8432-6743a1593efa",
+      "ws-opts": {
+        "headers": {
+          "Host": "dd-xx.pages.dev"
+        },
+        "path": "/?TELEGRAM--MARAMBASHI--MARAMBASHI--MARAMBASHI--MARAMBASHI?ed=2560"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "162.159.249.92",
+      "servername": "162.159.249.92",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "00c82fcb-2c67-465d-8432-6743a1593efa",
+      "ws-opts": {
+        "headers": {
+          "Host": "dd-xx.pages.dev"
+        },
+        "path": "/"
+      }
+    },
+    {
       "client-fingerprint": "unsafe",
-      "name": "🇬🇧 United Kingdom, Slough | [BL]",
+      "name": "🌐 Anycast-IP | 🇬🇧 | [BL]",
       "port": 443,
       "server": "188.114.97.6",
       "servername": "crm.dpdns.org",
@@ -791,864 +2420,6 @@
       "uuid": "e58384f2-76ba-400b-ae0a-8271b4c9c310"
     },
     {
-      "client-fingerprint": "firefox",
-      "name": "🇺🇸 United States, Newark (Central Business District) | [BL]",
-      "port": 443,
-      "reality-opts": {
-        "public-key": "",
-        "short-id": "c8b4a5719bd797b8"
-      },
-      "server": "ggssstreaming.ru",
-      "servername": "ggssstreaming.ru",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "9a9f167d-b461-466f-be50-f0ffd598a6f8"
-    },
-    {
-      "client-fingerprint": "edge",
-      "name": "🇺🇸 United States, Newark (Central Business District) | [BL]",
-      "port": 443,
-      "reality-opts": {
-        "public-key": "",
-        "short-id": "c8b4a5719bd797b8"
-      },
-      "server": "ggssstreaming.ru",
-      "servername": "ggssstreaming.ru",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "9a9f167d-b461-466f-be50-f0ffd598a6f8"
-    },
-    {
-      "client-fingerprint": "ios",
-      "name": "🇺🇸 United States, Newark (Central Business District) | [BL]",
-      "port": 443,
-      "reality-opts": {
-        "public-key": "",
-        "short-id": "c8b4a5719bd797b8"
-      },
-      "server": "ggssstreaming.ru",
-      "servername": "ggssstreaming.ru",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "9a9f167d-b461-466f-be50-f0ffd598a6f8"
-    },
-    {
-      "client-fingerprint": "firefox",
-      "flow": "xtls-rprx-vision",
-      "name": "🇺🇸 United States, Newark (Central Business District) | [BL]",
-      "port": 443,
-      "reality-opts": {
-        "public-key": ""
-      },
-      "server": "bridge.funky-monkey.app",
-      "servername": "steam-videos.cc",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "ea759639-a58c-4c46-8e0b-4cc834bf6658"
-    },
-    {
-      "client-fingerprint": "firefox",
-      "flow": "xtls-rprx-vision",
-      "name": "🇺🇸 United States, Orem | [BL]",
-      "port": 443,
-      "reality-opts": {
-        "public-key": ""
-      },
-      "server": "us-tube-01.funky-monkey.app",
-      "servername": "steam-videos.cc",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "ea759639-a58c-4c46-8e0b-4cc834bf6658"
-    },
-    {
-      "client-fingerprint": "qq",
-      "name": "🇺🇸 United States, Santa Clara | 🌐 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "cos-cdn-g.alicdn.win",
-      "servername": "mms-statlc-oyu9nl-e.oppocc.men",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "c7678d5b-d2b6-40d8-bbf7-dfbfba355f7e",
-      "ws-opts": {
-        "headers": {
-          "Host": "mms-static-origin-e.oppocc.men"
-        },
-        "path": "/newlogin/login.do"
-      }
-    },
-    {
-      "name": "🌐 Anycast-IP | 🇨🇦 🇯🇵 🇸🇪 🇺🇸 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "188.114.98.0",
-      "servername": "freeceshi6.frii.site",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
-      "ws-opts": {
-        "headers": {
-          "Host": "freeceshi6.frii.site"
-        },
-        "path": "/proxyip=ProxyIP.JP.CMLiussss.net"
-      }
-    },
-    {
-      "alpn": [
-        "http/1.1"
-      ],
-      "name": "🌐 Anycast-IP | 🇨🇦 🇯🇵 🇸🇪 🇺🇸 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "188.114.98.0",
-      "servername": "freeceshi6.frii.site",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
-      "ws-opts": {
-        "headers": {
-          "Host": "freeceshi6.frii.site"
-        },
-        "path": "/proxyip=ProxyIP.JP.CMLiussss.net"
-      }
-    },
-    {
-      "alpn": [
-        "http/1.1"
-      ],
-      "name": "🌐 Anycast-IP | 🇨🇦 🇸🇪 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "188.114.98.0",
-      "servername": "freeceshi6.frii.site",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
-      "ws-opts": {
-        "headers": {
-          "Host": "freeceshi6.frii.site"
-        },
-        "path": "/?TELEGRAM---MARAMBASHI---MARAMBASHI---MARAMBASHI---MARAMBASHI"
-      }
-    },
-    {
-      "alpn": [
-        "http/1.1"
-      ],
-      "name": "🌐 Anycast-IP | 🇨🇦 🇸🇪 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "188.114.98.0",
-      "servername": "freeceshi6.frii.site",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
-      "ws-opts": {
-        "headers": {
-          "Host": "freeceshi6.frii.site"
-        },
-        "path": "/proxyip?ed#"
-      }
-    },
-    {
-      "alpn": [
-        "http/1.1"
-      ],
-      "name": "🌐 Anycast-IP | 🇨🇦 🇸🇪 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "leviko-us4350.shopingggg.ir",
-      "servername": "freeceshi6.frii.site",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
-      "ws-opts": {
-        "headers": {
-          "Host": "freeceshi6.frii.site"
-        },
-        "path": "/proxyip"
-      }
-    },
-    {
-      "name": "🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "162.159.254.201",
-      "servername": "freeceshi6.frii.site",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
-      "ws-opts": {
-        "headers": {
-          "Host": "freeceshi6.frii.site"
-        },
-        "path": "/?TELEGRAM---MARAMBASHI---MARAMBASHI---MARAMBASHI---MARAMBASHI"
-      }
-    },
-    {
-      "alpn": [
-        "http/1.1"
-      ],
-      "client-fingerprint": "chrome",
-      "name": "🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "162.159.254.201",
-      "servername": "freeceshi6.frii.site",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
-      "ws-opts": {
-        "headers": {
-          "Host": "freeceshi6.frii.site"
-        },
-        "path": "/?TELEGRAM---MARAMBASHI---MARAMBASHI---MARAMBASHI---MARAMBASHI"
-      }
-    },
-    {
-      "client-fingerprint": "chrome",
-      "name": "🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
-      "network": "ws",
-      "port": 2083,
-      "server": "172.66.47.74",
-      "servername": "freeceshi6.frii.site",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
-      "ws-opts": {
-        "headers": {
-          "Host": "freeceshi6.frii.site"
-        },
-        "path": "/proxyip=ProxyIP.JP.CMLiussss.net"
-      }
-    },
-    {
-      "client-fingerprint": "chrome",
-      "name": "🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
-      "network": "ws",
-      "port": 2083,
-      "server": "172.66.47.74",
-      "servername": "freeceshi6.frii.site",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
-      "ws-opts": {
-        "headers": {
-          "Host": "freeceshi6.frii.site"
-        },
-        "path": "/"
-      }
-    },
-    {
-      "alpn": [
-        "http/1.1"
-      ],
-      "client-fingerprint": "edge",
-      "name": "🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "188.114.98.0",
-      "servername": "freeceshi6.frii.site",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
-      "ws-opts": {
-        "headers": {
-          "Host": "freeceshi6.frii.site"
-        },
-        "path": "/?TELEGRAM--MARAMBASHI--MARAMBASHI--MARAMBASHI--MARAMBASHI?ed=2560"
-      }
-    },
-    {
-      "alpn": [
-        "http/1.1"
-      ],
-      "client-fingerprint": "firefox",
-      "name": "🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "188.114.98.0",
-      "servername": "freeceshi6.frii.site",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
-      "ws-opts": {
-        "headers": {
-          "Host": "freeceshi6.frii.site"
-        },
-        "path": "/?TELEGRAM--MARAMBASHI--MARAMBASHI--MARAMBASHI--MARAMBASHI?ed=2560"
-      }
-    },
-    {
-      "alpn": [
-        "http/1.1"
-      ],
-      "client-fingerprint": "ios",
-      "name": "🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "188.114.98.0",
-      "servername": "freeceshi6.frii.site",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
-      "ws-opts": {
-        "headers": {
-          "Host": "freeceshi6.frii.site"
-        },
-        "path": "/?TELEGRAM--MARAMBASHI--MARAMBASHI--MARAMBASHI--MARAMBASHI?ed=2560"
-      }
-    },
-    {
-      "alpn": [
-        "http/1.1"
-      ],
-      "client-fingerprint": "safari",
-      "name": "🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "188.114.98.0",
-      "servername": "freeceshi6.frii.site",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
-      "ws-opts": {
-        "headers": {
-          "Host": "freeceshi6.frii.site"
-        },
-        "path": "/?TELEGRAM--MARAMBASHI--MARAMBASHI--MARAMBASHI--MARAMBASHI?ed=2560"
-      }
-    },
-    {
-      "alpn": [
-        "http/1.1"
-      ],
-      "client-fingerprint": "firefox",
-      "name": "🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "188.114.98.0",
-      "servername": "freeceshi6.frii.site",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
-      "ws-opts": {
-        "headers": {
-          "Host": "freeceshi6.frii.site"
-        },
-        "path": "/proxyip?ed#Telegram---PLANB_NET---PLANB_NET---PLANB_NET---PLANB_NET"
-      }
-    },
-    {
-      "alpn": [
-        "http/1.1"
-      ],
-      "client-fingerprint": "ios",
-      "name": "🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "188.114.98.0",
-      "servername": "freeceshi6.frii.site",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
-      "ws-opts": {
-        "headers": {
-          "Host": "freeceshi6.frii.site"
-        },
-        "path": "/proxyip?ed#Telegram---PLANB_NET---PLANB_NET---PLANB_NET---PLANB_NET"
-      }
-    },
-    {
-      "alpn": [
-        "http/1.1"
-      ],
-      "client-fingerprint": "safari",
-      "name": "🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "188.114.98.0",
-      "servername": "freeceshi6.frii.site",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
-      "ws-opts": {
-        "headers": {
-          "Host": "freeceshi6.frii.site"
-        },
-        "path": "/proxyip?ed#Telegram---PLANB_NET---PLANB_NET---PLANB_NET---PLANB_NET"
-      }
-    },
-    {
-      "alpn": [
-        "http/1.1"
-      ],
-      "client-fingerprint": "edge",
-      "name": "🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "188.114.98.0",
-      "servername": "freeceshi6.frii.site",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
-      "ws-opts": {
-        "headers": {
-          "Host": "freeceshi6.frii.site"
-        },
-        "path": "/"
-      }
-    },
-    {
-      "alpn": [
-        "http/1.1"
-      ],
-      "client-fingerprint": "ios",
-      "name": "🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "188.114.98.0",
-      "servername": "freeceshi6.frii.site",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
-      "ws-opts": {
-        "headers": {
-          "Host": "freeceshi6.frii.site"
-        },
-        "path": "/"
-      }
-    },
-    {
-      "alpn": [
-        "http/1.1"
-      ],
-      "client-fingerprint": "edge",
-      "name": "🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "188.114.98.0",
-      "servername": "freeceshi6.frii.site",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
-      "ws-opts": {
-        "headers": {
-          "Host": "freeceshi6.frii.site"
-        },
-        "path": "/?Telegram---PLANB_NET---PLANB_NET---PLANB_NET---PLANB_NET"
-      }
-    },
-    {
-      "alpn": [
-        "http/1.1"
-      ],
-      "client-fingerprint": "firefox",
-      "name": "🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "188.114.98.0",
-      "servername": "freeceshi6.frii.site",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
-      "ws-opts": {
-        "headers": {
-          "Host": "freeceshi6.frii.site"
-        },
-        "path": "/?Telegram---PLANB_NET---PLANB_NET---PLANB_NET---PLANB_NET"
-      }
-    },
-    {
-      "alpn": [
-        "http/1.1"
-      ],
-      "client-fingerprint": "ios",
-      "name": "🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "188.114.98.0",
-      "servername": "freeceshi6.frii.site",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
-      "ws-opts": {
-        "headers": {
-          "Host": "freeceshi6.frii.site"
-        },
-        "path": "/?Telegram---PLANB_NET---PLANB_NET---PLANB_NET---PLANB_NET"
-      }
-    },
-    {
-      "alpn": [
-        "http/1.1"
-      ],
-      "client-fingerprint": "safari",
-      "name": "🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "188.114.98.0",
-      "servername": "freeceshi6.frii.site",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
-      "ws-opts": {
-        "headers": {
-          "Host": "freeceshi6.frii.site"
-        },
-        "path": "/?Telegram---PLANB_NET---PLANB_NET---PLANB_NET---PLANB_NET"
-      }
-    },
-    {
-      "alpn": [
-        "http/1.1"
-      ],
-      "name": "🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "188.114.98.0",
-      "servername": "freeceshi6.frii.site",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
-      "ws-opts": {
-        "headers": {
-          "Host": "freeceshi6.frii.site"
-        },
-        "path": "/?TELEGRAM--MARAMBASHI--MARAMBASHI--MARAMBASHI--MARAMBASHI"
-      }
-    },
-    {
-      "alpn": [
-        "http/1.1"
-      ],
-      "name": "🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "188.114.98.0",
-      "servername": "freeceshi6.frii.site",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
-      "ws-opts": {
-        "headers": {
-          "Host": "freeceshi6.frii.site"
-        },
-        "path": "/proxyip?ed"
-      }
-    },
-    {
-      "name": "🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "188.114.98.0",
-      "servername": "freeceshi6.frii.site",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
-      "ws-opts": {
-        "headers": {
-          "Host": "freeceshi6.frii.site"
-        },
-        "path": "/?TELEGRAM---MARAMBASHI---MARAMBASHI---MARAMBASHI---MARAMBASHI"
-      }
-    },
-    {
-      "name": "🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "188.114.98.0",
-      "servername": "freeceshi6.frii.site",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
-      "ws-opts": {
-        "headers": {
-          "Host": "freeceshi6.frii.site"
-        },
-        "path": "/?Telegram---PLANB_NET---PLANB_NET---PLANB_NET---PLANB_NET"
-      }
-    },
-    {
-      "name": "🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "188.114.98.0",
-      "servername": "freeceshi6.frii.site",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
-      "ws-opts": {
-        "headers": {
-          "Host": "freeceshi6.frii.site"
-        },
-        "path": "/?TELEGRAM--MARAMBASHI--MARAMBASHI--MARAMBASHI--MARAMBASHI?ed=2560"
-      }
-    },
-    {
-      "client-fingerprint": "edge",
-      "name": "🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "188.114.98.0",
-      "servername": "freeceshi6.frii.site",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
-      "ws-opts": {
-        "headers": {
-          "Host": "freeceshi6.frii.site"
-        },
-        "path": "/?TELEGRAM--MARAMBASHI--MARAMBASHI--MARAMBASHI--MARAMBASHI?ed=2560"
-      }
-    },
-    {
-      "client-fingerprint": "firefox",
-      "name": "🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "188.114.98.0",
-      "servername": "freeceshi6.frii.site",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
-      "ws-opts": {
-        "headers": {
-          "Host": "freeceshi6.frii.site"
-        },
-        "path": "/?TELEGRAM--MARAMBASHI--MARAMBASHI--MARAMBASHI--MARAMBASHI?ed=2560"
-      }
-    },
-    {
-      "client-fingerprint": "ios",
-      "name": "🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "188.114.98.0",
-      "servername": "freeceshi6.frii.site",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
-      "ws-opts": {
-        "headers": {
-          "Host": "freeceshi6.frii.site"
-        },
-        "path": "/?TELEGRAM--MARAMBASHI--MARAMBASHI--MARAMBASHI--MARAMBASHI?ed=2560"
-      }
-    },
-    {
-      "name": "🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "188.114.98.0",
-      "servername": "freeceshi6.frii.site",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
-      "ws-opts": {
-        "headers": {
-          "Host": "freeceshi6.frii.site"
-        },
-        "path": "/proxyip=ProxyIP.JP.CMLiussss.netfp=chrome"
-      }
-    },
-    {
-      "client-fingerprint": "chrome",
-      "name": "🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "188.114.98.0",
-      "servername": "freeceshi6.frii.site",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
-      "ws-opts": {
-        "headers": {
-          "Host": "freeceshi6.frii.site"
-        },
-        "path": "/?TELEGRAM--MARAMBASHI--MARAMBASHI--MARAMBASHI--MARAMBASHI?ed=2560"
-      }
-    },
-    {
-      "alpn": [
-        "http/1.1"
-      ],
-      "name": "🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "188.114.98.0",
-      "servername": "freeceshi6.frii.site",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
-      "ws-opts": {
-        "headers": {
-          "Host": "freeceshi6.frii.site"
-        },
-        "path": "/?Telegram---PLANB_NET---PLANB_NET---PLANB_NET---PLANB_NET"
-      }
-    },
-    {
-      "alpn": [
-        "http/1.1"
-      ],
-      "name": "🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "188.114.98.0",
-      "servername": "freeceshi6.frii.site",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
-      "ws-opts": {
-        "headers": {
-          "Host": "freeceshi6.frii.site"
-        },
-        "path": "/?TELEGRAM--MARAMBASHI--MARAMBASHI--MARAMBASHI--MARAMBASHI?ed=2048"
-      }
-    },
-    {
-      "alpn": [
-        "http/1.1"
-      ],
-      "name": "🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "188.114.98.0",
-      "servername": "freeceshi6.frii.site",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
-      "ws-opts": {
-        "headers": {
-          "Host": "freeceshi6.frii.site"
-        },
-        "path": "/proxyip=ProxyIP.JP.CMLiussss.netfp=chrome"
-      }
-    },
-    {
-      "client-fingerprint": "chrome",
-      "name": "🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "leviko-us4350.shopingggg.ir",
-      "servername": "freeceshi6.frii.site",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
-      "ws-opts": {
-        "headers": {
-          "Host": "freeceshi6.frii.site"
-        },
-        "path": "/proxyip"
-      }
-    },
-    {
-      "name": "🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "leviko-us4350.shopingggg.ir",
-      "servername": "freeceshi6.frii.site",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
-      "ws-opts": {
-        "headers": {
-          "Host": "freeceshi6.frii.site"
-        },
-        "path": "/proxyip"
-      }
-    },
-    {
-      "alpn": [
-        "http/1.1"
-      ],
-      "client-fingerprint": "chrome",
-      "name": "🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "leviko-us4350.shopingggg.ir",
-      "servername": "freeceshi6.frii.site",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
-      "ws-opts": {
-        "headers": {
-          "Host": "freeceshi6.frii.site"
-        },
-        "path": "/proxyip"
-      }
-    },
-    {
-      "alpn": [
-        "h2",
-        "http/1.1"
-      ],
-      "client-fingerprint": "edge",
-      "name": "🌐 Anycast-IP | 🇬🇧 | [BL]",
-      "port": 443,
-      "server": "188.114.98.0",
-      "servername": "crm.dpdns.org",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "e58384f2-76ba-400b-ae0a-8271b4c9c310"
-    },
-    {
-      "name": "🌐 Anycast-IP | 🇬🇧 | [BL]",
-      "port": 443,
-      "server": "188.114.98.0",
-      "servername": "crm.dpdns.org",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "e58384f2-76ba-400b-ae0a-8271b4c9c310"
-    },
-    {
       "alpn": [
         "h2",
         "http/1.1"
@@ -1656,7 +2427,7 @@
       "client-fingerprint": "unsafe",
       "name": "🌐 Anycast-IP | 🇬🇧 | [BL]",
       "port": 443,
-      "server": "188.114.98.0",
+      "server": "188.114.97.6",
       "servername": "crm.dpdns.org",
       "tls": true,
       "type": "vless",
@@ -1664,125 +2435,40 @@
       "uuid": "e58384f2-76ba-400b-ae0a-8271b4c9c310"
     },
     {
-      "client-fingerprint": "firefox",
-      "name": "🌐 Anycast-IP | 🇰🇷 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "188.114.98.0",
-      "servername": "krd.80782636.xyz",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "db906786-8c49-4b17-9182-cea680ef954d",
-      "ws-opts": {
-        "headers": {
-          "Host": "krd.80782636.xyz"
-        },
-        "path": "/kw7x2mq9"
-      }
-    },
-    {
-      "alpn": [
-        "http/1.1"
-      ],
-      "name": "🌐 Anycast-IP | 🇸🇪 🇺🇸 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "162.159.254.201",
-      "servername": "freeceshi6.frii.site",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
-      "ws-opts": {
-        "headers": {
-          "Host": "freeceshi6.frii.site"
-        },
-        "path": "/?TELEGRAM---MARAMBASHI---MARAMBASHI---MARAMBASHI---MARAMBASHI"
-      }
-    },
-    {
-      "alpn": [
-        "http/1.1"
-      ],
-      "client-fingerprint": "edge",
-      "name": "🌐 Anycast-IP | 🇸🇪 🇺🇸 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "188.114.98.0",
-      "servername": "freeceshi6.frii.site",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
-      "ws-opts": {
-        "headers": {
-          "Host": "freeceshi6.frii.site"
-        },
-        "path": "/proxyip?ed#Telegram---PLANB_NET---PLANB_NET---PLANB_NET---PLANB_NET"
-      }
-    },
-    {
-      "alpn": [
-        "http/1.1"
-      ],
       "client-fingerprint": "chrome",
       "name": "🌐 Anycast-IP | 🇸🇪 🇺🇸 | [BL]",
       "network": "ws",
       "port": 443,
-      "server": "188.114.98.0",
-      "servername": "freeceshi6.frii.site",
+      "server": "104.27.204.44",
+      "servername": "9t94roac1ew8n93sdrq.pages.dev",
       "tls": true,
       "type": "vless",
       "udp": true,
-      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
+      "uuid": "386d67dc-bf88-49fd-a570-301cbb013a33",
       "ws-opts": {
         "headers": {
-          "Host": "freeceshi6.frii.site"
+          "Host": "9t94roac1ew8n93sdrq.pages.dev"
         },
-        "path": "/?Telegram---PLANB_NET---PLANB_NET---PLANB_NET---PLANB_NET"
+        "path": "/vl/x1qQUZWxHs5IRVeRUjz7AteYS?ed=2560"
       }
     },
     {
-      "alpn": [
-        "h2"
-      ],
-      "client-fingerprint": "unsafe",
-      "name": "🌐 Anycast-IP | 🇺🇸 | [BL]",
+      "client-fingerprint": "chrome",
+      "name": "🌐 Anycast-IP | 🇸🇪 🇺🇸 | [BL]",
+      "network": "ws",
       "port": 443,
-      "server": "188.114.98.0",
-      "servername": "fortuna.masynbazar.ru",
+      "server": "104.27.207.122",
+      "servername": "wallweb11.wallwebc992h7.workers.dev",
       "tls": true,
       "type": "vless",
       "udp": true,
-      "uuid": "a5b1d16b-719b-4bd6-9d7b-fe6d84607da9"
-    },
-    {
-      "alpn": [
-        "h2"
-      ],
-      "name": "🌐 Anycast-IP | 🇺🇸 | [BL]",
-      "port": 443,
-      "server": "188.114.98.0",
-      "servername": "fortuna.masynbazar.ru",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "a5b1d16b-719b-4bd6-9d7b-fe6d84607da9"
-    },
-    {
-      "alpn": [
-        "h2"
-      ],
-      "client-fingerprint": "unsafe",
-      "name": "🌐 Anycast-IP | 🇺🇸 | [BL]",
-      "port": 443,
-      "server": "188.114.98.0",
-      "servername": "fortuna.masynbazar.ru",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "a5b1d16b-719b-4bd6-9d7b-fe6d84607da9"
+      "uuid": "66969b2e-5e49-4750-9419-167d4bb64c07",
+      "ws-opts": {
+        "headers": {
+          "Host": "wallweb11.wallwebc992h7.workers.dev"
+        },
+        "path": "/"
+      }
     },
     {
       "cipher": "chacha20-ietf-poly1305",
@@ -1799,24 +2485,6 @@
       "password": "c40d60d1c847e63098058c7524680f349c9042f932d8e79c",
       "port": 443,
       "server": "belgium.astroapps.io",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
-      "name": "🇧🇪 Belgium, Zaventem | [BL]",
-      "password": "c40d60d1c847e63098058c7524680f349c9042f932d8e79c",
-      "port": 443,
-      "server": "belgium.astroapps.io",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
-      "name": "🇧🇬 Bulgaria, Sofia | [BL]",
-      "password": "5acf789dd7c2bf40a670a342800eff57003c2b164c3c8f53",
-      "port": 443,
-      "server": "bulgaria.astroapps.io",
       "type": "ss",
       "udp": true
     },
@@ -1830,365 +2498,105 @@
       "udp": true
     },
     {
-      "cipher": "chacha20-ietf-poly1305",
-      "name": "🇩🇰 Denmark, Copenhagen | [BL]",
-      "password": "c917b96e084ea67a0f21031f1284f9ee9e1d837321ce6362",
-      "port": 443,
-      "server": "denmark.astroapps.io",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
-      "name": "🇪🇪 Estonia, Tallinn | [BL]",
-      "password": "104243d8a410f4e54013b7fdb57c4b688d929c7b5b89e86b",
-      "port": 443,
-      "server": "estonia.astroapps.io",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
-      "name": "🇭🇰 Hong Kong, Hong Kong | [BL]",
-      "password": "f8256fdf607a8015a02b46df1563c2f35ebaff0d56f2923a",
-      "port": 443,
-      "server": "hongkong.astroapps.io",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
-      "name": "🇭🇰 Hong Kong, Hong Kong | [BL]",
-      "password": "f8256fdf607a8015a02b46df1563c2f35ebaff0d56f2923a",
-      "port": 443,
-      "server": "hongkong.astroapps.io",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
-      "name": "🇭🇰 Hong Kong, Hong Kong | [BL]",
-      "password": "f8256fdf607a8015a02b46df1563c2f35ebaff0d56f2923a",
-      "port": 443,
-      "server": "hongkong.astroapps.io",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
-      "name": "🇮🇹 Italy, Milan | [BL]",
-      "password": "034b5d9404b79a2df62fcb77a49cf748306765448d8b5e93",
-      "port": 443,
-      "server": "italy.astroapps.io",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
-      "name": "🇮🇹 Italy, Milan | [BL]",
-      "password": "034b5d9404b79a2df62fcb77a49cf748306765448d8b5e93",
-      "port": 443,
-      "server": "italy.astroapps.io",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "alterId": 0,
-      "cipher": "auto",
-      "name": "🇨🇳 China, Shenzhen | [BL]",
+      "alpn": [
+        "h3"
+      ],
+      "client-fingerprint": "randomized",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇩🇪 🇫🇮 | [BL]",
       "network": "ws",
-      "port": 10086,
-      "server": "39.108.113.127",
-      "type": "vmess",
+      "password": "bpb-trojan",
+      "port": 443,
+      "server": "singapore.com",
+      "servername": "kargar001.pages.dev",
+      "tls": true,
+      "type": "trojan",
       "udp": true,
-      "uuid": "ce4d0652-11f8-4531-9c59-98ceaef8fd86",
       "ws-opts": {
-        "path": "/"
+        "path": "/tr?ed=2560"
       }
     },
     {
-      "alterId": 0,
-      "cipher": "auto",
-      "name": "🇸🇬 Singapore, Eunos | [BL]",
-      "port": 10086,
-      "server": "195.133.135.238",
-      "type": "vmess",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇩🇪 🇫🇮 | [BL]",
+      "network": "ws",
+      "password": "vP!XvZBNdw.e*ddSgmH!",
+      "port": 2096,
+      "server": "188.114.96.0",
+      "servername": "N0Q4xprJ2d4X4pRCQ29l8JkcZd0.paGES.DeV",
+      "tls": true,
+      "type": "trojan",
       "udp": true,
-      "uuid": "b831381d-6324-4d53-ad4f-8cda48b30811"
+      "ws-opts": {
+        "path": "/tr/lqCTAonDgcErIZylZuNyy?ed=2560"
+      }
     },
     {
-      "alterId": 0,
-      "cipher": "auto",
-      "name": "🇺🇸 United States, Chicago | [BL]",
+      "client-fingerprint": "safari",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
       "network": "ws",
+      "password": "19877587-ed94-4033-88cd-4ac50a5e8718",
       "port": 443,
-      "server": "172.67.152.183",
-      "servername": "vmess.lbw666.dpdns.org",
+      "server": "104.18.153.182",
+      "servername": "dimskiee.biz.id",
       "tls": true,
-      "type": "vmess",
+      "type": "trojan",
       "udp": true,
-      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
       "ws-opts": {
         "headers": {
-          "Host": "vmess.lbw666.dpdns.org"
+          "Host": "dimskiee.biz.id"
         },
-        "path": "/ws"
-      }
-    },
-    {
-      "alterId": 0,
-      "cipher": "auto",
-      "name": "🇺🇸 United States, Chicago | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "172.66.0.1",
-      "servername": "vmess.lbw666.dpdns.org",
-      "tls": true,
-      "type": "vmess",
-      "udp": true,
-      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
-      "ws-opts": {
-        "headers": {
-          "Host": "vmess.lbw666.dpdns.org"
-        },
-        "path": "/ws"
-      }
-    },
-    {
-      "alterId": 0,
-      "cipher": "auto",
-      "name": "🇺🇸 United States, Chicago | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "cf.877771.xyz",
-      "tls": true,
-      "type": "vmess",
-      "udp": true,
-      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
-      "ws-opts": {
-        "headers": {
-          "Host": "vmess.lbw666.dpdns.org"
-        },
-        "path": "/ws?ed=2048"
-      }
-    },
-    {
-      "alterId": 0,
-      "cipher": "auto",
-      "name": "🇺🇸 United States, Chicago | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "cf.090227.xyz",
-      "servername": "vmess.lbw666.dpdns.org",
-      "tls": true,
-      "type": "vmess",
-      "udp": true,
-      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
-      "ws-opts": {
-        "path": "/ws?ed=2048"
-      }
-    },
-    {
-      "alterId": 0,
-      "cipher": "auto",
-      "name": "🇺🇸 United States, Chicago | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "cf.877771.xyz",
-      "servername": "vmess.lbw666.dpdns.org",
-      "tls": true,
-      "type": "vmess",
-      "udp": true,
-      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
-      "ws-opts": {
-        "headers": {
-          "Host": "vmess.lbw666.dpdns.org"
-        },
-        "path": "/ws"
-      }
-    },
-    {
-      "alterId": 0,
-      "cipher": "auto",
-      "name": "🇺🇸 United States, Chicago | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "cf.090227.xyz",
-      "tls": true,
-      "type": "vmess",
-      "udp": true,
-      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
-      "ws-opts": {
-        "headers": {
-          "Host": "vmess.lbw666.dpdns.org"
-        },
-        "path": "/ws?ed=2048"
-      }
-    },
-    {
-      "alterId": 0,
-      "cipher": "auto",
-      "name": "🇺🇸 United States, Chicago | 🌐 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "172.64.229.21",
-      "servername": "vmess.lbw666.dpdns.org",
-      "tls": true,
-      "type": "vmess",
-      "udp": true,
-      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
-      "ws-opts": {
-        "headers": {
-          "Host": "vmess.lbw666.dpdns.org"
-        },
-        "path": "/ws"
-      }
-    },
-    {
-      "alterId": 0,
-      "cipher": "auto",
-      "name": "🇺🇸 United States, Chicago | 🌐 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "172.64.229.21",
-      "servername": "vmess.lbw666.dpdns.org",
-      "tls": true,
-      "type": "vmess",
-      "udp": true,
-      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
-      "ws-opts": {
-        "headers": {
-          "Host": "vmess.lbw666.dpdns.org"
-        },
-        "path": "/ws"
-      }
-    },
-    {
-      "alterId": 0,
-      "cipher": "auto",
-      "name": "🇺🇸 United States, Chicago | 🌐 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "172.66.0.1",
-      "servername": "vmess.lbw666.dpdns.org",
-      "tls": true,
-      "type": "vmess",
-      "udp": true,
-      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
-      "ws-opts": {
-        "headers": {
-          "Host": "vmess.lbw666.dpdns.org"
-        },
-        "path": "/ws"
-      }
-    },
-    {
-      "alterId": 0,
-      "cipher": "auto",
-      "name": "🇺🇸 United States, Chicago | 🌐 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "188.114.99.137",
-      "servername": "vmess.lbw666.dpdns.org",
-      "tls": true,
-      "type": "vmess",
-      "udp": true,
-      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
-      "ws-opts": {
-        "path": "/ws"
-      }
-    },
-    {
-      "alterId": 0,
-      "cipher": "auto",
-      "name": "🇺🇸 United States, Chicago | 🌐 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "104.17.136.198",
-      "tls": true,
-      "type": "vmess",
-      "udp": true,
-      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
-      "ws-opts": {
-        "headers": {
-          "Host": "vmess.lbw666.dpdns.org"
-        },
-        "path": "/ws"
-      }
-    },
-    {
-      "alterId": 0,
-      "cipher": "auto",
-      "name": "🇺🇸 United States, Chicago | 🌐 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "104.17.136.198",
-      "tls": true,
-      "type": "vmess",
-      "udp": true,
-      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
-      "ws-opts": {
-        "headers": {
-          "Host": "vmess.lbw666.dpdns.org"
-        },
-        "path": "/ws"
-      }
-    },
-    {
-      "alterId": 0,
-      "cipher": "auto",
-      "name": "🇺🇸 United States, Chicago | 🌐 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "104.17.136.198",
-      "tls": true,
-      "type": "vmess",
-      "udp": true,
-      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
-      "ws-opts": {
-        "headers": {
-          "Host": "vmess.lbw666.dpdns.org"
-        },
-        "path": "/ws"
-      }
-    },
-    {
-      "alterId": 0,
-      "cipher": "auto",
-      "name": "🇺🇸 United States, Columbus | 🌐 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "104.19.166.218",
-      "servername": "assumption-universities-weekend-litigation.trycloudflare.com",
-      "tls": true,
-      "type": "vmess",
-      "udp": true,
-      "uuid": "a9f9a249-1832-424c-9820-57af75107acc",
-      "ws-opts": {
-        "headers": {
-          "Host": "assumption-universities-weekend-litigation.trycloudflare.com"
-        },
-        "path": "/ferdolans7"
+        "path": "/WangCai-8"
       }
     },
     {
       "alpn": [
         "http/1.1"
       ],
-      "name": "🇲🇩 Moldova, Chisinau | [BL]",
+      "client-fingerprint": "android",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
       "network": "ws",
-      "password": "963A4918-A630-29DA-A873-093CDF8AD784",
+      "password": "e7TTceggMwUMg+aFN:F4",
       "port": 443,
-      "server": "dry-snowflake-b29f.vpnetwork3567.workers.dev",
-      "servername": "dry-snowflake-b29f.vpnetwork3567.workers.dev",
+      "server": "188.114.97.0",
+      "servername": "Apkd964o1oghltGhhT0L0oF.PAGEs.DeV",
       "tls": true,
       "type": "trojan",
       "udp": true,
       "ws-opts": {
         "headers": {
-          "Host": "dry-snowflake-b29f.vpnetwork3567.workers.dev"
+          "Host": "apkd964o1oghltghht0l0of.pages.dev"
+        },
+        "path": "/tr/K6yFgCX8e93ySqOO4K?ed=2560"
+      }
+    },
+    {
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "password": "ec1fa47d-4eac-4b3f-8cae-4a2982d43e2f",
+      "port": 8443,
+      "server": "www.wto.org",
+      "servername": "jiangjc.pages.dev",
+      "tls": true,
+      "type": "trojan",
+      "udp": true,
+      "ws-opts": {
+        "headers": {
+          "Host": "jiangjc.pages.dev"
         },
         "path": "/"
+      }
+    },
+    {
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "password": "reinz",
+      "port": 443,
+      "server": "104.26.6.171",
+      "servername": "tsg3.pages.dev",
+      "tls": true,
+      "type": "trojan",
+      "udp": true,
+      "ws-opts": {
+        "path": "/?ed=2560"
       }
     },
     {
@@ -2196,20 +2604,20 @@
         "http/1.1"
       ],
       "client-fingerprint": "chrome",
-      "name": "🇸🇬 Singapore, Singapore (Queenstown Estate) | [BL]",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 🇺🇸 | [BL]",
       "network": "ws",
-      "password": "963A4918-A630-29DA-A873-093CDF8AD784",
+      "password": "e7TTceggMwUMg+aFN:F4",
       "port": 443,
-      "server": "lingering-fire-1fe9.vpnetwork3567.workers.dev",
-      "servername": "lingering-fire-1fe9.vpnetwork3567.workers.dev",
+      "server": "172.66.47.18",
+      "servername": "APkD964o1oghlTghHt0L0Of.pAgeS.Dev",
       "tls": true,
       "type": "trojan",
       "udp": true,
       "ws-opts": {
         "headers": {
-          "Host": "lingering-fire-1fe9.vpnetwork3567.workers.dev"
+          "Host": "apkd964o1oghltghht0l0of.pages.dev"
         },
-        "path": "/"
+        "path": "/tr/SIeRkg2QvR2Zcpu0SeEMow?ed=2560"
       }
     }
   ],

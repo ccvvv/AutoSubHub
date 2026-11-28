@@ -1,9 +1,9 @@
 {
-  "checked_at": "2026-11-27T22:20:30.206138+00:00",
-  "etag": "W/\"6cbc090d28f0a0af8d9abf4cc7657c0ae2ec41ec4fd73b6d415cf75df000060a\"",
-  "fetched_at": "2026-11-27T22:15:29.726014+00:00",
+  "checked_at": "2026-11-28T03:18:47.799653+00:00",
+  "etag": "W/\"7430975c944e68e2d6feb38eae91bf1f03411b81b9f43afdb4f1c0b4334269e9\"",
+  "fetched_at": "2026-11-28T03:18:47.799653+00:00",
   "last_modified": null,
-  "last_status": 304,
+  "last_status": 200,
   "nodes": [
     {
       "cipher": "aes-256-gcm",
@@ -120,25 +120,6 @@
       "sni": "px.ads.linkedin.com",
       "type": "anytls",
       "udp": true
-    },
-    {
-      "client-fingerprint": "chrome",
-      "flow": "xtls-rprx-vision",
-      "name": "🇭🇰 香港|@ripaojiedian",
-      "network": "tcp",
-      "port": 443,
-      "reality-opts": {
-        "public-key": "KBPuCiAKJQQtlsodm5MIBFfYf-TGsrjCK5GGJzJJli4",
-        "short-id": "6a3c0a718181"
-      },
-      "server": "jp2mqtt.jumpernode.site",
-      "servername": "stg.nvbugspro.nvidia.com",
-      "skip-cert-verify": true,
-      "tfo": false,
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "330a570e-c0ba-4a9d-8e37-d20540cc8eaa"
     },
     {
       "cipher": "aes-256-gcm",
@@ -359,6 +340,46 @@
         "path": "/ws",
         "v2ray-http-upgrade": false
       }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🇭🇰 香港|@ripaojiedian",
+      "network": "ws",
+      "port": 1891,
+      "server": "216.236.51.44",
+      "servername": "senflarelink-node-71i.pages.dev",
+      "skip-cert-verify": true,
+      "tfo": false,
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "e9923122-5d88-43f1-8548-5771d7750ef5",
+      "ws-opts": {
+        "headers": {
+          "Host": "senflarelink-node-71i.pages.dev"
+        },
+        "path": "/",
+        "v2ray-http-upgrade": false
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "flow": "xtls-rprx-vision",
+      "name": "🇭🇰 香港3|@ripaojiedian",
+      "network": "tcp",
+      "port": 28418,
+      "reality-opts": {
+        "public-key": "mfxE6lW_fuPZKWtrySdTx9HOh0vtX3-7aMiYDCh2YCA",
+        "short-id": "ddd21e20"
+      },
+      "server": "38.207.172.59",
+      "servername": "op.gg",
+      "skip-cert-verify": true,
+      "tfo": false,
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "e6552569-97ce-430c-a324-53ad1c546e05"
     }
   ],
   "schema_version": 1,

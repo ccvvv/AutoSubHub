@@ -1,9 +1,9 @@
 {
-  "checked_at": "2026-11-27T22:20:30.211560+00:00",
-  "etag": "W/\"35268a4f335b903d28691216b6e8f1c82ca550b00cdbfac10b06d15fd5c97cb1\"",
-  "fetched_at": "2026-11-27T22:15:31.912604+00:00",
+  "checked_at": "2026-11-28T03:18:48.751814+00:00",
+  "etag": "W/\"e45de4ced61877ab4b4876441addb3a709a2ddfd8045f7cc306ee107c6c3dfbf\"",
+  "fetched_at": "2026-11-28T03:18:48.751814+00:00",
   "last_modified": null,
-  "last_status": 304,
+  "last_status": 200,
   "nodes": [
     {
       "client-fingerprint": "chrome",
@@ -16,8 +16,8 @@
         "short-id": "e04a526b0b09c765",
         "support-x25519mlkem768": true
       },
-      "server": "3.38.208.216",
-      "servername": "heesung.dawonstudio.com",
+      "server": "54.180.146.22",
+      "servername": "ao.popeep.kr",
       "tls": true,
       "type": "vless",
       "udp": true,
@@ -28,7 +28,7 @@
       "name": "end-gfw-kr64-HY2",
       "password": "7e68e32f-8015-4f37-9082-70e8b0b58043",
       "port": 443,
-      "server": "3.38.208.216",
+      "server": "54.180.146.22",
       "skip-cert-verify": true,
       "sni": "www.bing.com",
       "type": "hysteria2"
@@ -38,7 +38,7 @@
       "name": "end-gfw-kr64-SS",
       "password": "7e68e32f-8015-4f37-9082-70e8b0b58043",
       "port": 8443,
-      "server": "3.38.208.216",
+      "server": "54.180.146.22",
       "type": "ss",
       "udp": true
     },
@@ -53,7 +53,7 @@
         "short-id": "819a87bf1651bf44",
         "support-x25519mlkem768": true
       },
-      "server": "13.212.83.13",
+      "server": "13.229.109.49",
       "servername": "greenfieldsdairy.com",
       "tls": true,
       "type": "vless",
@@ -65,7 +65,7 @@
       "name": "end-gfw-sg89-HY2",
       "password": "7e68e32f-8015-4f37-9082-70e8b0b58043",
       "port": 443,
-      "server": "13.212.83.13",
+      "server": "13.229.109.49",
       "skip-cert-verify": true,
       "sni": "www.bing.com",
       "type": "hysteria2"
@@ -75,7 +75,7 @@
       "name": "end-gfw-sg89-SS",
       "password": "7e68e32f-8015-4f37-9082-70e8b0b58043",
       "port": 8443,
-      "server": "13.212.83.13",
+      "server": "13.229.109.49",
       "type": "ss",
       "udp": true
     }

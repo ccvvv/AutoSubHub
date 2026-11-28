@@ -1,0 +1,128 @@
+{
+  "checked_at": "2026-11-28T03:18:50.416722+00:00",
+  "etag": null,
+  "fetched_at": "2026-11-28T03:18:50.416722+00:00",
+  "last_modified": null,
+  "last_status": 200,
+  "nodes": [
+    {
+      "cipher": "aes-256-gcm",
+      "name": "nl|e1f5|puddincat07@Telegram",
+      "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=",
+      "port": 19999,
+      "server": "202.50.253.63",
+      "type": "ss"
+    },
+    {
+      "cipher": "aes-256-gcm",
+      "name": "nl|b8af|puddincat07@Telegram",
+      "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=",
+      "port": 19999,
+      "server": "202.50.253.81",
+      "type": "ss"
+    },
+    {
+      "cipher": "aes-256-gcm",
+      "name": "nl|f92b|puddincat07@Telegram",
+      "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=",
+      "port": 19999,
+      "server": "202.50.253.27",
+      "type": "ss"
+    },
+    {
+      "cipher": "aes-256-gcm",
+      "name": "nl|2d27|puddincat07@Telegram",
+      "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=",
+      "port": 19999,
+      "server": "202.50.253.99",
+      "type": "ss"
+    },
+    {
+      "cipher": "aes-256-gcm",
+      "name": "nl|8e6f|puddincat07@Telegram",
+      "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=",
+      "port": 19999,
+      "server": "202.50.253.72",
+      "type": "ss"
+    },
+    {
+      "cipher": "aes-256-gcm",
+      "name": "nl|bc46|puddincat07@Telegram",
+      "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=",
+      "port": 19999,
+      "server": "202.50.253.54",
+      "type": "ss"
+    },
+    {
+      "cipher": "aes-256-gcm",
+      "name": "nl|6a01|puddincat07@Telegram",
+      "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=",
+      "port": 19999,
+      "server": "202.50.253.18",
+      "type": "ss"
+    },
+    {
+      "cipher": "aes-256-gcm",
+      "name": "nl|1cc0|puddincat07@Telegram",
+      "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=",
+      "port": 19999,
+      "server": "202.50.253.36",
+      "type": "ss"
+    },
+    {
+      "cipher": "aes-256-gcm",
+      "name": "nl|468f|puddincat07@Telegram",
+      "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=",
+      "port": 19999,
+      "server": "202.50.253.45",
+      "type": "ss"
+    },
+    {
+      "cipher": "aes-256-gcm",
+      "name": "nl|5013|puddincat07@Telegram",
+      "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=",
+      "port": 19999,
+      "server": "202.50.253.90",
+      "type": "ss"
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "xx|14f5|puddincat07@Telegram",
+      "password": "d7563108-615c-4338-a7bd-77f359869a4a",
+      "port": 20028,
+      "server": "sclass-b1.catcat321.com",
+      "skip-cert-verify": true,
+      "sni": "hk.catxstar.com",
+      "type": "trojan",
+      "udp": true
+    },
+    {
+      "name": "sg|9317|puddincat07@Telegram",
+      "password": "8888",
+      "port": 1080,
+      "server": "47.236.168.243",
+      "skip-cert-verify": true,
+      "type": "socks5",
+      "username": "8888"
+    },
+    {
+      "name": "us|2abc|puddincat07@Telegram",
+      "password": "test123",
+      "port": 1080,
+      "server": "104.168.249.36",
+      "type": "socks5",
+      "username": "test123"
+    },
+    {
+      "name": "it|cc8d|puddincat07@Telegram",
+      "password": "None",
+      "port": 1088,
+      "server": "212.77.75.25",
+      "type": "socks5",
+      "udp": true
+    }
+  ],
+  "schema_version": 1,
+  "source_id": "source-002",
+  "source_url_sha256": "ff73ae5377675d2ea783a8cb5e5567970995a60b56d11b70985bf33c30bea4ff"
+}
