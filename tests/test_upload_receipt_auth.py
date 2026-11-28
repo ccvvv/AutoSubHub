@@ -5,6 +5,8 @@ from pathlib import Path
 from unittest.mock import patch
 
 import upload_receipt
+from scripts.node_identity import node_fingerprint
+import yaml
 
 
 class ReceiptBundleCompletenessTests(unittest.TestCase):
@@ -22,13 +24,15 @@ class ReceiptBundleCompletenessTests(unittest.TestCase):
     server: b.example
     port: 443
 """
+        proxies = yaml.safe_load(self.candidate)["proxies"]
+        fingerprints = [node_fingerprint(proxy) for proxy in proxies]
         self.manifest = {"nodes": [
-            {"node_id": "a" * 64, "name": "node-a"},
-            {"node_id": "b" * 64, "name": "node-b"},
+            {"node_id": fp, "fingerprint": fp, "name": proxy["name"]}
+            for proxy, fp in zip(proxies, fingerprints)
         ]}
         self.receipt = {"results": [
-            {"node_id": "a" * 64, "status": "passed"},
-            {"node_id": "b" * 64, "status": "failed"},
+            {"node_id": fingerprints[0], "status": "passed"},
+            {"node_id": fingerprints[1], "status": "failed"},
         ]}
 
     def test_accepts_exact_complete_receipt(self):
@@ -37,7 +41,7 @@ class ReceiptBundleCompletenessTests(unittest.TestCase):
         )
 
     def test_rejects_partial_receipt_before_cursor_advance(self):
-        partial = {"results": [{"node_id": "a" * 64, "status": "passed"}]}
+        partial = {"results": [{"node_id": self.manifest["nodes"][0]["node_id"], "status": "passed"}]}
         with self.assertRaisesRegex(ValueError, "missing=1"):
             upload_receipt.validate_complete_receipt_bundle(
                 partial, self.candidate, self.manifest
