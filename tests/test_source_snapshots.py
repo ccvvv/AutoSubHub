@@ -191,8 +191,13 @@ class SourceSnapshotTests(unittest.TestCase):
         first = apply_completed_receipt(state, manifest, {**result, "task_id": "same"})
         second = apply_completed_receipt(first, manifest, {**result, "task_id": "same"})
         self.assertEqual(first["nodes"], second["nodes"])
+        refreshed = apply_completed_receipt(first, manifest, {**result, "task_id": "different"})
+        self.assertEqual(refreshed["nodes"][queue["nodes"][0]["node_id"]]["receipt_id"], "different")
         with self.assertRaises(ValueError):
-            apply_completed_receipt(first, manifest, {**result, "task_id": "different"})
+            apply_completed_receipt(first, manifest, {
+                "task_id": "same",
+                "results": [{"node_id": queue["nodes"][0]["node_id"], "status": "failed"}],
+            })
 
 
 if __name__ == "__main__":
