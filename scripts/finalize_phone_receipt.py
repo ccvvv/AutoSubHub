@@ -111,7 +111,7 @@ if not final_nodes:
     output_path = os.getenv("GITHUB_OUTPUT")
     if output_path:
         with open(output_path, "a", encoding="utf-8") as handle:
-            handle.write("has_final_nodes=false\\n")
+            handle.write("has_final_nodes=false\n")
     print("No node passed the publication gates; final/latest.yaml is preserved, but the complete receipt can be consumed.")
     raise SystemExit(0)
 
@@ -250,7 +250,7 @@ with open(out_path, "w", encoding="utf-8") as f:
 output_path = os.getenv("GITHUB_OUTPUT")
 if output_path:
     with open(output_path, "a", encoding="utf-8") as handle:
-        handle.write("has_final_nodes=true\\n")
+        handle.write("has_final_nodes=true\n")
 
 if len(sys.argv) > 5:
     v2ray_path = sys.argv[5]
