@@ -1,8 +1,6 @@
 """Helpers for merging immutable phone-probe candidate batches."""
 from __future__ import annotations
 
-import hashlib
-import json
 import subprocess
 from collections import OrderedDict
 from pathlib import Path
@@ -10,12 +8,12 @@ from pathlib import Path
 import requests
 import yaml
 
+from scripts.node_identity import node_fingerprint
+
 
 def canonical_fingerprint(proxy: dict) -> str:
-    """Identify a proxy by its configuration, excluding its display name."""
-    config = {key: value for key, value in proxy.items() if key != "name"}
-    encoded = json.dumps(config, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
-    return hashlib.sha256(encoded.encode("utf-8")).hexdigest()
+    """Compatibility alias for the one canonical system-wide fingerprint."""
+    return node_fingerprint(proxy)
 
 
 def merge_candidate_snapshots(snapshots: list[tuple[str, dict, dict]]) -> tuple[dict, dict, list[str]]:
@@ -39,6 +37,14 @@ def merge_candidate_snapshots(snapshots: list[tuple[str, dict, dict]]) -> tuple[
             raise ValueError(f"Manifest does not match candidate at {commit}")
         for name, proxy in by_name.items():
             fingerprint = canonical_fingerprint(proxy)
+            declared_id = manifest_by_name[name].get("node_id")
+            declared_fingerprint = manifest_by_name[name].get("fingerprint")
+            # Historical immutable commits used a 20-hex prefix. Recompute it
+            # from the proxy and normalize immediately; all current output is full SHA-256.
+            if declared_id not in (fingerprint, fingerprint[:20]):
+                raise ValueError(f"Candidate manifest identity mismatch at {commit}: {name}")
+            if declared_fingerprint is not None and declared_fingerprint != fingerprint:
+                raise ValueError(f"Candidate full fingerprint mismatch at {commit}: {name}")
             entry = merged.setdefault(fingerprint, {
                 "proxy": dict(proxy), "source_commits": [], "source_names": [],
             })
@@ -59,6 +65,7 @@ def merge_candidate_snapshots(snapshots: list[tuple[str, dict, dict]]) -> tuple[
         proxies.append(proxy)
         nodes.append({
             "node_id": fingerprint,
+            "fingerprint": fingerprint,
             "name": proxy["name"],
             "source_commits": entry["source_commits"],
             "source_names": entry["source_names"],
