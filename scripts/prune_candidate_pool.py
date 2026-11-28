@@ -12,7 +12,6 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 import yaml
 
-from scripts.candidate_pool import build_manifest
 from scripts.source_snapshots import apply_completed_receipt, build_queue_from_pool, node_fingerprint
 
 
@@ -83,8 +82,9 @@ def prune_and_refresh(pool_path: Path, manifest_path: Path, receipt_path: Path) 
     # Resolve those IDs against the trusted full-fingerprint pool metadata;
     # never require the phone to upload internal 256-bit fingerprints.
     pool_meta = json.loads(pool_manifest_path.read_text(encoding="utf-8"))
-    state = (json.loads(state_path.read_text(encoding="utf-8"))
-             if state_path.is_file() else {"schema_version": 1, "nodes": {}})
+    if not state_path.is_file():
+        raise SystemExit("Persistent probe state missing; refusing receipt processing")
+    state = json.loads(state_path.read_text(encoding="utf-8"))
     pool_proxies = pool.get("proxies")
     pool_nodes = pool_meta.get("nodes")
     if not isinstance(pool_proxies, list) or not isinstance(pool_nodes, list) or len(pool_proxies) != len(pool_nodes):
@@ -158,8 +158,6 @@ def prune_and_refresh(pool_path: Path, manifest_path: Path, receipt_path: Path) 
     atomic_json(pool_path.parent / "manifest.json", next_manifest)
     atomic_json(state_path, completed_state)
     return
-    return
-
 
 
 def main() -> None:
