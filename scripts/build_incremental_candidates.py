@@ -350,7 +350,6 @@ def main() -> None:
         meta = pending_by_fp[fingerprint]
         queue_manifest_nodes.append({
             "node_id": fingerprint[:20],
-            "fingerprint": fingerprint,
             "name": node["name"],
             "sources": meta["sources"],
             "github_delay_ms": next(delay for delay, item in tested if node_fingerprint(item) == fingerprint),
