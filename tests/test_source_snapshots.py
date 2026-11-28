@@ -132,7 +132,7 @@ class SourceSnapshotTests(unittest.TestCase):
         self.assertEqual(outcomes, {"passed", "failed"})
 
 
-    def test_passed_nodes_are_requeued_but_failed_nodes_are_removed(self):
+    def test_passed_nodes_stay_in_pool_but_are_not_requeued_and_failed_nodes_are_removed(self):
         a, _ = apply_source_response(None, "source-001", "https://feed.example/1",
                                      200, [proxy("a", "a.example"), proxy("b", "b.example")])
         pool, queue, state = reconcile_sources({"source-001": a})
@@ -144,7 +144,7 @@ class SourceSnapshotTests(unittest.TestCase):
         completed = apply_completed_receipt(state, manifest, receipt)
         next_pool, next_queue, _ = reconcile_sources({"source-001": a}, completed)
         self.assertEqual({p["server"] for p in next_pool["proxies"]}, {"a.example"})
-        self.assertEqual({p["server"] for p in next_queue["proxies"]}, {"a.example"})
+        self.assertEqual(next_queue["proxies"], [])
 
     def test_failed_node_does_not_return_when_source_snapshot_is_unchanged(self):
         node = proxy("a", "a.example")
