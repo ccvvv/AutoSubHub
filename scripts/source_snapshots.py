@@ -259,7 +259,7 @@ def reconcile_sources(
         used_names.add(name)
         proxies.append(proxy)
         manifest_nodes.append({
-            "node_id": fingerprint[:20],
+            "node_id": fingerprint,
             "fingerprint": fingerprint,
             "name": name,
             "sources": entry["sources"],
@@ -288,7 +288,7 @@ def reconcile_sources(
         state_nodes[fingerprint] = record
         queue_proxies.append(dict(proxy))
         queue_nodes.append({
-            "node_id": fingerprint[:20],
+            "node_id": fingerprint,
             "fingerprint": fingerprint,
             "name": name,
             "sources": entry["sources"],
