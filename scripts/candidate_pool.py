@@ -6,19 +6,14 @@ complete proxy configuration excluding its display name.
 """
 from __future__ import annotations
 
-import hashlib
-import json
 from collections import OrderedDict
 
-
-def node_fingerprint(proxy: dict) -> str:
-    config = {key: value for key, value in proxy.items() if key != "name"}
-    encoded = json.dumps(config, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
-    return hashlib.sha256(encoded.encode("utf-8")).hexdigest()
+from scripts.node_identity import node_fingerprint
 
 
 def node_id(proxy: dict) -> str:
-    return node_fingerprint(proxy)[:20]
+    """Return the canonical full SHA-256 identity used throughout the system."""
+    return node_fingerprint(proxy)
 
 
 def merge_pool(pool: dict, incoming: dict) -> dict:
@@ -66,7 +61,8 @@ def build_manifest(candidate: dict, generated_at: str, candidate_sha256: str) ->
         "schema_version": 1,
         "generated_at": generated_at,
         "candidate_sha256": candidate_sha256,
-        "nodes": [{"node_id": node_id(p), "name": p["name"]} for p in proxies],
+        "nodes": [{"node_id": node_id(p), "fingerprint": node_id(p), "name": p["name"]}
+                  for p in proxies],
     }
 
 
