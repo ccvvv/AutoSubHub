@@ -7,6 +7,16 @@ on:
       - "receipts/latest.json"
       - "receipts/candidate.yaml"
       - "receipts/manifest.json"
+  pull_request:
+    branches: [main]
+    paths:
+      - ".github/workflows/finalize-phone-receipt.yml"
+      - "scripts/finalize_phone_receipt.py"
+      - "scripts/prune_candidate_pool.py"
+      - "scripts/build_incremental_candidates.py"
+  workflow_dispatch:
+  schedule:
+    - cron: "*/5 * * * *"
   workflow_dispatch:
   schedule:
     - cron: "*/5 * * * *"
