@@ -271,9 +271,13 @@ def reconcile_sources(
             state_nodes[fingerprint] = record
             continue
 
-        # Passed nodes remain in the pool and are intentionally retested each
-        # build. New/unseen nodes enter the queue as pending.
-        if status not in {"passed", "failed"}:
+        # Only unseen/configuration-changed fingerprints enter the phone queue.
+        # Completed nodes stay in the live pool but are not retested on every build.
+        if status in {"completed", "passed"}:
+            record["last_seen_at"] = now
+            state_nodes[fingerprint] = record
+            continue
+        if status not in {"failed", "precheck_failed"}:
             record = {
                 "status": "pending",
                 "first_seen_at": record.get("first_seen_at") or now,
