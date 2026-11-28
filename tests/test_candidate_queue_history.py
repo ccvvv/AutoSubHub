@@ -8,6 +8,7 @@ from unittest.mock import patch
 import yaml
 
 from scripts.candidate_queue import collect_pending_candidate_batches
+from scripts.node_identity import node_fingerprint
 
 
 A = "a" * 40
@@ -65,7 +66,8 @@ class CandidateQueueHistoryTests(unittest.TestCase):
             raw = yaml.safe_dump(candidate, allow_unicode=True, sort_keys=False).encode()
             manifest = {
                 "candidate_sha256": hashlib.sha256(raw).hexdigest(),
-                "nodes": [{"name": proxy["name"]} for proxy in candidate["proxies"]],
+                "nodes": [{"name": proxy["name"], "node_id": node_fingerprint(proxy),
+                           "fingerprint": node_fingerprint(proxy)} for proxy in candidate["proxies"]],
             }
             snapshots[commit] = (raw, manifest)
 
@@ -100,7 +102,8 @@ class CandidateQueueHistoryTests(unittest.TestCase):
         ]}
         raw = yaml.safe_dump(candidate, allow_unicode=True, sort_keys=False).encode()
         manifest = {"candidate_sha256": hashlib.sha256(raw).hexdigest(),
-                    "nodes": [{"name": "new-node"}]}
+                    "nodes": [{"name": "new-node", "node_id": node_fingerprint(candidate["proxies"][0]),
+                                "fingerprint": node_fingerprint(candidate["proxies"][0])}]}
         session = FakeSession(
             {A: (raw, manifest)},
             receipt_data={"candidate_commit": B},
