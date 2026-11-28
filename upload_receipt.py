@@ -17,6 +17,8 @@ import tempfile
 import yaml
 from pathlib import Path, PurePosixPath
 
+from scripts.node_identity import validate_candidate_identity, is_full_fingerprint
+
 
 DEFAULT_REPO = "ccvvv/AutoSubHub"
 DEFAULT_BRANCH = "published-subscriptions"
@@ -57,8 +59,8 @@ def validate_receipt(path: Path) -> bytes:
         if not isinstance(item, dict):
             raise ValueError("Every result must be a JSON object")
         node_id = item.get("node_id")
-        if not isinstance(node_id, str) or not node_id:
-            raise ValueError("A result is missing node_id")
+        if not is_full_fingerprint(node_id):
+            raise ValueError("Every result must contain a complete 64-character SHA-256 node fingerprint")
         if item.get("status") not in ("passed", "failed"):
             raise ValueError("A result has an invalid status")
         ids.append(node_id)
@@ -78,6 +80,11 @@ def validate_complete_receipt_bundle(receipt: dict, candidate_bytes: bytes,
     results = receipt.get("results")
     if not isinstance(proxies, list) or not isinstance(nodes, list) or not isinstance(results, list):
         raise ValueError("Candidate, manifest, or receipt structure is invalid")
+
+    try:
+        validate_candidate_identity(candidate, manifest)
+    except ValueError as exc:
+        raise ValueError(f"Candidate fingerprint verification failed: {exc}") from exc
 
     proxy_names = [
         item.get("name") for item in proxies
