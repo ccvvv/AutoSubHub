@@ -134,7 +134,8 @@ class CandidateQueueHistoryTests(unittest.TestCase):
         ]}
         raw = yaml.safe_dump(candidate, allow_unicode=True, sort_keys=False).encode()
         manifest = {"candidate_sha256": hashlib.sha256(raw).hexdigest(),
-                    "nodes": [{"name": "new-node"}]}
+                    "nodes": [{"name": "new-node", "node_id": node_fingerprint(candidate["proxies"][0]),
+                                "fingerprint": node_fingerprint(candidate["proxies"][0])}]}
         session = FakeSession(
             {A: (raw, manifest)},
             receipt_data={"candidate_commit": B},
@@ -186,7 +187,8 @@ class CandidateQueueHistoryTests(unittest.TestCase):
             raw = yaml.safe_dump(candidate, allow_unicode=True, sort_keys=False).encode()
             manifest = {
                 "candidate_sha256": hashlib.sha256(raw).hexdigest(),
-                "nodes": [{"name": p["name"]} for p in candidate["proxies"]],
+                "nodes": [{"name": p["name"], "node_id": node_fingerprint(p),
+                           "fingerprint": node_fingerprint(p)} for p in candidate["proxies"]],
             }
             snapshots[commit] = (raw, manifest)
         with tempfile.TemporaryDirectory() as tmp:
