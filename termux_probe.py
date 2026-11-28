@@ -336,6 +336,8 @@ def main() -> None:
     except ValueError as exc:
         raise SystemExit(f"Phone full-fingerprint verification failed: {exc}") from exc
     print(f"手机端完整 SHA256 指纹验证通过：{len(proxies)} 个节点")
+    write_progress(progress_path, "preparing", 0, len(proxies), [], started,
+                   stage="完整 SHA256 指纹校验通过，准备启动 Mihomo")
     by_name = {p.get("name"): p for p in proxies if isinstance(p, dict) and p.get("name")}
     valid_manifest_nodes = [n for n in manifest_nodes if isinstance(n, dict)]
     id_by_name = {n.get("name"): n.get("node_id") for n in valid_manifest_nodes}
