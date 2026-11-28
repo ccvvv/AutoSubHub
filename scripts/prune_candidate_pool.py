@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Complete a validated phone queue without deleting source-derived pool nodes."""
+"""Apply a validated phone receipt and remove failed nodes from the live candidate pool."""
 from __future__ import annotations
 
 import hashlib
@@ -72,13 +72,24 @@ def prune_and_refresh(pool_path: Path, manifest_path: Path, receipt_path: Path) 
     pool_manifest_path = pool_path.parent / "pool-manifest.json"
     state_path = pool_path.parent / "probe-state.json"
     if pool_manifest_path.is_file():
-        # New architecture: pool membership is controlled only by source snapshots.
-        # A phone result updates lifecycle state and rebuilds the pending queue;
-        # it never removes a node from pool.yaml.
+        # Receipt is exact-matched above. Failed phone nodes are removed from
+        # the live pool; source snapshots remain untouched as change detectors.
         pool_meta = json.loads(pool_manifest_path.read_text(encoding="utf-8"))
         state = (json.loads(state_path.read_text(encoding="utf-8"))
                  if state_path.is_file() else {"schema_version": 1, "nodes": {}})
         completed_state = apply_completed_receipt(state, manifest, receipt)
+        failed_ids = {
+            item["fingerprint"] for item in manifest_nodes
+            if next(result for result in results if result["node_id"] == item["node_id"])["status"] == "failed"
+        }
+        kept_pairs = [
+            (proxy, meta) for proxy, meta in zip(pool.get("proxies", []), pool_meta.get("nodes", []))
+            if meta.get("fingerprint") not in failed_ids
+        ]
+        pool["proxies"] = [proxy for proxy, _ in kept_pairs]
+        pool_meta["nodes"] = [meta for _, meta in kept_pairs]
+        atomic_yaml(pool_path, pool)
+        atomic_json(pool_manifest_path, pool_meta)
         queue, completed_state = build_queue_from_pool(
             {"proxies": pool.get("proxies"), "nodes": pool_meta.get("nodes")},
             completed_state,
