@@ -39,7 +39,7 @@ class SourcePoolReceiptTests(unittest.TestCase):
                 "schema_version": 1,
                 "candidate_sha256": hashlib.sha256(candidate_bytes).hexdigest(),
                 "nodes": [
-                    {"node_id": fp[:20], "fingerprint": fp, "name": p["name"], "sources": ["source-001"]}
+                    {"node_id": fp[:20], "name": p["name"], "sources": ["source-001"]}
                     for p, fp in zip(proxies, fingerprints)
                 ],
             }
