@@ -1,6 +1,5 @@
 {
-  "schema_version": 1,
-  "generated_at": "2026-11-28T08:15:01Z",
+  "generated_at": "2026-11-28T08:17:40Z",
   "nodes": [
     {
       "fingerprint": "ad78055f69b29aa5ddfc53599c09edc8cecfb1e95f14295171a864849f1024a1",
@@ -4689,7 +4688,7 @@
     },
     {
       "fingerprint": "3a16a11f20448395d106feab67fade1d5db7b8d9598429a00c6229db2111e29d",
-      "name": "🇮🇹 意大利 | ITA #1 [3a16a1]",
+      "name": "🇮🇹 意大利 | ITA #1",
       "node_id": "3a16a11f20448395d106",
       "source_names": [
         "🇮🇹 意大利 | ITA #1",
@@ -27960,7 +27959,7 @@
     },
     {
       "fingerprint": "01c918638ba1ba9b62265ff5343ed1d33e1ca1fc20f66eedadf8c55f1cc1207a",
-      "name": "🇫🇷 法国 | FRA [01c918]",
+      "name": "🇫🇷 法国 | FRA",
       "node_id": "01c918638ba1ba9b6226",
       "source_names": [
         "🇫🇷 法国 | FRA"
@@ -28004,7 +28003,7 @@
     },
     {
       "fingerprint": "fa6421167aeacadfc31b4759b06bedf1589d6a26e6c726ee98475b1d5e1355a7",
-      "name": "🇭🇰 香港 | HKG 3 [fa6421]",
+      "name": "🇭🇰 香港 | HKG 3",
       "node_id": "fa6421167aeacadfc31b",
       "source_names": [
         "🇭🇰 香港 | HKG 3",
@@ -28197,7 +28196,7 @@
     },
     {
       "fingerprint": "bb319a6d0d0f0b60e0e1d630908cba026f7f72cbbefbfe73213cb909cb6d97ff",
-      "name": "🇹🇼 🇨🇳 台湾 | TWN [bb319a]",
+      "name": "🇹🇼 🇨🇳 台湾 | TWN",
       "node_id": "bb319a6d0d0f0b60e0e1",
       "source_names": [
         "🇹🇼 🇨🇳 台湾 | TWN"
@@ -46305,7 +46304,7 @@
     },
     {
       "fingerprint": "f0f42cfc0b7b518ad382ed29654dd4ea6daa62ff65b7456c60a7ec5d309f54b2",
-      "name": "🇺🇸 United States, St Louis (Downtown) | [BL] [f0f42c]",
+      "name": "🇺🇸 United States, St Louis (Downtown) | [BL]",
       "node_id": "f0f42cfc0b7b518ad382",
       "source_names": [
         "🇺🇸 United States, St Louis (Downtown) | [BL]",
@@ -46900,7 +46899,7 @@
     },
     {
       "fingerprint": "89b0aba2786a7c533d16d91c1d75b6925585ed297457dabd23c50e1cda3038c0",
-      "name": "🇩🇪 Germany | 🌐 | [BL] [89b0ab]",
+      "name": "🇩🇪 Germany | 🌐 | [BL]",
       "node_id": "89b0aba2786a7c533d16",
       "source_names": [
         "🇩🇪 Germany | 🌐 | [BL]"
@@ -46992,7 +46991,7 @@
     },
     {
       "fingerprint": "8531bd1bd56a88cf185ad557cffa5d91e157f95331466113329cc7237cc371e9",
-      "name": "🇯🇵 Japan, Inzai (Otsuka) | [BL] [8531bd]",
+      "name": "🇯🇵 Japan, Inzai (Otsuka) | [BL]",
       "node_id": "8531bd1bd56a88cf185a",
       "source_names": [
         "🇯🇵 Japan, Inzai (Otsuka) | [BL]"
@@ -47014,7 +47013,7 @@
     },
     {
       "fingerprint": "75ac8b8f09b0453606f243cd2af9d2922c5db49611f853b66c0834d49a5c80fa",
-      "name": "🇯🇵 Japan, Inzai (Otsuka) | 🌐 | [BL] [75ac8b]",
+      "name": "🇯🇵 Japan, Inzai (Otsuka) | 🌐 | [BL]",
       "node_id": "75ac8b8f09b0453606f2",
       "source_names": [
         "🇯🇵 Japan, Inzai (Otsuka) | 🌐 | [BL]"
@@ -47240,7 +47239,7 @@
     },
     {
       "fingerprint": "82b7ab3ca51580ba19244c6f0df544b1d0d12cd9e3b3346cc9e717a9f88aba52",
-      "name": "🇸🇪 Sweden, Stockholm | 🌐 | [BL] [82b7ab]",
+      "name": "🇸🇪 Sweden, Stockholm | 🌐 | [BL]",
       "node_id": "82b7ab3ca51580ba1924",
       "source_names": [
         "🇸🇪 Sweden, Stockholm | 🌐 | [BL]"
@@ -47838,7 +47837,7 @@
     },
     {
       "fingerprint": "e1e8e91153a3297b825c6c591174bdae32ed5565943004156c88cc430ca00bf0",
-      "name": "🌐 Anycast-IP | 🇨🇦 🇬🇧 🇯🇵 🇷🇺 | [BL] [e1e8e9]",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇬🇧 🇯🇵 🇷🇺 | [BL]",
       "node_id": "e1e8e91153a3297b825c",
       "source_names": [
         "🌐 Anycast-IP | 🇨🇦 🇬🇧 🇯🇵 🇷🇺 | [BL]"
@@ -49338,7 +49337,7 @@
     },
     {
       "fingerprint": "20a03fcd70439f156e8679101518e3c847cff05a8ca4938d4a1b2f107b2cd358",
-      "name": "🌐 Anycast-IP | 🇨🇦 🇬🇧 🇷🇺 🇺🇸 | [BL] [20a03f]",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇬🇧 🇷🇺 🇺🇸 | [BL]",
       "node_id": "20a03fcd70439f156e86",
       "source_names": [
         "🌐 Anycast-IP | 🇨🇦 🇬🇧 🇷🇺 🇺🇸 | [BL]"
@@ -50320,7 +50319,7 @@
     },
     {
       "fingerprint": "ea2b73865996caf8306a399186eff1ba43aa958075da75c292d69c5104a022d7",
-      "name": "🌐 Anycast-IP | 🇯🇵 | [BL] [ea2b73]",
+      "name": "🌐 Anycast-IP | 🇯🇵 | [BL]",
       "node_id": "ea2b73865996caf8306a",
       "source_names": [
         "🌐 Anycast-IP | 🇯🇵 | [BL]"
@@ -50342,7 +50341,7 @@
     },
     {
       "fingerprint": "8ea0208f854c252aee4d743b587403390a8274e50a6a8f06d3440e685805a5e0",
-      "name": "🌐 Anycast-IP | 🇸🇪 🇺🇸 | [BL] [8ea020]",
+      "name": "🌐 Anycast-IP | 🇸🇪 🇺🇸 | [BL]",
       "node_id": "8ea0208f854c252aee4d",
       "source_names": [
         "🌐 Anycast-IP | 🇸🇪 🇺🇸 | [BL]"
@@ -98742,7 +98741,7 @@
     },
     {
       "fingerprint": "33bb2467bfa5cb8c0223b0f58cde1828f06962c114c744bd3bac83711b27ff6e",
-      "name": "@ConfigV2RayNG 🇭🇰 [33bb24]",
+      "name": "@ConfigV2RayNG 🇭🇰",
       "node_id": "33bb2467bfa5cb8c0223",
       "source_names": [
         "@ConfigV2RayNG 🇭🇰"
@@ -99229,7 +99228,7 @@
     },
     {
       "fingerprint": "2d23c69382fdd8f780f1a29ffb1fa1d7121fe48d94076aed70e76ea366963aac",
-      "name": "@V2rayNGVPN > کانفیگ رایگان [2d23c6]",
+      "name": "@V2rayNGVPN > کانفیگ رایگان",
       "node_id": "2d23c69382fdd8f780f1",
       "source_names": [
         "@V2rayNGVPN > کانفیگ رایگان"
@@ -100844,5 +100843,6 @@
         "source-033"
       ]
     }
-  ]
+  ],
+  "schema_version": 1
 }
