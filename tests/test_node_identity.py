@@ -18,6 +18,12 @@ class NodeIdentityTests(unittest.TestCase):
         }]}
         self.assertEqual(validate_candidate_identity({"proxies": [proxy]}, manifest)["node-a"], fingerprint)
 
+    def test_full_node_id_is_self_verifying_without_duplicate_field(self):
+        proxy = {"name": "node-a", "type": "ss", "server": "example.com", "port": 443}
+        fingerprint = node_fingerprint(proxy)
+        manifest = {"nodes": [{"name": "node-a", "node_id": fingerprint}]}
+        self.assertEqual(validate_candidate_identity({"proxies": [proxy]}, manifest)["node-a"], fingerprint)
+
     def test_rejects_short_or_forged_node_id(self):
         proxy = {"name": "node-a", "type": "ss", "server": "example.com", "port": 443}
         fingerprint = node_fingerprint(proxy)
