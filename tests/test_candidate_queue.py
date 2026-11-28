@@ -1,6 +1,6 @@
 import unittest
 
-from scripts.candidate_queue import merge_candidate_snapshots
+from scripts.candidate_queue import merge_candidate_snapshots, canonical_fingerprint
 
 
 class CandidateQueueTests(unittest.TestCase):
@@ -14,7 +14,11 @@ class CandidateQueueTests(unittest.TestCase):
             {"name": "node-c", "type": "ss", "server": "three.example", "port": 443},
         ]}
         def manifest(candidate):
-            return {"nodes": [{"name": p["name"]} for p in candidate["proxies"]]}
+            return {"nodes": [
+                {"name": p["name"], "node_id": canonical_fingerprint(p),
+                 "fingerprint": canonical_fingerprint(p)}
+                for p in candidate["proxies"]
+            ]}
         candidate, metadata, commits = merge_candidate_snapshots([
             ("a" * 40, first, manifest(first)),
             ("b" * 40, second, manifest(second)),
@@ -22,6 +26,8 @@ class CandidateQueueTests(unittest.TestCase):
         self.assertEqual([p["name"] for p in candidate["proxies"]], ["node-a", "node-b", "node-c"])
         self.assertEqual(commits, ["a" * 40, "b" * 40])
         self.assertEqual(len(metadata["nodes"]), 3)
+        self.assertTrue(all(len(item["node_id"]) == 64 for item in metadata["nodes"]))
+        self.assertTrue(all(item["node_id"] == item["fingerprint"] for item in metadata["nodes"]))
         self.assertEqual(metadata["nodes"][0]["source_commits"], ["a" * 40, "b" * 40])
         self.assertEqual(metadata["nodes"][0]["source_names"], ["node-a", "renamed-a"])
 
