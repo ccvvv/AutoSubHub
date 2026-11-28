@@ -104603,12 +104603,12 @@ proxies:
   tls: true
   type: anytls
   udp: true
-- name: 未知 VMESS-01 | free-nodes [c0d1dc]
-  server: 192.0.2.1
+- alterId: 0
+  cipher: auto
+  name: 未知 VMESS-01 | free-nodes [c0d1dc]
   port: 1
+  server: 192.0.2.1
+  skip-cert-verify: false
+  tls: false
   type: vmess
   uuid: 6c6a0625-ac3f-4bd8-9cc8-0545e4e11409
-  alterId: 0
-  cipher: auto
-  tls: false
-  skip-cert-verify: false
