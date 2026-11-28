@@ -1,10 +1,658 @@
 {
-  "checked_at": "2026-11-28T03:18:49.103519+00:00",
-  "etag": "W/\"b603a9fa1efadb144e0c6aeaf0088fc958f7a29b82900a897a5f1a04cfe78e98\"",
-  "fetched_at": "2026-11-27T22:15:34.264096+00:00",
+  "checked_at": "2026-11-28T07:52:09.134081+00:00",
+  "etag": "W/\"affbd89d21c3ecf516bd5f05aaf6fc35c846dfce3a629726da173dbe1b432fb3\"",
+  "fetched_at": "2026-11-28T07:52:09.134081+00:00",
   "last_modified": null,
-  "last_status": 304,
+  "last_status": 200,
   "nodes": [
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "@V2rayNGVPN > کانفیگ رایگان",
+      "password": "DGjtV63aPW3E",
+      "port": 443,
+      "server": "67.220.73.247",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "@ConfigV2RayNG",
+      "password": "DGjtV63aPW3E",
+      "port": 443,
+      "server": "67.220.73.247",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "@Nexus_Panell چنل تلگرام",
+      "password": "DGjtV63aPW3E",
+      "port": 443,
+      "server": "67.220.73.247",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "@V2ray_Alpha🐂 9",
+      "password": "DGjtV63aPW3E",
+      "port": 443,
+      "server": "67.220.73.247",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "@V2ray_Alpha🐭 4",
+      "password": "DGjtV63aPW3E",
+      "port": 443,
+      "server": "67.220.73.247",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "@VPsave",
+      "password": "DGjtV63aPW3E",
+      "port": 443,
+      "server": "67.220.73.247",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "@i10VPN⁶",
+      "password": "DGjtV63aPW3E",
+      "port": 443,
+      "server": "67.220.73.247",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "@meliproxyy",
+      "password": "DGjtV63aPW3E",
+      "port": 443,
+      "server": "67.220.73.247",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "Tel-@ProxyMtAlpha🧄 1",
+      "password": "DGjtV63aPW3E",
+      "port": 443,
+      "server": "67.220.73.247",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "channel_@networld_vpn",
+      "password": "DGjtV63aPW3E",
+      "port": 443,
+      "server": "67.220.73.247",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "برای اتصال دائمی جوین شو🦠 TelegramID ⌲Express_freevpn 🪩",
+      "password": "DGjtV63aPW3E",
+      "port": 443,
+      "server": "67.220.73.247",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "تو کانال نتورلد نباشید قطع میشن@networld_vpn",
+      "password": "DGjtV63aPW3E",
+      "port": 443,
+      "server": "67.220.73.247",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "🇺🇸232625 | ⚡️Telegram = t.me/SOSkeyNET",
+      "password": "DGjtV63aPW3E",
+      "port": 443,
+      "server": "67.220.73.247",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "🇺🇸232674 | ⚡️Telegram = t.me/LonUp_M",
+      "password": "DGjtV63aPW3E",
+      "port": 443,
+      "server": "67.220.73.247",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "🇺🇸227416 | ⚡️Telegram = t.me",
+      "password": "DGjtV63aPW3E",
+      "port": 443,
+      "server": "67.220.73.247",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "@ConfigV2RayNG",
+      "password": "DVlt-OeAV4RiLMwT9e0T72nnFtMG2W3o",
+      "port": 2089,
+      "server": "s23.fusetea.ir",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "@AZARBAYJB1",
+      "password": "DZRy4Q3QH0jUGfKFl2jDCZ",
+      "port": 28960,
+      "server": "138.197.89.234",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "@i10VPN²",
+      "password": "DZRy4Q3QH0jUGfKFl2jDCZ",
+      "port": 28960,
+      "server": "138.197.89.234",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "T.me/Vpn_Mafia 🇮🇳",
+      "password": "EBDRo9THx4CqiFU7h5gfov76oNwzZURAh0ZwbWjBKddtUhvz",
+      "port": 31348,
+      "server": "103.120.178.193",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "T.me/Vpn_Mafia 🇳🇱",
+      "password": "EyGy11BMfeP-6UHjsgajWw",
+      "port": 8390,
+      "server": "64.188.77.159",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "@confiig_hub",
+      "password": "FD3rCuOsxOay",
+      "port": 8388,
+      "server": "15.235.75.71",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "@v2rayng3",
+      "password": "FD3rCuOsxOay",
+      "port": 8388,
+      "server": "15.235.75.71",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "Telegram:@v2rayng3",
+      "password": "FD3rCuOsxOay",
+      "port": 8388,
+      "server": "15.235.75.71",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "@v2rayng3",
+      "password": "FD3rCuOsxOay",
+      "port": 8388,
+      "server": "15.235.75.71",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "@V2raySamanbot",
+      "password": "FJRApmfuC3F14cFF",
+      "port": 443,
+      "server": "20.238.32.201",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "@v2ray_phoenix",
+      "password": "FJRApmfuC3F14cFF",
+      "port": 443,
+      "server": "20.238.32.201",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "@vpnsal",
+      "password": "FJRApmfuC3F14cFF",
+      "port": 443,
+      "server": "20.238.32.201",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "YFZ 453 @Outline_Vpn",
+      "password": "FJRApmfuC3F14cFF",
+      "port": 443,
+      "server": "20.238.32.201",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "@Shh_Proxy-New³",
+      "password": "G2shlbeRXdE45aVA",
+      "port": 443,
+      "server": "20.166.20.135",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "🇮🇷139797 | ⚡️Telegram = t.me/SOSkeyNET",
+      "password": "IlSY+D+ttxp8OM8tXCCsWnKh3Eh6Kl4rAAv3nE0X08Q=",
+      "port": 56985,
+      "server": "e3.cover20.ir",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "@V2raySaman",
+      "password": "JYevOrmujurJsNP1ata0kNfjsxwFLAhgD73mrZPJP1I=",
+      "port": 43558,
+      "server": "130.49.189.158",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "13598@proxy_online_net",
+      "password": "LCvps-199-168-136-193-bak8443",
+      "port": 443,
+      "server": "49.51.39.148",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "@VPsave",
+      "password": "LCvps-199-168-136-193-bak8443",
+      "port": 443,
+      "server": "49.51.39.148",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "@filembad",
+      "password": "LCvps-199-168-136-193-bak8443",
+      "port": 443,
+      "server": "49.51.39.148",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "channel_@networld_vpn",
+      "password": "LCvps-199-168-136-193-bak8443",
+      "port": 443,
+      "server": "49.51.39.148",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "🇺🇸232628 | ⚡️Telegram = t.me/SOSkeyNET",
+      "password": "LCvps-199-168-136-193-bak8443",
+      "port": 443,
+      "server": "49.51.39.148",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "🇺🇸232677 | ⚡️Telegram = t.me/LonUp_M",
+      "password": "LCvps-199-168-136-193-bak8443",
+      "port": 443,
+      "server": "49.51.39.148",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "🇺🇸US-🚀@VPNine1",
+      "password": "LCvps-199-168-136-193-bak8443",
+      "port": 443,
+      "server": "49.51.39.148",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "🇦🇱 Join+Telegram:@Farah_VPN 🇦🇱",
+      "password": "LNc9h/4NA9Q6ZHNeYHoT5X/fR9aoE9KQR1SWhVDHBog=",
+      "port": 43558,
+      "server": "130.49.189.158",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "@confiig_hub",
+      "password": "LY94CL8HouUwEPF3",
+      "port": 443,
+      "server": "4.168.234.5",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "@v2rayng3",
+      "password": "LY94CL8HouUwEPF3",
+      "port": 443,
+      "server": "4.168.234.5",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "@V2rayng_market_1378",
+      "password": "M8Z2I7nGjhmwhy2m",
+      "port": 443,
+      "server": "40.123.254.236",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "🇬🇧139861 | ⚡️Telegram = t.me/SOSkeyNET",
+      "password": "MGU4ZjVkMGNhY2Y3YzM0NmIxMDgyNDQ5OGVjZjY2Y2Y=",
+      "port": 61312,
+      "server": "144.24.226.223",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "TEHRANARGO@🤎",
+      "password": "MYOZE7eRJPhzd1vg-FfLjxLs3-XuQhzW",
+      "port": 1080,
+      "server": "13.140.89.205",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "TEHRANARGO@🤎",
+      "password": "MYOZE7eRJPhzd1vg-FfLjxLs3-XuQhzW",
+      "port": 57078,
+      "server": "vpnstan.ahbpanel.ir",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "@ConfigV2RayNG",
+      "password": "MmFkN",
+      "port": 8388,
+      "server": "sg1.ssobfs.site",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "@v2ray_phoenix",
+      "password": "MmFkN",
+      "port": 8388,
+      "server": "sg1.ssobfs.site",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "@VEGAAS_VPN🇩🇪",
+      "password": "N8EmvDqpvSPOCi1eBayPdGJffGkP0b9e",
+      "port": 1080,
+      "server": "yalandema.pet0er23mh21qq.com",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": " 🇹🇷 AZARBAYJB1",
+      "password": "NcAXc0UZI6yQJE1p8QmOv8",
+      "port": 8388,
+      "server": "57.129.113.16",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "@ConfigV2RayNG",
+      "password": "NcAXc0UZI6yQJE1p8QmOv8",
+      "port": 8388,
+      "server": "57.129.113.16",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "@VConfing",
+      "password": "NcAXc0UZI6yQJE1p8QmOv8",
+      "port": 8388,
+      "server": "57.129.113.16",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "@VPsave",
+      "password": "NcAXc0UZI6yQJE1p8QmOv8",
+      "port": 8388,
+      "server": "57.129.113.16",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "IRAN_V2PING@",
+      "password": "NcAXc0UZI6yQJE1p8QmOv8",
+      "port": 8388,
+      "server": "57.129.113.16",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "@OutlineReleasedKey",
+      "password": "PmCqK98WqhSC",
+      "port": 443,
+      "server": "134.195.198.163",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "01",
+      "password": "QCXDxuDlTTMD7jtgHUjIoj",
+      "port": 8080,
+      "server": "193.29.139.168",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "13513@proxy_online_net",
+      "password": "QCXDxuDlTTMD7jtgHUjIoj",
+      "port": 8080,
+      "server": "193.29.139.168",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "@@bored_vpn",
+      "password": "QCXDxuDlTTMD7jtgHUjIoj",
+      "port": 8080,
+      "server": "193.29.139.168",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "@FarazV2ray",
+      "password": "QCXDxuDlTTMD7jtgHUjIoj",
+      "port": 8080,
+      "server": "193.29.139.168",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "@Tarkshodeh 🇧🇲",
+      "password": "QCXDxuDlTTMD7jtgHUjIoj",
+      "port": 8080,
+      "server": "193.29.139.168",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "@V2raySaman",
+      "password": "QCXDxuDlTTMD7jtgHUjIoj",
+      "port": 8080,
+      "server": "193.29.139.168",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "@V2raySamanbot",
+      "password": "QCXDxuDlTTMD7jtgHUjIoj",
+      "port": 8080,
+      "server": "193.29.139.168",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "@V2ray_confiig",
+      "password": "QCXDxuDlTTMD7jtgHUjIoj",
+      "port": 8080,
+      "server": "193.29.139.168",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "@V2rayng_Fast 🇧🇪 همرانسل",
+      "password": "QCXDxuDlTTMD7jtgHUjIoj",
+      "port": 8080,
+      "server": "193.29.139.168",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "@mehrosaboran",
+      "password": "QCXDxuDlTTMD7jtgHUjIoj",
+      "port": 8080,
+      "server": "193.29.139.168",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "@v2rayng3",
+      "password": "QCXDxuDlTTMD7jtgHUjIoj",
+      "port": 8080,
+      "server": "193.29.139.168",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "@vmesskhodam",
+      "password": "QCXDxuDlTTMD7jtgHUjIoj",
+      "port": 8080,
+      "server": "193.29.139.168",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "Channel : @Daily_Configs",
+      "password": "QCXDxuDlTTMD7jtgHUjIoj",
+      "port": 8080,
+      "server": "193.29.139.168",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "✰𝗝𝗼𝗶𝗻 ➠ @v2raymelliii✰",
+      "password": "QCXDxuDlTTMD7jtgHUjIoj",
+      "port": 8080,
+      "server": "193.29.139.168",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "✅  @vistav2ray کانال ما ✅",
+      "password": "QCXDxuDlTTMD7jtgHUjIoj",
+      "port": 8080,
+      "server": "193.29.139.168",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "[🇳🇱]t.me/v2ray_configs_pools",
+      "password": "QCXDxuDlTTMD7jtgHUjIoj",
+      "port": 8080,
+      "server": "193.29.139.168",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "@Tarkshodeh 🇧🇲",
+      "password": "QCXDxuDlTTMD7jtgHUjIoj",
+      "port": 8080,
+      "server": "193.29.139.212",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "@VConfing",
+      "password": "QCXDxuDlTTMD7jtgHUjIoj",
+      "port": 8080,
+      "server": "193.29.139.212",
+      "type": "ss",
+      "udp": true
+    },
     {
       "cipher": "chacha20-ietf-poly1305",
       "name": "@ghand_sheken",
@@ -88,6 +736,15 @@
     },
     {
       "cipher": "chacha20-ietf-poly1305",
+      "name": "🇪🇸07 | ⚡Telegram = t.me/ex_proxies",
+      "password": "R02KmzzSD7PeZ_DosF87xZ7zIn8jLtyP",
+      "port": 2089,
+      "server": "85.155.226.213",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
       "name": "@ConfigV2RayNG",
       "password": "R02KmzzSD7PeZ_DosF87xZ7zIn8jLtyP",
       "port": 2089,
@@ -106,7 +763,34 @@
     },
     {
       "cipher": "chacha20-ietf-poly1305",
+      "name": "@@bored_vpn",
+      "password": "RoARJLTlMJOFVIuQ",
+      "port": 443,
+      "server": "20.166.121.63",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
       "name": "@FarazV2ray",
+      "password": "RoARJLTlMJOFVIuQ",
+      "port": 443,
+      "server": "20.166.121.63",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "@ICV2RAY",
+      "password": "RoARJLTlMJOFVIuQ",
+      "port": 443,
+      "server": "20.166.121.63",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "@MigMigVPNSHOP",
       "password": "RoARJLTlMJOFVIuQ",
       "port": 443,
       "server": "20.166.121.63",
@@ -142,7 +826,25 @@
     },
     {
       "cipher": "chacha20-ietf-poly1305",
+      "name": "@VPNConnectd",
+      "password": "RoARJLTlMJOFVIuQ",
+      "port": 443,
+      "server": "20.166.121.63",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
       "name": "@filembad",
+      "password": "RoARJLTlMJOFVIuQ",
+      "port": 443,
+      "server": "20.166.121.63",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "@mehrosaboran",
       "password": "RoARJLTlMJOFVIuQ",
       "port": 443,
       "server": "20.166.121.63",
@@ -196,6 +898,15 @@
     },
     {
       "cipher": "chacha20-ietf-poly1305",
+      "name": "Telegram 👉🏼 @planB_net  • 08",
+      "password": "RoARJLTlMJOFVIuQ",
+      "port": 443,
+      "server": "20.166.121.63",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
       "name": "Telegram 👉🏼 @planB_net  • 09",
       "password": "RoARJLTlMJOFVIuQ",
       "port": 443,
@@ -223,7 +934,7 @@
     },
     {
       "cipher": "chacha20-ietf-poly1305",
-      "name": "filembad-15",
+      "name": "Channel : @Daily_Configs",
       "password": "RoARJLTlMJOFVIuQ",
       "port": 443,
       "server": "20.166.121.63",
@@ -286,25 +997,7 @@
     },
     {
       "cipher": "chacha20-ietf-poly1305",
-      "name": "@VPsave",
-      "password": "T199MCnogZBKi0QJdcSgUnoL3U9wl7t1",
-      "port": 2089,
-      "server": "107.181.155.27",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
       "name": "Channel: @Daily_Configs",
-      "password": "T199MCnogZBKi0QJdcSgUnoL3U9wl7t1",
-      "port": 2089,
-      "server": "tr.subscriptionservice.ir",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
-      "name": "🇹🇷14 | ⚡Telegram = t.me/ex_proxies",
       "password": "T199MCnogZBKi0QJdcSgUnoL3U9wl7t1",
       "port": 2089,
       "server": "tr.subscriptionservice.ir",
@@ -331,7 +1024,52 @@
     },
     {
       "cipher": "chacha20-ietf-poly1305",
+      "name": "🇺🇸232634 | ⚡️Telegram = t.me/SOSkeyNET",
+      "password": "TyWIy6paiFUX",
+      "port": 443,
+      "server": "38.99.82.34",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "🇺🇸232683 | ⚡️Telegram = t.me/LonUp_M",
+      "password": "TyWIy6paiFUX",
+      "port": 443,
+      "server": "38.99.82.34",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "🇺🇸US-🚀@VPNine1",
+      "password": "TyWIy6paiFUX",
+      "port": 443,
+      "server": "38.99.82.34",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "13604@proxy_online_net",
+      "password": "TyWIy6paiFUX",
+      "port": 443,
+      "server": "38.99.82.34",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
       "name": "@FarazV2ray",
+      "password": "TyWIy6paiFUX",
+      "port": 443,
+      "server": "38.99.82.34",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "@V2rayNPVTConfig",
       "password": "TyWIy6paiFUX",
       "port": 443,
       "server": "38.99.82.34",
@@ -349,16 +1087,7 @@
     },
     {
       "cipher": "chacha20-ietf-poly1305",
-      "name": "@filembad",
-      "password": "TyWIy6paiFUX",
-      "port": 443,
-      "server": "38.99.82.34",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
-      "name": "🇺🇸 | تلگرام: @IRJetConfig #RK",
+      "name": "channel_@networld_vpn",
       "password": "TyWIy6paiFUX",
       "port": 443,
       "server": "38.99.82.34",
@@ -511,6 +1240,15 @@
     },
     {
       "cipher": "chacha20-ietf-poly1305",
+      "name": "13597@proxy_online_net",
+      "password": "YTA1N",
+      "port": 8388,
+      "server": "us1.ssobfs.site",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
       "name": "🇮🇷139798 | ⚡️Telegram = t.me/SOSkeyNET",
       "password": "Yi5k1J5KVbfTuP5vHzeLO8+UDPyAC0rSIcZUBhnd+ig=",
       "port": 51570,
@@ -529,24 +1267,6 @@
     },
     {
       "cipher": "chacha20-ietf-poly1305",
-      "name": "🇦🇺232303 | ⚡️Telegram = t.me/SOSkeyNET",
-      "password": "a06Wa9w-aHhSW84FZd1-KbTjuHom4xU7",
-      "port": 7,
-      "server": "1.1.1.1",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
-      "name": "🇦🇺232352 | ⚡️Telegram = t.me/LonUp_M",
-      "password": "a06Wa9w-aHhSW84FZd1-KbTjuHom4xU7",
-      "port": 7,
-      "server": "1.1.1.1",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
       "name": "@prrofile_purple | 𝗙𝗮𝗦𝗧 💚",
       "password": "aW4KvGdoS8ldtmRCS58iHg",
       "port": 2060,
@@ -556,7 +1276,25 @@
     },
     {
       "cipher": "chacha20-ietf-poly1305",
-      "name": "🇭🇰 Join+Telegram:@Farah_VPN 🇭🇰",
+      "name": "🇮🇷232542 | ⚡️Telegram = t.me/SOSkeyNET",
+      "password": "aW4KvGdoS8ldtmRCS58iHg",
+      "port": 2060,
+      "server": "p1tun2.greewebservices.ir",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "🇮🇷232591 | ⚡️Telegram = t.me/LonUp_M",
+      "password": "aW4KvGdoS8ldtmRCS58iHg",
+      "port": 2060,
+      "server": "p1tun2.greewebservices.ir",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "13595@proxy_online_net",
       "password": "abc62f00-95a8-4c2e-a85d-36a2cdc977da",
       "port": 28014,
       "server": "waic.pro.main.sys-metric-report.com",
@@ -593,42 +1331,6 @@
     {
       "cipher": "chacha20-ietf-poly1305",
       "name": "Tel-@AZARBAYJAB1🍶 9",
-      "password": "bQZl7HDxSabr1FurTYQHFU",
-      "port": 443,
-      "server": "216.105.168.18",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
-      "name": "🇺🇸 | تلگرام: @IRJetConfig #RK",
-      "password": "bQZl7HDxSabr1FurTYQHFU",
-      "port": 443,
-      "server": "216.105.168.18",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
-      "name": "🇺🇸232337 | ⚡️Telegram = t.me/SOSkeyNET",
-      "password": "bQZl7HDxSabr1FurTYQHFU",
-      "port": 443,
-      "server": "216.105.168.18",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
-      "name": "🇺🇸232386 | ⚡️Telegram = t.me/LonUp_M",
-      "password": "bQZl7HDxSabr1FurTYQHFU",
-      "port": 443,
-      "server": "216.105.168.18",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
-      "name": "🇺🇸US-🚀@VPNine1",
       "password": "bQZl7HDxSabr1FurTYQHFU",
       "port": 443,
       "server": "216.105.168.18",
@@ -682,15 +1384,6 @@
     },
     {
       "cipher": "chacha20-ietf-poly1305",
-      "name": "@FarazV2ray",
-      "password": "eDfN7SODQceIOmIAbtJJtK",
-      "port": 443,
-      "server": "198.98.53.130",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
       "name": "@IRAN_V2RAY1 🎖️",
       "password": "eDfN7SODQceIOmIAbtJJtK",
       "port": 443,
@@ -710,15 +1403,6 @@
     {
       "cipher": "chacha20-ietf-poly1305",
       "name": "IRAN_V2PING@",
-      "password": "eDfN7SODQceIOmIAbtJJtK",
-      "port": 443,
-      "server": "198.98.53.130",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
-      "name": "kurdconfig",
       "password": "eDfN7SODQceIOmIAbtJJtK",
       "port": 443,
       "server": "198.98.53.130",
@@ -835,43 +1519,16 @@
     },
     {
       "cipher": "chacha20-ietf-poly1305",
-      "name": "🇳🇱 Join+Telegram:@Farah_VPN 🇳🇱",
-      "password": "hCgbUnMaoAfSgvE8IKdnGu",
-      "port": 24759,
-      "server": "77.221.132.206",
+      "name": "🇺🇸 Join+Telegram:@Farah_VPN 🇺🇸",
+      "password": "ijoUwfdnkz7mX4pWdkSpmEixTZCt2TRm1JDr4BSaBAWkLxYGoXBHXadFKY5D5ZfoVTwqsx46jCmEUDnQUizJDYrM7B5anhnu",
+      "port": 42878,
+      "server": "23.230.52.119",
       "type": "ss",
       "udp": true
     },
     {
       "cipher": "chacha20-ietf-poly1305",
       "name": "🇺🇸@Azaranv2ray",
-      "password": "ijoUwfdnkz7mX4pWdkSpmEixTZCt2TRm1JDr4BSaBAWkLxYGoXBHXadFKY5D5ZfoVTwqsx46jCmEUDnQUizJDYrM7B5anhnu",
-      "port": 42878,
-      "server": "23.230.52.119",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
-      "name": "🇺🇸US-🚀@VPNine1",
-      "password": "ijoUwfdnkz7mX4pWdkSpmEixTZCt2TRm1JDr4BSaBAWkLxYGoXBHXadFKY5D5ZfoVTwqsx46jCmEUDnQUizJDYrM7B5anhnu",
-      "port": 42878,
-      "server": "23.230.52.119",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
-      "name": "🌍232281 | ⚡️Telegram = t.me/SOSkeyNET",
-      "password": "ijoUwfdnkz7mX4pWdkSpmEixTZCt2TRm1JDr4BSaBAWkLxYGoXBHXadFKY5D5ZfoVTwqsx46jCmEUDnQUizJDYrM7B5anhnu",
-      "port": 42878,
-      "server": "23.230.52.119",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
-      "name": "🌍232330 | ⚡️Telegram = t.me/LonUp_M",
       "password": "ijoUwfdnkz7mX4pWdkSpmEixTZCt2TRm1JDr4BSaBAWkLxYGoXBHXadFKY5D5ZfoVTwqsx46jCmEUDnQUizJDYrM7B5anhnu",
       "port": 42878,
       "server": "23.230.52.119",
@@ -943,6 +1600,15 @@
     },
     {
       "cipher": "chacha20-ietf-poly1305",
+      "name": "@v2ray_phoenix",
+      "password": "k1dBOmOB4oqi7Ump37a1bQ",
+      "port": 8080,
+      "server": "193.29.139.147",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
       "name": "@vmesskhodam",
       "password": "k1dBOmOB4oqi7Ump37a1bQ",
       "port": 8080,
@@ -988,55 +1654,10 @@
     },
     {
       "cipher": "chacha20-ietf-poly1305",
-      "name": "🇳🇱232255 | ⚡️Telegram = t.me/SOSkeyNET",
-      "password": "k1dBOmOB4oqi7Ump37a1bQ",
-      "port": 8080,
-      "server": "193.29.139.147",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
-      "name": "🇳🇱232304 | ⚡️Telegram = t.me/LonUp_M",
-      "password": "k1dBOmOB4oqi7Ump37a1bQ",
-      "port": 8080,
-      "server": "193.29.139.147",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
-      "name": "🇳🇱NL-🚀@VPNine1",
-      "password": "k1dBOmOB4oqi7Ump37a1bQ",
-      "port": 8080,
-      "server": "193.29.139.147",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
       "name": "@sora1co",
       "password": "k1dBOmOB4oqi7Ump37a1bQ",
       "port": 8080,
       "server": "193.29.139.198",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
-      "name": "🇳🇱 Join+Telegram:@Farah_VPN 🇳🇱",
-      "password": "k1dBOmOB4oqi7Ump37a1bQ",
-      "port": 8080,
-      "server": "193.29.139.198",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
-      "name": "ᴛᴇʟᴇɢʀᴀᴍ ɪᴅ = @ꜰxxɴᴇᴛ🐙",
-      "password": "k1dBOmOB4oqi7Ump37a1bQ",
-      "port": 8080,
-      "server": "193.29.139.223",
       "type": "ss",
       "udp": true
     },
@@ -1204,15 +1825,6 @@
     },
     {
       "cipher": "chacha20-ietf-poly1305",
-      "name": "@filembad",
-      "password": "k1dBOmOB4oqi7Ump37a1bQ",
-      "port": 8080,
-      "server": "82.38.31.180",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
       "name": "kurdconfig",
       "password": "k1dBOmOB4oqi7Ump37a1bQ",
       "port": 8080,
@@ -1277,6 +1889,24 @@
     {
       "cipher": "chacha20-ietf-poly1305",
       "name": "@V2raySamanbot",
+      "password": "k1dBOmOB4oqi7Ump37a1bQ",
+      "port": 8080,
+      "server": "82.38.31.183",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "@filembad",
+      "password": "k1dBOmOB4oqi7Ump37a1bQ",
+      "port": 8080,
+      "server": "82.38.31.183",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "ᴛᴇʟᴇɢʀᴀᴍ ɪᴅ = @ꜰxxɴᴇᴛ🌵",
       "password": "k1dBOmOB4oqi7Ump37a1bQ",
       "port": 8080,
       "server": "82.38.31.183",
@@ -1393,7 +2023,25 @@
     },
     {
       "cipher": "chacha20-ietf-poly1305",
+      "name": "@V2rayNPVTConfig",
+      "password": "k1dBOmOB4oqi7Ump37a1bQ",
+      "port": 8080,
+      "server": "82.38.31.192",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
       "name": "@V2rayng_Fast 🇹🇷 همرانسل",
+      "password": "k1dBOmOB4oqi7Ump37a1bQ",
+      "port": 8080,
+      "server": "82.38.31.192",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "@VPsave",
       "password": "k1dBOmOB4oqi7Ump37a1bQ",
       "port": 8080,
       "server": "82.38.31.192",
@@ -1447,6 +2095,24 @@
     },
     {
       "cipher": "chacha20-ietf-poly1305",
+      "name": "🇳🇱232619 | ⚡️Telegram = t.me/SOSkeyNET",
+      "password": "k1dBOmOB4oqi7Ump37a1bQ",
+      "port": 8080,
+      "server": "82.38.31.192",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "🇳🇱232668 | ⚡️Telegram = t.me/LonUp_M",
+      "password": "k1dBOmOB4oqi7Ump37a1bQ",
+      "port": 8080,
+      "server": "82.38.31.192",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
       "name": "🇳🇱@FreakConfig",
       "password": "k1dBOmOB4oqi7Ump37a1bQ",
       "port": 8080,
@@ -1456,16 +2122,25 @@
     },
     {
       "cipher": "chacha20-ietf-poly1305",
-      "name": "🇳🇱@IRAN_V2PING",
+      "name": "@V2rayNPVTConfig",
       "password": "k1dBOmOB4oqi7Ump37a1bQ",
       "port": 8080,
-      "server": "82.38.31.192",
+      "server": "82.38.31.194",
       "type": "ss",
       "udp": true
     },
     {
       "cipher": "chacha20-ietf-poly1305",
       "name": "@V2ray_confiig",
+      "password": "k1dBOmOB4oqi7Ump37a1bQ",
+      "port": 8080,
+      "server": "82.38.31.194",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "@VPsave",
       "password": "k1dBOmOB4oqi7Ump37a1bQ",
       "port": 8080,
       "server": "82.38.31.194",
@@ -1483,7 +2158,16 @@
     },
     {
       "cipher": "chacha20-ietf-poly1305",
-      "name": "🇳🇱 Join+Telegram:@Farah_VPN 🇳🇱",
+      "name": "🇳🇱232620 | ⚡️Telegram = t.me/SOSkeyNET",
+      "password": "k1dBOmOB4oqi7Ump37a1bQ",
+      "port": 8080,
+      "server": "82.38.31.194",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "🇳🇱232669 | ⚡️Telegram = t.me/LonUp_M",
       "password": "k1dBOmOB4oqi7Ump37a1bQ",
       "port": 8080,
       "server": "82.38.31.194",
@@ -1493,15 +2177,6 @@
     {
       "cipher": "chacha20-ietf-poly1305",
       "name": "🇳🇱@FreakConfig",
-      "password": "k1dBOmOB4oqi7Ump37a1bQ",
-      "port": 8080,
-      "server": "82.38.31.194",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
-      "name": "🇳🇱@IRAN_V2PING",
       "password": "k1dBOmOB4oqi7Ump37a1bQ",
       "port": 8080,
       "server": "82.38.31.194",
@@ -1520,15 +2195,6 @@
     {
       "cipher": "chacha20-ietf-poly1305",
       "name": "@V2ray_confiig",
-      "password": "k1dBOmOB4oqi7Ump37a1bQ",
-      "port": 8080,
-      "server": "82.38.31.195",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
-      "name": "@V2rayng_Fast",
       "password": "k1dBOmOB4oqi7Ump37a1bQ",
       "port": 8080,
       "server": "82.38.31.195",
@@ -1618,15 +2284,6 @@
     },
     {
       "cipher": "chacha20-ietf-poly1305",
-      "name": "@filembad",
-      "password": "k1dBOmOB4oqi7Ump37a1bQ",
-      "port": 8080,
-      "server": "82.38.31.200",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
       "name": "Channel : @Daily_Configs",
       "password": "k1dBOmOB4oqi7Ump37a1bQ",
       "port": 8080,
@@ -1694,15 +2351,6 @@
       "password": "k1dBOmOB4oqi7Ump37a1bQ",
       "port": 8080,
       "server": "82.38.31.202",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
-      "name": "@FarazV2ray",
-      "password": "k1dBOmOB4oqi7Ump37a1bQ",
-      "port": 8080,
-      "server": "82.38.31.203",
       "type": "ss",
       "udp": true
     },
@@ -1780,24 +2428,6 @@
     },
     {
       "cipher": "chacha20-ietf-poly1305",
-      "name": "@FarazV2ray",
-      "password": "k1dBOmOB4oqi7Ump37a1bQ",
-      "port": 8080,
-      "server": "82.38.31.205",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
-      "name": "@FarazV2ray",
-      "password": "k1dBOmOB4oqi7Ump37a1bQ",
-      "port": 8080,
-      "server": "82.38.31.206",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
       "name": "@SylphNet | 2026-06-27 03:47",
       "password": "k1dBOmOB4oqi7Ump37a1bQ",
       "port": 8080,
@@ -1861,10 +2491,19 @@
     },
     {
       "cipher": "chacha20-ietf-poly1305",
-      "name": "🇳🇱 Join+Telegram:@Farah_VPN 🇳🇱",
+      "name": "Channel : @Daily_Configs",
       "password": "k1dBOmOB4oqi7Ump37a1bQ",
       "port": 8080,
       "server": "82.38.31.207",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "@FarazV2ray",
+      "password": "k1dBOmOB4oqi7Ump37a1bQ",
+      "port": 8080,
+      "server": "82.38.31.208",
       "type": "ss",
       "udp": true
     },
@@ -1915,7 +2554,7 @@
     },
     {
       "cipher": "chacha20-ietf-poly1305",
-      "name": "✧𝗝𝗼𝗶𝗻 ➠ @v2raymelliii✧",
+      "name": "filembad-31",
       "password": "k1dBOmOB4oqi7Ump37a1bQ",
       "port": 8080,
       "server": "82.38.31.208",
@@ -1924,7 +2563,16 @@
     },
     {
       "cipher": "chacha20-ietf-poly1305",
-      "name": "🇳🇱@IRAN_V2PING",
+      "name": "ᴛᴇʟᴇɢʀᴀᴍ ɪᴅ = @ꜰxxɴᴇᴛ👻",
+      "password": "k1dBOmOB4oqi7Ump37a1bQ",
+      "port": 8080,
+      "server": "82.38.31.208",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "✧𝗝𝗼𝗶𝗻 ➠ @v2raymelliii✧",
       "password": "k1dBOmOB4oqi7Ump37a1bQ",
       "port": 8080,
       "server": "82.38.31.208",
@@ -1961,15 +2609,6 @@
     {
       "cipher": "chacha20-ietf-poly1305",
       "name": "@VPsave",
-      "password": "k1dBOmOB4oqi7Ump37a1bQ",
-      "port": 8080,
-      "server": "82.38.31.212",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
-      "name": "@vpnbaz",
       "password": "k1dBOmOB4oqi7Ump37a1bQ",
       "port": 8080,
       "server": "82.38.31.212",
@@ -2059,25 +2698,7 @@
     },
     {
       "cipher": "chacha20-ietf-poly1305",
-      "name": "🇳🇱 Join+Telegram:@Farah_VPN 🇳🇱",
-      "password": "k1dBOmOB4oqi7Ump37a1bQ",
-      "port": 8080,
-      "server": "82.38.31.216",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
       "name": "13506@proxy_online_net",
-      "password": "k1dBOmOB4oqi7Ump37a1bQ",
-      "port": 8080,
-      "server": "82.38.31.217",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
-      "name": "@FarazV2ray",
       "password": "k1dBOmOB4oqi7Ump37a1bQ",
       "port": 8080,
       "server": "82.38.31.217",
@@ -2131,15 +2752,6 @@
     },
     {
       "cipher": "chacha20-ietf-poly1305",
-      "name": "@filembad",
-      "password": "k1dBOmOB4oqi7Ump37a1bQ",
-      "port": 8080,
-      "server": "82.38.31.218",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
       "name": "@vmesskhodam",
       "password": "k1dBOmOB4oqi7Ump37a1bQ",
       "port": 8080,
@@ -2159,6 +2771,24 @@
     {
       "cipher": "chacha20-ietf-poly1305",
       "name": "vpnbaz",
+      "password": "k1dBOmOB4oqi7Ump37a1bQ",
+      "port": 8080,
+      "server": "82.38.31.218",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "🇳🇱232602 | ⚡️Telegram = t.me/SOSkeyNET",
+      "password": "k1dBOmOB4oqi7Ump37a1bQ",
+      "port": 8080,
+      "server": "82.38.31.218",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "🇳🇱232651 | ⚡️Telegram = t.me/LonUp_M",
       "password": "k1dBOmOB4oqi7Ump37a1bQ",
       "port": 8080,
       "server": "82.38.31.218",
@@ -2356,15 +2986,6 @@
     },
     {
       "cipher": "chacha20-ietf-poly1305",
-      "name": "YFZ 398 @Outline_Vpn",
-      "password": "mx81glqbtlwuhcjo",
-      "port": 8080,
-      "server": "57.131.4.13",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
       "name": "T.me/Vpn_Mafia 🇮🇪",
       "password": "n4lfLGpalfuK0Uxh",
       "port": 443,
@@ -2482,15 +3103,6 @@
     },
     {
       "cipher": "chacha20-ietf-poly1305",
-      "name": "ᴛᴇʟᴇɢʀᴀᴍ ɪᴅ = @ꜰxxɴᴇᴛ🃏",
-      "password": "n87cM0Lv7Y3T",
-      "port": 443,
-      "server": "66.163.117.141",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
       "name": "@ghand_sheken",
       "password": "ng0XTChgbJJ3Sv2d",
       "port": 443,
@@ -2527,52 +3139,7 @@
     },
     {
       "cipher": "chacha20-ietf-poly1305",
-      "name": "[🇳🇱]t.me/ConfigsHub",
-      "password": "oZIoA69Q8yhcQV8ka3Pa3A",
-      "port": 8080,
-      "server": "193.29.139.197",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
-      "name": "ᴛᴇʟᴇɢʀᴀᴍ ɪᴅ = @ꜰxxɴᴇᴛ👿",
-      "password": "oZIoA69Q8yhcQV8ka3Pa3A",
-      "port": 8080,
-      "server": "193.29.139.197",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
       "name": "🇳🇱  @EXPRESSVPN_420",
-      "password": "oZIoA69Q8yhcQV8ka3Pa3A",
-      "port": 8080,
-      "server": "193.29.139.197",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
-      "name": "🇳🇱232365 | ⚡️Telegram = t.me/SOSkeyNET",
-      "password": "oZIoA69Q8yhcQV8ka3Pa3A",
-      "port": 8080,
-      "server": "193.29.139.197",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
-      "name": "🇳🇱232414 | ⚡️Telegram = t.me/LonUp_M",
-      "password": "oZIoA69Q8yhcQV8ka3Pa3A",
-      "port": 8080,
-      "server": "193.29.139.197",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
-      "name": "@GozargahAzad|🇳🇱",
       "password": "oZIoA69Q8yhcQV8ka3Pa3A",
       "port": 8080,
       "server": "193.29.139.197",
@@ -2609,15 +3176,6 @@
     {
       "cipher": "chacha20-ietf-poly1305",
       "name": "@VPsave",
-      "password": "oZIoA69Q8yhcQV8ka3Pa3A",
-      "port": 443,
-      "server": "193.29.139.235",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
-      "name": "@vmesskhodam",
       "password": "oZIoA69Q8yhcQV8ka3Pa3A",
       "port": 443,
       "server": "193.29.139.235",
@@ -2689,24 +3247,6 @@
     },
     {
       "cipher": "chacha20-ietf-poly1305",
-      "name": "@V2rayng_Fast",
-      "password": "oZIoA69Q8yhcQV8ka3Pa3A",
-      "port": 443,
-      "server": "82.38.31.162",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
-      "name": "@VPsave",
-      "password": "oZIoA69Q8yhcQV8ka3Pa3A",
-      "port": 443,
-      "server": "82.38.31.162",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
       "name": "@v2rayng3",
       "password": "oZIoA69Q8yhcQV8ka3Pa3A",
       "port": 443,
@@ -2726,15 +3266,6 @@
     {
       "cipher": "chacha20-ietf-poly1305",
       "name": "kurdconfig",
-      "password": "oZIoA69Q8yhcQV8ka3Pa3A",
-      "port": 443,
-      "server": "82.38.31.162",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
-      "name": "ᴛᴇʟᴇɢʀᴀᴍ ɪᴅ = @ꜰxxɴᴇᴛ🧨",
       "password": "oZIoA69Q8yhcQV8ka3Pa3A",
       "port": 443,
       "server": "82.38.31.162",
@@ -2860,15 +3391,6 @@
     },
     {
       "cipher": "chacha20-ietf-poly1305",
-      "name": "13469@proxy_online_net",
-      "password": "oZIoA69Q8yhcQV8ka3Pa3A",
-      "port": 8080,
-      "server": "82.38.31.35",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
       "name": "@@bored_vpn",
       "password": "oZIoA69Q8yhcQV8ka3Pa3A",
       "port": 8080,
@@ -2879,24 +3401,6 @@
     {
       "cipher": "chacha20-ietf-poly1305",
       "name": "@V2rayNPVTConfig",
-      "password": "oZIoA69Q8yhcQV8ka3Pa3A",
-      "port": 8080,
-      "server": "82.38.31.35",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
-      "name": "@V2rayng_Fast",
-      "password": "oZIoA69Q8yhcQV8ka3Pa3A",
-      "port": 8080,
-      "server": "82.38.31.35",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
-      "name": "@filembad",
       "password": "oZIoA69Q8yhcQV8ka3Pa3A",
       "port": 8080,
       "server": "82.38.31.35",
@@ -2977,15 +3481,6 @@
     },
     {
       "cipher": "chacha20-ietf-poly1305",
-      "name": "🇳🇱 Join+Telegram:@Farah_VPN 🇳🇱",
-      "password": "oZIoA69Q8yhcQV8ka3Pa3A",
-      "port": 8080,
-      "server": "82.38.31.49",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
       "name": "@OutlineReleasedKey",
       "password": "oZIoA69Q8yhcQV8ka3Pa3A",
       "port": 8080,
@@ -3014,15 +3509,6 @@
     {
       "cipher": "chacha20-ietf-poly1305",
       "name": "@vmesskhodam",
-      "password": "oZIoA69Q8yhcQV8ka3Pa3A",
-      "port": 8080,
-      "server": "82.38.31.61",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
-      "name": "@vpnbaz",
       "password": "oZIoA69Q8yhcQV8ka3Pa3A",
       "port": 8080,
       "server": "82.38.31.61",
@@ -3085,15 +3571,6 @@
     },
     {
       "cipher": "chacha20-ietf-poly1305",
-      "name": "@FarazV2ray",
-      "password": "oZIoA69Q8yhcQV8ka3Pa3A",
-      "port": 8080,
-      "server": "82.38.31.62",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
       "name": "@appsooner کانال تلگرام 🕊️",
       "password": "oZIoA69Q8yhcQV8ka3Pa3A",
       "port": 8080,
@@ -3148,6 +3625,15 @@
     },
     {
       "cipher": "chacha20-ietf-poly1305",
+      "name": "@V2rayNGVPN > کانفیگ رایگان",
+      "password": "oZIoA69Q8yhcQV8ka3Pa3A",
+      "port": 8080,
+      "server": "82.38.31.66",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
       "name": "@V2rayNPVTConfig",
       "password": "oZIoA69Q8yhcQV8ka3Pa3A",
       "port": 8080,
@@ -3167,15 +3653,6 @@
     {
       "cipher": "chacha20-ietf-poly1305",
       "name": "@V2ray_confiig",
-      "password": "oZIoA69Q8yhcQV8ka3Pa3A",
-      "port": 8080,
-      "server": "82.38.31.66",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
-      "name": "@filembad",
       "password": "oZIoA69Q8yhcQV8ka3Pa3A",
       "port": 8080,
       "server": "82.38.31.66",
@@ -3274,25 +3751,7 @@
     },
     {
       "cipher": "chacha20-ietf-poly1305",
-      "name": "🇳🇱 Join+Telegram:@Farah_VPN 🇳🇱",
-      "password": "oZIoA69Q8yhcQV8ka3Pa3A",
-      "port": 8080,
-      "server": "82.38.31.66",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
       "name": "🇳🇱@FreakConfig",
-      "password": "oZIoA69Q8yhcQV8ka3Pa3A",
-      "port": 8080,
-      "server": "82.38.31.66",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
-      "name": "🇳🇱@IRAN_V2PING",
       "password": "oZIoA69Q8yhcQV8ka3Pa3A",
       "port": 8080,
       "server": "82.38.31.66",
@@ -3359,6 +3818,24 @@
       "password": "pLGCPnj2WgzxX1IedW8yd7trwRlXqjLa",
       "port": 20700,
       "server": "109.122.251.86",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "ᴛᴇʟᴇɢʀᴀᴍ ɪᴅ = @ꜰxxɴᴇᴛ🍍",
+      "password": "pmZmPZcbrauTSbfdc6-RLIaR_F7bW3H1",
+      "port": 2060,
+      "server": "ir.wbzo.ir",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "🇪🇸 Join+Telegram:@Farah_VPN 🇪🇸",
+      "password": "qItG8SueYQcP",
+      "port": 443,
+      "server": "108.181.121.170",
       "type": "ss",
       "udp": true
     },
@@ -3472,43 +3949,7 @@
     },
     {
       "cipher": "chacha20-poly1305",
-      "name": "@FarazV2ray",
-      "password": "k1dBOmOB4oqi7Ump37a1bQ",
-      "port": 8080,
-      "server": "82.38.31.220",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-poly1305",
       "name": "Channel : @Daily_Configs",
-      "password": "k1dBOmOB4oqi7Ump37a1bQ",
-      "port": 8080,
-      "server": "82.38.31.220",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-poly1305",
-      "name": "ᴛᴇʟᴇɢʀᴀᴍ ɪᴅ = @ꜰxxɴᴇᴛ🍫",
-      "password": "k1dBOmOB4oqi7Ump37a1bQ",
-      "port": 8080,
-      "server": "82.38.31.220",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-poly1305",
-      "name": "🇳🇱232371 | ⚡️Telegram = t.me/SOSkeyNET",
-      "password": "k1dBOmOB4oqi7Ump37a1bQ",
-      "port": 8080,
-      "server": "82.38.31.220",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-poly1305",
-      "name": "🇳🇱232420 | ⚡️Telegram = t.me/LonUp_M",
       "password": "k1dBOmOB4oqi7Ump37a1bQ",
       "port": 8080,
       "server": "82.38.31.220",
@@ -3571,24 +4012,6 @@
     },
     {
       "cipher": "aes-128-gcm",
-      "name": "🇱🇻232338 | ⚡️Telegram = t.me/SOSkeyNET",
-      "password": "263bc9e3c41ea70e1d4d2e89c8fa837a",
-      "port": 11468,
-      "server": "109.248.148.138",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "aes-128-gcm",
-      "name": "🇱🇻232387 | ⚡️Telegram = t.me/LonUp_M",
-      "password": "263bc9e3c41ea70e1d4d2e89c8fa837a",
-      "port": 11468,
-      "server": "109.248.148.138",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "aes-128-gcm",
       "name": "@v2ray_phoenix",
       "password": "30hPx6B1UCb9K4eTjq1LR2viW-4V1C2r",
       "port": 11199,
@@ -3616,10 +4039,10 @@
     },
     {
       "cipher": "aes-128-gcm",
-      "name": "تو کانال نتورلد نباشید قطع میشن@networld_vpn",
-      "password": "4e501338a6c03d7626f2fa0e09ed66d6",
-      "port": 19690,
-      "server": "66.23.203.19",
+      "name": "ᴛᴇʟᴇɢʀᴀᴍ ɪᴅ = @ꜰxxɴᴇᴛ🍇",
+      "password": "6pCowZjgx3NCHcnxsvhjYNXM97N+xo3m",
+      "port": 18539,
+      "server": "64.74.163.117",
       "type": "ss",
       "udp": true
     },
@@ -3661,42 +4084,6 @@
     },
     {
       "cipher": "aes-128-gcm",
-      "name": "🇫🇷FR-🚀@VPNine1",
-      "password": "8bc8CZHJUuNcD6pI66wcSxXhYWB4iORQ",
-      "port": 14116,
-      "server": "51.195.248.87",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "aes-128-gcm",
-      "name": "🇬🇧232282 | ⚡️Telegram = t.me/SOSkeyNET",
-      "password": "8bc8CZHJUuNcD6pI66wcSxXhYWB4iORQ",
-      "port": 14116,
-      "server": "51.195.248.87",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "aes-128-gcm",
-      "name": "🇬🇧232331 | ⚡️Telegram = t.me/LonUp_M",
-      "password": "8bc8CZHJUuNcD6pI66wcSxXhYWB4iORQ",
-      "port": 14116,
-      "server": "51.195.248.87",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "aes-128-gcm",
-      "name": "@filembad",
-      "password": "8bc8CZHJUuNcD6pI66wcSxXhYWB4iORQ",
-      "port": 14114,
-      "server": "51.195.248.85",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "aes-128-gcm",
       "name": "Tel-@ProxyMtAlpha🐱 5",
       "password": "Bwlqh7GcFB",
       "port": 53758,
@@ -3715,7 +4102,7 @@
     },
     {
       "cipher": "aes-128-gcm",
-      "name": "🇺🇸232283 | ⚡️Telegram = t.me/SOSkeyNET",
+      "name": "@VPsave",
       "password": "Desw9iilCyeRRgmw5Do1OpF/gbEcN66L",
       "port": 15104,
       "server": "69.10.38.13",
@@ -3724,7 +4111,25 @@
     },
     {
       "cipher": "aes-128-gcm",
-      "name": "🇺🇸232332 | ⚡️Telegram = t.me/LonUp_M",
+      "name": "channel_@networld_vpn",
+      "password": "Desw9iilCyeRRgmw5Do1OpF/gbEcN66L",
+      "port": 15104,
+      "server": "69.10.38.13",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "aes-128-gcm",
+      "name": "🇺🇸232626 | ⚡️Telegram = t.me/SOSkeyNET",
+      "password": "Desw9iilCyeRRgmw5Do1OpF/gbEcN66L",
+      "port": 15104,
+      "server": "69.10.38.13",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "aes-128-gcm",
+      "name": "🇺🇸232675 | ⚡️Telegram = t.me/LonUp_M",
       "password": "Desw9iilCyeRRgmw5Do1OpF/gbEcN66L",
       "port": 15104,
       "server": "69.10.38.13",
@@ -3742,7 +4147,7 @@
     },
     {
       "cipher": "aes-128-gcm",
-      "name": "YFZ 566 @Outline_Vpn",
+      "name": "SS",
       "password": "EE2VWeKohIwTx6HGOo1X2p1jjNAUfRWS",
       "port": 11471,
       "server": "109.248.148.141",
@@ -3751,7 +4156,43 @@
     },
     {
       "cipher": "aes-128-gcm",
-      "name": "🇱🇻 Join+Telegram:@Farah_VPN 🇱🇻",
+      "name": "@V2rayNGVPN > کانفیگ رایگان",
+      "password": "EE2VWeKohIwTx6HGOo1X2p1jjNAUfRWS",
+      "port": 11471,
+      "server": "109.248.148.141",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "aes-128-gcm",
+      "name": "@ICV2RAY",
+      "password": "EE2VWeKohIwTx6HGOo1X2p1jjNAUfRWS",
+      "port": 11471,
+      "server": "109.248.148.141",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "aes-128-gcm",
+      "name": "@MigMigVPNSHOP",
+      "password": "EE2VWeKohIwTx6HGOo1X2p1jjNAUfRWS",
+      "port": 11471,
+      "server": "109.248.148.141",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "aes-128-gcm",
+      "name": "@meliproxyy",
+      "password": "EE2VWeKohIwTx6HGOo1X2p1jjNAUfRWS",
+      "port": 11471,
+      "server": "109.248.148.141",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "aes-128-gcm",
+      "name": "YFZ 566 @Outline_Vpn",
       "password": "EE2VWeKohIwTx6HGOo1X2p1jjNAUfRWS",
       "port": 11471,
       "server": "109.248.148.141",
@@ -3778,15 +4219,6 @@
     },
     {
       "cipher": "aes-128-gcm",
-      "name": "🇺🇸 | تلگرام: @IRJetConfig #RK",
-      "password": "TuL5oa+yed5zbDB+S4AYiq8KylsvbIhx",
-      "port": 18306,
-      "server": "64.74.162.53",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "aes-128-gcm",
       "name": "⚡01 | ⚡Telegram = t.me/ex_proxies",
       "password": "U/UPtOr5/R1CilCW0X/FMPnd008IWuBt",
       "port": 12021,
@@ -3796,7 +4228,7 @@
     },
     {
       "cipher": "aes-128-gcm",
-      "name": "⚡07 | ⚡Telegram = t.me/ex_proxies",
+      "name": "⚡02 | ⚡Telegram = t.me/ex_proxies",
       "password": "U/UPtOr5/R1CilCW0X/FMPnd008IWuBt",
       "port": 12021,
       "server": "89.238.165.92",
@@ -3805,7 +4237,16 @@
     },
     {
       "cipher": "aes-128-gcm",
-      "name": "🇬🇧GB-🚀@VPNine1",
+      "name": "⚡06 | ⚡Telegram = t.me/ex_proxies",
+      "password": "U/UPtOr5/R1CilCW0X/FMPnd008IWuBt",
+      "port": 12021,
+      "server": "89.238.165.92",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "aes-128-gcm",
+      "name": "⚡07 | ⚡Telegram = t.me/ex_proxies",
       "password": "U/UPtOr5/R1CilCW0X/FMPnd008IWuBt",
       "port": 12021,
       "server": "89.238.165.92",
@@ -3832,7 +4273,25 @@
     },
     {
       "cipher": "aes-128-gcm",
-      "name": "🇬🇧GB-🚀@VPNine1",
+      "name": "⚡03 | ⚡Telegram = t.me/ex_proxies",
+      "password": "bZndo716esIr4jQ1QvBPjFSPJhSmjZ/v",
+      "port": 18667,
+      "server": "82.145.63.22",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "aes-128-gcm",
+      "name": "⚡04 | ⚡Telegram = t.me/ex_proxies",
+      "password": "bZndo716esIr4jQ1QvBPjFSPJhSmjZ/v",
+      "port": 18667,
+      "server": "82.145.63.22",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "aes-128-gcm",
+      "name": "⚡09 | ⚡Telegram = t.me/ex_proxies",
       "password": "bZndo716esIr4jQ1QvBPjFSPJhSmjZ/v",
       "port": 18667,
       "server": "82.145.63.22",
@@ -3850,15 +4309,6 @@
     },
     {
       "cipher": "aes-128-gcm",
-      "name": "تو کانال نتورلد نباشید قطع میشن@networld_vpn",
-      "password": "c8cab1f7f368bbba3ce8381fcecd6674",
-      "port": 12414,
-      "server": "108.181.133.130",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "aes-128-gcm",
       "name": "@VPsave",
       "password": "d98d7ec5-24d7-4ed8-8329-728b2c7ad1c5",
       "port": 35031,
@@ -3868,18 +4318,18 @@
     },
     {
       "cipher": "aes-128-gcm",
-      "name": "🇺🇸232251 | ⚡️Telegram = t.me/SOSkeyNET",
+      "name": "🇺🇸232598 | ⚡️Telegram = t.me/SOSkeyNET",
       "password": "d98d7ec5-24d7-4ed8-8329-728b2c7ad1c5",
-      "port": 35031,
+      "port": 40031,
       "server": "038b7750485a79a0.lebufflonfermegroup.us",
       "type": "ss",
       "udp": true
     },
     {
       "cipher": "aes-128-gcm",
-      "name": "🇺🇸232300 | ⚡️Telegram = t.me/LonUp_M",
+      "name": "🇺🇸232647 | ⚡️Telegram = t.me/LonUp_M",
       "password": "d98d7ec5-24d7-4ed8-8329-728b2c7ad1c5",
-      "port": 35031,
+      "port": 40031,
       "server": "038b7750485a79a0.lebufflonfermegroup.us",
       "type": "ss",
       "udp": true
@@ -3913,15 +4363,6 @@
     },
     {
       "cipher": "aes-128-gcm",
-      "name": "ᴛᴇʟᴇɢʀᴀᴍ ɪᴅ = @ꜰxxɴᴇᴛ🍄",
-      "password": "dbf6a2305d0c50e7217ff13513c20a4b",
-      "port": 12992,
-      "server": "64.42.181.98",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "aes-128-gcm",
       "name": "@V2rayNGVPN > کانفیگ رایگان",
       "password": "shadowsocks",
       "port": 443,
@@ -3958,43 +4399,7 @@
     },
     {
       "cipher": "aes-128-gcm",
-      "name": "ᴛᴇʟᴇɢʀᴀᴍ ɪᴅ = @ꜰxxɴᴇᴛ🦉",
-      "password": "shadowsocks",
-      "port": 443,
-      "server": "141.98.101.178",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "aes-128-gcm",
       "name": "🇬🇧 Join+Telegram:@Farah_VPN 🇬🇧",
-      "password": "shadowsocks",
-      "port": 443,
-      "server": "141.98.101.178",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "aes-128-gcm",
-      "name": "🇬🇧232302 | ⚡️Telegram = t.me/SOSkeyNET",
-      "password": "shadowsocks",
-      "port": 443,
-      "server": "141.98.101.178",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "aes-128-gcm",
-      "name": "🇬🇧232351 | ⚡️Telegram = t.me/LonUp_M",
-      "password": "shadowsocks",
-      "port": 443,
-      "server": "141.98.101.178",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "aes-128-gcm",
-      "name": "🇬🇧GB-🚀@VPNine1",
       "password": "shadowsocks",
       "port": 443,
       "server": "141.98.101.178",
@@ -4030,15 +4435,6 @@
     },
     {
       "cipher": "aes-128-gcm",
-      "name": "ᴛᴇʟᴇɢʀᴀᴍ ɪᴅ = @ꜰxxɴᴇᴛ🌼",
-      "password": "shadowsocks",
-      "port": 443,
-      "server": "141.98.101.179",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "aes-128-gcm",
       "name": "✰𝗝𝗼𝗶𝗻 ➠ @v2raymelliii✰",
       "password": "shadowsocks",
       "port": 443,
@@ -4057,10 +4453,19 @@
     },
     {
       "cipher": "aes-128-gcm",
-      "name": "ᴛᴇʟᴇɢʀᴀᴍ ɪᴅ = @ꜰxxɴᴇᴛ⚡️",
+      "name": "🇯🇵 Join+Telegram:@Farah_VPN 🇯🇵",
       "password": "shadowsocks",
       "port": 443,
-      "server": "149.22.87.241",
+      "server": "149.22.87.204",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "aes-128-gcm",
+      "name": "🇯🇵 Join+Telegram:@Farah_VPN 🇯🇵",
+      "password": "shadowsocks",
+      "port": 443,
+      "server": "149.22.87.240",
       "type": "ss",
       "udp": true
     },
@@ -4097,411 +4502,6 @@
       "password": "shadowsocks",
       "port": 443,
       "server": "156.146.38.168",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "aes-128-gcm",
-      "name": "@Tarkahodeh 🏴󠁧󠁢󠁷󠁬󠁳󠁿",
-      "password": "shadowsocks",
-      "port": 443,
-      "server": "156.146.38.169",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "aes-128-gcm",
-      "name": "@Tarkshodeh 🇧🇲",
-      "password": "shadowsocks",
-      "port": 443,
-      "server": "156.146.38.169",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "aes-128-gcm",
-      "name": "@Tarkshodeh 🇳🇬",
-      "password": "shadowsocks",
-      "port": 443,
-      "server": "156.146.38.169",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "aes-128-gcm",
-      "name": "🩵+@Azarakhsh_Proxy+🩷",
-      "password": "shadowsocks",
-      "port": 443,
-      "server": "156.146.62.162",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "aes-128-gcm",
-      "name": "@v2rayng3",
-      "password": "shadowsocks",
-      "port": 443,
-      "server": "158.173.20.208",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "aes-128-gcm",
-      "name": "ZikkOVpnBot | خوش‌قیمت و باکیفیت",
-      "password": "shadowsocks",
-      "port": 443,
-      "server": "158.173.20.208",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "aes-128-gcm",
-      "name": "@VPsave",
-      "password": "shadowsocks",
-      "port": 443,
-      "server": "158.173.24.73",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "aes-128-gcm",
-      "name": "🇬🇧 Join+Telegram:@Farah_VPN 🇬🇧",
-      "password": "shadowsocks",
-      "port": 443,
-      "server": "158.173.24.73",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "aes-128-gcm",
-      "name": "@VPsave",
-      "password": "shadowsocks",
-      "port": 443,
-      "server": "173.244.56.9",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "aes-128-gcm",
-      "name": "🩵+@Azarakhsh_Proxy+🩷",
-      "password": "shadowsocks",
-      "port": 443,
-      "server": "212.102.53.198",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "aes-128-gcm",
-      "name": "🇺🇸 Join+Telegram:@Farah_VPN 🇺🇸",
-      "password": "shadowsocks",
-      "port": 443,
-      "server": "37.19.198.160",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "aes-128-gcm",
-      "name": "[131512]",
-      "password": "shadowsocks",
-      "port": 443,
-      "server": "37.19.198.243",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "aes-128-gcm",
-      "name": "@meliproxyy",
-      "password": "shadowsocks",
-      "port": 443,
-      "server": "leviko-nl1751.shopingggg.ir",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "aes-128-gcm",
-      "name": "Netherlands",
-      "password": "shadowsocks",
-      "port": 443,
-      "server": "leviko-nl6763.shopingggg.ir",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "aes-128-gcm",
-      "name": "🇳🇱 @V2raySaman",
-      "password": "shadowsocks",
-      "port": 443,
-      "server": "leviko-nl6763.shopingggg.ir",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "aes-128-gcm",
-      "name": "13548@proxy_online_net",
-      "password": "shadowsocks",
-      "port": 443,
-      "server": "141.98.101.178",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "aes-128-gcm",
-      "name": "@ConfigV2RayNG",
-      "password": "shadowsocks",
-      "port": 443,
-      "server": "141.98.101.178",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "aes-128-gcm",
-      "name": "@FarazV2ray",
-      "password": "shadowsocks",
-      "port": 443,
-      "server": "141.98.101.178",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "aes-128-gcm",
-      "name": "@MDvpnSEC کانال تلگرام ما",
-      "password": "shadowsocks",
-      "port": 443,
-      "server": "141.98.101.178",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "aes-128-gcm",
-      "name": "@V2rayNPVTConfig",
-      "password": "shadowsocks",
-      "port": 443,
-      "server": "141.98.101.178",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "aes-128-gcm",
-      "name": "@V2raySaman",
-      "password": "shadowsocks",
-      "port": 443,
-      "server": "141.98.101.178",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "aes-128-gcm",
-      "name": "@V2ray_Alpha🎱 5",
-      "password": "shadowsocks",
-      "port": 443,
-      "server": "141.98.101.178",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "aes-128-gcm",
-      "name": "@V2ray_Alpha🐂 3",
-      "password": "shadowsocks",
-      "port": 443,
-      "server": "141.98.101.178",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "aes-128-gcm",
-      "name": "@VConfing",
-      "password": "shadowsocks",
-      "port": 443,
-      "server": "141.98.101.178",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "aes-128-gcm",
-      "name": "@filembad",
-      "password": "shadowsocks",
-      "port": 443,
-      "server": "141.98.101.178",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "aes-128-gcm",
-      "name": "@hex_proxy ⁶",
-      "password": "shadowsocks",
-      "port": 443,
-      "server": "141.98.101.178",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "aes-128-gcm",
-      "name": "@hex_proxy ⁸",
-      "password": "shadowsocks",
-      "port": 443,
-      "server": "141.98.101.178",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "aes-128-gcm",
-      "name": "@i10VPN¹",
-      "password": "shadowsocks",
-      "port": 443,
-      "server": "141.98.101.178",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "aes-128-gcm",
-      "name": "@meliproxyy",
-      "password": "shadowsocks",
-      "port": 443,
-      "server": "141.98.101.178",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "aes-128-gcm",
-      "name": "Channel : @Daily_Configs",
-      "password": "shadowsocks",
-      "port": 443,
-      "server": "141.98.101.178",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "aes-128-gcm",
-      "name": "IRAN_V2PING@",
-      "password": "shadowsocks",
-      "port": 443,
-      "server": "141.98.101.178",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "aes-128-gcm",
-      "name": "TEHRANARGO@ کانالمون 🍁",
-      "password": "shadowsocks",
-      "port": 443,
-      "server": "141.98.101.178",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "aes-128-gcm",
-      "name": "Tel-@ProxyMtAlpha🎋 10",
-      "password": "shadowsocks",
-      "port": 443,
-      "server": "141.98.101.178",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "aes-128-gcm",
-      "name": "[🇬🇧]t.me/ConfigsHub",
-      "password": "shadowsocks",
-      "port": 443,
-      "server": "141.98.101.178",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "aes-128-gcm",
-      "name": "برای اتصال دائمی جوین شو🍅 TelegramID ⌲Express_freevpn 🪩",
-      "password": "shadowsocks",
-      "port": 443,
-      "server": "141.98.101.178",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "aes-128-gcm",
-      "name": "⚜️𝗝𝗼𝗶𝗻 ➠[Telegram:tik7net_vpn]",
-      "password": "shadowsocks",
-      "port": 443,
-      "server": "141.98.101.178",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "aes-128-gcm",
-      "name": "✅  @vistav2ray کانال ما ✅",
-      "password": "shadowsocks",
-      "port": 443,
-      "server": "141.98.101.178",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "aes-128-gcm",
-      "name": "@GozargahAzad|🇬🇧",
-      "password": "shadowsocks",
-      "port": 443,
-      "server": "141.98.101.178",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "aes-128-gcm",
-      "name": "@OutlineReleasedKey",
-      "password": "shadowsocks",
-      "port": 443,
-      "server": "141.98.101.178",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "aes-128-gcm",
-      "name": "@vasl_bashim",
-      "password": "shadowsocks",
-      "port": 443,
-      "server": "141.98.101.178",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "aes-128-gcm",
-      "name": "13549@proxy_online_net",
-      "password": "shadowsocks",
-      "port": 443,
-      "server": "141.98.101.179",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "aes-128-gcm",
-      "name": "@FarazV2ray",
-      "password": "shadowsocks",
-      "port": 443,
-      "server": "141.98.101.179",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "aes-128-gcm",
-      "name": "@V2rayNPVTConfig",
-      "password": "shadowsocks",
-      "port": 443,
-      "server": "141.98.101.179",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "aes-128-gcm",
-      "name": "@V2ray_Alpha🎱 6",
-      "password": "shadowsocks",
-      "port": 443,
-      "server": "141.98.101.179",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "aes-128-gcm",
-      "name": "@VPsave",
-      "password": "shadowsocks",
-      "port": 443,
-      "server": "141.98.101.179",
       "type": "ss",
       "udp": true
     }

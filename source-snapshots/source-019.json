@@ -1,9 +1,9 @@
 {
-  "checked_at": "2026-11-28T03:18:47.823288+00:00",
-  "etag": "W/\"54d8822f7458429feacf758e325f4852c93174c5a45dbff88d58c25bb25c30f6\"",
-  "fetched_at": "2026-11-27T22:15:32.279189+00:00",
+  "checked_at": "2026-11-28T07:52:08.187949+00:00",
+  "etag": "W/\"846ca95b90d7828452e147ab3e4f61913b852eae7ec0332fec66dc78bd701d00\"",
+  "fetched_at": "2026-11-28T07:52:08.187949+00:00",
   "last_modified": null,
-  "last_status": 304,
+  "last_status": 200,
   "nodes": [
     {
       "client-fingerprint": "chrome",
@@ -731,9 +731,26 @@
       }
     },
     {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "8元老牌专线机场：cczzuu.top",
+      "network": "ws",
+      "port": 44867,
+      "server": "47.244.120.197",
+      "type": "vmess",
+      "udp": true,
+      "uuid": "845e6b08-2919-4290-ade0-5dc7dcea59ca",
+      "ws-opts": {
+        "headers": {
+          "Host": "47.244.120.197"
+        },
+        "path": "/arki"
+      }
+    },
+    {
       "client-fingerprint": "chrome",
       "flow": "xtls-rprx-vision",
-      "name": "8元老牌专线机场：cczzuu.top",
+      "name": "香港_75DD44",
       "port": 8443,
       "reality-opts": {
         "public-key": "74P0QFvaK6B13rHsxR_t0lqRlg4YLuORD4VaHr5Jd38",
@@ -749,33 +766,8 @@
     {
       "client-fingerprint": "chrome",
       "flow": "xtls-rprx-vision",
-      "name": "香港_CD235B",
-      "port": 443,
-      "reality-opts": {
-        "public-key": "vhu6gifBQ8-hRzW1gqKFkEXDlQbf6Ex8kKj1FcxhmzA",
-        "short-id": "d78318845237d9a9"
-      },
-      "server": "8.210.92.38",
-      "servername": "www.ebay.com",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "4fc9dc3d-0d57-49e7-9bc0-e323165241bf"
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
-      "name": "香港_B6D16C",
-      "password": "abc62f00-95a8-4c2e-a85d-36a2cdc977da",
-      "port": 28014,
-      "server": "waic.pro.main.sys-metric-report.com",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "client-fingerprint": "chrome",
-      "flow": "xtls-rprx-vision",
-      "name": "香港_D21778",
-      "port": 47396,
+      "name": "新加坡_18A727",
+      "port": 51283,
       "reality-opts": {
         "public-key": "IjWYbHNrZb3UCQxsTJyekEOA3tHq42L6Jw3O8MmLYVQ",
         "short-id": "fa514b83"
@@ -788,43 +780,43 @@
       "uuid": "ead3595f-4020-4e76-a3ec-c248e1a2f2f7"
     },
     {
-      "client-fingerprint": "firefox",
+      "client-fingerprint": "edge",
       "grpc-opts": {
-        "grpc-service-name": "5b79e8a94241"
+        "grpc-service-name": "99f2107b03f8"
       },
-      "name": "荷兰_B1150D",
+      "name": "美国_29690C",
       "network": "grpc",
       "port": 443,
       "reality-opts": {
-        "public-key": "zbz--PMjcIC4Ggr3j-ibDf0fzXRTj0lM_HzjPJyMkVE",
-        "short-id": "50a749f0eccb628c"
+        "public-key": "cO3wYHISTeorXcM8ffaDCDdqZ-olBQL-GyZqb-W7rTk",
+        "short-id": "bd8f712209a9c283"
       },
-      "server": "79.182.39.135",
-      "servername": "15b171g.nl7.h1clayd.click",
+      "server": "162.35.101.177",
+      "servername": "0592efg.us8.h1clayd.click",
       "tls": true,
       "type": "vless",
       "udp": true,
       "uuid": "cda0862a-0f87-4be9-8ed8-1d0c9e382839"
     },
     {
-      "client-fingerprint": "chrome",
       "flow": "xtls-rprx-vision",
-      "name": "波兰_3D87C2",
+      "name": "德国_6980B3",
       "port": 443,
       "reality-opts": {
-        "public-key": "-P8DgKISSG4jnLuj6ihZDqZs1_zt-juBrhVhTylHiAo"
+        "public-key": "1iVMMhJZgXHRY7tRlR-1kypF0YeaBcB7EjcfHRsYZX4",
+        "short-id": "4ff31b18d1bd8227"
       },
-      "server": "177.3.252.114",
-      "servername": "poland.mcufa.pro",
+      "server": "2.26.251.236",
+      "servername": "mental-deprivation.ru",
       "tls": true,
       "type": "vless",
       "udp": true,
-      "uuid": "639b131f-d0f3-460c-aa17-423047f8a5df"
+      "uuid": "c16e8cdb-65dd-4049-bc65-14c051b8a6c6"
     },
     {
       "client-fingerprint": "firefox",
       "flow": "xtls-rprx-vision",
-      "name": "德国_5AA99E",
+      "name": "德国_AFC1BF",
       "port": 443,
       "reality-opts": {
         "public-key": "_3mkK8SY6YVqws73SUVPKL77tzxDVNUt4ag9J9ec-D0",
@@ -838,17 +830,59 @@
       "uuid": "a71d6c6d-c95e-4ec1-a892-22e21733bf09"
     },
     {
-      "cipher": "aes-256-gcm",
-      "name": "意大利_334EA9",
-      "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=",
-      "port": 19999,
-      "server": "202.50.253.81",
-      "type": "ss",
-      "udp": true
+      "client-fingerprint": "firefox",
+      "grpc-opts": {
+        "grpc-service-name": "204adda7e3da"
+      },
+      "name": "荷兰_2FF0C5",
+      "network": "grpc",
+      "port": 443,
+      "reality-opts": {
+        "public-key": "PD8Jdlg3xB9QY--jwQjp8PFPzCS8-Oryw6-HWBcHMFU",
+        "short-id": "d3bd772514c87d28"
+      },
+      "server": "153.56.231.73",
+      "servername": "717252g.nl8.h1clayd.click",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "cda0862a-0f87-4be9-8ed8-1d0c9e382839"
+    },
+    {
+      "client-fingerprint": "chrome",
+      "flow": "xtls-rprx-vision",
+      "name": "法国_AD6B04",
+      "port": 443,
+      "reality-opts": {
+        "public-key": "p35RUaaaItuoyNiCrLpGeStBUpEJMSiZ2AajdfhhmiM",
+        "short-id": "92aee92130b46fe2"
+      },
+      "server": "13.141.36.43",
+      "servername": "6bf329t.nl18.h1clayd.click",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "e894c08a-fecc-46f5-bf03-c95d0274c79d"
+    },
+    {
+      "client-fingerprint": "firefox",
+      "flow": "xtls-rprx-vision",
+      "name": "西班牙_310630",
+      "port": 443,
+      "reality-opts": {
+        "public-key": "ZSmetD4e9QG5CiXhniHg5HJB68L4kwbgAkJmMHtVwEE",
+        "short-id": "42426c882c5fcd41"
+      },
+      "server": "196.196.149.81",
+      "servername": "7aa271t.es1.h1clayd.click",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "4201786b-d99b-4147-a5f0-20d47acddb81"
     },
     {
       "cipher": "aes-256-gcm",
-      "name": "意大利_B5E9A7",
+      "name": "意大利_47F6B2",
       "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=",
       "port": 19999,
       "server": "202.50.253.27",
@@ -857,7 +891,7 @@
     },
     {
       "cipher": "aes-256-gcm",
-      "name": "意大利_A3A2CB",
+      "name": "意大利_58D3E7",
       "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=",
       "port": 19999,
       "server": "202.50.253.99",
@@ -866,16 +900,16 @@
     },
     {
       "cipher": "aes-256-gcm",
-      "name": "意大利_206898",
+      "name": "意大利_5E56CD",
       "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=",
       "port": 19999,
-      "server": "202.50.253.45",
+      "server": "202.50.253.81",
       "type": "ss",
       "udp": true
     },
     {
       "cipher": "aes-256-gcm",
-      "name": "意大利_6C0E57",
+      "name": "意大利_915FA9",
       "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=",
       "port": 19999,
       "server": "202.50.253.72",
@@ -884,37 +918,52 @@
     },
     {
       "cipher": "aes-256-gcm",
-      "name": "意大利_697AED",
+      "name": "意大利_5AC940",
       "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=",
       "port": 19999,
-      "server": "202.50.253.18",
+      "server": "202.50.253.90",
       "type": "ss",
       "udp": true
     },
     {
       "cipher": "aes-256-gcm",
-      "name": "意大利_CD9468",
+      "name": "意大利_C5B909",
       "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=",
       "port": 19999,
-      "server": "202.50.253.54",
+      "server": "202.50.253.45",
       "type": "ss",
       "udp": true
     },
     {
       "cipher": "aes-256-gcm",
-      "name": "意大利_8D1C1A",
+      "name": "意大利_3F7346",
       "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=",
       "port": 19999,
-      "server": "202.50.253.63",
+      "server": "202.50.253.36",
       "type": "ss",
       "udp": true
+    },
+    {
+      "client-fingerprint": "firefox",
+      "name": "荷兰_B5F210",
+      "port": 443,
+      "reality-opts": {
+        "public-key": "l-GzBDuNuhnjxoRlZqKvT7jAt_sbVAxhGFsAttO5kXs",
+        "short-id": "361d0dd59c70516f"
+      },
+      "server": "196.196.148.85",
+      "servername": "5d0319t.nl7.h1clayd.click",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "cda0862a-0f87-4be9-8ed8-1d0c9e382839"
     },
     {
       "client-fingerprint": "edge",
       "grpc-opts": {
         "grpc-service-name": "livestreamcontent"
       },
-      "name": "西班牙_1C7288",
+      "name": "西班牙_920604",
       "network": "grpc",
       "port": 443,
       "reality-opts": {
@@ -930,113 +979,45 @@
     },
     {
       "client-fingerprint": "firefox",
-      "name": "美国_B83413",
+      "flow": "xtls-rprx-vision",
+      "name": "美国_64EF90",
       "port": 443,
       "reality-opts": {
-        "public-key": "UoS8qZ74hP_ECcncCz55lzvlcVss3R7VA0WYZE0YQCY",
-        "short-id": "ba2a3dce62b99092"
+        "public-key": "SbVKOEMjK0sIlbwg4akyBg5mL5KZwwB-ed4eEE7YnRc"
       },
-      "server": "196.245.52.187",
-      "servername": "04535dt.us8.h1clayd.click",
+      "server": "us-tube-01.funky-monkey.app",
+      "servername": "steam-videos.cc",
       "tls": true,
       "type": "vless",
       "udp": true,
-      "uuid": "cda0862a-0f87-4be9-8ed8-1d0c9e382839"
-    },
-    {
-      "alterId": 0,
-      "cipher": "auto",
-      "name": "香港_5AA580",
-      "network": "ws",
-      "port": 44867,
-      "server": "47.244.120.197",
-      "type": "vmess",
-      "udp": true,
-      "uuid": "845e6b08-2919-4290-ade0-5dc7dcea59ca",
-      "ws-opts": {
-        "headers": {
-          "Host": "47.244.120.197"
-        },
-        "path": "/arki"
-      }
-    },
-    {
-      "client-fingerprint": "firefox",
-      "grpc-opts": {
-        "grpc-service-name": "204adda7e3da"
-      },
-      "name": "荷兰_AF6F39",
-      "network": "grpc",
-      "port": 443,
-      "reality-opts": {
-        "public-key": "PD8Jdlg3xB9QY--jwQjp8PFPzCS8-Oryw6-HWBcHMFU",
-        "short-id": "d3bd772514c87d28"
-      },
-      "server": "153.56.231.73",
-      "servername": "717252g.nl8.h1clayd.click",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "cda0862a-0f87-4be9-8ed8-1d0c9e382839"
+      "uuid": "ea759639-a58c-4c46-8e0b-4cc834bf6658"
     },
     {
       "cipher": "aes-256-gcm",
-      "name": "意大利_4CDE83",
+      "name": "意大利_7F76DA",
       "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=",
       "port": 19999,
-      "server": "202.50.253.90",
+      "server": "202.50.253.18",
       "type": "ss",
       "udp": true
-    },
-    {
-      "cipher": "2022-blake3-chacha20-poly1305",
-      "name": "德国_B78AE4",
-      "password": "8yO3ANWefuuGs1lRKXECQA1FEhxlWFV2ppQMcBaZo5Y=",
-      "port": 443,
-      "server": "47.254.167.157",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "client-fingerprint": "firefox",
-      "flow": "xtls-rprx-vision",
-      "name": "西班牙_AB586D",
-      "port": 443,
-      "reality-opts": {
-        "public-key": "ZSmetD4e9QG5CiXhniHg5HJB68L4kwbgAkJmMHtVwEE",
-        "short-id": "42426c882c5fcd41"
-      },
-      "server": "196.196.149.81",
-      "servername": "7aa271t.es1.h1clayd.click",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "4201786b-d99b-4147-a5f0-20d47acddb81"
     },
     {
       "cipher": "aes-256-gcm",
-      "name": "意大利_ACEF4B",
+      "name": "意大利_A2E6DF",
       "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=",
       "port": 19999,
-      "server": "202.50.253.36",
+      "server": "202.50.253.63",
       "type": "ss",
       "udp": true
     },
     {
-      "client-fingerprint": "firefox",
-      "flow": "xtls-rprx-vision",
-      "name": "荷兰_59119D",
-      "port": 443,
-      "reality-opts": {
-        "public-key": "VZS639V1i-35g7VXb9EoTYL-Srm7858sxcvFAunncmA",
-        "short-id": "8d0d0679f42ffd98"
-      },
-      "server": "196.196.148.76",
-      "servername": "8a2e72t.nl20.h1clayd.shop",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "4201786b-d99b-4147-a5f0-20d47acddb81"
+      "cipher": "aes-256-gcm",
+      "name": "意大利_EF7116",
+      "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=",
+      "port": 19999,
+      "server": "202.50.253.54",
+      "type": "ss",
+      "udp": true
     }
   ],
   "schema_version": 1,

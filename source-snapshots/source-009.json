@@ -1,7 +1,7 @@
 {
-  "checked_at": "2026-11-28T03:18:48.751814+00:00",
-  "etag": "W/\"e45de4ced61877ab4b4876441addb3a709a2ddfd8045f7cc306ee107c6c3dfbf\"",
-  "fetched_at": "2026-11-28T03:18:48.751814+00:00",
+  "checked_at": "2026-11-28T07:52:09.298258+00:00",
+  "etag": "W/\"52746d8b80434861ba5aa68e1dd039f410328408ca309b1fba4ab8ef477f8b0a\"",
+  "fetched_at": "2026-11-28T07:52:09.298258+00:00",
   "last_modified": null,
   "last_status": 200,
   "nodes": [
@@ -53,7 +53,7 @@
         "short-id": "819a87bf1651bf44",
         "support-x25519mlkem768": true
       },
-      "server": "13.229.109.49",
+      "server": "13.212.90.94",
       "servername": "greenfieldsdairy.com",
       "tls": true,
       "type": "vless",
@@ -65,7 +65,7 @@
       "name": "end-gfw-sg89-HY2",
       "password": "7e68e32f-8015-4f37-9082-70e8b0b58043",
       "port": 443,
-      "server": "13.229.109.49",
+      "server": "13.212.90.94",
       "skip-cert-verify": true,
       "sni": "www.bing.com",
       "type": "hysteria2"
@@ -75,7 +75,7 @@
       "name": "end-gfw-sg89-SS",
       "password": "7e68e32f-8015-4f37-9082-70e8b0b58043",
       "port": 8443,
-      "server": "13.229.109.49",
+      "server": "13.212.90.94",
       "type": "ss",
       "udp": true
     }
