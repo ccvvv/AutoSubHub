@@ -2,7 +2,7 @@ import unittest
 
 from scripts.source_snapshots import (
     apply_source_response, reconcile_sources, node_fingerprint,
-    build_queue_from_pool, apply_completed_receipt,
+    build_queue_from_pool, apply_completed_receipt, can_retain_previous_snapshot,
 )
 
 
@@ -26,6 +26,12 @@ class SourceSnapshotTests(unittest.TestCase):
                                        200, [proxy("a", "a.example")])
         with self.assertRaises(ValueError):
             apply_source_response(old, "source-001", "https://feed.example/new", 304)
+
+    def test_previous_snapshot_is_retained_only_for_the_same_configured_url(self):
+        old, _ = apply_source_response(None, "source-001", "https://feed.example/old",
+                                       200, [proxy("a", "a.example")])
+        self.assertTrue(can_retain_previous_snapshot(old, "https://feed.example/old"))
+        self.assertFalse(can_retain_previous_snapshot(old, "https://feed.example/new"))
 
     def test_failed_or_empty_response_does_not_replace_previous_snapshot(self):
         old, _ = apply_source_response(None, "source-001", "https://feed.example/a",
