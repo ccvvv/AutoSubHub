@@ -20,6 +20,7 @@ import build as builder
 from scripts.source_cache import load_cache, empty_cache, conditional_headers, record_response, save_cache
 from scripts.source_snapshots import (
     apply_source_response, reconcile_sources, node_fingerprint, url_fingerprint,
+    can_retain_previous_snapshot,
 )
 
 USER_AGENT = builder.USER_AGENT
@@ -105,7 +106,7 @@ def fetch_one(index: int, url: str, cache: dict, previous: dict | None):
     source_id = f"source-{index:03d}"
     headers = {"User-Agent": USER_AGENT}
     # A validator is safe only when its matching full source snapshot exists.
-    if previous is not None and previous.get("source_url_sha256") == url_fingerprint(url):
+    if can_retain_previous_snapshot(previous, url):
         headers.update(conditional_headers(cache, url))
     response = None
     for attempt in range(3):
@@ -183,7 +184,7 @@ def main() -> None:
             failures.append(source_id)
             print(f"{source_id}: initial fetch failed ({type(error).__name__}); no empty snapshot created")
             continue
-        if previous.get("source_url_sha256") != current_url_hash:
+        if not can_retain_previous_snapshot(previous, url):
             source_status[source_id] = {
                 "status": "source_changed_error", "node_count": 0,
                 "error": type(error).__name__,
