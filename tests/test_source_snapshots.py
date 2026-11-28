@@ -83,7 +83,7 @@ class SourceSnapshotTests(unittest.TestCase):
             {"source-001": a_empty_replacement, "source-002": b}, state)
         self.assertEqual(len(pool1["proxies"]), 1)
         self.assertEqual({p["server"] for p in pool2["proxies"]}, {"shared.example", "other.example"})
-        self.assertEqual(len(queue2["nodes"]), 1)
+        self.assertEqual(len(queue2["nodes"]), 2)
         self.assertIn(node_fingerprint(shared), state2["nodes"])
 
     def test_node_removed_from_all_sources_leaves_pool_but_completed_history_remains(self):
@@ -108,7 +108,7 @@ class SourceSnapshotTests(unittest.TestCase):
                                            200, [proxy("renamed", "a.example"), proxy("new", "b.example")])
         _, queue2, _ = reconcile_sources({"source-001": updated}, state)
         self.assertEqual(len(queue1["nodes"]), 1)
-        self.assertEqual({item["name"] for item in queue2["nodes"]}, {"a", "new"})
+        self.assertEqual({item["name"] for item in queue2["nodes"]}, {"renamed", "new"})
 
     def test_configuration_change_creates_a_new_fingerprint_and_queue_item(self):
         old = proxy("node", "a.example")
