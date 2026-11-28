@@ -44,7 +44,8 @@ def validate_candidate_identity(candidate: dict[str, Any], manifest: dict[str, A
     for name, proxy in proxy_by_name.items():
         expected = node_fingerprint(proxy)
         node = node_by_name[name]
-        if (node.get("node_id") != expected or node.get("fingerprint") != expected
+        declared_fingerprint = node.get("fingerprint", expected)
+        if (node.get("node_id") != expected or declared_fingerprint != expected
                 or not isinstance(node.get("node_id"), str)
                 or not _FINGERPRINT_RE.fullmatch(node["node_id"])):
             raise ValueError(f"Full SHA-256 fingerprint mismatch for candidate node: {name}")
