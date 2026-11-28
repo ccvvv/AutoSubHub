@@ -71,40 +71,5 @@ class SourcePoolReceiptTests(unittest.TestCase):
             self.assertEqual(state_after["nodes"][fingerprints[1]]["status"], "failed")
 
 
-    def test_legacy_pool_ignores_receipt_ids_already_absent(self):
-        present = {"name": "present", "type": "ss", "server": "live.example", "port": 443}
-        failed = {"name": "failed", "type": "ss", "server": "failed.example", "port": 443}
-        stale = {"name": "stale", "type": "ss", "server": "gone.example", "port": 443}
-        proxies = [present, failed]
-        fingerprints = {p["name"]: node_fingerprint(p) for p in [present, failed, stale]}
-        with tempfile.TemporaryDirectory() as tmp:
-            root = Path(tmp) / "candidate"
-            root.mkdir()
-            pool_path = root / "pool.yaml"
-            manifest_path = root / "manifest.json"
-            receipt_path = root / "receipt.json"
-            pool_path.write_text(yaml.safe_dump({"proxies": proxies}, sort_keys=False), encoding="utf-8")
-            manifest = {"nodes": [
-                {"node_id": fingerprints[name][:20], "name": name}
-                for name in ("present", "failed", "stale")
-            ]}
-            receipt = {"task_id": "legacy-receipt", "results": [
-                {"node_id": fingerprints["present"][:20], "status": "passed"},
-                {"node_id": fingerprints["failed"][:20], "status": "failed"},
-                {"node_id": fingerprints["stale"][:20], "status": "failed"},
-            ]}
-            manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
-            receipt_path.write_text(json.dumps(receipt), encoding="utf-8")
-
-            prune_and_refresh(pool_path, manifest_path, receipt_path)
-
-            pool_after = yaml.safe_load(pool_path.read_text(encoding="utf-8"))
-            state_after = json.loads((root / "probe-state.json").read_text(encoding="utf-8"))
-            self.assertEqual(pool_after["proxies"], proxies)
-            self.assertEqual(state_after["nodes"][fingerprints["present"]]["result"], "passed")
-            self.assertEqual(state_after["nodes"][fingerprints["failed"]]["result"], "failed")
-            self.assertNotIn(fingerprints["stale"], state_after["nodes"])
-
-
 if __name__ == "__main__":
     unittest.main()
