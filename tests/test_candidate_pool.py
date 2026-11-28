@@ -79,11 +79,11 @@ class CandidatePoolTests(unittest.TestCase):
             pool_after = yaml.safe_load(pool_path.read_text())
             self.assertEqual(pool_after["proxies"], [self.a, c])
             snapshot = yaml.safe_load((root / "subscription.yaml").read_text())
-            self.assertEqual(snapshot["proxies"], [c])
+            self.assertEqual(snapshot["proxies"], [self.a, c])
             refreshed = json.loads((root / "manifest.json").read_text())
             self.assertEqual(refreshed["candidate_sha256"],
                              hashlib.sha256((root / "subscription.yaml").read_bytes()).hexdigest())
-            self.assertEqual([n["node_id"] for n in refreshed["nodes"]], [node_id(c)])
+            self.assertEqual([n["node_id"] for n in refreshed["nodes"]], [node_id(self.a), node_id(c)])
             state = json.loads((root / "probe-state.json").read_text())
             self.assertEqual(state["nodes"][node_fingerprint(self.a)]["result"], "passed")
             self.assertEqual(state["nodes"][node_fingerprint(self.b)]["result"], "failed")
