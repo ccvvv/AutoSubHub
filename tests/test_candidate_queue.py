@@ -38,15 +38,14 @@ class CandidateQueueTests(unittest.TestCase):
                  {"nodes": [{"name": "not-x"}]}),
             ])
 
-    def test_normalizes_historical_short_id_to_full_fingerprint(self):
+    def test_rejects_legacy_20_character_manifest_identity(self):
         proxy = {"name": "x", "type": "ss", "server": "a.example", "port": 443}
         fingerprint = canonical_fingerprint(proxy)
-        candidate, manifest, _ = merge_candidate_snapshots([
-            ("b" * 40, {"proxies": [proxy]},
-             {"nodes": [{"name": "x", "node_id": fingerprint[:20]}]}),
-        ])
-        self.assertEqual(manifest["nodes"][0]["node_id"], fingerprint)
-        self.assertEqual(manifest["nodes"][0]["fingerprint"], fingerprint)
+        with self.assertRaisesRegex(ValueError, "identity mismatch"):
+            merge_candidate_snapshots([
+                ("b" * 40, {"proxies": [proxy]},
+                 {"nodes": [{"name": "x", "node_id": fingerprint[:20]}]}),
+            ])
 
     def test_rejects_forged_short_or_full_manifest_identity(self):
         proxy = {"name": "x", "type": "ss", "server": "a.example", "port": 443}
