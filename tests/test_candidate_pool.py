@@ -62,6 +62,10 @@ class CandidatePoolTests(unittest.TestCase):
                 "schema_version": 1, "generated_at": "2026-11-26T00:00:00Z",
                 "nodes": pool_nodes,
             }))
+            (root / "probe-state.json").write_text(json.dumps({
+                "schema_version": 1,
+                "nodes": {node["fingerprint"]: {"status": "pending"} for node in pool_nodes},
+            }))
             manifest_path.write_text(json.dumps(manifest))
             receipt_path.write_text(json.dumps({"task_id": "legacy-receipt", "results": [
                 {"node_id": node_id(self.a), "status": "passed"},
