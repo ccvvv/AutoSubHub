@@ -11,6 +11,8 @@ import unittest
 
 import yaml
 
+from scripts.node_identity import node_fingerprint
+
 ROOT = Path(__file__).resolve().parents[1]
 VALIDATOR = ROOT / "scripts" / "finalize_phone_receipt.py"
 MIHOMO = Path(os.environ.get("MIHOMO_BIN", ROOT / "mihomo"))
@@ -32,22 +34,22 @@ class FinalizePhoneReceiptTests(unittest.TestCase):
         ]}
         self.candidate.write_text(yaml.safe_dump(config, allow_unicode=True, sort_keys=False), encoding="utf-8")
         digest = hashlib.sha256(self.candidate.read_bytes()).hexdigest()
-        self.ids = {"fast-node": "id-fast", "slow-node": "id-slow", "failed-node": "id-failed"}
+        self.ids = {p["name"]: node_fingerprint(p) for p in config["proxies"]}
         self.manifest.write_text(json.dumps({
             "candidate_sha256": digest,
-            "nodes": [{"node_id": nid, "name": name} for name, nid in self.ids.items()],
+            "nodes": [{"node_id": nid, "fingerprint": nid, "name": name} for name, nid in self.ids.items()],
         }), encoding="utf-8")
         self.base_receipt = {
             "status": "completed", "candidate_commit": "a" * 40, "candidate_sha256": digest,
             "max_download_bytes": 5242880,
             "results": [
-                {"node_id": "id-fast", "status": "passed", "download_speed_bps": 800000,
+                {"node_id": self.ids["fast-node"], "status": "passed", "download_speed_bps": 800000,
                  "downloaded_bytes": 5242880, "expected_download_bytes": 5242880,
                  "application_checks": {app: {"status": "passed"} for app in ("youtube", "telegram", "google", "chatgpt", "github")}},
-                {"node_id": "id-slow", "status": "passed", "download_speed_bps": 400000,
+                {"node_id": self.ids["slow-node"], "status": "passed", "download_speed_bps": 400000,
                  "downloaded_bytes": 5242880, "expected_download_bytes": 5242880,
                  "application_checks": {app: {"status": "passed"} for app in ("youtube", "telegram", "google", "chatgpt", "github")}},
-                {"node_id": "id-failed", "status": "failed", "download_speed_bps": 0,
+                {"node_id": self.ids["failed-node"], "status": "failed", "download_speed_bps": 0,
                  "application_checks": {app: {"status": "passed"} for app in ("youtube", "telegram", "google", "chatgpt", "github")}},
             ],
         }
