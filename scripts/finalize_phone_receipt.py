@@ -1,7 +1,11 @@
 #!/usr/bin/env python3
 """Validate a phone probe receipt and build a phone-verified final subscription."""
 import base64, hashlib, json, os, sys, yaml
+from pathlib import Path
 from urllib.parse import parse_qs, quote, urlencode, urlparse
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from scripts.node_identity import validate_candidate_identity
 
 MIN_SPEED_BPS = int(os.getenv("MIN_SPEED_BPS", "200000"))
 HIGH_SPEED_BPS = int(os.getenv("HIGH_SPEED_BPS", "500000"))
@@ -55,6 +59,10 @@ if (not isinstance(proxies, list) or not isinstance(nodes, list) or not isinstan
         or not isinstance(max_download_bytes, int) or isinstance(max_download_bytes, bool)
         or max_download_bytes <= 0):
     raise SystemExit("Invalid candidate, receipt, or download-integrity metadata")
+try:
+    validate_candidate_identity(candidate, manifest)
+except ValueError as exc:
+    raise SystemExit(f"Full SHA-256 fingerprint verification failed: {exc}") from exc
 
 proxy_by_name = {p.get("name"): p for p in proxies if isinstance(p, dict) and p.get("name")}
 id_to_name = {n.get("node_id"): n.get("name") for n in nodes if isinstance(n, dict)}
