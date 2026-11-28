@@ -11,7 +11,7 @@ from scripts.source_snapshots import node_fingerprint
 
 
 class SourcePoolReceiptTests(unittest.TestCase):
-    def test_receipt_completes_nodes_without_deleting_source_pool(self):
+    def test_receipt_keeps_passed_node_and_removes_failed_node_from_live_pool(self):
         a = {"name": "a", "type": "ss", "server": "one.example", "port": 443}
         b = {"name": "b", "type": "ss", "server": "two.example", "port": 443}
         proxies = [a, b]
@@ -55,15 +55,15 @@ class SourcePoolReceiptTests(unittest.TestCase):
             queue_after = yaml.safe_load((root / "subscription.yaml").read_text(encoding="utf-8"))
             queue_manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
             state_after = json.loads(state_path.read_text(encoding="utf-8"))
-            self.assertEqual(pool_after["proxies"], proxies)
+            self.assertEqual(pool_after["proxies"], [a])
             self.assertEqual(queue_after["proxies"], [])
             self.assertEqual(queue_manifest["nodes"], [])
             self.assertEqual(queue_manifest["candidate_sha256"],
                              hashlib.sha256((root / "subscription.yaml").read_bytes()).hexdigest())
             self.assertEqual({state_after["nodes"][fp]["result"] for fp in fingerprints},
                              {"passed", "failed"})
-            self.assertTrue(all(state_after["nodes"][fp]["status"] == "completed"
-                                for fp in fingerprints))
+            self.assertEqual(state_after["nodes"][fingerprints[0]]["status"], "passed")
+            self.assertEqual(state_after["nodes"][fingerprints[1]]["status"], "failed")
 
 
 if __name__ == "__main__":
