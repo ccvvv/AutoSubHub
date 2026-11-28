@@ -12,7 +12,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 import yaml
 
-from scripts.source_snapshots import apply_completed_receipt, build_queue_from_pool, node_fingerprint
+from scripts.source_snapshots import apply_completed_receipt, build_queue_from_pool
+from scripts.node_identity import node_fingerprint, is_full_fingerprint
 
 
 def atomic_json(path: Path, value: dict) -> None:
@@ -69,18 +70,21 @@ def prune_and_refresh(pool_path: Path, manifest_path: Path, receipt_path: Path) 
     expected = [item.get("node_id") for item in manifest_nodes if isinstance(item, dict)]
     actual = [item.get("node_id") for item in results if isinstance(item, dict)]
     if (len(expected) != len(manifest_nodes) or len(actual) != len(results)
+            or any(not is_full_fingerprint(value) for value in expected + actual)
             or len(set(expected)) != len(expected) or set(actual) != set(expected)
             or len(actual) != len(expected)):
-        raise SystemExit("Receipt is not a complete exact match for candidate manifest")
+        raise SystemExit("Receipt must exactly match the complete 64-character fingerprint manifest")
+    if (not manifest.get("candidate_sha256")
+            or receipt.get("candidate_sha256") != manifest.get("candidate_sha256")):
+        raise SystemExit("Receipt/manifest candidate SHA256 mismatch; pool left unchanged")
 
     pool_manifest_path = pool_path.parent / "pool-manifest.json"
     state_path = pool_path.parent / "probe-state.json"
     if not pool_manifest_path.is_file():
         raise SystemExit("Persistent pool manifest missing; refusing receipt processing")
 
-    # The phone-facing manifest and receipt use only the 20-hex node_id.
-    # Resolve those IDs against the trusted full-fingerprint pool metadata;
-    # never require the phone to upload internal 256-bit fingerprints.
+    # Phone, candidate manifest, receipt and cloud pool share the complete
+    # SHA-256 fingerprint. No short-ID or name-based resolution is permitted.
     pool_meta = json.loads(pool_manifest_path.read_text(encoding="utf-8"))
     if not state_path.is_file():
         raise SystemExit("Persistent probe state missing; refusing receipt processing")
@@ -94,42 +98,39 @@ def prune_and_refresh(pool_path: Path, manifest_path: Path, receipt_path: Path) 
     for proxy, meta in zip(pool_proxies, pool_nodes):
         if not isinstance(proxy, dict) or not isinstance(meta, dict):
             raise SystemExit("Persistent pool contains invalid node metadata; pool left unchanged")
-        fingerprint = meta.get("fingerprint")
-        current_id = node_fingerprint(proxy)[:20]
-        if (not isinstance(fingerprint, str) or len(fingerprint) != 64
-                or fingerprint != node_fingerprint(proxy)
-                or meta.get("node_id") != current_id
-                or fingerprint[:20] != current_id or current_id in meta_by_id):
-            raise SystemExit("Persistent pool fingerprint/20-character ID mismatch; pool left unchanged")
-        meta_by_id[current_id] = fingerprint
+        fingerprint = node_fingerprint(proxy)
+        if (not is_full_fingerprint(meta.get("fingerprint"))
+                or meta.get("fingerprint") != fingerprint
+                or meta.get("node_id") != fingerprint
+                or fingerprint in meta_by_id):
+            raise SystemExit("Persistent pool full fingerprint mismatch; pool left unchanged")
+        meta_by_id[fingerprint] = fingerprint
 
-    # The phone may return a snapshot created before the live source pool
-    # was refreshed. IDs already absent from the current pool need no deletion;
-    # process only IDs that still exist in the trusted pool metadata.
-    enriched_nodes = []
-    current_ids = set(meta_by_id)
-    missing_ids = [item["node_id"] for item in manifest_nodes
-                   if item["node_id"] not in current_ids]
+    # A phone may finish a snapshot after the live pool has refreshed. Missing
+    # fingerprints are skipped safely; present fingerprints must match exactly.
+    matched_nodes = []
     for item in manifest_nodes:
-        node_id = item.get("node_id")
-        fingerprint = meta_by_id.get(node_id)
-        if fingerprint is not None:
-            enriched_nodes.append({**item, "fingerprint": fingerprint})
-    matched_ids = {item["node_id"] for item in enriched_nodes}
+        fingerprint = item.get("fingerprint")
+        if item.get("node_id") != fingerprint or not is_full_fingerprint(fingerprint):
+            raise SystemExit("Phone manifest lacks a valid full SHA-256 fingerprint")
+        if fingerprint in meta_by_id:
+            matched_nodes.append(item)
+    matched_ids = {item["node_id"] for item in matched_nodes}
+    missing_ids = [item["node_id"] for item in manifest_nodes if item["node_id"] not in matched_ids]
     matched_results = [item for item in results if item["node_id"] in matched_ids]
-    internal_manifest = {**manifest, "nodes": enriched_nodes}
+    internal_manifest = {**manifest, "nodes": matched_nodes}
     internal_receipt = {**receipt, "results": matched_results}
     completed_state = apply_completed_receipt(state, internal_manifest, internal_receipt)
     result_by_id = {item["node_id"]: item for item in matched_results}
     failed_ids = {
-        item["node_id"] for item in enriched_nodes
+        item["node_id"] for item in matched_nodes
         if result_by_id[item["node_id"]]["status"] == "failed"
     }
     if missing_ids:
-        print(f"Receipt snapshot has {len(missing_ids)} IDs already absent from the live pool; skipped safely")
+        print(f"Receipt snapshot has {len(missing_ids)} full fingerprints already absent from the live pool; skipped safely")
     kept_pairs = [
         (proxy, meta) for proxy, meta in zip(pool_proxies, pool_nodes)
-        if meta["node_id"] not in failed_ids
+        if meta["fingerprint"] not in failed_ids
     ]
     next_pool = {"proxies": [proxy for proxy, _ in kept_pairs]}
     next_pool_meta = {"schema_version": pool_meta.get("schema_version", 1),
@@ -145,8 +146,7 @@ def prune_and_refresh(pool_path: Path, manifest_path: Path, receipt_path: Path) 
         "schema_version": 1,
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "candidate_sha256": hashlib.sha256(candidate_bytes).hexdigest(),
-        "nodes": [{key: value for key, value in item.items() if key != "fingerprint"}
-                   for item in queue["nodes"]],
+        "nodes": queue["nodes"],
     }
     # All validation and derived outputs are complete before any live file changes.
     atomic_yaml(pool_path, next_pool)
