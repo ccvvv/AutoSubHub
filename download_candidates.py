@@ -21,6 +21,18 @@ BRANCH = "published-subscriptions"
 USER_AGENT = "AutoSubHub-Termux-Probe/1.0"
 
 
+def require_testable_candidates(candidate: dict) -> list:
+    """Reject empty queues before the active phone cache can be replaced."""
+    proxies = candidate.get("proxies") if isinstance(candidate, dict) else None
+    if not isinstance(proxies, list) or not proxies:
+        raise SystemExit(
+            "Pending history contains no testable nodes (for example, an empty "
+            "snapshot created after receipt cleanup). Existing candidate cache "
+            "was preserved; wait for a non-empty candidate batch."
+        )
+    return proxies
+
+
 def atomic_write(path: Path, content: bytes) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     fd, temporary = tempfile.mkstemp(prefix=path.name + ".", suffix=".tmp", dir=str(path.parent))
@@ -55,13 +67,7 @@ def main() -> None:
     candidate, manifest, commits, tip = collect_pending_candidate_batches(
         remote, REPO, BRANCH, session, state_path, bootstrap_limit=20
     )
-    proxies = candidate.get("proxies")
-    if not isinstance(proxies, list) or not proxies:
-        raise SystemExit(
-            "Pending history contains no testable nodes (for example, an empty "
-            "snapshot created after receipt cleanup). Existing candidate cache "
-            "was preserved; wait for a non-empty candidate batch."
-        )
+    proxies = require_testable_candidates(candidate)
     candidate_bytes = yaml.safe_dump(
         candidate, allow_unicode=True, sort_keys=False
     ).encode("utf-8")
