@@ -1,6 +1,8 @@
 """Helpers for merging immutable phone-probe candidate batches."""
 from __future__ import annotations
 
+import hashlib
+import json
 import subprocess
 from collections import OrderedDict
 from pathlib import Path
