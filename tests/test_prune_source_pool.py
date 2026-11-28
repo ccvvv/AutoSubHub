@@ -14,6 +14,7 @@ class SourcePoolReceiptTests(unittest.TestCase):
     def test_receipt_keeps_passed_node_and_removes_failed_node_from_live_pool(self):
         a = {"name": "a", "type": "ss", "server": "one.example", "port": 443}
         b = {"name": "b", "type": "ss", "server": "two.example", "port": 443}
+        c = {"name": "c", "type": "ss", "server": "old.example", "port": 443}
         proxies = [a, b]
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp) / "candidate"
@@ -26,6 +27,7 @@ class SourcePoolReceiptTests(unittest.TestCase):
 
             pool_path.write_text(yaml.safe_dump({"proxies": proxies}, sort_keys=False), encoding="utf-8")
             fingerprints = [node_fingerprint(p) for p in proxies]
+            stale_fingerprint = node_fingerprint(c)
             pool_manifest_path.write_text(json.dumps({"nodes": [
                 {"fingerprint": fp, "node_id": fp[:20], "name": p["name"], "sources": ["source-001"]}
                 for p, fp in zip(proxies, fingerprints)
@@ -41,12 +43,15 @@ class SourcePoolReceiptTests(unittest.TestCase):
                 "nodes": [
                     {"node_id": fp[:20], "name": p["name"], "sources": ["source-001"]}
                     for p, fp in zip(proxies, fingerprints)
+                ] + [
+                    {"node_id": stale_fingerprint[:20], "name": c["name"], "sources": ["source-001"]}
                 ],
             }
             manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
             receipt_path.write_text(json.dumps({"task_id": "receipt-1", "results": [
                 {"node_id": fingerprints[0][:20], "status": "passed"},
                 {"node_id": fingerprints[1][:20], "status": "failed"},
+                {"node_id": stale_fingerprint[:20], "status": "passed"},
             ]}), encoding="utf-8")
 
             prune_and_refresh(pool_path, manifest_path, receipt_path)
