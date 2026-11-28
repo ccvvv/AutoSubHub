@@ -186,12 +186,11 @@ def apply_completed_receipt(
     for node_id, fingerprint in by_id.items():
         item = result_by_id[node_id]
         record = state_nodes.get(fingerprint, {})
-        if record.get("status") in {"passed", "failed"}:
-            prior_receipt = record.get("receipt_id")
-            if prior_receipt and prior_receipt != receipt_id:
-                raise ValueError("Node was already completed by a different receipt")
+        if record.get("status") in {"passed", "failed"} and record.get("receipt_id") == receipt_id:
             if record.get("result") and record.get("result") != item["status"]:
                 raise ValueError("Duplicate receipt conflicts with the recorded node result")
+            # Replaying the same receipt is idempotent. A different receipt is
+            # a legitimate later probe of a successful node and may refresh its status.
         result_status = item["status"]
         record.update({
             "status": result_status,
