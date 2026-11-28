@@ -101,20 +101,30 @@ def prune_and_refresh(pool_path: Path, manifest_path: Path, receipt_path: Path) 
                 raise SystemExit("Persistent pool fingerprint/20-character ID mismatch; pool left unchanged")
             meta_by_id[current_id] = fingerprint
 
+        # The phone may return a snapshot created before the live source pool
+        # was refreshed. IDs already absent from the current pool need no deletion;
+        # process only IDs that still exist in the trusted pool metadata.
         enriched_nodes = []
+        current_ids = set(meta_by_id)
+        missing_ids = [item["node_id"] for item in manifest_nodes
+                       if item["node_id"] not in current_ids]
         for item in manifest_nodes:
             node_id = item.get("node_id")
             fingerprint = meta_by_id.get(node_id)
-            if fingerprint is None:
-                raise SystemExit("Receipt manifest contains an ID absent from the persistent pool; pool left unchanged")
-            enriched_nodes.append({**item, "fingerprint": fingerprint})
+            if fingerprint is not None:
+                enriched_nodes.append({**item, "fingerprint": fingerprint})
+        matched_ids = {item["node_id"] for item in enriched_nodes}
+        matched_results = [item for item in results if item["node_id"] in matched_ids]
         internal_manifest = {**manifest, "nodes": enriched_nodes}
-        completed_state = apply_completed_receipt(state, internal_manifest, receipt)
-        result_by_id = {item["node_id"]: item for item in results}
+        internal_receipt = {**receipt, "results": matched_results}
+        completed_state = apply_completed_receipt(state, internal_manifest, internal_receipt)
+        result_by_id = {item["node_id"]: item for item in matched_results}
         failed_ids = {
-            item["node_id"] for item in manifest_nodes
+            item["node_id"] for item in enriched_nodes
             if result_by_id[item["node_id"]]["status"] == "failed"
         }
+        if missing_ids:
+            print(f"Receipt snapshot has {len(missing_ids)} IDs already absent from the live pool; skipped safely")
         kept_pairs = [
             (proxy, meta) for proxy, meta in zip(pool_proxies, pool_nodes)
             if meta["node_id"] not in failed_ids
