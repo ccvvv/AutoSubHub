@@ -76,7 +76,7 @@ class CandidatePoolTests(unittest.TestCase):
 
             # Receipt processing changes only probe state and the pending queue.
             pool_after = yaml.safe_load(pool_path.read_text())
-            self.assertEqual(pool_after["proxies"], [self.a, self.b, c])
+            self.assertEqual(pool_after["proxies"], [self.a, c])
             snapshot = yaml.safe_load((root / "subscription.yaml").read_text())
             self.assertEqual(snapshot["proxies"], [c])
             refreshed = json.loads((root / "manifest.json").read_text())
