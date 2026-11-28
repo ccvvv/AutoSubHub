@@ -111,7 +111,10 @@ def build_queue_from_pool(
         fingerprint = meta["fingerprint"]
         proxy = dict(by_fingerprint[fingerprint])
         record = state_nodes.get(fingerprint, {})
-        if record.get("status") in {"completed", "passed", "failed", "precheck_failed"}:
+        # Successful nodes remain in the pool and are deliberately re-probed
+        # whenever the phone queue is rebuilt. Failed/precheck-failed nodes
+        # are not eligible for another probe.
+        if record.get("status") in {"failed", "precheck_failed"}:
             continue
         name = str(meta.get("name") or proxy.get("name") or fingerprint[:12])
         if name in used_names:
@@ -271,13 +274,10 @@ def reconcile_sources(
             state_nodes[fingerprint] = record
             continue
 
-        # Only unseen/configuration-changed fingerprints enter the phone queue.
-        # Completed nodes stay in the live pool but are not retested on every build.
-        if status in {"completed", "passed"}:
-            record["last_seen_at"] = now
-            state_nodes[fingerprint] = record
-            continue
-        if status not in {"failed", "precheck_failed"}:
+        # Every currently sourced, non-failed node is queued on each source
+        # refresh: new nodes and previously passed nodes are tested together.
+        # Failed nodes remain excluded until their configuration fingerprint changes.
+        if status not in {"completed", "passed"}:
             record = {
                 "status": "pending",
                 "first_seen_at": record.get("first_seen_at") or now,
