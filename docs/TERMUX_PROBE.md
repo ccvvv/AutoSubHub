@@ -37,7 +37,7 @@ Download and merge all pending candidate batches while the phone can reach GitHu
 python download_candidates.py --output candidate-cache/candidate-local.yaml
 ```
 
-The phone now verifies both the candidate-file SHA256 and each node's complete 64-character SHA256 fingerprint against its actual proxy configuration. The same full fingerprint is used by the phone manifest, receipt, cloud pool manifest, probe state, receipt validator and failed-node pruning. Display names are never used as node identity. Historical immutable candidate batches with 20-character IDs are recomputed from their proxy configuration while being merged; all newly generated manifests and receipts use full fingerprints.
+The phone verifies both the candidate-file SHA256 and each node's complete 64-character SHA-256 fingerprint against its actual proxy configuration. The same full fingerprint is required by the phone manifest, receipt, cloud pool manifest, probe state, receipt validator and failed-node pruning. Display names are never used as node identity. Legacy 20-character node IDs are not accepted or normalized; download a newly generated full-fingerprint candidate queue before testing.
 
 After the download succeeds, turn **off the Android system VPN**. Then run the local test. This mode reads only the saved candidate YAML/manifest/metadata and does not fetch candidate files, call GitHub, or update the candidate queue:
 
