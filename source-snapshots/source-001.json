@@ -1,63 +1,12 @@
 {
-  "checked_at": "2026-11-28T09:06:18.953152+00:00",
-  "etag": "W/\"6741b7827bb1a49772274588685cffda2e7ead485dc5ca7c7545238d61c2ac3a\"",
-  "fetched_at": "2026-11-28T08:09:23.787183+00:00",
+  "checked_at": "2026-11-28T10:28:52.125232+00:00",
+  "etag": "W/\"70a0371e1c264d3ed9fb9e226d2429cb8cf93e1abf50c7efde47b6f5f14a3bfc\"",
+  "fetched_at": "2026-11-28T10:28:52.125232+00:00",
   "last_modified": null,
-  "last_status": 304,
+  "last_status": 200,
   "nodes": [
     {
-      "alpn": [
-        "http/1.1"
-      ],
-      "name": "Igareck Node 001 | 🇦🇹 Austria， Vienna (Liesing) | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "ancient-haze-d203.vpnetwork3567.workers.dev",
-      "servername": "ancient-haze-d203.vpnetwork3567.workers.dev",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "963A4918-A630-29DA-A873-093CDF8AD784",
-      "ws-opts": {
-        "headers": {
-          "Host": "ancient-haze-d203.vpnetwork3567.workers.dev"
-        },
-        "path": "/"
-      }
-    },
-    {
-      "client-fingerprint": "chrome",
-      "name": "Igareck Node 002 | 🇦🇹 Austria， Vienna (Liesing) | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "ancient-haze-d203.vpnetwork3567.workers.dev",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "963A4918-A630-29DA-A873-093CDF8AD784",
-      "ws-opts": {
-        "headers": {
-          "Host": "ancient-haze-d203.vpnetwork3567.workers.dev"
-        },
-        "path": "/"
-      }
-    },
-    {
-      "name": "Igareck Node 003 | 🇦🇹 Austria， Vienna (Liesing) | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "ancient-haze-d203.vpnetwork3567.workers.dev",
-      "servername": "ancient-haze-d203.vpnetwork3567.workers.dev",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "963A4918-A630-29DA-A873-093CDF8AD784",
-      "ws-opts": {
-        "path": "/"
-      }
-    },
-    {
-      "name": "Igareck Node 004 | 🇧🇬 Bulgaria， Sofia | [BL]",
+      "name": "Igareck Node 001 | 🇧🇬 Bulgaria， Sofia | [BL]",
       "network": "ws",
       "port": 443,
       "server": "still-bar-5702.vpnetwork3567.workers.dev",
@@ -73,8 +22,7 @@
       "alpn": [
         "http/1.1"
       ],
-      "client-fingerprint": "chrome",
-      "name": "Igareck Node 005 | 🇧🇬 Bulgaria， Sofia | [BL]",
+      "name": "Igareck Node 002 | 🇧🇬 Bulgaria， Sofia | [BL]",
       "network": "ws",
       "port": 443,
       "server": "still-bar-5702.vpnetwork3567.workers.dev",
@@ -92,6 +40,56 @@
     },
     {
       "client-fingerprint": "safari",
+      "flow": "xtls-rprx-vision",
+      "name": "Igareck Node 003 | 🇫🇮 Finland， Helsinki | [BL]",
+      "network": "tcp",
+      "port": 443,
+      "reality-opts": {
+        "public-key": "lqtZwWjlEE8Sx1ayGSlEZETEAC33mxHWbf-Py8mgrEc",
+        "short-id": "b4146cf5c1af7f90"
+      },
+      "server": "ee.prosetupvideo.shop",
+      "servername": "ee.prosetupvideo.shop",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "f8d52ece-fad4-478d-875d-df6eed3befa7"
+    },
+    {
+      "client-fingerprint": "chrome",
+      "flow": "xtls-rprx-vision",
+      "name": "Igareck Node 004 | 🇫🇮 Finland， Helsinki | [BL]",
+      "network": "tcp",
+      "port": 443,
+      "reality-opts": {
+        "public-key": "lqtZwWjlEE8Sx1ayGSlEZETEAC33mxHWbf-Py8mgrEc",
+        "short-id": "b4146cf5c1af7f90"
+      },
+      "server": "ee.prosetupvideo.shop",
+      "servername": "ee.prosetupvideo.shop",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "f8d52ece-fad4-478d-875d-df6eed3befa7"
+    },
+    {
+      "client-fingerprint": "edge",
+      "flow": "xtls-rprx-vision",
+      "name": "Igareck Node 005 | 🇫🇮 Finland， Helsinki | [BL]",
+      "network": "tcp",
+      "port": 443,
+      "reality-opts": {
+        "public-key": "lqtZwWjlEE8Sx1ayGSlEZETEAC33mxHWbf-Py8mgrEc",
+        "short-id": "b4146cf5c1af7f90"
+      },
+      "server": "ee.prosetupvideo.shop",
+      "servername": "ee.prosetupvideo.shop",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "f8d52ece-fad4-478d-875d-df6eed3befa7"
+    },
+    {
       "flow": "xtls-rprx-vision",
       "name": "Igareck Node 006 | 🇫🇮 Finland， Helsinki | [BL]",
       "network": "tcp",
@@ -115,15 +113,15 @@
       "name": "Igareck Node 007 | 🇫🇷 France | 🌐 | [BL]",
       "network": "ws",
       "port": 443,
-      "server": "108.158.198.2",
-      "servername": "dkfsoyk9ju2as.cloudfront.net",
+      "server": "108.159.247.2",
+      "servername": "d1aedflfr97jes.cloudfront.net",
       "tls": true,
       "type": "vless",
       "udp": true,
       "uuid": "7a42d986-f0b8-46e7-82cf-9516e168a613",
       "ws-opts": {
         "headers": {
-          "Host": "dkfsoyk9ju2as.cloudfront.net"
+          "Host": "d1aedflfr97jes.cloudfront.net"
         },
         "path": "/"
       }
@@ -132,7 +130,7 @@
       "alpn": [
         "http/1.1"
       ],
-      "client-fingerprint": "chrome",
+      "client-fingerprint": "firefox",
       "name": "Igareck Node 008 | 🇫🇷 France | 🌐 | [BL]",
       "network": "ws",
       "port": 443,
@@ -150,151 +148,12 @@
       }
     },
     {
-      "alpn": [
-        "http/1.1"
-      ],
-      "client-fingerprint": "firefox",
-      "name": "Igareck Node 009 | 🇫🇷 France | 🌐 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "108.159.247.2",
-      "servername": "d1aedflfr97jes.cloudfront.net",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "7a42d986-f0b8-46e7-82cf-9516e168a613",
-      "ws-opts": {
-        "headers": {
-          "Host": "d1aedflfr97jes.cloudfront.net"
-        },
-        "path": "/"
-      }
-    },
-    {
-      "alpn": [
-        "http/1.1"
-      ],
-      "client-fingerprint": "edge",
-      "name": "Igareck Node 010 | 🇩🇪 Germany | 🌐 | [BL]",
+      "client-fingerprint": "qq",
+      "name": "Igareck Node 009 | 🇩🇪 Germany | 🌐 | [BL]",
       "network": "ws",
       "port": 8443,
       "server": "104.17.70.206",
       "servername": "free.sahanwickramasinghe.com",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "3692de53-42e6-4aed-a522-40ec355dcd2f",
-      "ws-opts": {
-        "headers": {
-          "Host": "free.sahanwickramasinghe.com"
-        },
-        "path": "/"
-      }
-    },
-    {
-      "alpn": [
-        "http/1.1"
-      ],
-      "client-fingerprint": "firefox",
-      "name": "Igareck Node 011 | 🇩🇪 Germany | 🌐 | [BL]",
-      "network": "ws",
-      "port": 8443,
-      "server": "104.17.70.206",
-      "servername": "free.sahanwickramasinghe.com",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "3692de53-42e6-4aed-a522-40ec355dcd2f",
-      "ws-opts": {
-        "headers": {
-          "Host": "free.sahanwickramasinghe.com"
-        },
-        "path": "/"
-      }
-    },
-    {
-      "alpn": [
-        "http/1.1"
-      ],
-      "client-fingerprint": "ios",
-      "name": "Igareck Node 012 | 🇩🇪 Germany | 🌐 | [BL]",
-      "network": "ws",
-      "port": 8443,
-      "server": "104.17.70.206",
-      "servername": "free.sahanwickramasinghe.com",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "3692de53-42e6-4aed-a522-40ec355dcd2f",
-      "ws-opts": {
-        "headers": {
-          "Host": "free.sahanwickramasinghe.com"
-        },
-        "path": "/"
-      }
-    },
-    {
-      "alpn": [
-        "http/1.1"
-      ],
-      "name": "Igareck Node 013 | 🇩🇪 Germany | 🌐 | [BL]",
-      "network": "ws",
-      "port": 8443,
-      "server": "104.17.70.206",
-      "servername": "free.sahanwickramasinghe.com",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "3692de53-42e6-4aed-a522-40ec355dcd2f",
-      "ws-opts": {
-        "headers": {
-          "Host": "free.sahanwickramasinghe.com"
-        },
-        "path": "/"
-      }
-    },
-    {
-      "client-fingerprint": "edge",
-      "name": "Igareck Node 014 | 🇩🇪 Germany | 🌐 | [BL]",
-      "network": "ws",
-      "port": 8443,
-      "server": "104.17.70.206",
-      "servername": "free.sahanwickramasinghe.com",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "3692de53-42e6-4aed-a522-40ec355dcd2f",
-      "ws-opts": {
-        "headers": {
-          "Host": "free.sahanwickramasinghe.com"
-        },
-        "path": "/"
-      }
-    },
-    {
-      "client-fingerprint": "safari",
-      "name": "Igareck Node 015 | 🇩🇪 Germany | 🌐 | [BL]",
-      "network": "ws",
-      "port": 8443,
-      "server": "104.17.70.206",
-      "servername": "free.sahanwickramasinghe.com",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "3692de53-42e6-4aed-a522-40ec355dcd2f",
-      "ws-opts": {
-        "headers": {
-          "Host": "free.sahanwickramasinghe.com"
-        },
-        "path": "/"
-      }
-    },
-    {
-      "client-fingerprint": "safari",
-      "name": "Igareck Node 016 | 🇩🇪 Germany | 🌐 | [BL]",
-      "network": "ws",
-      "port": 8443,
-      "server": "104.17.70.206",
       "tls": true,
       "type": "vless",
       "udp": true,
@@ -308,7 +167,7 @@
     },
     {
       "client-fingerprint": "unsafe",
-      "name": "Igareck Node 017 | 🇩🇪 Germany， Frankfurt am Main (Innenstadt I) | [BL]",
+      "name": "Igareck Node 010 | 🇩🇪 Germany， Frankfurt am Main (Innenstadt I) | [BL]",
       "network": "xhttp",
       "port": 443,
       "server": "188.114.97.6",
@@ -329,7 +188,7 @@
         "http/1.1"
       ],
       "client-fingerprint": "unsafe",
-      "name": "Igareck Node 018 | 🇩🇪 Germany， Frankfurt am Main (Innenstadt I) | [BL]",
+      "name": "Igareck Node 011 | 🇩🇪 Germany， Frankfurt am Main (Innenstadt I) | [BL]",
       "network": "xhttp",
       "port": 443,
       "server": "188.114.97.6",
@@ -350,7 +209,7 @@
         "http/1.1"
       ],
       "client-fingerprint": "chrome",
-      "name": "Igareck Node 019 | 🇩🇪 Germany， Frankfurt am Main (Innenstadt I) | [BL]",
+      "name": "Igareck Node 012 | 🇩🇪 Germany， Frankfurt am Main (Innenstadt I) | [BL]",
       "network": "xhttp",
       "port": 443,
       "server": "188.114.97.6",
@@ -367,7 +226,7 @@
     },
     {
       "client-fingerprint": "qq",
-      "name": "Igareck Node 020 | 🇩🇪 Germany， Frankfurt am Main (Innenstadt I) | [BL]",
+      "name": "Igareck Node 013 | 🇩🇪 Germany， Frankfurt am Main (Innenstadt I) | [BL]",
       "network": "xhttp",
       "port": 443,
       "server": "188.114.97.6",
@@ -384,7 +243,7 @@
     },
     {
       "client-fingerprint": "chrome",
-      "name": "Igareck Node 021 | 🇳🇱 The Netherlands， Amsterdam | 🌐 | [BL]",
+      "name": "Igareck Node 014 | 🇳🇱 The Netherlands， Amsterdam | 🌐 | [BL]",
       "network": "ws",
       "port": 8443,
       "server": "141.193.213.21",
@@ -402,7 +261,7 @@
     },
     {
       "client-fingerprint": "chrome",
-      "name": "Igareck Node 022 | 🇳🇱 The Netherlands， Amsterdam | 🌐 | [BL]",
+      "name": "Igareck Node 015 | 🇳🇱 The Netherlands， Amsterdam | 🌐 | [BL]",
       "network": "ws",
       "port": 8443,
       "server": "ev.zoom.us",
@@ -419,7 +278,26 @@
       }
     },
     {
-      "name": "Igareck Node 023 | 🇺🇸 United States | 🌐 | [BL]",
+      "client-fingerprint": "firefox",
+      "name": "Igareck Node 016 | 🇺🇸 United States | 🌐 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "8.47.69.0",
+      "servername": "institutes-creativity-cards-affairs.trycloudflare.com",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "53580685-9d8b-42ca-9b84-c93765d9b952",
+      "ws-opts": {
+        "headers": {
+          "Host": "institutes-creativity-cards-affairs.trycloudflare.com"
+        },
+        "path": "/vl-53580685"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "Igareck Node 017 | 🇺🇸 United States | 🌐 | [BL]",
       "network": "ws",
       "port": 443,
       "server": "cf.877774.xyz",
@@ -437,7 +315,7 @@
     },
     {
       "client-fingerprint": "chrome",
-      "name": "Igareck Node 024 | 🇺🇸 United States， Newark (Central Business District) | [BL]",
+      "name": "Igareck Node 018 | 🇺🇸 United States， Newark (Central Business District) | [BL]",
       "network": "xhttp",
       "port": 443,
       "reality-opts": {
@@ -455,62 +333,10 @@
       }
     },
     {
-      "name": "Igareck Node 025 | 🌐 Anycast-IP | 🇦🇷 🇨🇦 🇩🇪 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "6izx53eiuuzs.sandy-canyon-9143.workers.dev",
-      "servername": "6izx53eiuuzs.sandy-canyon-9143.workers.dev",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "50414e45-4c5f-5a45-5553-17877f908191",
-      "ws-opts": {
-        "headers": {
-          "Host": "6izx53eiuuzs.sandy-canyon-9143.workers.dev"
-        },
-        "path": "/stream/PANEL_ZEUS/17877f908191"
-      }
-    },
-    {
-      "name": "Igareck Node 026 | 🌐 Anycast-IP | 🇦🇷 🇨🇦 🇫🇮 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "77.232.140.7",
-      "servername": "bbz1x6eau6gs.88bahpu62r.workers.dev",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "50414e45-4c5f-5a45-5553-5a447647929f",
-      "ws-opts": {
-        "headers": {
-          "Host": "bbz1x6eau6gs.88bahpu62r.workers.dev"
-        },
-        "path": "/stream/PANEL_ZEUS/5a447647929f"
-      }
-    },
-    {
-      "client-fingerprint": "chrome",
-      "name": "Igareck Node 027 | 🌐 Anycast-IP | 🇨🇦 🇩🇪 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "6izx53eiuuzs.sandy-canyon-9143.workers.dev",
-      "servername": "6izx53eiuuzs.sandy-canyon-9143.workers.dev",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "50414e45-4c5f-5a45-5553-17877f908191",
-      "ws-opts": {
-        "headers": {
-          "Host": "6izx53eiuuzs.sandy-canyon-9143.workers.dev"
-        },
-        "path": "/stream/PANEL_ZEUS/17877f908191"
-      }
-    },
-    {
       "alpn": [
         "http/1.1"
       ],
-      "name": "Igareck Node 028 | 🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "name": "Igareck Node 019 | 🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
       "network": "ws",
       "port": 443,
       "server": "104.18.20.69",
@@ -530,7 +356,7 @@
       "alpn": [
         "http/1.1"
       ],
-      "name": "Igareck Node 029 | 🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "name": "Igareck Node 020 | 🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
       "network": "ws",
       "port": 443,
       "server": "104.18.21.69",
@@ -550,27 +376,7 @@
       "alpn": [
         "http/1.1"
       ],
-      "name": "Igareck Node 030 | 🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "104.20.5.134",
-      "servername": "freeceshi6.frii.site",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
-      "ws-opts": {
-        "headers": {
-          "Host": "freeceshi6.frii.site"
-        },
-        "path": "/?Telegram---PLANB_NET---PLANB_NET---PLANB_NET---PLANB_NET"
-      }
-    },
-    {
-      "alpn": [
-        "http/1.1"
-      ],
-      "name": "Igareck Node 031 | 🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "name": "Igareck Node 021 | 🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
       "network": "ws",
       "port": 443,
       "server": "104.20.6.134",
@@ -590,7 +396,7 @@
       "alpn": [
         "http/1.1"
       ],
-      "name": "Igareck Node 032 | 🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "name": "Igareck Node 022 | 🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
       "network": "ws",
       "port": 443,
       "server": "104.24.196.20",
@@ -610,7 +416,7 @@
       "alpn": [
         "http/1.1"
       ],
-      "name": "Igareck Node 033 | 🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "name": "Igareck Node 023 | 🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
       "network": "ws",
       "port": 443,
       "server": "104.24.197.20",
@@ -630,7 +436,7 @@
       "alpn": [
         "http/1.1"
       ],
-      "name": "Igareck Node 034 | 🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "name": "Igareck Node 024 | 🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
       "network": "ws",
       "port": 443,
       "server": "104.26.12.31",
@@ -650,7 +456,7 @@
       "alpn": [
         "http/1.1"
       ],
-      "name": "Igareck Node 035 | 🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "name": "Igareck Node 025 | 🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
       "network": "ws",
       "port": 443,
       "server": "104.26.12.54",
@@ -670,7 +476,7 @@
       "alpn": [
         "http/1.1"
       ],
-      "name": "Igareck Node 036 | 🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "name": "Igareck Node 026 | 🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
       "network": "ws",
       "port": 443,
       "server": "104.26.13.31",
@@ -687,8 +493,28 @@
       }
     },
     {
+      "alpn": [
+        "http/1.1"
+      ],
+      "name": "Igareck Node 027 | 🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "104.26.13.54",
+      "servername": "freeceshi6.frii.site",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
+      "ws-opts": {
+        "headers": {
+          "Host": "freeceshi6.frii.site"
+        },
+        "path": "/?Telegram---PLANB_NET---PLANB_NET---PLANB_NET---PLANB_NET"
+      }
+    },
+    {
       "client-fingerprint": "chrome",
-      "name": "Igareck Node 037 | 🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "name": "Igareck Node 028 | 🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
       "network": "ws",
       "port": 2083,
       "server": "172.66.47.74",
@@ -705,10 +531,28 @@
       }
     },
     {
+      "client-fingerprint": "chrome",
+      "name": "Igareck Node 029 | 🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 2083,
+      "server": "172.66.47.74",
+      "servername": "freeceshi6.frii.site",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
+      "ws-opts": {
+        "headers": {
+          "Host": "freeceshi6.frii.site"
+        },
+        "path": "/"
+      }
+    },
+    {
       "alpn": [
         "http/1.1"
       ],
-      "name": "Igareck Node 038 | 🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "name": "Igareck Node 030 | 🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
       "network": "ws",
       "port": 443,
       "server": "172.67.66.177",
@@ -728,7 +572,7 @@
       "alpn": [
         "http/1.1"
       ],
-      "name": "Igareck Node 039 | 🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "name": "Igareck Node 031 | 🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
       "network": "ws",
       "port": 443,
       "server": "172.67.68.157",
@@ -748,7 +592,7 @@
       "alpn": [
         "http/1.1"
       ],
-      "name": "Igareck Node 040 | 🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "name": "Igareck Node 032 | 🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
       "network": "ws",
       "port": 443,
       "server": "172.67.75.172",
@@ -768,7 +612,7 @@
       "alpn": [
         "http/1.1"
       ],
-      "name": "Igareck Node 041 | 🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "name": "Igareck Node 033 | 🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
       "network": "ws",
       "port": 443,
       "server": "188.114.96.6",
@@ -788,7 +632,7 @@
       "alpn": [
         "http/1.1"
       ],
-      "name": "Igareck Node 042 | 🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "name": "Igareck Node 034 | 🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
       "network": "ws",
       "port": 443,
       "server": "188.114.99.0",
@@ -808,7 +652,27 @@
       "alpn": [
         "http/1.1"
       ],
-      "name": "Igareck Node 043 | 🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "name": "Igareck Node 035 | 🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "8.6.112.4",
+      "servername": "freeceshi6.frii.site",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
+      "ws-opts": {
+        "headers": {
+          "Host": "freeceshi6.frii.site"
+        },
+        "path": "/?Telegram---PLANB_NET---PLANB_NET---PLANB_NET---PLANB_NET"
+      }
+    },
+    {
+      "alpn": [
+        "http/1.1"
+      ],
+      "name": "Igareck Node 036 | 🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
       "network": "ws",
       "port": 443,
       "server": "8.6.112.86",
@@ -825,131 +689,8 @@
       }
     },
     {
-      "client-fingerprint": "chrome",
-      "name": "Igareck Node 044 | 🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "irfsa.ir",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "7b102311-43fd-4e8f-877e-8090623c101d",
-      "ws-opts": {
-        "headers": {
-          "Host": "putak.wopexiv687.workers.dev"
-        },
-        "path": "/"
-      }
-    },
-    {
-      "client-fingerprint": "chrome",
-      "name": "Igareck Node 045 | 🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "edge-relay-c9db.edge-edge-relay-be8e.workers.dev",
-      "servername": "edge-relay-c9db.edge-edge-relay-be8e.workers.dev",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "8a540f3b-04c7-4e22-924a-51a0b6fad164",
-      "ws-opts": {
-        "headers": {
-          "Host": "edge-relay-c9db.edge-edge-relay-be8e.workers.dev"
-        },
-        "path": "/admin/proxyip=undefined"
-      }
-    },
-    {
-      "client-fingerprint": "chrome",
-      "name": "Igareck Node 046 | 🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "edge-relay-c9db.edge-edge-relay-be8e.workers.dev",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "8a540f3b-04c7-4e22-924a-51a0b6fad164",
-      "ws-opts": {
-        "headers": {
-          "Host": "edge-relay-c9db.edge-edge-relay-be8e.workers.dev"
-        },
-        "path": "/"
-      }
-    },
-    {
-      "client-fingerprint": "chrome",
-      "name": "Igareck Node 047 | 🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "edge-relay-c9db.edge-edge-relay-be8e.workers.dev",
-      "servername": "edge-relay-c9db.edge-edge-relay-be8e.workers.dev",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "8a540f3b-04c7-4e22-924a-51a0b6fad164",
-      "ws-opts": {
-        "path": "/admin/proxyip=undefined"
-      }
-    },
-    {
-      "client-fingerprint": "chrome",
-      "name": "Igareck Node 048 | 🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
-      "network": "ws",
-      "port": 2053,
-      "server": "104.18.28.234",
-      "servername": "turbo-smart-628.pokfjfjfdjj.workers.dev",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "c7653db5-1fa9-9a64-331a-d80c00000050",
-      "ws-opts": {
-        "headers": {
-          "Host": "turbo-smart-628.pokfjfjfdjj.workers.dev"
-        },
-        "path": "/"
-      }
-    },
-    {
-      "client-fingerprint": "chrome",
-      "name": "Igareck Node 049 | 🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
-      "network": "ws",
-      "port": 2053,
-      "server": "104.18.28.234",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "c7653db5-1fa9-9a64-331a-d80c00000050",
-      "ws-opts": {
-        "headers": {
-          "Host": "turbo-smart-628.pokfjfjfdjj.workers.dev"
-        },
-        "path": "/"
-      }
-    },
-    {
-      "alpn": [
-        "http/1.1"
-      ],
-      "client-fingerprint": "chrome",
-      "name": "Igareck Node 050 | 🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "104.24.225.89",
-      "servername": "h3oy24v7nkwv4n7kp-Z.pAGes.dEV",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "ded6b789-7b6a-40c5-8ac6-0834065b2f17",
-      "ws-opts": {
-        "headers": {
-          "Host": "h3oy24v7nkwv4n7kp-z.pages.dev"
-        },
-        "path": "/vl/T7JVwvCjRY2gfoMgfat?ed=2560"
-      }
-    },
-    {
       "client-fingerprint": "firefox",
-      "name": "Igareck Node 051 | 🌐 Anycast-IP | 🇨🇦 🇫🇮 🇺🇸 | [BL]",
+      "name": "Igareck Node 037 | 🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
       "network": "ws",
       "port": 2053,
       "server": "104.20.0.89",
@@ -966,133 +707,13 @@
       }
     },
     {
-      "name": "Igareck Node 052 | 🌐 Anycast-IP | 🇨🇦 🇬🇧 🇸🇪 | [BL]",
-      "network": "ws",
-      "port": 2083,
-      "server": "162.159.130.234",
-      "servername": "vp14.1145678.xyz",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "5d7b401c-78fa-4254-872e-6d42bf7e75ec",
-      "ws-opts": {
-        "headers": {
-          "Host": "vp14.1145678.xyz"
-        },
-        "path": "/community/redirect.html"
-      }
-    },
-    {
-      "client-fingerprint": "chrome",
-      "name": "Igareck Node 053 | 🌐 Anycast-IP | 🇨🇦 🇬🇧 🇸🇪 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "www.speedtest.net",
-      "servername": "wallweb5.pages.dev",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "85550ebf-fd43-42dd-9801-bda528fea2fc",
-      "ws-opts": {
-        "headers": {
-          "Host": "wallweb5.pages.dev"
-        },
-        "path": "/"
-      }
-    },
-    {
-      "client-fingerprint": "chrome",
-      "name": "Igareck Node 054 | 🌐 Anycast-IP | 🇨🇦 🇬🇧 🇸🇪 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "ip13.shabkhosh.sbs",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "bf20cf5a-30c1-4022-9bcb-ba798ad51531",
-      "ws-opts": {
-        "headers": {
-          "Host": "wallweb7.pages.dev"
-        },
-        "path": "/"
-      }
-    },
-    {
-      "client-fingerprint": "firefox",
-      "name": "Igareck Node 055 | 🌐 Anycast-IP | 🇨🇦 🇬🇧 🇸🇪 🇺🇸 | [BL]",
-      "network": "ws",
-      "port": 8443,
-      "server": "104.16.242.124",
-      "servername": "worker3.paneger955.workers.dev",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "4dd8d557-dbe3-4c6f-a3ee-168da9a03d1b",
-      "ws-opts": {
-        "headers": {
-          "Host": "worker3.paneger955.workers.dev"
-        },
-        "path": "/"
-      }
-    },
-    {
-      "client-fingerprint": "firefox",
-      "name": "Igareck Node 056 | 🌐 Anycast-IP | 🇨🇦 🇬🇧 🇸🇪 🇺🇸 | [BL]",
-      "network": "ws",
-      "port": 8443,
-      "server": "104.16.242.124",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "4dd8d557-dbe3-4c6f-a3ee-168da9a03d1b",
-      "ws-opts": {
-        "headers": {
-          "Host": "worker3.paneger955.workers.dev"
-        },
-        "path": "/"
-      }
-    },
-    {
-      "client-fingerprint": "chrome",
-      "name": "Igareck Node 057 | 🌐 Anycast-IP | 🇨🇦 🇬🇧 🇸🇪 🇺🇸 | [BL]",
-      "network": "ws",
-      "port": 2096,
-      "server": "104.17.169.7",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "51a0af77-a60c-4d9b-81a4-f50e1b38d90b",
-      "ws-opts": {
-        "headers": {
-          "Host": "alphefedo7865.pages.dev"
-        },
-        "path": "/"
-      }
-    },
-    {
-      "name": "Igareck Node 058 | 🌐 Anycast-IP | 🇨🇦 🇬🇧 🇸🇪 🇺🇸 | [BL]",
-      "network": "ws",
-      "port": 8443,
-      "server": "104.19.52.70",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "fceb3200-2516-47d2-8e28-d04ecde9427a",
-      "ws-opts": {
-        "headers": {
-          "Host": "edge-fef90023.pages.dev"
-        },
-        "path": "/fp=chrome"
-      }
-    },
-    {
       "alpn": [
         "http/1.1"
       ],
-      "name": "Igareck Node 059 | 🌐 Anycast-IP | 🇨🇦 🇯🇵 🇸🇪 | [BL]",
+      "name": "Igareck Node 038 | 🌐 Anycast-IP | 🇨🇦 🇫🇮 🇯🇵 | [BL]",
       "network": "ws",
       "port": 443,
-      "server": "188.114.98.0",
+      "server": "104.20.5.134",
       "servername": "freeceshi6.frii.site",
       "tls": true,
       "type": "vless",
@@ -1102,14 +723,194 @@
         "headers": {
           "Host": "freeceshi6.frii.site"
         },
-        "path": "/proxyip"
+        "path": "/?Telegram---PLANB_NET---PLANB_NET---PLANB_NET---PLANB_NET"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "Igareck Node 039 | 🌐 Anycast-IP | 🇨🇦 🇬🇧 🇸🇪 | [BL]",
+      "network": "ws",
+      "port": 2096,
+      "server": "104.18.45.236",
+      "servername": "mohammadhoseini4532.pages.dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "51a0af77-a60c-4d9b-81a4-f50e1b38d90b",
+      "ws-opts": {
+        "headers": {
+          "Host": "mohammadhoseini4532.pages.dev"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "name": "Igareck Node 040 | 🌐 Anycast-IP | 🇨🇦 🇬🇧 🇸🇪 | [BL]",
+      "network": "ws",
+      "port": 2096,
+      "server": "104.18.45.236",
+      "servername": "mohammadhoseini4532.pages.dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "51a0af77-a60c-4d9b-81a4-f50e1b38d90b",
+      "ws-opts": {
+        "headers": {
+          "Host": "mohammadhoseini4532.pages.dev"
+        },
+        "path": "/fp=chrome"
+      }
+    },
+    {
+      "client-fingerprint": "edge",
+      "name": "Igareck Node 041 | 🌐 Anycast-IP | 🇨🇦 🇬🇧 🇸🇪 | [BL]",
+      "network": "ws",
+      "port": 2087,
+      "server": "saas.sin.fan",
+      "servername": "vp2.1145678.xyz",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "5d7b401c-78fa-4254-872e-6d42bf7e75ec",
+      "ws-opts": {
+        "headers": {
+          "Host": "vp2.1145678.xyz"
+        },
+        "path": "/out"
+      }
+    },
+    {
+      "client-fingerprint": "ios",
+      "name": "Igareck Node 042 | 🌐 Anycast-IP | 🇨🇦 🇬🇧 🇸🇪 | [BL]",
+      "network": "ws",
+      "port": 2096,
+      "server": "saas.sin.fan",
+      "servername": "vp13.1145678.xyz",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "5d7b401c-78fa-4254-872e-6d42bf7e75ec",
+      "ws-opts": {
+        "headers": {
+          "Host": "vp13.1145678.xyz"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "Igareck Node 043 | 🌐 Anycast-IP | 🇨🇦 🇬🇧 🇸🇪 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "saas.sin.fan",
+      "servername": "v2n1.11676767.xyz",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "5d7b401c-78fa-4254-872e-6d42bf7e75ec",
+      "ws-opts": {
+        "headers": {
+          "Host": "v2n1.11676767.xyz"
+        },
+        "path": "/static/cart"
       }
     },
     {
       "alpn": [
         "http/1.1"
       ],
-      "name": "Igareck Node 060 | 🌐 Anycast-IP | 🇨🇦 🇯🇵 🇸🇪 🇺🇸 | [BL]",
+      "name": "Igareck Node 044 | 🌐 Anycast-IP | 🇨🇦 🇬🇧 🇸🇪 🇺🇸 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "104.18.33.45",
+      "servername": "freeceshi6.frii.site",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
+      "ws-opts": {
+        "headers": {
+          "Host": "freeceshi6.frii.site"
+        },
+        "path": "/?Telegram---PLANB_NET---PLANB_NET---PLANB_NET---PLANB_NET"
+      }
+    },
+    {
+      "alpn": [
+        "http/1.1"
+      ],
+      "name": "Igareck Node 045 | 🌐 Anycast-IP | 🇨🇦 🇬🇧 🇸🇪 🇺🇸 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "172.64.150.28",
+      "servername": "freeceshi6.frii.site",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
+      "ws-opts": {
+        "headers": {
+          "Host": "freeceshi6.frii.site"
+        },
+        "path": "/?Telegram---PLANB_NET---PLANB_NET---PLANB_NET---PLANB_NET"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "Igareck Node 046 | 🌐 Anycast-IP | 🇨🇦 🇬🇧 🇸🇪 🇺🇸 | [BL]",
+      "network": "ws",
+      "port": 2096,
+      "server": "162.159.130.234",
+      "servername": "vp8.1145678.xyz",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "5d7b401c-78fa-4254-872e-6d42bf7e75ec",
+      "ws-opts": {
+        "headers": {
+          "Host": "vp8.1145678.xyz"
+        },
+        "path": "/p"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "Igareck Node 047 | 🌐 Anycast-IP | 🇨🇦 🇬🇧 🇸🇪 🇺🇸 | [BL]",
+      "network": "ws",
+      "port": 2087,
+      "server": "saas.sin.fan",
+      "servername": "vp2.1145678.xyz",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "5d7b401c-78fa-4254-872e-6d42bf7e75ec",
+      "ws-opts": {
+        "headers": {
+          "Host": "vp2.1145678.xyz"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "client-fingerprint": "android",
+      "name": "Igareck Node 048 | 🌐 Anycast-IP | 🇨🇦 🇬🇧 🇸🇪 🇺🇸 | [BL]",
+      "network": "ws",
+      "port": 2096,
+      "server": "saas.sin.fan",
+      "servername": "vp9.1145678.xyz",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "5d7b401c-78fa-4254-872e-6d42bf7e75ec",
+      "ws-opts": {
+        "headers": {
+          "Host": "vp9.1145678.xyz"
+        },
+        "path": "/thread/list"
+      }
+    },
+    {
+      "name": "Igareck Node 049 | 🌐 Anycast-IP | 🇨🇦 🇯🇵 🇸🇪 | [BL]",
       "network": "ws",
       "port": 443,
       "server": "188.114.98.0",
@@ -1126,13 +927,104 @@
       }
     },
     {
+      "name": "Igareck Node 050 | 🌐 Anycast-IP | 🇨🇦 🇯🇵 🇸🇪 🇺🇸 | [BL]",
+      "network": "ws",
+      "port": 8443,
+      "server": "172.64.154.113",
+      "servername": "freeceshi6.frii.site",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
+      "ws-opts": {
+        "headers": {
+          "Host": "freeceshi6.frii.site"
+        },
+        "path": "/proxyip=ProxyIP.JP.CMLiussss.net"
+      }
+    },
+    {
       "alpn": [
         "http/1.1"
       ],
-      "name": "Igareck Node 061 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 | [BL]",
+      "name": "Igareck Node 051 | 🌐 Anycast-IP | 🇨🇦 🇯🇵 🇸🇪 🇺🇸 | [BL]",
       "network": "ws",
       "port": 443,
-      "server": "162.159.254.201",
+      "server": "188.114.98.0",
+      "servername": "freeceshi6.frii.site",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
+      "ws-opts": {
+        "headers": {
+          "Host": "freeceshi6.frii.site"
+        },
+        "path": "/proxyip=ProxyIP.JP.CMLiussss.net"
+      }
+    },
+    {
+      "name": "Igareck Node 052 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 | [BL]",
+      "network": "ws",
+      "port": 2087,
+      "server": "172.64.153.205",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "51a0af77-a60c-4d9b-81a4-f50e1b38d90b",
+      "ws-opts": {
+        "headers": {
+          "Host": "alphefedo7865.pages.dev"
+        },
+        "path": "/fp=chrome"
+      }
+    },
+    {
+      "alpn": [
+        "http/1.1"
+      ],
+      "name": "Igareck Node 053 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "104.18.41.190",
+      "servername": "freeceshi6.frii.site",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
+      "ws-opts": {
+        "headers": {
+          "Host": "freeceshi6.frii.site"
+        },
+        "path": "/?Telegram---PLANB_NET---PLANB_NET---PLANB_NET---PLANB_NET"
+      }
+    },
+    {
+      "alpn": [
+        "http/1.1"
+      ],
+      "client-fingerprint": "safari",
+      "name": "Igareck Node 054 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "188.114.98.0",
+      "servername": "freeceshi6.frii.site",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
+      "ws-opts": {
+        "headers": {
+          "Host": "freeceshi6.frii.site"
+        },
+        "path": "/?Telegram---PLANB_NET---PLANB_NET---PLANB_NET---PLANB_NET"
+      }
+    },
+    {
+      "name": "Igareck Node 055 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "188.114.98.0",
       "servername": "freeceshi6.frii.site",
       "tls": true,
       "type": "vless",
@@ -1146,11 +1038,7 @@
       }
     },
     {
-      "alpn": [
-        "http/1.1"
-      ],
-      "client-fingerprint": "ios",
-      "name": "Igareck Node 062 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 | [BL]",
+      "name": "Igareck Node 056 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 | [BL]",
       "network": "ws",
       "port": 443,
       "server": "188.114.98.0",
@@ -1170,8 +1058,7 @@
       "alpn": [
         "http/1.1"
       ],
-      "client-fingerprint": "edge",
-      "name": "Igareck Node 063 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 | [BL]",
+      "name": "Igareck Node 057 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 | [BL]",
       "network": "ws",
       "port": 443,
       "server": "188.114.98.0",
@@ -1184,48 +1071,12 @@
         "headers": {
           "Host": "freeceshi6.frii.site"
         },
-        "path": "/"
+        "path": "/?TELEGRAM---MARAMBASHI---MARAMBASHI---MARAMBASHI---MARAMBASHI"
       }
     },
     {
-      "alpn": [
-        "http/1.1"
-      ],
-      "name": "Igareck Node 064 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "188.114.98.0",
-      "servername": "freeceshi6.frii.site",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
-      "ws-opts": {
-        "headers": {
-          "Host": "freeceshi6.frii.site"
-        },
-        "path": "/?TELEGRAM--MARAMBASHI--MARAMBASHI--MARAMBASHI--MARAMBASHI"
-      }
-    },
-    {
-      "name": "Igareck Node 065 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "188.114.98.0",
-      "servername": "freeceshi6.frii.site",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
-      "ws-opts": {
-        "headers": {
-          "Host": "freeceshi6.frii.site"
-        },
-        "path": "/?TELEGRAM--MARAMBASHI--MARAMBASHI--MARAMBASHI--MARAMBASHI?ed=512"
-      }
-    },
-    {
-      "name": "Igareck Node 066 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 | [BL]",
+      "client-fingerprint": "chrome",
+      "name": "Igareck Node 058 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 | [BL]",
       "network": "ws",
       "port": 443,
       "server": "leviko-us4350.shopingggg.ir",
@@ -1242,28 +1093,28 @@
       }
     },
     {
-      "client-fingerprint": "chrome",
-      "name": "Igareck Node 067 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
+      "name": "Igareck Node 059 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 | [BL]",
       "network": "ws",
       "port": 443,
-      "server": "ip13.shabkhosh.sbs",
+      "server": "saas.sin.fan",
+      "servername": "v2n1.11676767.xyz",
       "tls": true,
       "type": "vless",
       "udp": true,
-      "uuid": "49e72868-abfd-4557-b474-6777853a9c8d",
+      "uuid": "5d7b401c-78fa-4254-872e-6d42bf7e75ec",
       "ws-opts": {
         "headers": {
-          "Host": "wallwebb33p08.wallwebvycxcl.workers.dev"
+          "Host": "v2n1.11676767.xyz"
         },
-        "path": "/"
+        "path": "/static/cart"
       }
     },
     {
       "client-fingerprint": "chrome",
-      "name": "Igareck Node 068 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
+      "name": "Igareck Node 060 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
       "network": "ws",
-      "port": 443,
-      "server": "104.19.39.229",
+      "port": 2096,
+      "server": "104.17.169.7",
       "tls": true,
       "type": "vless",
       "udp": true,
@@ -1276,7 +1127,47 @@
       }
     },
     {
-      "name": "Igareck Node 069 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
+      "alpn": [
+        "http/1.1"
+      ],
+      "name": "Igareck Node 061 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "104.16.148.244",
+      "servername": "freeceshi6.frii.site",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
+      "ws-opts": {
+        "headers": {
+          "Host": "freeceshi6.frii.site"
+        },
+        "path": "/?Telegram---PLANB_NET---PLANB_NET---PLANB_NET---PLANB_NET"
+      }
+    },
+    {
+      "name": "Igareck Node 062 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "162.159.254.201",
+      "servername": "freeceshi6.frii.site",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
+      "ws-opts": {
+        "headers": {
+          "Host": "freeceshi6.frii.site"
+        },
+        "path": "/?TELEGRAM---MARAMBASHI---MARAMBASHI---MARAMBASHI---MARAMBASHI"
+      }
+    },
+    {
+      "alpn": [
+        "http/1.1"
+      ],
+      "name": "Igareck Node 063 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
       "network": "ws",
       "port": 443,
       "server": "162.159.254.201",
@@ -1297,7 +1188,7 @@
         "http/1.1"
       ],
       "client-fingerprint": "chrome",
-      "name": "Igareck Node 070 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
+      "name": "Igareck Node 064 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
       "network": "ws",
       "port": 443,
       "server": "162.159.254.201",
@@ -1311,6 +1202,114 @@
           "Host": "freeceshi6.frii.site"
         },
         "path": "/?TELEGRAM---MARAMBASHI---MARAMBASHI---MARAMBASHI---MARAMBASHI"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "Igareck Node 065 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
+      "network": "ws",
+      "port": 8443,
+      "server": "172.64.154.113",
+      "servername": "freeceshi6.frii.site",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
+      "ws-opts": {
+        "headers": {
+          "Host": "freeceshi6.frii.site"
+        },
+        "path": "/?TELEGRAM--MARAMBASHI--MARAMBASHI--MARAMBASHI--MARAMBASHI"
+      }
+    },
+    {
+      "client-fingerprint": "qq",
+      "name": "Igareck Node 066 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
+      "network": "ws",
+      "port": 8443,
+      "server": "172.64.154.113",
+      "servername": "freeceshi6.frii.site",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
+      "ws-opts": {
+        "headers": {
+          "Host": "freeceshi6.frii.site"
+        },
+        "path": "/?Telegram---PLANB_NET---PLANB_NET---PLANB_NET---PLANB_NET"
+      }
+    },
+    {
+      "name": "Igareck Node 067 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
+      "network": "ws",
+      "port": 8443,
+      "server": "172.64.154.113",
+      "servername": "freeceshi6.frii.site",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
+      "ws-opts": {
+        "headers": {
+          "Host": "freeceshi6.frii.site"
+        },
+        "path": "/?TELEGRAM--MARAMBASHI--MARAMBASHI--MARAMBASHI--MARAMBASHI?ed=2048"
+      }
+    },
+    {
+      "name": "Igareck Node 068 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
+      "network": "ws",
+      "port": 8443,
+      "server": "172.64.154.113",
+      "servername": "freeceshi6.frii.site",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
+      "ws-opts": {
+        "headers": {
+          "Host": "freeceshi6.frii.site"
+        },
+        "path": "/?TELEGRAM--MARAMBASHI--MARAMBASHI--MARAMBASHI--MARAMBASHI"
+      }
+    },
+    {
+      "name": "Igareck Node 069 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
+      "network": "ws",
+      "port": 8443,
+      "server": "172.64.154.113",
+      "servername": "freeceshi6.frii.site",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
+      "ws-opts": {
+        "headers": {
+          "Host": "freeceshi6.frii.site"
+        },
+        "path": "/proxyip=ProxyIP.JP.CMLiussss.netfp=chrome?ed#Telegram---PLANB_NET---PLANB_NET---PLANB_NET---PLANB_NET"
+      }
+    },
+    {
+      "alpn": [
+        "http/1.1"
+      ],
+      "client-fingerprint": "edge",
+      "name": "Igareck Node 070 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "188.114.98.0",
+      "servername": "freeceshi6.frii.site",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
+      "ws-opts": {
+        "headers": {
+          "Host": "freeceshi6.frii.site"
+        },
+        "path": "/?TELEGRAM--MARAMBASHI--MARAMBASHI--MARAMBASHI--MARAMBASHI?ed=2560"
       }
     },
     {
@@ -1338,7 +1337,7 @@
       "alpn": [
         "http/1.1"
       ],
-      "client-fingerprint": "safari",
+      "client-fingerprint": "ios",
       "name": "Igareck Node 072 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
       "network": "ws",
       "port": 443,
@@ -1401,29 +1400,8 @@
       "alpn": [
         "http/1.1"
       ],
-      "client-fingerprint": "safari",
-      "name": "Igareck Node 075 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "188.114.98.0",
-      "servername": "freeceshi6.frii.site",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
-      "ws-opts": {
-        "headers": {
-          "Host": "freeceshi6.frii.site"
-        },
-        "path": "/proxyip?ed#Telegram---PLANB_NET---PLANB_NET---PLANB_NET---PLANB_NET"
-      }
-    },
-    {
-      "alpn": [
-        "http/1.1"
-      ],
       "client-fingerprint": "ios",
-      "name": "Igareck Node 076 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
+      "name": "Igareck Node 075 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
       "network": "ws",
       "port": 443,
       "server": "188.114.98.0",
@@ -1443,7 +1421,28 @@
       "alpn": [
         "http/1.1"
       ],
-      "client-fingerprint": "edge",
+      "client-fingerprint": "firefox",
+      "name": "Igareck Node 076 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "188.114.98.0",
+      "servername": "freeceshi6.frii.site",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
+      "ws-opts": {
+        "headers": {
+          "Host": "freeceshi6.frii.site"
+        },
+        "path": "/?Telegram---PLANB_NET---PLANB_NET---PLANB_NET---PLANB_NET"
+      }
+    },
+    {
+      "alpn": [
+        "http/1.1"
+      ],
+      "client-fingerprint": "ios",
       "name": "Igareck Node 077 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
       "network": "ws",
       "port": 443,
@@ -1464,7 +1463,6 @@
       "alpn": [
         "http/1.1"
       ],
-      "client-fingerprint": "firefox",
       "name": "Igareck Node 078 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
       "network": "ws",
       "port": 443,
@@ -1478,14 +1476,14 @@
         "headers": {
           "Host": "freeceshi6.frii.site"
         },
-        "path": "/?Telegram---PLANB_NET---PLANB_NET---PLANB_NET---PLANB_NET"
+        "path": "/?TELEGRAM--MARAMBASHI--MARAMBASHI--MARAMBASHI--MARAMBASHI"
       }
     },
     {
       "alpn": [
         "http/1.1"
       ],
-      "client-fingerprint": "ios",
+      "client-fingerprint": "edge",
       "name": "Igareck Node 079 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
       "network": "ws",
       "port": 443,
@@ -1506,28 +1504,8 @@
       "alpn": [
         "http/1.1"
       ],
-      "name": "Igareck Node 080 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "188.114.98.0",
-      "servername": "freeceshi6.frii.site",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
-      "ws-opts": {
-        "headers": {
-          "Host": "freeceshi6.frii.site"
-        },
-        "path": "/proxyip?ed"
-      }
-    },
-    {
-      "alpn": [
-        "http/1.1"
-      ],
       "client-fingerprint": "ios",
-      "name": "Igareck Node 081 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
+      "name": "Igareck Node 080 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
       "network": "ws",
       "port": 443,
       "server": "188.114.98.0",
@@ -1544,7 +1522,7 @@
       }
     },
     {
-      "name": "Igareck Node 082 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
+      "name": "Igareck Node 081 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
       "network": "ws",
       "port": 443,
       "server": "188.114.98.0",
@@ -1557,11 +1535,12 @@
         "headers": {
           "Host": "freeceshi6.frii.site"
         },
-        "path": "/?TELEGRAM---MARAMBASHI---MARAMBASHI---MARAMBASHI---MARAMBASHI"
+        "path": "/?Telegram---PLANB_NET---PLANB_NET---PLANB_NET---PLANB_NET"
       }
     },
     {
-      "name": "Igareck Node 083 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
+      "client-fingerprint": "edge",
+      "name": "Igareck Node 082 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
       "network": "ws",
       "port": 443,
       "server": "188.114.98.0",
@@ -1579,7 +1558,7 @@
     },
     {
       "client-fingerprint": "firefox",
-      "name": "Igareck Node 084 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
+      "name": "Igareck Node 083 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
       "network": "ws",
       "port": 443,
       "server": "188.114.98.0",
@@ -1597,7 +1576,7 @@
     },
     {
       "client-fingerprint": "ios",
-      "name": "Igareck Node 085 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
+      "name": "Igareck Node 084 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
       "network": "ws",
       "port": 443,
       "server": "188.114.98.0",
@@ -1614,7 +1593,7 @@
       }
     },
     {
-      "name": "Igareck Node 086 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
+      "name": "Igareck Node 085 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
       "network": "ws",
       "port": 443,
       "server": "188.114.98.0",
@@ -1627,11 +1606,11 @@
         "headers": {
           "Host": "freeceshi6.frii.site"
         },
-        "path": "/proxyip=ProxyIP.JP.CMLiussss.net"
+        "path": "/?TELEGRAM--MARAMBASHI--MARAMBASHI--MARAMBASHI--MARAMBASHI?ed=512"
       }
     },
     {
-      "name": "Igareck Node 087 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
+      "name": "Igareck Node 086 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
       "network": "ws",
       "port": 443,
       "server": "188.114.98.0",
@@ -1651,7 +1630,7 @@
       "alpn": [
         "http/1.1"
       ],
-      "name": "Igareck Node 088 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
+      "name": "Igareck Node 087 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
       "network": "ws",
       "port": 443,
       "server": "188.114.98.0",
@@ -1669,7 +1648,7 @@
     },
     {
       "client-fingerprint": "chrome",
-      "name": "Igareck Node 089 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
+      "name": "Igareck Node 088 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
       "network": "ws",
       "port": 443,
       "server": "188.114.98.0",
@@ -1689,7 +1668,7 @@
       "alpn": [
         "http/1.1"
       ],
-      "name": "Igareck Node 090 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
+      "name": "Igareck Node 089 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
       "network": "ws",
       "port": 443,
       "server": "188.114.98.0",
@@ -1709,7 +1688,7 @@
       "alpn": [
         "http/1.1"
       ],
-      "name": "Igareck Node 091 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
+      "name": "Igareck Node 090 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
       "network": "ws",
       "port": 443,
       "server": "188.114.98.0",
@@ -1729,7 +1708,7 @@
       "alpn": [
         "http/1.1"
       ],
-      "name": "Igareck Node 092 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
+      "name": "Igareck Node 091 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
       "network": "ws",
       "port": 443,
       "server": "188.114.98.0",
@@ -1743,6 +1722,26 @@
           "Host": "freeceshi6.frii.site"
         },
         "path": "/?TELEGRAM--MARAMBASHI--MARAMBASHI--MARAMBASHI--MARAMBASHI?ed=2048"
+      }
+    },
+    {
+      "alpn": [
+        "http/1.1"
+      ],
+      "name": "Igareck Node 092 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "188.114.98.0",
+      "servername": "freeceshi6.frii.site",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
+      "ws-opts": {
+        "headers": {
+          "Host": "freeceshi6.frii.site"
+        },
+        "path": "/proxyip"
       }
     },
     {
@@ -1787,9 +1786,6 @@
       }
     },
     {
-      "alpn": [
-        "http/1.1"
-      ],
       "name": "Igareck Node 095 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
       "network": "ws",
       "port": 443,
@@ -1828,72 +1824,74 @@
       }
     },
     {
+      "client-fingerprint": "chrome",
       "name": "Igareck Node 097 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
       "network": "ws",
-      "port": 443,
-      "server": "www.speedtest.net",
-      "servername": "wallweb5.pages.dev",
+      "port": 8443,
+      "server": "leviko-us6278.shopingggg.ir",
+      "servername": "freeceshi6.frii.site",
       "tls": true,
       "type": "vless",
       "udp": true,
-      "uuid": "85550ebf-fd43-42dd-9801-bda528fea2fc",
+      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
       "ws-opts": {
         "headers": {
-          "Host": "wallweb5.pages.dev"
+          "Host": "freeceshi6.frii.site"
         },
-        "path": "/fp=chrome"
+        "path": "/"
       }
     },
     {
+      "client-fingerprint": "chrome",
       "name": "Igareck Node 098 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
       "network": "ws",
-      "port": 443,
-      "server": "104.17.147.22",
-      "servername": "wallweb7.pages.dev",
+      "port": 2087,
+      "server": "saas.sin.fan",
+      "servername": "vp6.1145678.xyz",
       "tls": true,
       "type": "vless",
       "udp": true,
-      "uuid": "bf20cf5a-30c1-4022-9bcb-ba798ad51531",
+      "uuid": "5d7b401c-78fa-4254-872e-6d42bf7e75ec",
       "ws-opts": {
         "headers": {
-          "Host": "wallweb7.pages.dev"
+          "Host": "vp6.1145678.xyz"
         },
-        "path": "/"
+        "path": "/thread"
       }
     },
     {
       "client-fingerprint": "chrome",
       "name": "Igareck Node 099 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
       "network": "ws",
-      "port": 443,
-      "server": "104.17.147.22",
+      "port": 2087,
+      "server": "saas.sin.fan",
+      "servername": "vp6.1145678.xyz",
       "tls": true,
       "type": "vless",
       "udp": true,
-      "uuid": "bf20cf5a-30c1-4022-9bcb-ba798ad51531",
+      "uuid": "5d7b401c-78fa-4254-872e-6d42bf7e75ec",
       "ws-opts": {
         "headers": {
-          "Host": "wallweb7.pages.dev"
+          "Host": "vp6.1145678.xyz"
         },
         "path": "/"
       }
     },
     {
-      "client-fingerprint": "chrome",
       "name": "Igareck Node 100 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
       "network": "ws",
       "port": 443,
-      "server": "ip13.shabkhosh.sbs",
-      "servername": "wallweb7.pages.dev",
+      "server": "www.speedtest.net",
+      "servername": "wallweb4.pages.dev",
       "tls": true,
       "type": "vless",
       "udp": true,
-      "uuid": "bf20cf5a-30c1-4022-9bcb-ba798ad51531",
+      "uuid": "ec23f217-23a1-4f62-b98d-ba56070de89c",
       "ws-opts": {
         "headers": {
-          "Host": "wallweb7.pages.dev"
+          "Host": "wallweb4.pages.dev"
         },
-        "path": "/"
+        "path": "/fp=chrome"
       }
     },
     {
@@ -1902,7 +1900,6 @@
       "network": "ws",
       "port": 443,
       "server": "www.speedtest.net",
-      "servername": "wallweb4.pages.dev",
       "tls": true,
       "type": "vless",
       "udp": true,
@@ -1915,140 +1912,23 @@
       }
     },
     {
-      "name": "Igareck Node 102 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "www.speedtest.net",
-      "servername": "wallweb4.pages.dev",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "ec23f217-23a1-4f62-b98d-ba56070de89c",
-      "ws-opts": {
-        "headers": {
-          "Host": "wallweb4.pages.dev"
-        },
-        "path": "/fp=chrome"
-      }
-    },
-    {
-      "client-fingerprint": "chrome",
-      "name": "Igareck Node 103 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "104.16.251.179",
-      "servername": "edge-fef90023.pages.dev",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "fceb3200-2516-47d2-8e28-d04ecde9427a",
-      "ws-opts": {
-        "headers": {
-          "Host": "edge-fef90023.pages.dev"
-        },
-        "path": "/"
-      }
-    },
-    {
-      "client-fingerprint": "chrome",
-      "name": "Igareck Node 104 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "104.16.251.179",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "fceb3200-2516-47d2-8e28-d04ecde9427a",
-      "ws-opts": {
-        "headers": {
-          "Host": "edge-fef90023.pages.dev"
-        },
-        "path": "/"
-      }
-    },
-    {
-      "name": "Igareck Node 105 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
-      "network": "ws",
-      "port": 8443,
-      "server": "104.17.177.160",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "fceb3200-2516-47d2-8e28-d04ecde9427a",
-      "ws-opts": {
-        "headers": {
-          "Host": "edge-fef90023.pages.dev"
-        },
-        "path": "/fp=chrome"
-      }
-    },
-    {
+      "alpn": [
+        "h2"
+      ],
       "client-fingerprint": "firefox",
-      "name": "Igareck Node 106 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
-      "network": "ws",
-      "port": 8443,
-      "server": "104.19.52.70",
+      "name": "Igareck Node 102 | 🌐 Anycast-IP | 🇨🇦 🇺🇸 | [BL]",
+      "network": "xhttp",
+      "port": 443,
+      "server": "109.172.87.68",
+      "servername": "rusamicro67.richhoodfoc.com",
       "tls": true,
       "type": "vless",
       "udp": true,
-      "uuid": "fceb3200-2516-47d2-8e28-d04ecde9427a",
-      "ws-opts": {
-        "headers": {
-          "Host": "edge-fef90023.pages.dev"
-        },
-        "path": "/"
-      }
-    },
-    {
-      "name": "Igareck Node 107 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
-      "network": "ws",
-      "port": 8443,
-      "server": "104.19.52.70",
-      "servername": "edge-fef90023.pages.dev",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "fceb3200-2516-47d2-8e28-d04ecde9427a",
-      "ws-opts": {
-        "headers": {
-          "Host": "edge-fef90023.pages.dev"
-        },
-        "path": "/fp=chrome"
-      }
-    },
-    {
-      "client-fingerprint": "edge",
-      "name": "Igareck Node 108 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
-      "network": "ws",
-      "port": 8443,
-      "server": "104.19.52.70",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "fceb3200-2516-47d2-8e28-d04ecde9427a",
-      "ws-opts": {
-        "headers": {
-          "Host": "edge-fef90023.pages.dev"
-        },
-        "path": "/"
-      }
-    },
-    {
-      "client-fingerprint": "firefox",
-      "name": "Igareck Node 109 | 🌐 Anycast-IP | 🇨🇦 🇸🇪 🇺🇸 | [BL]",
-      "network": "ws",
-      "port": 8443,
-      "server": "104.19.52.70",
-      "servername": "edge-fef90023.pages.dev",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "fceb3200-2516-47d2-8e28-d04ecde9427a",
-      "ws-opts": {
-        "headers": {
-          "Host": "edge-fef90023.pages.dev"
-        },
-        "path": "/"
+      "uuid": "f4b08bf1-d9bd-4755-aa88-ba922282c608",
+      "xhttp-opts": {
+        "host": "rusamicro67.richhoodfoc.com",
+        "mode": "auto",
+        "path": "/api/v2/telemetry/c3a474d77a"
       }
     },
     {
@@ -2057,7 +1937,7 @@
         "http/1.1"
       ],
       "client-fingerprint": "edge",
-      "name": "Igareck Node 110 | 🌐 Anycast-IP | 🇩🇪 | [BL]",
+      "name": "Igareck Node 103 | 🌐 Anycast-IP | 🇩🇪 | [BL]",
       "network": "xhttp",
       "port": 443,
       "server": "188.114.98.0",
@@ -2078,7 +1958,7 @@
         "http/1.1"
       ],
       "client-fingerprint": "firefox",
-      "name": "Igareck Node 111 | 🌐 Anycast-IP | 🇩🇪 | [BL]",
+      "name": "Igareck Node 104 | 🌐 Anycast-IP | 🇩🇪 | [BL]",
       "network": "xhttp",
       "port": 443,
       "server": "188.114.98.0",
@@ -2099,7 +1979,7 @@
         "http/1.1"
       ],
       "client-fingerprint": "ios",
-      "name": "Igareck Node 112 | 🌐 Anycast-IP | 🇩🇪 | [BL]",
+      "name": "Igareck Node 105 | 🌐 Anycast-IP | 🇩🇪 | [BL]",
       "network": "xhttp",
       "port": 443,
       "server": "188.114.98.0",
@@ -2120,7 +2000,7 @@
         "http/1.1"
       ],
       "client-fingerprint": "safari",
-      "name": "Igareck Node 113 | 🌐 Anycast-IP | 🇩🇪 | [BL]",
+      "name": "Igareck Node 106 | 🌐 Anycast-IP | 🇩🇪 | [BL]",
       "network": "xhttp",
       "port": 443,
       "server": "188.114.98.0",
@@ -2136,7 +2016,24 @@
       }
     },
     {
-      "name": "Igareck Node 114 | 🌐 Anycast-IP | 🇩🇪 | [BL]",
+      "client-fingerprint": "unsafe",
+      "name": "Igareck Node 107 | 🌐 Anycast-IP | 🇩🇪 | [BL]",
+      "network": "xhttp",
+      "port": 443,
+      "server": "188.114.98.0",
+      "servername": "crm.dpdns.org",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "e58384f2-76ba-400b-ae0a-8271b4c9c310",
+      "xhttp-opts": {
+        "host": "crm.dpdns.org",
+        "mode": "auto",
+        "path": "/api/v1/stream"
+      }
+    },
+    {
+      "name": "Igareck Node 108 | 🌐 Anycast-IP | 🇩🇪 | [BL]",
       "network": "xhttp",
       "port": 443,
       "server": "188.114.98.0",
@@ -2157,7 +2054,7 @@
         "http/1.1"
       ],
       "client-fingerprint": "unsafe",
-      "name": "Igareck Node 115 | 🌐 Anycast-IP | 🇩🇪 | [BL]",
+      "name": "Igareck Node 109 | 🌐 Anycast-IP | 🇩🇪 | [BL]",
       "network": "xhttp",
       "port": 443,
       "server": "188.114.98.0",
@@ -2174,18 +2071,87 @@
     },
     {
       "client-fingerprint": "chrome",
-      "name": "Igareck Node 116 | 🌐 Anycast-IP | 🇸🇪 🇺🇸 | [BL]",
+      "name": "Igareck Node 110 | 🌐 Anycast-IP | 🇬🇧 🇸🇪 🇺🇸 | [BL]",
       "network": "ws",
-      "port": 443,
-      "server": "ip13.shabkhosh.sbs",
-      "servername": "wallwebb33p08.wallwebvycxcl.workers.dev",
+      "port": 2096,
+      "server": "104.18.45.236",
       "tls": true,
       "type": "vless",
       "udp": true,
-      "uuid": "49e72868-abfd-4557-b474-6777853a9c8d",
+      "uuid": "51a0af77-a60c-4d9b-81a4-f50e1b38d90b",
       "ws-opts": {
         "headers": {
-          "Host": "wallwebb33p08.wallwebvycxcl.workers.dev"
+          "Host": "mohammadhoseini4532.pages.dev"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "Igareck Node 111 | 🌐 Anycast-IP | 🇬🇧 🇸🇪 🇺🇸 | [BL]",
+      "network": "ws",
+      "port": 8443,
+      "server": "172.64.154.113",
+      "servername": "freeceshi6.frii.site",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
+      "ws-opts": {
+        "headers": {
+          "Host": "freeceshi6.frii.site"
+        },
+        "path": "/proxyip=ProxyIP.JP.CMLiussss.net?ed#Telegram---SAFEWEBSBOT"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "Igareck Node 112 | 🌐 Anycast-IP | 🇬🇧 🇸🇪 🇺🇸 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "saas.sin.fan",
+      "servername": "vp7.1145678.xyz",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "5d7b401c-78fa-4254-872e-6d42bf7e75ec",
+      "ws-opts": {
+        "headers": {
+          "Host": "vp7.1145678.xyz"
+        },
+        "path": "/images"
+      }
+    },
+    {
+      "name": "Igareck Node 113 | 🌐 Anycast-IP | 🇬🇧 🇸🇪 🇺🇸 | [BL]",
+      "network": "ws",
+      "port": 2087,
+      "server": "www.vmware.com",
+      "servername": "v7-e4v.pages.dev",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "bf14dc50-e9f2-49fd-8642-620446edeafb",
+      "ws-opts": {
+        "headers": {
+          "Host": "v7-e4v.pages.dev"
+        },
+        "path": "/fp=chrome"
+      }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "Igareck Node 114 | 🌐 Anycast-IP | 🇸🇪 🇺🇸 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "104.19.39.229",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "51a0af77-a60c-4d9b-81a4-f50e1b38d90b",
+      "ws-opts": {
+        "headers": {
+          "Host": "alphefedo7865.pages.dev"
         },
         "path": "/"
       }
@@ -2194,7 +2160,44 @@
       "alpn": [
         "http/1.1"
       ],
-      "client-fingerprint": "edge",
+      "name": "Igareck Node 115 | 🌐 Anycast-IP | 🇸🇪 🇺🇸 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "104.16.149.244",
+      "servername": "freeceshi6.frii.site",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
+      "ws-opts": {
+        "headers": {
+          "Host": "freeceshi6.frii.site"
+        },
+        "path": "/?Telegram---PLANB_NET---PLANB_NET---PLANB_NET---PLANB_NET"
+      }
+    },
+    {
+      "name": "Igareck Node 116 | 🌐 Anycast-IP | 🇸🇪 🇺🇸 | [BL]",
+      "network": "ws",
+      "port": 8443,
+      "server": "172.64.154.113",
+      "servername": "freeceshi6.frii.site",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
+      "ws-opts": {
+        "headers": {
+          "Host": "freeceshi6.frii.site"
+        },
+        "path": "/proxyip=ProxyIP.JP.CMLiussss.netfp=chrome?ed#Telegram---@bored_vpn"
+      }
+    },
+    {
+      "alpn": [
+        "http/1.1"
+      ],
+      "client-fingerprint": "safari",
       "name": "Igareck Node 117 | 🌐 Anycast-IP | 🇸🇪 🇺🇸 | [BL]",
       "network": "ws",
       "port": 443,
@@ -2212,6 +2215,10 @@
       }
     },
     {
+      "alpn": [
+        "http/1.1"
+      ],
+      "client-fingerprint": "safari",
       "name": "Igareck Node 118 | 🌐 Anycast-IP | 🇸🇪 🇺🇸 | [BL]",
       "network": "ws",
       "port": 443,
@@ -2225,13 +2232,14 @@
         "headers": {
           "Host": "freeceshi6.frii.site"
         },
-        "path": "/?Telegram---PLANB_NET---PLANB_NET---PLANB_NET---PLANB_NET"
+        "path": "/proxyip?ed#Telegram---PLANB_NET---PLANB_NET---PLANB_NET---PLANB_NET"
       }
     },
     {
       "alpn": [
         "http/1.1"
       ],
+      "client-fingerprint": "edge",
       "name": "Igareck Node 119 | 🌐 Anycast-IP | 🇸🇪 🇺🇸 | [BL]",
       "network": "ws",
       "port": 443,
@@ -2245,12 +2253,34 @@
         "headers": {
           "Host": "freeceshi6.frii.site"
         },
-        "path": "/?TELEGRAM---MARAMBASHI---MARAMBASHI---MARAMBASHI---MARAMBASHI"
+        "path": "/"
       }
     },
     {
-      "client-fingerprint": "chrome",
+      "alpn": [
+        "http/1.1"
+      ],
       "name": "Igareck Node 120 | 🌐 Anycast-IP | 🇸🇪 🇺🇸 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "188.114.98.0",
+      "servername": "freeceshi6.frii.site",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "53bbdad4-2f4e-45db-8df4-fa491a6a7227",
+      "ws-opts": {
+        "headers": {
+          "Host": "freeceshi6.frii.site"
+        },
+        "path": "/proxyip?ed"
+      }
+    },
+    {
+      "alpn": [
+        "http/1.1"
+      ],
+      "name": "Igareck Node 121 | 🌐 Anycast-IP | 🇸🇪 🇺🇸 | [BL]",
       "network": "ws",
       "port": 443,
       "server": "leviko-us4350.shopingggg.ir",
@@ -2268,37 +2298,35 @@
     },
     {
       "client-fingerprint": "chrome",
-      "name": "Igareck Node 121 | 🌐 Anycast-IP | 🇸🇪 🇺🇸 | [BL]",
+      "name": "Igareck Node 122 | 🌐 Anycast-IP | 🇸🇪 🇺🇸 | [BL]",
       "network": "ws",
-      "port": 8443,
-      "server": "104.17.177.160",
+      "port": 443,
+      "server": "www.speedtest.net",
+      "servername": "wallweb4.pages.dev",
       "tls": true,
       "type": "vless",
       "udp": true,
-      "uuid": "fceb3200-2516-47d2-8e28-d04ecde9427a",
+      "uuid": "ec23f217-23a1-4f62-b98d-ba56070de89c",
       "ws-opts": {
         "headers": {
-          "Host": "edge-fef90023.pages.dev"
+          "Host": "wallweb4.pages.dev"
         },
         "path": "/"
       }
     },
     {
-      "client-fingerprint": "chrome",
-      "name": "Igareck Node 122 | 🌐 Anycast-IP | 🇸🇪 🇺🇸 | [BL]",
-      "network": "ws",
-      "port": 8443,
-      "server": "104.17.177.160",
-      "servername": "edge-fef90023.pages.dev",
+      "client-fingerprint": "unsafe",
+      "name": "Igareck Node 123 | 🌐 Anycast-IP | 🇺🇸 | [BL]",
+      "network": "xhttp",
+      "port": 443,
+      "server": "188.114.98.0",
+      "servername": "fortuna.masynbazar.ru",
       "tls": true,
       "type": "vless",
       "udp": true,
-      "uuid": "fceb3200-2516-47d2-8e28-d04ecde9427a",
-      "ws-opts": {
-        "headers": {
-          "Host": "edge-fef90023.pages.dev"
-        },
-        "path": "/fp=chrome"
+      "uuid": "a5b1d16b-719b-4bd6-9d7b-fe6d84607da9",
+      "xhttp-opts": {
+        "path": "/"
       }
     },
     {
@@ -2306,7 +2334,7 @@
         "h2"
       ],
       "client-fingerprint": "unsafe",
-      "name": "Igareck Node 123 | 🌐 Anycast-IP | 🇺🇸 | [BL]",
+      "name": "Igareck Node 124 | 🌐 Anycast-IP | 🇺🇸 | [BL]",
       "network": "xhttp",
       "port": 443,
       "server": "188.114.98.0",
@@ -2325,7 +2353,7 @@
       "alpn": [
         "h2"
       ],
-      "name": "Igareck Node 124 | 🌐 Anycast-IP | 🇺🇸 | [BL]",
+      "name": "Igareck Node 125 | 🌐 Anycast-IP | 🇺🇸 | [BL]",
       "network": "xhttp",
       "port": 443,
       "server": "188.114.98.0",
@@ -2343,7 +2371,7 @@
         "h2"
       ],
       "client-fingerprint": "unsafe",
-      "name": "Igareck Node 125 | 🌐 Anycast-IP | 🇺🇸 | [BL]",
+      "name": "Igareck Node 126 | 🌐 Anycast-IP | 🇺🇸 | [BL]",
       "network": "xhttp",
       "port": 443,
       "server": "188.114.98.0",
@@ -2355,24 +2383,6 @@
       "xhttp-opts": {
         "host": "fortuna.masynbazar.ru"
       }
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
-      "name": "Igareck Node 126 | 🇧🇪 Belgium， Zaventem | [BL]",
-      "password": "c40d60d1c847e63098058c7524680f349c9042f932d8e79c",
-      "plugin": "v2ray-plugin",
-      "plugin-opts": {
-        "host": "belgium.astroapps.io",
-        "mode": "websocket",
-        "obfs": "websocket",
-        "obfs-host": "belgium.astroapps.io",
-        "path": "/7a0f74508333399db96164d7",
-        "tls": true
-      },
-      "port": 443,
-      "server": "belgium.astroapps.io",
-      "type": "ss",
-      "udp": true
     },
     {
       "cipher": "chacha20-ietf-poly1305",
@@ -2400,6 +2410,8 @@
       "plugin-opts": {
         "host": "belgium.astroapps.io",
         "mode": "websocket",
+        "obfs": "websocket",
+        "obfs-host": "belgium.astroapps.io",
         "path": "/7a0f74508333399db96164d7",
         "tls": true
       },
@@ -2410,7 +2422,23 @@
     },
     {
       "cipher": "chacha20-ietf-poly1305",
-      "name": "Igareck Node 129 | 🇧🇬 Bulgaria， Sofia | [BL]",
+      "name": "Igareck Node 129 | 🇧🇪 Belgium， Zaventem | [BL]",
+      "password": "c40d60d1c847e63098058c7524680f349c9042f932d8e79c",
+      "plugin": "v2ray-plugin",
+      "plugin-opts": {
+        "host": "belgium.astroapps.io",
+        "mode": "websocket",
+        "path": "/7a0f74508333399db96164d7",
+        "tls": true
+      },
+      "port": 443,
+      "server": "belgium.astroapps.io",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "Igareck Node 130 | 🇧🇬 Bulgaria， Sofia | [BL]",
       "password": "5acf789dd7c2bf40a670a342800eff57003c2b164c3c8f53",
       "plugin": "v2ray-plugin",
       "plugin-opts": {
@@ -2428,7 +2456,7 @@
     },
     {
       "cipher": "chacha20-ietf-poly1305",
-      "name": "Igareck Node 130 | 🇧🇬 Bulgaria， Sofia | [BL]",
+      "name": "Igareck Node 131 | 🇧🇬 Bulgaria， Sofia | [BL]",
       "password": "5acf789dd7c2bf40a670a342800eff57003c2b164c3c8f53",
       "plugin": "v2ray-plugin",
       "plugin-opts": {
@@ -2439,24 +2467,6 @@
       },
       "port": 443,
       "server": "bulgaria.astroapps.io",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
-      "name": "Igareck Node 131 | 🇩🇰 Denmark， Copenhagen | [BL]",
-      "password": "c917b96e084ea67a0f21031f1284f9ee9e1d837321ce6362",
-      "plugin": "v2ray-plugin",
-      "plugin-opts": {
-        "host": "denmark.astroapps.io",
-        "mode": "websocket",
-        "obfs": "websocket",
-        "obfs-host": "denmark.astroapps.io",
-        "path": "/ad37249091fe1c6ac69e8c23",
-        "tls": true
-      },
-      "port": 443,
-      "server": "denmark.astroapps.io",
       "type": "ss",
       "udp": true
     },
@@ -2486,6 +2496,8 @@
       "plugin-opts": {
         "host": "denmark.astroapps.io",
         "mode": "websocket",
+        "obfs": "websocket",
+        "obfs-host": "denmark.astroapps.io",
         "path": "/ad37249091fe1c6ac69e8c23",
         "tls": true
       },
@@ -2496,19 +2508,17 @@
     },
     {
       "cipher": "chacha20-ietf-poly1305",
-      "name": "Igareck Node 134 | 🇮🇹 Italy， Milan | [BL]",
-      "password": "034b5d9404b79a2df62fcb77a49cf748306765448d8b5e93",
+      "name": "Igareck Node 134 | 🇩🇰 Denmark， Copenhagen | [BL]",
+      "password": "c917b96e084ea67a0f21031f1284f9ee9e1d837321ce6362",
       "plugin": "v2ray-plugin",
       "plugin-opts": {
-        "host": "italy.astroapps.io",
+        "host": "denmark.astroapps.io",
         "mode": "websocket",
-        "obfs": "websocket",
-        "obfs-host": "italy.astroapps.io",
-        "path": "/b5cba947dfef6a5494b25d76",
+        "path": "/ad37249091fe1c6ac69e8c23",
         "tls": true
       },
       "port": 443,
-      "server": "italy.astroapps.io",
+      "server": "denmark.astroapps.io",
       "type": "ss",
       "udp": true
     },
@@ -2520,6 +2530,8 @@
       "plugin-opts": {
         "host": "italy.astroapps.io",
         "mode": "websocket",
+        "obfs": "websocket",
+        "obfs-host": "italy.astroapps.io",
         "path": "/b5cba947dfef6a5494b25d76",
         "tls": true
       },
@@ -2536,6 +2548,22 @@
       "plugin-opts": {
         "host": "italy.astroapps.io",
         "mode": "websocket",
+        "path": "/b5cba947dfef6a5494b25d76",
+        "tls": true
+      },
+      "port": 443,
+      "server": "italy.astroapps.io",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "Igareck Node 137 | 🇮🇹 Italy， Milan | [BL]",
+      "password": "034b5d9404b79a2df62fcb77a49cf748306765448d8b5e93",
+      "plugin": "v2ray-plugin",
+      "plugin-opts": {
+        "host": "italy.astroapps.io",
+        "mode": "websocket",
         "obfs": "websocket",
         "obfs-host": "italy.astroapps.io",
         "path": "/b5cba947dfef6a5494b25d76",
@@ -2547,38 +2575,40 @@
       "udp": true
     },
     {
-      "alpn": [
-        "http/1.1"
-      ],
-      "client-fingerprint": "ios",
-      "name": "Igareck Node 137 | 🇸🇬 Singapore， Singapore (Queenstown Estate) | [BL]",
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "Igareck Node 138",
       "network": "ws",
-      "password": "963A4918-A630-29DA-A873-093CDF8AD784",
       "port": 443,
-      "server": "lingering-fire-1fe9.vpnetwork3567.workers.dev",
-      "type": "trojan",
+      "server": "104.17.136.198",
+      "servername": "vmess.lbw666.dpdns.org",
+      "tls": true,
+      "type": "vmess",
       "udp": true,
+      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
       "ws-opts": {
         "headers": {
-          "Host": "lingering-fire-1fe9.vpnetwork3567.workers.dev"
+          "Host": "vmess.lbw666.dpdns.org"
         },
-        "path": "/"
+        "path": "/ws"
       }
     },
     {
-      "name": "Igareck Node 138 | 🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "Igareck Node 139 | 🇺🇸 United States， Chicago | 🌐 | [BL]",
       "network": "ws",
-      "password": "reinz",
       "port": 443,
-      "server": "104.26.6.171",
-      "sni": "tsg3.pages.dev",
-      "type": "trojan",
+      "server": "cf.090227.xyz",
+      "tls": true,
+      "type": "vmess",
       "udp": true,
+      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
       "ws-opts": {
         "headers": {
-          "Host": "tsg3.pages.dev"
+          "Host": "vmess.lbw666.dpdns.org"
         },
-        "path": "/?ed=2560"
+        "path": "/ws"
       }
     }
   ],

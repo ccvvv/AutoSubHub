@@ -1,30 +1,12 @@
 {
-  "checked_at": "2026-11-28T09:06:19.155473+00:00",
-  "etag": "W/\"5a4e924ee8a0ae577743d1acb8beede89373e0f1c3fd0f2e45f2c78777297bda\"",
-  "fetched_at": "2026-11-28T08:09:23.805686+00:00",
+  "checked_at": "2026-11-28T10:28:52.549452+00:00",
+  "etag": "W/\"dcc2c56010ecfb20951a62892434bc8dd748613cabb028fa7b4aae905fc7c34e\"",
+  "fetched_at": "2026-11-28T10:28:52.549452+00:00",
   "last_modified": null,
-  "last_status": 304,
+  "last_status": 200,
   "nodes": [
     {
       "cipher": "chacha20-ietf-poly1305",
-      "name": "🇦🇺 Australia, Sydney | [BL]",
-      "password": "a937938b4fbffbdc3257d83e9d68cb2baf3cb65400d9ca3f",
-      "port": 443,
-      "server": "australia.astroapps.io",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
-      "name": "🇦🇺 Australia, Sydney | [BL]",
-      "password": "a937938b4fbffbdc3257d83e9d68cb2baf3cb65400d9ca3f",
-      "port": 443,
-      "server": "australia.astroapps.io",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "chacha20-ietf-poly1305",
       "name": "🇧🇪 Belgium, Zaventem | [BL]",
       "password": "c40d60d1c847e63098058c7524680f349c9042f932d8e79c",
       "port": 443,
@@ -110,6 +92,24 @@
       "password": "104243d8a410f4e54013b7fdb57c4b688d929c7b5b89e86b",
       "port": 443,
       "server": "estonia.astroapps.io",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "🇪🇪 Estonia, Tallinn | [BL]",
+      "password": "104243d8a410f4e54013b7fdb57c4b688d929c7b5b89e86b",
+      "port": 443,
+      "server": "estonia.astroapps.io",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "🇫🇮 Finland, Helsinki | [BL]",
+      "password": "1c57654308df6d9b93b2bf749dd9f21ed7355aab8fd7ffbb",
+      "port": 443,
+      "server": "finland.astroapps.io",
       "type": "ss",
       "udp": true
     },
@@ -219,23 +219,8 @@
       "name": ".𖥔 ݁ ˖ִ🛸༄˖°. | [BL]",
       "network": "ws",
       "port": 443,
-      "server": "cf.090227.xyz",
+      "server": "104.27.0.1",
       "servername": "vmess.lbw666.dpdns.org",
-      "tls": true,
-      "type": "vmess",
-      "udp": true,
-      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
-      "ws-opts": {
-        "path": "/ws?ed=2048"
-      }
-    },
-    {
-      "alterId": 0,
-      "cipher": "auto",
-      "name": ".𖥔 ݁ ˖ִ🛸༄˖°. | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "172.66.203.67",
       "tls": true,
       "type": "vmess",
       "udp": true,
@@ -250,13 +235,126 @@
     {
       "alterId": 0,
       "cipher": "auto",
+      "name": ".𖥔 ݁ ˖ִ🛸༄˖°. | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "104.17.136.198",
+      "servername": "vmess.lbw666.dpdns.org",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
+      "ws-opts": {
+        "headers": {
+          "Host": "vmess.lbw666.dpdns.org"
+        },
+        "path": "/ws?ed=2048"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": ".𖥔 ݁ ˖ִ🛸༄˖°. | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "172.66.203.67",
+      "servername": "vmess.lbw666.dpdns.org",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
+      "ws-opts": {
+        "headers": {
+          "Host": "vmess.lbw666.dpdns.org"
+        },
+        "path": "/ws?ed=2048"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": ".𖥔 ݁ ˖ִ🛸༄˖°. | [BL]",
+      "port": 2080,
+      "server": "Ir.wbzo.ir",
+      "type": "vmess",
+      "udp": true,
+      "uuid": "b7e3e8af-d1ca-45da-a95f-8b9ad77398b1"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
       "name": "🇩🇪 Germany, Düsseldorf | 🌐 | [BL]",
       "port": 443,
-      "server": "de.zhou-yufan.com",
+      "server": "45.131.153.56",
+      "servername": "de.zhou-yufan.com",
       "tls": true,
       "type": "vmess",
       "udp": true,
       "uuid": "f38e591d-d13a-4c30-9763-6be3ad65f3ec"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇩🇪 Germany, Düsseldorf | 🌐 | [BL]",
+      "port": 443,
+      "server": "45.131.153.56",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "f38e591d-d13a-4c30-9763-6be3ad65f3ec"
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇺🇸 United States, Chicago | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "188.114.99.137",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
+      "ws-opts": {
+        "headers": {
+          "Host": "vmess.lbw666.dpdns.org"
+        },
+        "path": "/ws"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇺🇸 United States, Chicago | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "cf.090227.xyz",
+      "servername": "vmess.lbw666.dpdns.org",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
+      "ws-opts": {
+        "path": "/ws?ed=2048"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇺🇸 United States, Chicago | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "cf.090227.xyz",
+      "servername": "vmess.lbw666.dpdns.org",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
+      "ws-opts": {
+        "headers": {
+          "Host": "vmess.lbw666.dpdns.org"
+        },
+        "path": "/ws?ed=2048"
+      }
     },
     {
       "alterId": 0,
@@ -273,63 +371,7 @@
         "headers": {
           "Host": "vmess.lbw666.dpdns.org"
         },
-        "path": "/ws?ed=2048"
-      }
-    },
-    {
-      "alterId": 0,
-      "cipher": "auto",
-      "name": "🇺🇸 United States, Chicago | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "104.17.136.198",
-      "servername": "vmess.lbw666.dpdns.org",
-      "tls": true,
-      "type": "vmess",
-      "udp": true,
-      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
-      "ws-opts": {
-        "headers": {
-          "Host": "vmess.lbw666.dpdns.org"
-        },
-        "path": "/ws?ed=2048"
-      }
-    },
-    {
-      "alterId": 0,
-      "cipher": "auto",
-      "name": "🇺🇸 United States, Chicago | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "172.64.229.21",
-      "tls": true,
-      "type": "vmess",
-      "udp": true,
-      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
-      "ws-opts": {
-        "headers": {
-          "Host": "vmess.lbw666.dpdns.org"
-        },
-        "path": "/ws?ed=2048"
-      }
-    },
-    {
-      "alterId": 0,
-      "cipher": "auto",
-      "name": "🇺🇸 United States, Chicago | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "172.66.203.67",
-      "servername": "vmess.lbw666.dpdns.org",
-      "tls": true,
-      "type": "vmess",
-      "udp": true,
-      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
-      "ws-opts": {
-        "headers": {
-          "Host": "vmess.lbw666.dpdns.org"
-        },
-        "path": "/ws?ed=2048"
+        "path": "/ws"
       }
     },
     {
@@ -367,25 +409,6 @@
         "headers": {
           "Host": "vmess.lbw666.dpdns.org"
         },
-        "path": "/ws"
-      }
-    },
-    {
-      "alterId": 0,
-      "cipher": "auto",
-      "name": "🇺🇸 United States, Chicago | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "172.64.229.21",
-      "servername": "vmess.lbw666.dpdns.org",
-      "tls": true,
-      "type": "vmess",
-      "udp": true,
-      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
-      "ws-opts": {
-        "headers": {
-          "Host": "vmess.lbw666.dpdns.org"
-        },
         "path": "/ws?ed=2048"
       }
     },
@@ -414,62 +437,7 @@
       "name": "🇺🇸 United States, Chicago | [BL]",
       "network": "ws",
       "port": 443,
-      "server": "172.66.0.1",
-      "tls": true,
-      "type": "vmess",
-      "udp": true,
-      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
-      "ws-opts": {
-        "headers": {
-          "Host": "vmess.lbw666.dpdns.org"
-        },
-        "path": "/ws"
-      }
-    },
-    {
-      "alterId": 0,
-      "cipher": "auto",
-      "name": "🇺🇸 United States, Chicago | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "172.66.203.67",
-      "tls": true,
-      "type": "vmess",
-      "udp": true,
-      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
-      "ws-opts": {
-        "headers": {
-          "Host": "vmess.lbw666.dpdns.org"
-        },
-        "path": "/ws"
-      }
-    },
-    {
-      "alterId": 0,
-      "cipher": "auto",
-      "name": "🇺🇸 United States, Chicago | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "172.66.203.67",
-      "tls": true,
-      "type": "vmess",
-      "udp": true,
-      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
-      "ws-opts": {
-        "headers": {
-          "Host": "vmess.lbw666.dpdns.org"
-        },
-        "path": "/ws?ed=2048"
-      }
-    },
-    {
-      "alterId": 0,
-      "cipher": "auto",
-      "name": "🇺🇸 United States, Chicago | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "188.114.99.137",
-      "servername": "vmess.lbw666.dpdns.org",
+      "server": "cf.0sm.com",
       "tls": true,
       "type": "vmess",
       "udp": true,
@@ -503,62 +471,6 @@
     {
       "alterId": 0,
       "cipher": "auto",
-      "name": "🇺🇸 United States, Chicago | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "cf.0sm.com",
-      "servername": "vmess.lbw666.dpdns.org",
-      "tls": true,
-      "type": "vmess",
-      "udp": true,
-      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
-      "ws-opts": {
-        "headers": {
-          "Host": "vmess.lbw666.dpdns.org"
-        },
-        "path": "/ws?ed=2048"
-      }
-    },
-    {
-      "alterId": 0,
-      "cipher": "auto",
-      "name": "🇺🇸 United States, Chicago | 🌐 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "104.17.136.198",
-      "tls": true,
-      "type": "vmess",
-      "udp": true,
-      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
-      "ws-opts": {
-        "headers": {
-          "Host": "vmess.lbw666.dpdns.org"
-        },
-        "path": "/ws"
-      }
-    },
-    {
-      "alterId": 0,
-      "cipher": "auto",
-      "name": "🇺🇸 United States, Chicago | 🌐 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "104.17.136.198",
-      "servername": "vmess.lbw666.dpdns.org",
-      "tls": true,
-      "type": "vmess",
-      "udp": true,
-      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
-      "ws-opts": {
-        "headers": {
-          "Host": "vmess.lbw666.dpdns.org"
-        },
-        "path": "/ws"
-      }
-    },
-    {
-      "alterId": 0,
-      "cipher": "auto",
       "name": "🇺🇸 United States, Chicago | 🌐 | [BL]",
       "network": "ws",
       "port": 443,
@@ -582,129 +494,6 @@
       "network": "ws",
       "port": 443,
       "server": "104.27.0.1",
-      "servername": "vmess.lbw666.dpdns.org",
-      "tls": true,
-      "type": "vmess",
-      "udp": true,
-      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
-      "ws-opts": {
-        "headers": {
-          "Host": "vmess.lbw666.dpdns.org"
-        },
-        "path": "/ws"
-      }
-    },
-    {
-      "alterId": 0,
-      "cipher": "auto",
-      "name": "🇺🇸 United States, Chicago | 🌐 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "104.27.0.1",
-      "servername": "vmess.lbw666.dpdns.org",
-      "tls": true,
-      "type": "vmess",
-      "udp": true,
-      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
-      "ws-opts": {
-        "headers": {
-          "Host": "vmess.lbw666.dpdns.org"
-        },
-        "path": "/ws"
-      }
-    },
-    {
-      "alterId": 0,
-      "cipher": "auto",
-      "name": "🇺🇸 United States, Chicago | 🌐 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "104.27.0.1",
-      "tls": true,
-      "type": "vmess",
-      "udp": true,
-      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
-      "ws-opts": {
-        "headers": {
-          "Host": "vmess.lbw666.dpdns.org"
-        },
-        "path": "/ws"
-      }
-    },
-    {
-      "alterId": 0,
-      "cipher": "auto",
-      "name": "🇺🇸 United States, Chicago | 🌐 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "172.64.229.21",
-      "servername": "vmess.lbw666.dpdns.org",
-      "tls": true,
-      "type": "vmess",
-      "udp": true,
-      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
-      "ws-opts": {
-        "path": "/ws?ed=2048"
-      }
-    },
-    {
-      "alterId": 0,
-      "cipher": "auto",
-      "name": "🇺🇸 United States, Chicago | 🌐 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "172.64.229.21",
-      "servername": "vmess.lbw666.dpdns.org",
-      "tls": true,
-      "type": "vmess",
-      "udp": true,
-      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
-      "ws-opts": {
-        "path": "/ws"
-      }
-    },
-    {
-      "alterId": 0,
-      "cipher": "auto",
-      "name": "🇺🇸 United States, Chicago | 🌐 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "172.66.0.1",
-      "servername": "vmess.lbw666.dpdns.org",
-      "tls": true,
-      "type": "vmess",
-      "udp": true,
-      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
-      "ws-opts": {
-        "path": "/ws"
-      }
-    },
-    {
-      "alterId": 0,
-      "cipher": "auto",
-      "name": "🇺🇸 United States, Chicago | 🌐 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "172.66.0.1",
-      "servername": "vmess.lbw666.dpdns.org",
-      "tls": true,
-      "type": "vmess",
-      "udp": true,
-      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
-      "ws-opts": {
-        "headers": {
-          "Host": "vmess.lbw666.dpdns.org"
-        },
-        "path": "/ws"
-      }
-    },
-    {
-      "alterId": 0,
-      "cipher": "auto",
-      "name": "🇺🇸 United States, Chicago | 🌐 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "172.66.0.1",
       "servername": "vmess.lbw666.dpdns.org",
       "tls": true,
       "type": "vmess",
@@ -742,26 +531,7 @@
       "name": "🇺🇸 United States, Chicago | 🌐 | [BL]",
       "network": "ws",
       "port": 443,
-      "server": "cf.090227.xyz",
-      "servername": "vmess.lbw666.dpdns.org",
-      "tls": true,
-      "type": "vmess",
-      "udp": true,
-      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
-      "ws-opts": {
-        "headers": {
-          "Host": "vmess.lbw666.dpdns.org"
-        },
-        "path": "/ws?ed=2048"
-      }
-    },
-    {
-      "alterId": 0,
-      "cipher": "auto",
-      "name": "🇺🇸 United States, Chicago | 🌐 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "cf.877771.xyz",
+      "server": "104.27.0.1",
       "tls": true,
       "type": "vmess",
       "udp": true,
@@ -779,7 +549,25 @@
       "name": "🇺🇸 United States, Chicago | 🌐 | [BL]",
       "network": "ws",
       "port": 443,
-      "server": "cf.877771.xyz",
+      "server": "104.27.0.1",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
+      "ws-opts": {
+        "headers": {
+          "Host": "vmess.lbw666.dpdns.org"
+        },
+        "path": "/ws"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇺🇸 United States, Chicago | 🌐 | [BL]",
+      "network": "ws",
+      "port": 443,
+      "server": "104.21.7.133",
       "servername": "vmess.lbw666.dpdns.org",
       "tls": true,
       "type": "vmess",
@@ -798,15 +586,13 @@
       "name": "🇺🇸 United States, Chicago | 🌐 | [BL]",
       "network": "ws",
       "port": 443,
-      "server": "104.17.136.198",
+      "server": "172.64.229.21",
+      "servername": "vmess.lbw666.dpdns.org",
       "tls": true,
       "type": "vmess",
       "udp": true,
       "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
       "ws-opts": {
-        "headers": {
-          "Host": "vmess.lbw666.dpdns.org"
-        },
         "path": "/ws"
       }
     },
@@ -834,42 +620,6 @@
       "name": "🇺🇸 United States, Chicago | 🌐 | [BL]",
       "network": "ws",
       "port": 443,
-      "server": "172.64.229.21",
-      "tls": true,
-      "type": "vmess",
-      "udp": true,
-      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
-      "ws-opts": {
-        "headers": {
-          "Host": "vmess.lbw666.dpdns.org"
-        },
-        "path": "/ws"
-      }
-    },
-    {
-      "alterId": 0,
-      "cipher": "auto",
-      "name": "🇺🇸 United States, Chicago | 🌐 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "172.66.0.1",
-      "tls": true,
-      "type": "vmess",
-      "udp": true,
-      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
-      "ws-opts": {
-        "headers": {
-          "Host": "vmess.lbw666.dpdns.org"
-        },
-        "path": "/ws"
-      }
-    },
-    {
-      "alterId": 0,
-      "cipher": "auto",
-      "name": "🇺🇸 United States, Chicago | 🌐 | [BL]",
-      "network": "ws",
-      "port": 443,
       "server": "172.66.203.67",
       "servername": "vmess.lbw666.dpdns.org",
       "tls": true,
@@ -877,62 +627,6 @@
       "udp": true,
       "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
       "ws-opts": {
-        "headers": {
-          "Host": "vmess.lbw666.dpdns.org"
-        },
-        "path": "/ws"
-      }
-    },
-    {
-      "alterId": 0,
-      "cipher": "auto",
-      "name": "🇺🇸 United States, Chicago | 🌐 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "172.66.203.67",
-      "servername": "vmess.lbw666.dpdns.org",
-      "tls": true,
-      "type": "vmess",
-      "udp": true,
-      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
-      "ws-opts": {
-        "path": "/ws"
-      }
-    },
-    {
-      "alterId": 0,
-      "cipher": "auto",
-      "name": "🇺🇸 United States, Chicago | 🌐 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "172.66.203.67",
-      "servername": "vmess.lbw666.dpdns.org",
-      "tls": true,
-      "type": "vmess",
-      "udp": true,
-      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
-      "ws-opts": {
-        "headers": {
-          "Host": "vmess.lbw666.dpdns.org"
-        },
-        "path": "/ws"
-      }
-    },
-    {
-      "alterId": 0,
-      "cipher": "auto",
-      "name": "🇺🇸 United States, Chicago | 🌐 | [BL]",
-      "network": "ws",
-      "port": 443,
-      "server": "172.66.203.67",
-      "tls": true,
-      "type": "vmess",
-      "udp": true,
-      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
-      "ws-opts": {
-        "headers": {
-          "Host": "vmess.lbw666.dpdns.org"
-        },
         "path": "/ws"
       }
     },
@@ -980,8 +674,25 @@
       "name": "🇺🇸 United States, Chicago | 🌐 | [BL]",
       "network": "ws",
       "port": 443,
+      "server": "cf.0sm.com",
+      "tls": true,
+      "type": "vmess",
+      "udp": true,
+      "uuid": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
+      "ws-opts": {
+        "headers": {
+          "Host": "vmess.lbw666.dpdns.org"
+        },
+        "path": "/ws"
+      }
+    },
+    {
+      "alterId": 0,
+      "cipher": "auto",
+      "name": "🇺🇸 United States, Chicago | 🌐 | [BL]",
+      "network": "ws",
+      "port": 443,
       "server": "cf.090227.xyz",
-      "servername": "vmess.lbw666.dpdns.org",
       "tls": true,
       "type": "vmess",
       "udp": true,
@@ -999,41 +710,6 @@
       "name": "🇺🇸 United States, St Louis (Downtown) | [BL]",
       "network": "ws",
       "port": 8443,
-      "server": "104.21.91.53",
-      "servername": "v2ray1.dozapp.xyz",
-      "tls": true,
-      "type": "vmess",
-      "udp": true,
-      "uuid": "60441548-b68e-43b2-8191-e3b884be4b3c",
-      "ws-opts": {
-        "headers": {
-          "Host": "v2ray1.dozapp.xyz"
-        },
-        "path": "/lMnsZUN4/"
-      }
-    },
-    {
-      "alterId": 0,
-      "cipher": "auto",
-      "name": "🇺🇸 United States, St Louis (Downtown) | [BL]",
-      "network": "ws",
-      "port": 8443,
-      "server": "172.67.167.78",
-      "servername": "v2ray1.dozapp.xyz",
-      "tls": true,
-      "type": "vmess",
-      "udp": true,
-      "uuid": "60441548-b68e-43b2-8191-e3b884be4b3c",
-      "ws-opts": {
-        "path": "/lMnsZUN4/"
-      }
-    },
-    {
-      "alterId": 0,
-      "cipher": "auto",
-      "name": "🇺🇸 United States, St Louis (Downtown) | [BL]",
-      "network": "ws",
-      "port": 8443,
       "server": "172.64.80.1",
       "tls": true,
       "type": "vmess",
@@ -1052,26 +728,7 @@
       "name": "🇺🇸 United States, St Louis (Downtown) | [BL]",
       "network": "ws",
       "port": 8443,
-      "server": "172.64.80.1",
-      "servername": "v2ray1.dozapp.xyz",
-      "tls": true,
-      "type": "vmess",
-      "udp": true,
-      "uuid": "60441548-b68e-43b2-8191-e3b884be4b3c",
-      "ws-opts": {
-        "headers": {
-          "Host": "v2ray1.dozapp.xyz"
-        },
-        "path": "/lMnsZUN4/"
-      }
-    },
-    {
-      "alterId": 0,
-      "cipher": "none",
-      "name": "🇺🇸 United States, St Louis (Downtown) | [BL]",
-      "network": "ws",
-      "port": 8443,
-      "server": "104.17.77.77",
+      "server": "188.114.96.3",
       "servername": "v2ray1.dozapp.xyz",
       "tls": true,
       "type": "vmess",
@@ -1090,7 +747,7 @@
       "name": "🇺🇸 United States, St Louis (Downtown) | [BL]",
       "network": "ws",
       "port": 8443,
-      "server": "172.64.155.209",
+      "server": "104.18.0.1",
       "tls": true,
       "type": "vmess",
       "udp": true,
@@ -1108,8 +765,7 @@
       "name": "🇺🇸 United States, St Louis (Downtown) | [BL]",
       "network": "ws",
       "port": 8443,
-      "server": "172.66.0.1",
-      "servername": "v2ray1.dozapp.xyz",
+      "server": "172.67.161.144",
       "tls": true,
       "type": "vmess",
       "udp": true,
@@ -1164,6 +820,48 @@
       "alpn": [
         "http/1.1"
       ],
+      "client-fingerprint": "ios",
+      "name": ".𖥔 ݁ ˖ִ🛸༄˖°. | [BL]",
+      "network": "ws",
+      "password": "963A4918-A630-29DA-A873-093CDF8AD784",
+      "port": 443,
+      "server": "lingering-fire-1fe9.vpnetwork3567.workers.dev",
+      "servername": "lingering-fire-1fe9.vpnetwork3567.workers.dev",
+      "tls": true,
+      "type": "trojan",
+      "udp": true,
+      "ws-opts": {
+        "headers": {
+          "Host": "lingering-fire-1fe9.vpnetwork3567.workers.dev"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "alpn": [
+        "http/1.1"
+      ],
+      "client-fingerprint": "safari",
+      "name": ".𖥔 ݁ ˖ִ🛸༄˖°. | [BL]",
+      "network": "ws",
+      "password": "963A4918-A630-29DA-A873-093CDF8AD784",
+      "port": 443,
+      "server": "lingering-fire-1fe9.vpnetwork3567.workers.dev",
+      "servername": "lingering-fire-1fe9.vpnetwork3567.workers.dev",
+      "tls": true,
+      "type": "trojan",
+      "udp": true,
+      "ws-opts": {
+        "headers": {
+          "Host": "lingering-fire-1fe9.vpnetwork3567.workers.dev"
+        },
+        "path": "/"
+      }
+    },
+    {
+      "alpn": [
+        "http/1.1"
+      ],
       "client-fingerprint": "edge",
       "name": ".𖥔 ݁ ˖ִ🛸༄˖°. | [BL]",
       "network": "ws",
@@ -1185,94 +883,21 @@
       "alpn": [
         "http/1.1"
       ],
-      "name": ".𖥔 ݁ ˖ִ🛸༄˖°. | [BL]",
+      "client-fingerprint": "qq",
+      "name": "🇲🇩 Moldova, Chisinau | [BL]",
       "network": "ws",
       "password": "963A4918-A630-29DA-A873-093CDF8AD784",
       "port": 443,
-      "server": "lingering-fire-1fe9.vpnetwork3567.workers.dev",
-      "servername": "lingering-fire-1fe9.vpnetwork3567.workers.dev",
+      "server": "dry-snowflake-b29f.vpnetwork3567.workers.dev",
+      "servername": "dry-snowflake-b29f.vpnetwork3567.workers.dev",
       "tls": true,
       "type": "trojan",
       "udp": true,
       "ws-opts": {
         "headers": {
-          "Host": "lingering-fire-1fe9.vpnetwork3567.workers.dev"
+          "Host": "dry-snowflake-b29f.vpnetwork3567.workers.dev"
         },
         "path": "/"
-      }
-    },
-    {
-      "alpn": [
-        "http/1.1"
-      ],
-      "client-fingerprint": "chrome",
-      "name": ".𖥔 ݁ ˖ִ🛸༄˖°. | [BL]",
-      "network": "ws",
-      "password": "963A4918-A630-29DA-A873-093CDF8AD784",
-      "port": 443,
-      "server": "muddy-frost-4e2d.vpnetwork3567.workers.dev",
-      "servername": "muddy-frost-4e2d.vpnetwork3567.workers.dev",
-      "tls": true,
-      "type": "trojan",
-      "udp": true,
-      "ws-opts": {
-        "headers": {
-          "Host": "muddy-frost-4e2d.vpnetwork3567.workers.dev"
-        },
-        "path": "/"
-      }
-    },
-    {
-      "client-fingerprint": "safari",
-      "name": "🇭🇰 Hong Kong, Hong Kong | [BL]",
-      "network": "ws",
-      "password": "531d9e93-53be-4f05-a9c1-33490d4da2f3",
-      "port": 443,
-      "server": "23.227.38.10",
-      "servername": "hkk-1-8hhh.ccc3cosmo.top",
-      "tls": true,
-      "type": "trojan",
-      "udp": true,
-      "ws-opts": {
-        "headers": {
-          "Host": "hkk-1-8hhh.ccc3cosmo.top"
-        },
-        "path": "/images"
-      }
-    },
-    {
-      "client-fingerprint": "chrome",
-      "name": "🇭🇰 Hong Kong, Hong Kong | [BL]",
-      "network": "ws",
-      "password": "531d9e93-53be-4f05-a9c1-33490d4da2f3",
-      "port": 443,
-      "server": "56e1f.cloudflare.182682.xyz",
-      "servername": "hkk-1-8hhh.ccc3cosmo.top",
-      "tls": true,
-      "type": "trojan",
-      "udp": true,
-      "ws-opts": {
-        "headers": {
-          "Host": "hkk-1-8hhh.ccc3cosmo.top"
-        },
-        "path": "/images"
-      }
-    },
-    {
-      "name": "🇲🇾 Malaysia, Kuala Lumpur | [BL]",
-      "network": "ws",
-      "password": "531d9e93-53be-4f05-a9c1-33490d4da2f3",
-      "port": 443,
-      "server": "23.227.38.61",
-      "servername": "44-ml-1.ccc4vortex.top",
-      "tls": true,
-      "type": "trojan",
-      "udp": true,
-      "ws-opts": {
-        "headers": {
-          "Host": "44-ml-1.ccc4vortex.top"
-        },
-        "path": "/images"
       }
     },
     {
@@ -1320,7 +945,6 @@
       "alpn": [
         "http/1.1"
       ],
-      "client-fingerprint": "ios",
       "name": "🇸🇬 Singapore, Singapore (Queenstown Estate) | [BL]",
       "network": "ws",
       "password": "963A4918-A630-29DA-A873-093CDF8AD784",
@@ -1338,88 +962,86 @@
       }
     },
     {
-      "name": "🇹🇼 Taiwan, Taipei | [BL]",
+      "alpn": [
+        "http/1.1"
+      ],
+      "client-fingerprint": "firefox",
+      "name": "🇺🇦 Ukraine, Vinnytsia | [BL]",
       "network": "ws",
-      "password": "531d9e93-53be-4f05-a9c1-33490d4da2f3",
+      "password": "963A4918-A630-29DA-A873-093CDF8AD784",
       "port": 443,
-      "server": "36.235.128.6",
-      "servername": "zhilegelian3.bpca2026.top",
+      "server": "bitter-math-4364.vpnetwork3567.workers.dev",
+      "servername": "bitter-math-4364.vpnetwork3567.workers.dev",
       "tls": true,
       "type": "trojan",
       "udp": true,
       "ws-opts": {
         "headers": {
-          "Host": "zhilegelian3.bpca2026.top"
+          "Host": "bitter-math-4364.vpnetwork3567.workers.dev"
         },
-        "path": "/images"
+        "path": "/"
       }
     },
     {
-      "name": "🇹🇼 Taiwan, Taipei | [BL]",
+      "alpn": [
+        "http/1.1"
+      ],
+      "name": "🇺🇦 Ukraine, Vinnytsia | [BL]",
       "network": "ws",
-      "password": "531d9e93-53be-4f05-a9c1-33490d4da2f3",
+      "password": "963A4918-A630-29DA-A873-093CDF8AD784",
       "port": 443,
-      "server": "zhilegelian2.bpca2026.top",
-      "servername": "zhilegelian2.bpca2026.top",
+      "server": "bitter-math-4364.vpnetwork3567.workers.dev",
+      "servername": "bitter-math-4364.vpnetwork3567.workers.dev",
       "tls": true,
       "type": "trojan",
       "udp": true,
       "ws-opts": {
         "headers": {
-          "Host": "zhilegelian2.bpca2026.top"
+          "Host": "bitter-math-4364.vpnetwork3567.workers.dev"
         },
-        "path": "/images"
+        "path": "/"
       }
     },
     {
-      "name": "🇹🇼 Taiwan, Tianzhong | [BL]",
+      "alpn": [
+        "http/1.1"
+      ],
+      "client-fingerprint": "chrome",
+      "name": "🇺🇦 Ukraine, Vinnytsia | [BL]",
       "network": "ws",
-      "password": "531d9e93-53be-4f05-a9c1-33490d4da2f3",
+      "password": "963A4918-A630-29DA-A873-093CDF8AD784",
       "port": 443,
-      "server": "61.224.126.124",
-      "servername": "zephyr-tw2.bpca2026.top",
+      "server": "bitter-math-4364.vpnetwork3567.workers.dev",
+      "servername": "bitter-math-4364.vpnetwork3567.workers.dev",
       "tls": true,
       "type": "trojan",
       "udp": true,
       "ws-opts": {
         "headers": {
-          "Host": "zephyr-tw2.bpca2026.top"
+          "Host": "bitter-math-4364.vpnetwork3567.workers.dev"
         },
-        "path": "/images"
+        "path": "/"
       }
     },
     {
-      "name": "🇹🇼 Taiwan, Tianzhong | [BL]",
+      "alpn": [
+        "http/1.1"
+      ],
+      "client-fingerprint": "safari",
+      "name": "🇺🇦 Ukraine, Vinnytsia | [BL]",
       "network": "ws",
-      "password": "531d9e93-53be-4f05-a9c1-33490d4da2f3",
+      "password": "963A4918-A630-29DA-A873-093CDF8AD784",
       "port": 443,
-      "server": "zephyr-tw2.bpca2026.top",
-      "servername": "zephyr-tw2.bpca2026.top",
+      "server": "bitter-math-4364.vpnetwork3567.workers.dev",
+      "servername": "bitter-math-4364.vpnetwork3567.workers.dev",
       "tls": true,
       "type": "trojan",
       "udp": true,
       "ws-opts": {
         "headers": {
-          "Host": "zephyr-tw2.bpca2026.top"
+          "Host": "bitter-math-4364.vpnetwork3567.workers.dev"
         },
-        "path": "/images"
-      }
-    },
-    {
-      "name": "🇹🇼 Taiwan, Xihu | [BL]",
-      "network": "ws",
-      "password": "531d9e93-53be-4f05-a9c1-33490d4da2f3",
-      "port": 443,
-      "server": "zephyr-tw1.bpca2026.top",
-      "servername": "zephyr-tw1.bpca2026.top",
-      "tls": true,
-      "type": "trojan",
-      "udp": true,
-      "ws-opts": {
-        "headers": {
-          "Host": "zephyr-tw1.bpca2026.top"
-        },
-        "path": "/images"
+        "path": "/"
       }
     },
     {
@@ -1688,116 +1310,20 @@
       }
     },
     {
-      "client-fingerprint": "chrome",
-      "name": "🇺🇸 United States, Los Angeles | [BL]",
+      "name": "🌐 Anycast-IP | 🇨🇦 🇬🇧 🇷🇺 | [BL]",
       "network": "ws",
-      "password": "531d9e93-53be-4f05-a9c1-33490d4da2f3",
-      "port": 443,
-      "server": "23.227.38.99",
-      "servername": "uuu-3-8uuu.ccc3cosmo.top",
-      "tls": true,
-      "type": "trojan",
-      "udp": true,
-      "ws-opts": {
-        "headers": {
-          "Host": "uuu-3-8uuu.ccc3cosmo.top"
-        },
-        "path": "/images"
-      }
-    },
-    {
-      "client-fingerprint": "chrome",
-      "name": "🇺🇸 United States, Los Angeles | [BL]",
-      "network": "ws",
-      "password": "531d9e93-53be-4f05-a9c1-33490d4da2f3",
-      "port": 443,
-      "server": "44tgt5.cloudflare.182682.xyz",
-      "servername": "uuu-3-8uuu.ccc3cosmo.top",
-      "tls": true,
-      "type": "trojan",
-      "udp": true,
-      "ws-opts": {
-        "headers": {
-          "Host": "uuu-3-8uuu.ccc3cosmo.top"
-        },
-        "path": "/images"
-      }
-    },
-    {
-      "client-fingerprint": "chrome",
-      "name": "🇺🇸 United States, Los Angeles | [BL]",
-      "network": "ws",
-      "password": "531d9e93-53be-4f05-a9c1-33490d4da2f3",
-      "port": 443,
-      "server": "56y1r.cf.877774.xyz",
-      "servername": "uuu-3-8uuu.ccc3cosmo.top",
-      "tls": true,
-      "type": "trojan",
-      "udp": true,
-      "ws-opts": {
-        "headers": {
-          "Host": "uuu-3-8uuu.ccc3cosmo.top"
-        },
-        "path": "/images"
-      }
-    },
-    {
-      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
-      "network": "ws",
-      "password": "reinz",
-      "port": 443,
-      "server": "104.26.6.171",
-      "servername": "tsg3.pages.dev",
-      "tls": true,
-      "type": "trojan",
-      "udp": true,
-      "ws-opts": {
-        "headers": {
-          "Host": "tsg3.pages.dev"
-        },
-        "path": "/?ed=2560"
-      }
-    },
-    {
-      "name": "🌐 Anycast-IP | 🇨🇦 🇫🇮 | [BL]",
-      "network": "ws",
-      "password": "reinz",
-      "port": 443,
-      "server": "104.26.6.171",
-      "servername": "tsg3.pages.dev",
-      "tls": true,
-      "type": "trojan",
-      "udp": true,
-      "ws-opts": {
-        "path": "/?ed=2560"
-      }
-    },
-    {
-      "name": "🌐 Anycast-IP | 🇨🇱 🇺🇸 | [BL]",
       "password": "123456",
-      "port": 443,
-      "server": "us.ctt25.uk",
-      "servername": "us.ctt25.uk",
-      "tls": true,
-      "type": "trojan",
-      "udp": true
-    },
-    {
-      "client-fingerprint": "ios",
-      "name": "🌐 Anycast-IP | 🇬🇧 🇷🇺 | [BL]",
-      "network": "ws",
-      "password": "70756c73-0000-4000-8000-650000000000",
-      "port": 443,
-      "server": "199.181.197.99",
-      "servername": "parsa-panel-u48we.wotic15356.workers.dev",
+      "port": 2096,
+      "server": "104.18.35.86",
+      "servername": "321dfbc6.uir-9i6.pages.dev",
       "tls": true,
       "type": "trojan",
       "udp": true,
       "ws-opts": {
         "headers": {
-          "Host": "parsa-panel-u48we.wotic15356.workers.dev"
+          "Host": "321dfbc6.uir-9i6.pages.dev"
         },
-        "path": "/pulse"
+        "path": "/"
       }
     }
   ],

@@ -1,9 +1,9 @@
 {
-  "checked_at": "2026-11-28T09:06:18.945616+00:00",
-  "etag": "W/\"52746d8b80434861ba5aa68e1dd039f410328408ca309b1fba4ab8ef477f8b0a\"",
-  "fetched_at": "2026-11-28T07:52:09.298258+00:00",
+  "checked_at": "2026-11-28T10:28:52.519715+00:00",
+  "etag": "W/\"46b74826a8c98c05612a197e2a2cd516cdf0d27dd1bdeb26b0d969d1c22bcb24\"",
+  "fetched_at": "2026-11-28T10:28:52.519715+00:00",
   "last_modified": null,
-  "last_status": 304,
+  "last_status": 200,
   "nodes": [
     {
       "client-fingerprint": "chrome",
@@ -16,7 +16,7 @@
         "short-id": "e04a526b0b09c765",
         "support-x25519mlkem768": true
       },
-      "server": "54.180.146.22",
+      "server": "3.35.13.167",
       "servername": "ao.popeep.kr",
       "tls": true,
       "type": "vless",
@@ -28,7 +28,7 @@
       "name": "end-gfw-kr64-HY2",
       "password": "7e68e32f-8015-4f37-9082-70e8b0b58043",
       "port": 443,
-      "server": "54.180.146.22",
+      "server": "3.35.13.167",
       "skip-cert-verify": true,
       "sni": "www.bing.com",
       "type": "hysteria2"
@@ -38,7 +38,7 @@
       "name": "end-gfw-kr64-SS",
       "password": "7e68e32f-8015-4f37-9082-70e8b0b58043",
       "port": 8443,
-      "server": "54.180.146.22",
+      "server": "3.35.13.167",
       "type": "ss",
       "udp": true
     },

@@ -1,92 +1,32 @@
 {
-  "checked_at": "2026-11-28T09:06:19.050378+00:00",
-  "etag": "W/\"a7a4cfc2f0a3d9dcd0bbc877e45ce851b271d32cfa6f067455be31707bf3a1a7\"",
-  "fetched_at": "2026-11-28T07:52:09.379898+00:00",
+  "checked_at": "2026-11-28T10:28:53.482610+00:00",
+  "etag": "W/\"03b709fdf89dc6d1147f7c84e002c72c0d0331fd76d633530059abe3c45de639\"",
+  "fetched_at": "2026-11-28T10:28:53.482610+00:00",
   "last_modified": null,
-  "last_status": 304,
+  "last_status": 200,
   "nodes": [
+    {
+      "name": "🇨🇳 CN_60",
+      "password": "b179b8a4-9a98-44a0-a1f1-65b8e8cb20a9",
+      "port": 20123,
+      "server": "sclass-01.catcat321.com",
+      "skip-cert-verify": true,
+      "sni": "hk.catxstar.com",
+      "type": "trojan",
+      "udp": true
+    },
     {
       "client-fingerprint": "firefox",
       "flow": "xtls-rprx-vision",
-      "name": "🇦🇲 AM_20",
-      "network": "tcp",
-      "port": 443,
-      "reality-opts": {
-        "public-key": "pR39Vv5qhk8r6akOicoy6mMs4-ppSWUez8MyAXG7wwQ",
-        "short-id": "27350908de933e09"
-      },
-      "server": "2.56.207.123",
-      "servername": "ironlark.xyz",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "ba373a70-295f-482d-a471-8bc17b54e23b"
-    },
-    {
-      "client-fingerprint": "chrome",
-      "name": "🇦🇹 奥地利 | AUT",
-      "network": "ws",
-      "port": 443,
-      "server": "91.184.249.146",
-      "servername": "v1n4.11676767.xyz",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "5d7b401c-78fa-4254-872e-6d42bf7e75ec",
-      "ws-opts": {
-        "headers": {
-          "Host": "v1n4.11676767.xyz"
-        },
-        "path": "/pdf/out.html"
-      }
-    },
-    {
-      "client-fingerprint": "firefox",
-      "grpc-opts": {
-        "grpc-mode": "gun",
-        "grpc-service-name": "neurex"
-      },
-      "name": "🇨🇦 加拿大 | CAN",
-      "network": "grpc",
-      "port": 443,
-      "reality-opts": {
-        "public-key": "pR39Vv5qhk8r6akOicoy6mMs4-ppSWUez8MyAXG7wwQ",
-        "short-id": "27350908de933e09"
-      },
-      "server": "79.141.166.81",
-      "servername": "hazelforge.xyz",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "ba373a70-295f-482d-a471-8bc17b54e23b"
-    },
-    {
-      "client-fingerprint": "chrome",
       "name": "🇩🇪 德国 | DEU",
-      "network": "ws",
+      "network": "tcp",
       "port": 8443,
-      "server": "178.17.48.50",
-      "servername": "v1n4.11676767.xyz",
+      "server": "196.198.111.166",
+      "servername": "usr-6b09ce88-api-v3.alcors.net",
       "tls": true,
       "type": "vless",
       "udp": true,
-      "uuid": "5d7b401c-78fa-4254-872e-6d42bf7e75ec",
-      "ws-opts": {
-        "headers": {
-          "Host": "v1n4.11676767.xyz"
-        },
-        "path": "/pdf/out.html"
-      }
-    },
-    {
-      "name": "🇩🇪 德国 | DEU 2",
-      "password": "69c9d0af-5370-4175-8cef-aa7e3b1a6381",
-      "port": 443,
-      "server": "signal.frnhk.xyz",
-      "skip-cert-verify": true,
-      "sni": "signal.frnhk.xyz",
-      "type": "anytls",
-      "udp": true
+      "uuid": "f121ffc8-f6dc-4728-a871-a05e3f9cf8c5"
     },
     {
       "alpn": [
@@ -94,92 +34,118 @@
         "http/1.1"
       ],
       "client-fingerprint": "firefox",
-      "name": "🇩🇪 德国 | DEU 3",
+      "name": "🇩🇪 德国 | DEU 2",
       "network": "xhttp",
       "port": 443,
-      "server": "copperplate.gerqix.online",
-      "servername": "copperplate.gerqix.online",
+      "server": "sunfield.moltex.click",
+      "servername": "fennel.moltex.click",
       "tls": true,
       "type": "vless",
       "udp": true,
       "uuid": "749b1c56-e658-4bf5-94bd-5c3286a4aed1",
       "xhttp-opts": {
-        "host": "copperplate.gerqix.online",
+        "host": "sunfield.moltex.click",
         "mode": "auto",
-        "path": "/api/de6/sync"
+        "path": "/api/de1/sync"
+      }
+    },
+    {
+      "alpn": [
+        "http/1.1"
+      ],
+      "client-fingerprint": "firefox",
+      "name": "🇩🇪 德国 | DEU 3",
+      "network": "ws",
+      "port": 443,
+      "server": "bookend.filnex.baby",
+      "servername": "ferncrest.gerqix.online",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "749b1c56-e658-4bf5-94bd-5c3286a4aed1",
+      "ws-opts": {
+        "headers": {
+          "Host": "bookend.filnex.baby"
+        },
+        "path": "/api/de1/stream"
       }
     },
     {
       "client-fingerprint": "chrome",
       "name": "🇩🇪 德国 | DEU 4",
-      "network": "ws",
-      "port": 8443,
-      "server": "77.91.86.194",
-      "servername": "v1n4.11676767.xyz",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "5d7b401c-78fa-4254-872e-6d42bf7e75ec",
-      "ws-opts": {
-        "headers": {
-          "Host": "v1n4.11676767.xyz"
-        },
-        "path": "/pdf/out.html"
-      }
-    },
-    {
-      "client-fingerprint": "qq",
-      "flow": "xtls-rprx-vision",
-      "name": "🇩🇪 德国 | DEU 5",
       "network": "tcp",
-      "port": 443,
+      "port": 16893,
       "reality-opts": {
-        "public-key": "nPYLh9nRxKK0OQVQrboJyKN4Y3DViI412cbN9Tbz9AQ",
-        "short-id": "53668ac88eefee81"
+        "public-key": "dpmXAfLC6-Sf6cPjkQKGx_NliRQRFZ_oUiiPA5ALW0I",
+        "short-id": "849711f2b99d1176"
       },
-      "server": "5.42.104.42",
-      "servername": "rugermicro2.gangplatform.com",
+      "server": "91.107.185.86",
+      "servername": "play.google.com",
       "tls": true,
       "type": "vless",
       "udp": true,
-      "uuid": "f4b08bf1-d9bd-4755-aa88-ba922282c608"
+      "uuid": "80256d6f-7cd3-4a3a-8df6-2981e52551dc"
     },
     {
-      "client-fingerprint": "chrome",
-      "name": "🇩🇪 德国 | DEU 6",
-      "network": "ws",
+      "alpn": [
+        "h2",
+        "http/1.1"
+      ],
+      "client-fingerprint": "firefox",
+      "name": "🇩🇪 德国 | DEU 5",
+      "network": "xhttp",
       "port": 443,
-      "server": "84.22.150.47",
-      "servername": "v1n4.11676767.xyz",
+      "server": "pigment.merlano.monster",
+      "servername": "fieldmark.merlano.monster",
       "tls": true,
       "type": "vless",
       "udp": true,
-      "uuid": "5d7b401c-78fa-4254-872e-6d42bf7e75ec",
-      "ws-opts": {
-        "headers": {
-          "Host": "v1n4.11676767.xyz"
-        },
-        "path": "/pdf/out.html"
+      "uuid": "749b1c56-e658-4bf5-94bd-5c3286a4aed1",
+      "xhttp-opts": {
+        "host": "pigment.merlano.monster",
+        "mode": "auto",
+        "path": "/api/de2/sync"
       }
     },
     {
-      "client-fingerprint": "chrome",
-      "encryption": "mlkem768x25519plus.native.0rtt.7uOyrccvTH3o41kiN6Rqh7gb3jyvBhcLGhaXL2e1K3o",
-      "name": "🇩🇪 德国 | DEU 7",
-      "network": "ws",
-      "port": 42138,
-      "server": "dl.zanjanphone.ir",
-      "servername": "login.zanjanphone.ir",
+      "alpn": [
+        "h2",
+        "http/1.1"
+      ],
+      "client-fingerprint": "firefox",
+      "name": "🇩🇪 德国 | DEU 6",
+      "network": "xhttp",
+      "port": 443,
+      "server": "prairie.moltex.click",
+      "servername": "alderpond.moltex.click",
       "tls": true,
       "type": "vless",
       "udp": true,
-      "uuid": "4fdf9cd1-b7cf-4989-9d3a-63e4efb2b4b3",
-      "ws-opts": {
-        "headers": {
-          "Host": "login.zanjanphone.ir"
-        },
-        "path": "/"
+      "uuid": "749b1c56-e658-4bf5-94bd-5c3286a4aed1",
+      "xhttp-opts": {
+        "host": "prairie.moltex.click",
+        "mode": "auto",
+        "path": "/api/de2/sync"
       }
+    },
+    {
+      "alpn": [
+        "h2"
+      ],
+      "client-fingerprint": "firefox",
+      "grpc-opts": {
+        "grpc-mode": "gun",
+        "grpc-service-name": "glush.de5.v1"
+      },
+      "name": "🇩🇪 德国 | DEU 7",
+      "network": "grpc",
+      "port": 443,
+      "server": "cobblestone.merlano.monster",
+      "servername": "cobblestone.merlano.monster",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "749b1c56-e658-4bf5-94bd-5c3286a4aed1"
     },
     {
       "encryption": "mlkem768x25519plus.native.0rtt.7cEi3EYubZPwXl754zAXJkMQRhE95FMPVVhP8613QEA",
@@ -199,22 +165,16 @@
       }
     },
     {
-      "client-fingerprint": "chrome",
+      "alterId": 0,
+      "cipher": "auto",
       "name": "🇩🇪 德国 | DEU 9",
-      "network": "ws",
-      "port": 443,
-      "server": "172.67.67.89",
-      "servername": "v1n4.11676767.xyz",
-      "tls": true,
-      "type": "vless",
+      "port": 2080,
+      "server": "Ir.wbzo.ir",
+      "skip-cert-verify": true,
+      "tls": false,
+      "type": "vmess",
       "udp": true,
-      "uuid": "5d7b401c-78fa-4254-872e-6d42bf7e75ec",
-      "ws-opts": {
-        "headers": {
-          "Host": "v1n4.11676767.xyz"
-        },
-        "path": "/pdf/out.html"
-      }
+      "uuid": "b7e3e8af-d1ca-45da-a95f-8b9ad77398b1"
     },
     {
       "alpn": [
@@ -224,18 +184,30 @@
       "name": "🇩🇪 德国 | DEU 10",
       "network": "ws",
       "port": 443,
-      "server": "bookend.filnex.baby",
-      "servername": "ferncrest.gerqix.online",
+      "server": "woodgrain.filnex.baby",
+      "servername": "larchbank.elvano.website",
       "tls": true,
       "type": "vless",
       "udp": true,
       "uuid": "749b1c56-e658-4bf5-94bd-5c3286a4aed1",
       "ws-opts": {
         "headers": {
-          "Host": "bookend.filnex.baby"
+          "Host": "woodgrain.filnex.baby"
         },
-        "path": "/api/de1/stream"
+        "path": "/api/de2/stream"
       }
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🇩🇪 德国 | DEU 11",
+      "network": "tcp",
+      "port": 2082,
+      "server": "ci.cloudof1.ir",
+      "servername": "ci.cloudof1.ir",
+      "tls": false,
+      "type": "vless",
+      "udp": true,
+      "uuid": "b1758b10-8da1-4791-a1b3-44a77deea1ed"
     },
     {
       "alpn": [
@@ -243,40 +215,73 @@
         "http/1.1"
       ],
       "client-fingerprint": "firefox",
-      "name": "🇩🇪 德国 | DEU 11",
+      "name": "🇩🇪 德国 | DEU 12",
       "network": "xhttp",
       "port": 443,
-      "server": "sunfield.moltex.click",
-      "servername": "fennel.moltex.click",
+      "server": "copperplate.gerqix.online",
+      "servername": "copperplate.gerqix.online",
       "tls": true,
       "type": "vless",
       "udp": true,
       "uuid": "749b1c56-e658-4bf5-94bd-5c3286a4aed1",
       "xhttp-opts": {
-        "host": "sunfield.moltex.click",
+        "host": "copperplate.gerqix.online",
         "mode": "auto",
-        "path": "/api/de1/sync"
+        "path": "/api/de6/sync"
       }
     },
     {
-      "client-fingerprint": "firefox",
-      "grpc-opts": {
-        "grpc-mode": "gun",
-        "grpc-service-name": "neurex"
-      },
-      "name": "🇪🇪 爱沙尼亚 | EST",
-      "network": "grpc",
+      "auth": "6ac6d17d-040c-4fab-940e-8f5d72c3fed6",
+      "name": "🇩🇪 德国 | DEU 13",
+      "password": "6ac6d17d-040c-4fab-940e-8f5d72c3fed6",
       "port": 443,
-      "reality-opts": {
-        "public-key": "pR39Vv5qhk8r6akOicoy6mMs4-ppSWUez8MyAXG7wwQ",
-        "short-id": "27350908de933e09"
-      },
-      "server": "185.174.135.219",
-      "servername": "eeb.899themes.pro",
+      "server": "135.126.21.107",
+      "skip-cert-verify": true,
+      "sni": "de2-balance.rezproffx.ru",
+      "type": "hysteria2"
+    },
+    {
+      "auth": "6ac6d17d-040c-4fab-940e-8f5d72c3fed6",
+      "name": "🇩🇪 德国 | DEU 14",
+      "password": "6ac6d17d-040c-4fab-940e-8f5d72c3fed6",
+      "port": 443,
+      "server": "135.126.21.106",
+      "skip-cert-verify": true,
+      "sni": "de1-balance.rezproffx.ru",
+      "type": "hysteria2"
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🇩🇪 德国 | DEU 15",
+      "network": "tcp",
+      "port": 443,
+      "server": "ns2.irts.lol",
+      "servername": "ns2.irts.lol",
       "tls": true,
       "type": "vless",
       "udp": true,
-      "uuid": "ba373a70-295f-482d-a471-8bc17b54e23b"
+      "uuid": "ff1906a5-a446-44e4-8e72-4e2d61775fa0"
+    },
+    {
+      "alpn": [
+        "http/1.1"
+      ],
+      "client-fingerprint": "firefox",
+      "name": "🇩🇪 德国 | DEU 16",
+      "network": "ws",
+      "port": 443,
+      "server": "sienna.merlano.monster",
+      "servername": "sienna.merlano.monster",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "749b1c56-e658-4bf5-94bd-5c3286a4aed1",
+      "ws-opts": {
+        "headers": {
+          "Host": "sienna.merlano.monster"
+        },
+        "path": "/api/de4/stream"
+      }
     },
     {
       "client-fingerprint": "edge",
@@ -299,54 +304,43 @@
       "uuid": "bbbee51e-021e-4e65-ba03-bf7de175116f"
     },
     {
+      "alpn": [
+        "h2"
+      ],
       "client-fingerprint": "chrome",
-      "name": "🇫🇷 法国 | FRA",
+      "name": "🇪🇸 西班牙 | ESP 2",
       "network": "xhttp",
       "port": 443,
-      "server": "87.120.126.127",
-      "servername": "mama147.baklajann.ru",
+      "server": "api.ferrin.uk",
+      "servername": "7d1a74fd.ferrin.uk",
       "tls": true,
       "type": "vless",
       "udp": true,
-      "uuid": "7a42d986-f0b8-46e7-82cf-9516e168a613",
+      "uuid": "7d1a74fd-8a38-4a29-863f-5da53a9e557e",
       "xhttp-opts": {
-        "host": "mama147.baklajann.ru",
-        "mode": "auto",
-        "path": "/"
+        "host": "api.ferrin.uk",
+        "mode": "stream-one",
+        "path": "/es"
       }
     },
     {
-      "client-fingerprint": "firefox",
+      "client-fingerprint": "chrome",
+      "encryption": "mlkem768x25519plus.native.0rtt.rfdeGUDyczHSG0ad2TVH3js_RSHVJrdZl4S5aw8NpUY",
       "flow": "xtls-rprx-vision",
-      "name": "🇫🇷 法国 | FRA 2",
-      "network": "tcp",
-      "port": 443,
-      "reality-opts": {
-        "public-key": "p35RUaaaItuoyNiCrLpGeStBUpEJMSiZ2AajdfhhmiM",
-        "short-id": "92aee92130b46fe2"
-      },
-      "server": "6bf329t.nl22.h1clayd.shop",
-      "servername": "6bf329t.nl22.h1clayd.shop",
+      "name": "🇫🇷 法国 | FRA",
+      "network": "ws",
+      "port": 1926,
+      "server": "logout.spacecdn.ir",
+      "servername": "login.zanjanphone.ir",
       "tls": true,
       "type": "vless",
       "udp": true,
-      "uuid": "e894c08a-fecc-46f5-bf03-c95d0274c79d"
-    },
-    {
-      "name": "🇬🇧 英国 | GBR",
-      "network": "ws",
-      "password": "531d9e93-53be-4f05-a9c1-33490d4da2f3",
-      "port": 443,
-      "server": "eukhost.com",
-      "skip-cert-verify": true,
-      "sni": "0o3vr2n5k2.bpuk2026.top",
-      "type": "trojan",
-      "udp": true,
+      "uuid": "4fdf9cd1-b7cf-4989-9d3a-63e4efb2b4b3",
       "ws-opts": {
         "headers": {
-          "Host": "0o3vr2n5k2.bpuk2026.top"
+          "Host": "login.zanjanphone.ir"
         },
-        "path": "/images"
+        "path": "/user"
       }
     },
     {
@@ -354,13 +348,25 @@
         "h3"
       ],
       "auth": "900c8c92-1979-4c7c-8f2f-63e87d53d8fe",
-      "name": "🇬🇧 英国 | GBR 2",
+      "name": "🇬🇧 英国 | GBR",
       "password": "900c8c92-1979-4c7c-8f2f-63e87d53d8fe",
       "port": 13337,
       "server": "uk-tube-01.stre4m.net",
       "skip-cert-verify": true,
       "sni": "mother-earth.fyi",
       "type": "hysteria2"
+    },
+    {
+      "client-fingerprint": "qq",
+      "name": "🇬🇧 英国 | GBR 2",
+      "network": "tcp",
+      "port": 443,
+      "server": "136.148.83.70",
+      "servername": "aszbk-ru-78dc.my-fade.cloud",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "00000000-0000-0001-0000-000000000000"
     },
     {
       "alterId": 0,
@@ -383,66 +389,43 @@
     },
     {
       "name": "🇭🇰 香港 | HKG 2",
-      "network": "ws",
-      "password": "531d9e93-53be-4f05-a9c1-33490d4da2f3",
+      "password": "0324fbc29561",
       "port": 443,
-      "server": "56e1f.cloudflare.182682.xyz",
+      "server": "5641sdds.df6h451rh.xin",
       "skip-cert-verify": true,
-      "sni": "hkk-1-8hhh.ccc3cosmo.top",
-      "type": "trojan",
-      "udp": true,
-      "ws-opts": {
-        "headers": {
-          "Host": "hkk-1-8hhh.ccc3cosmo.top"
-        },
-        "path": "/images"
-      }
-    },
-    {
-      "name": "🇭🇰 香港 | HKG 3",
-      "network": "ws",
-      "port": 443,
-      "server": "hk.cf.877774.xyz",
-      "servername": "eeeccc.tkgogocsgo.top",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "531d9e93-53be-4f05-a9c1-33490d4da2f3",
-      "ws-opts": {
-        "headers": {
-          "Host": "eeeccc.tkgogocsgo.top"
-        },
-        "path": "/images"
-      }
+      "sni": "images.ctfassets.net",
+      "type": "anytls"
     },
     {
       "alterId": 0,
       "cipher": "auto",
-      "name": "🇭🇰 香港 | HKG 4",
+      "name": "🇭🇰 香港 | HKG 3",
       "network": "ws",
-      "port": 36703,
-      "server": "47.244.120.197",
+      "port": 443,
+      "server": "47.86.90.31",
+      "servername": "bywxdhirqkjj8xaz.v.3dns.vip",
       "skip-cert-verify": true,
-      "tls": false,
+      "tls": true,
       "type": "vmess",
       "udp": true,
-      "uuid": "45b83519-9c4f-4052-a11b-02e017b636d4",
+      "uuid": "234a8041-2b4d-44a3-a8d8-523cbfd58dc4",
       "ws-opts": {
-        "path": "/arki"
+        "headers": {
+          "Host": "bywxdhirqkjj8xaz.v.3dns.vip"
+        },
+        "path": "/ws-vmess"
       }
     },
     {
-      "name": "🇭🇰 香港 | HKG 5",
-      "password": 12012,
-      "port": 12012,
-      "server": "47.242.93.89",
-      "skip-cert-verify": true,
-      "sni": "ali-hk.b-gfw.cfd",
-      "type": "trojan",
-      "udp": true
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "🇭🇰 香港 | HKG 4",
+      "password": "abc62f00-95a8-4c2e-a85d-36a2cdc977da",
+      "port": 28014,
+      "server": "143.20.71.68",
+      "type": "ss"
     },
     {
-      "name": "🇭🇰 香港 | HKG 6",
+      "name": "🇭🇰 香港 | HKG 5",
       "password": "2902c46c8493",
       "port": 443,
       "server": "ibsdsf.df6h451rh.xin",
@@ -452,26 +435,33 @@
       "udp": true
     },
     {
+      "client-fingerprint": "chrome",
+      "name": "🇮🇩 印尼 | IDN",
+      "network": "tcp",
+      "packet-encoding": "xudp",
+      "port": 443,
+      "reality-opts": {
+        "public-key": "UT9tFQOdy54SeW_tg-XQN3QkGYoWUpO_88XFXijkrXc",
+        "short-id": "2da72ce6"
+      },
+      "server": "130.94.95.126",
+      "servername": "navi.bankrate.com",
+      "tls": true,
+      "type": "vless",
+      "uuid": "ed94398f-893f-40c6-b14c-bf02b5f6be16"
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "🇮🇷 伊朗 | IRN",
+      "password": "pmZmPZcbrauTSbfdc6-RLIaR_F7bW3H1",
+      "port": 2060,
+      "server": "Ir.wbzo.ir",
+      "type": "ss",
+      "udp": true
+    },
+    {
       "cipher": "aes-256-gcm",
       "name": "🇮🇹 意大利 | ITA",
-      "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=",
-      "port": 19999,
-      "server": "202.50.253.54",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "aes-256-gcm",
-      "name": "🇮🇹 意大利 | ITA 2",
-      "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=",
-      "port": 19999,
-      "server": "202.50.253.18",
-      "type": "ss",
-      "udp": true
-    },
-    {
-      "cipher": "aes-256-gcm",
-      "name": "🇮🇹 意大利 | ITA 3",
       "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=",
       "port": 19999,
       "server": "202.50.253.72",
@@ -480,10 +470,28 @@
     },
     {
       "cipher": "aes-256-gcm",
+      "name": "🇮🇹 意大利 | ITA 2",
+      "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=",
+      "port": 19999,
+      "server": "202.50.253.27",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "aes-256-gcm",
+      "name": "🇮🇹 意大利 | ITA 3",
+      "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=",
+      "port": 19999,
+      "server": "202.50.253.90",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "cipher": "aes-256-gcm",
       "name": "🇮🇹 意大利 | ITA 4",
       "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=",
       "port": 19999,
-      "server": "202.50.253.81",
+      "server": "202.50.253.54",
       "type": "ss",
       "udp": true
     },
@@ -492,39 +500,57 @@
       "name": "🇮🇹 意大利 | ITA 5",
       "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=",
       "port": 19999,
-      "server": "202.50.253.36",
+      "server": "202.50.253.81",
       "type": "ss",
       "udp": true
     },
     {
-      "cipher": "aes-256-gcm",
-      "name": "🇮🇹 意大利 | ITA 6",
-      "password": "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=",
-      "port": 19999,
-      "server": "202.50.253.45",
-      "type": "ss",
-      "udp": true
-    },
-    {
+      "auth": "nDEKfD96Ue",
       "name": "🇯🇵 日本 | JPN",
-      "network": "ws",
+      "password": "nDEKfD96Ue",
+      "port": 43812,
+      "server": "jp.777678.xyz",
+      "skip-cert-verify": true,
+      "sni": "jp.777678.xyz",
+      "type": "hysteria2"
+    },
+    {
+      "client-fingerprint": "chrome",
+      "flow": "xtls-rprx-vision",
+      "name": "🇯🇵 日本 | JPN 2",
+      "network": "tcp",
       "port": 443,
-      "server": "jllp.cf.877774.xyz",
-      "servername": "jp.bbusxxxh.top",
+      "reality-opts": {
+        "public-key": "KBPuCiAKJQQtlsodm5MIBFfYf-TGsrjCK5GGJzJJli4",
+        "short-id": "6a3c0a718181"
+      },
+      "server": "jp2game.xyy123.win",
+      "servername": "stg.nvbugspro.nvidia.com",
       "tls": true,
       "type": "vless",
       "udp": true,
-      "uuid": "531d9e93-53be-4f05-a9c1-33490d4da2f3",
-      "ws-opts": {
-        "headers": {
-          "Host": "jp.bbusxxxh.top"
-        },
-        "path": "/images"
-      }
+      "uuid": "330a570e-c0ba-4a9d-8e37-d20540cc8eaa"
+    },
+    {
+      "client-fingerprint": "chrome",
+      "flow": "xtls-rprx-vision",
+      "name": "🇯🇵 日本 | JPN 3",
+      "network": "tcp",
+      "port": 443,
+      "reality-opts": {
+        "public-key": "KBPuCiAKJQQtlsodm5MIBFfYf-TGsrjCK5GGJzJJli4",
+        "short-id": "6a3c0a718181"
+      },
+      "server": "jp2music.xyy123.win",
+      "servername": "stg.nvbugspro.nvidia.com",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "330a570e-c0ba-4a9d-8e37-d20540cc8eaa"
     },
     {
       "auth": "Yuike2026cat",
-      "name": "🇯🇵 日本 | JPN 2",
+      "name": "🇯🇵 日本 | JPN 4",
       "password": "Yuike2026cat",
       "port": 8443,
       "server": "43.130.234.128",
@@ -533,75 +559,53 @@
       "type": "hysteria2"
     },
     {
-      "name": "🇯🇵 日本 | JPN 3",
-      "network": "ws",
+      "name": "🇯🇵 日本 | JPN 5",
+      "password": "1fe082ef-9dce-4481-ae92-fbd53cf2f679",
+      "port": 57180,
+      "server": "media.gosthk.site",
+      "skip-cert-verify": true,
+      "sni": "media.gosthk.site",
+      "type": "anytls",
+      "udp": true
+    },
+    {
+      "auth": "7e68e32f-8015-4f37-9082-70e8b0b58043",
+      "fingerprint": "89:61:86:FE:B2:0C:B7:40:31:87:A4:5F:F3:BD:5D:DC:8B:FB:DD:41:9D:77:9D:55:D7:86:18:9D:36:73:1A:69",
+      "name": "🇰🇷 韩国 | KOR",
+      "password": "7e68e32f-8015-4f37-9082-70e8b0b58043",
       "port": 443,
-      "server": "651feae6.cloudflare.182682.xyz",
-      "servername": "33333.bpjp2027.top",
+      "server": "54.180.146.22",
+      "skip-cert-verify": true,
+      "sni": "www.bing.com",
+      "type": "hysteria2"
+    },
+    {
+      "cipher": "chacha20-ietf-poly1305",
+      "name": "🇰🇷 韩国 | KOR 2",
+      "password": "7e68e32f-8015-4f37-9082-70e8b0b58043",
+      "port": 8443,
+      "server": "54.180.146.22",
+      "type": "ss",
+      "udp": true
+    },
+    {
+      "client-fingerprint": "firefox",
+      "flow": "xtls-rprx-vision",
+      "name": "🇳🇱 荷兰 | NLD",
+      "network": "tcp",
+      "port": 443,
+      "reality-opts": {
+        "public-key": "GiDgVRVYrTkv1mZJeFVWkr736Iey2kqLM6L0eUbffV8"
+      },
+      "server": "201.51.11.65",
+      "servername": "absolute-disaster.org",
       "tls": true,
       "type": "vless",
       "udp": true,
-      "uuid": "531d9e93-53be-4f05-a9c1-33490d4da2f3",
-      "ws-opts": {
-        "headers": {
-          "Host": "33333.bpjp2027.top"
-        },
-        "path": "/images"
-      }
+      "uuid": "Fluffy_VPN-zKZUa4Ie"
     },
     {
-      "name": "🇲🇾 马来西亚 | MYS",
-      "network": "ws",
-      "password": "531d9e93-53be-4f05-a9c1-33490d4da2f3",
-      "port": 443,
-      "server": "34651e.cf.877774.xyz",
-      "skip-cert-verify": true,
-      "sni": "44-ml-1.ccc4vortex.top",
-      "type": "trojan",
-      "udp": true,
-      "ws-opts": {
-        "headers": {
-          "Host": "44-ml-1.ccc4vortex.top"
-        },
-        "path": "/images"
-      }
-    },
-    {
-      "name": "🇲🇾 马来西亚 | MYS 2",
-      "network": "ws",
-      "password": "531d9e93-53be-4f05-a9c1-33490d4da2f3",
-      "port": 443,
-      "server": "3456f1.cloudflare.182682.xyz",
-      "skip-cert-verify": true,
-      "sni": "44-ml-1.ccc4vortex.top",
-      "type": "trojan",
-      "udp": true,
-      "ws-opts": {
-        "headers": {
-          "Host": "44-ml-1.ccc4vortex.top"
-        },
-        "path": "/images"
-      }
-    },
-    {
-      "name": "🇲🇾 马来西亚 | MYS 3",
-      "network": "ws",
-      "password": "531d9e93-53be-4f05-a9c1-33490d4da2f3",
-      "port": 443,
-      "server": "23.227.38.61",
-      "skip-cert-verify": true,
-      "sni": "44-ml-1.ccc4vortex.top",
-      "type": "trojan",
-      "udp": true,
-      "ws-opts": {
-        "headers": {
-          "Host": "44-ml-1.ccc4vortex.top"
-        },
-        "path": "/images"
-      }
-    },
-    {
-      "name": "🇳🇱 荷兰 | NLD",
+      "name": "🇳🇱 荷兰 | NLD 2",
       "network": "ws",
       "port": 2052,
       "server": "185.16.110.62",
@@ -618,44 +622,67 @@
     },
     {
       "client-fingerprint": "chrome",
-      "name": "🇵🇱 波兰 | POL",
-      "network": "xhttp",
-      "port": 443,
-      "server": "72.56.249.32",
-      "servername": "luetheras.bootless.ru",
+      "flow": "xtls-rprx-vision",
+      "name": "🇳🇱 荷兰 | NLD 3",
+      "network": "tcp",
+      "port": 8443,
+      "server": "196.240.125.12",
+      "servername": "api-v2-6b09ce88.vmagnum.win",
       "tls": true,
       "type": "vless",
       "udp": true,
-      "uuid": "00799b08-1090-4ed3-bec0-0fa26816a703",
+      "uuid": "f121ffc8-f6dc-4728-a871-a05e3f9cf8c5"
+    },
+    {
+      "client-fingerprint": "chrome",
+      "name": "🇳🇱 荷兰 | NLD 4",
+      "network": "xhttp",
+      "port": 443,
+      "server": "201.34.142.108",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "4777d90d-265b-4927-a0d1-63f36ed1421c",
       "xhttp-opts": {
         "mode": "auto",
-        "path": "/api/v2/stream"
+        "path": "/assets/nlrelay01/"
       }
     },
     {
-      "client-fingerprint": "firefox",
-      "grpc-opts": {
-        "grpc-mode": "gun",
-        "grpc-service-name": "neurex"
-      },
-      "name": "🇷🇴 罗马尼亚 | ROU",
-      "network": "grpc",
-      "port": 443,
-      "reality-opts": {
-        "public-key": "pR39Vv5qhk8r6akOicoy6mMs4-ppSWUez8MyAXG7wwQ",
-        "short-id": "27350908de933e09"
-      },
-      "server": "46.28.67.210",
-      "servername": "foxbramble.xyz",
+      "client-fingerprint": "chrome",
+      "name": "🇳🇱 荷兰 | NLD 5",
+      "network": "ws",
+      "port": 8443,
+      "server": "xinnusvpn.duckdns.org",
+      "servername": "xinnusvpn.duckdns.org",
       "tls": true,
       "type": "vless",
       "udp": true,
-      "uuid": "ba373a70-295f-482d-a471-8bc17b54e23b"
+      "uuid": "c90395e6-2140-47ad-a54d-9b166729d3ef",
+      "ws-opts": {
+        "headers": {
+          "Host": "xinnusvpn.duckdns.org"
+        },
+        "path": "/wsnl"
+      }
     },
     {
-      "alpn": [
-        "h2"
-      ],
+      "client-fingerprint": "chrome",
+      "flow": "xtls-rprx-vision",
+      "name": "🇳🇱 荷兰 | NLD 6",
+      "network": "tcp",
+      "port": 443,
+      "reality-opts": {
+        "public-key": "GiDgVRVYrTkv1mZJeFVWkr736Iey2kqLM6L0eUbffV8"
+      },
+      "server": "201.51.11.65",
+      "servername": "absolute-disaster.org",
+      "tls": true,
+      "type": "vless",
+      "udp": true,
+      "uuid": "1e2b9c0c-4f9b-56f5-a062-1c4f2d2aa200"
+    },
+    {
       "client-fingerprint": "firefox",
       "grpc-opts": {
         "grpc-mode": "gun",
@@ -664,7 +691,7 @@
       "name": "🇷🇺 俄罗斯 | RUS",
       "network": "grpc",
       "port": 443,
-      "server": "vps3.nemnogogo.com",
+      "server": "201.24.116.192",
       "servername": "vps3.nemnogogo.com",
       "tls": true,
       "type": "vless",
@@ -694,139 +721,115 @@
       "client-fingerprint": "firefox",
       "grpc-opts": {
         "grpc-mode": "gun",
-        "grpc-service-name": "neurex"
+        "grpc-service-name": "mobile.api.Event"
       },
-      "name": "🇸🇪 瑞典 | SWE",
+      "name": "🇷🇺 俄罗斯 | RUS 3",
       "network": "grpc",
       "port": 443,
-      "reality-opts": {
-        "public-key": "pR39Vv5qhk8r6akOicoy6mMs4-ppSWUez8MyAXG7wwQ",
-        "short-id": "27350908de933e09"
-      },
-      "server": "79.141.174.144",
-      "servername": "seb.899themes.pro",
+      "server": "201.51.12.98",
+      "servername": "vps3.nemnogogo.com",
       "tls": true,
       "type": "vless",
       "udp": true,
-      "uuid": "ba373a70-295f-482d-a471-8bc17b54e23b"
+      "uuid": "38308ff1-5aa9-494f-a25a-0f2870d56b3e"
     },
     {
       "client-fingerprint": "chrome",
+      "flow": "xtls-rprx-vision",
       "name": "🇸🇬 新加坡 | SGP",
-      "network": "ws",
+      "network": "tcp",
       "port": 443,
-      "server": "188.166.231.184",
-      "servername": "v1n4.11676767.xyz",
+      "reality-opts": {
+        "public-key": "x8aCD8cJtkDvAjcRrcMG05MNiwh11LaKg70KIRvfN0g",
+        "short-id": "819a87bf1651bf44"
+      },
+      "server": "13.212.90.94",
+      "servername": "greenfieldsdairy.com",
       "tls": true,
       "type": "vless",
       "udp": true,
-      "uuid": "5d7b401c-78fa-4254-872e-6d42bf7e75ec",
-      "ws-opts": {
-        "headers": {
-          "Host": "v1n4.11676767.xyz"
-        },
-        "path": "/pdf/out.html"
-      }
+      "uuid": "7e68e32f-8015-4f37-9082-70e8b0b58043"
     },
     {
       "cipher": "chacha20-ietf-poly1305",
       "name": "🇸🇬 新加坡 | SGP 2",
       "password": "7e68e32f-8015-4f37-9082-70e8b0b58043",
       "port": 8443,
-      "server": "13.229.109.49",
+      "server": "13.212.90.94",
       "type": "ss",
       "udp": true
     },
     {
-      "client-fingerprint": "chrome",
+      "auth": "7e68e32f-8015-4f37-9082-70e8b0b58043",
+      "fingerprint": "C1:FD:40:94:1F:91:9B:5C:78:96:24:40:97:F2:2D:9D:95:8E:62:5C:D9:58:B7:5F:34:CC:FA:42:18:1F:50:B2",
       "name": "🇸🇬 新加坡 | SGP 3",
-      "network": "ws",
+      "password": "7e68e32f-8015-4f37-9082-70e8b0b58043",
       "port": 443,
-      "server": "www.buydomains.com",
-      "servername": "mhoX6Xz96zGe3qv5HISuFj9B.paGeS.DEV",
-      "tls": true,
-      "type": "vless",
-      "uuid": "4d945644-69ab-47e0-98b3-d43a6313135d",
-      "ws-opts": {
-        "headers": {
-          "Host": "mhoX6Xz96zGe3qv5HISuFj9B.paGeS.DEV"
-        },
-        "path": "/vl/SaXqikbSPA3ImtmZKAFin?ed=2560fp=chrome"
-      }
-    },
-    {
-      "client-fingerprint": "chrome",
-      "name": "🇸🇬 新加坡 | SGP 4",
-      "network": "ws",
-      "port": 443,
-      "server": "168.144.132.93",
-      "servername": "v1n4.11676767.xyz",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "5d7b401c-78fa-4254-872e-6d42bf7e75ec",
-      "ws-opts": {
-        "headers": {
-          "Host": "v1n4.11676767.xyz"
-        },
-        "path": "/pdf/out.html"
-      }
-    },
-    {
-      "client-fingerprint": "chrome",
-      "name": "🇸🇬 新加坡 | SGP 5",
-      "network": "ws",
-      "port": 443,
-      "server": "104.18.41.145",
-      "servername": "mhoX6Xz96zGe3qv5HISuFj9B.paGeS.DEV",
-      "tls": true,
-      "type": "vless",
-      "uuid": "4d945644-69ab-47e0-98b3-d43a6313135d",
-      "ws-opts": {
-        "headers": {
-          "Host": "mhoX6Xz96zGe3qv5HISuFj9B.paGeS.DEV"
-        },
-        "path": "/vl/SaXqikbSPA3ImtmZKAFin?ed=2560"
-      }
+      "server": "13.212.90.94",
+      "skip-cert-verify": true,
+      "sni": "www.bing.com",
+      "type": "hysteria2"
     },
     {
       "client-fingerprint": "chrome",
       "name": "🇹🇭 泰国 | THA",
-      "network": "ws",
+      "network": "tcp",
+      "packet-encoding": "xudp",
       "port": 443,
-      "server": "45.150.131.246",
-      "servername": "v1n4.11676767.xyz",
+      "reality-opts": {
+        "public-key": "UT9tFQOdy54SeW_tg-XQN3QkGYoWUpO_88XFXijkrXc",
+        "short-id": "2da72ce6"
+      },
+      "server": "130.94.25.12",
+      "servername": "navi.bankrate.com",
       "tls": true,
       "type": "vless",
-      "udp": true,
-      "uuid": "5d7b401c-78fa-4254-872e-6d42bf7e75ec",
-      "ws-opts": {
-        "headers": {
-          "Host": "v1n4.11676767.xyz"
-        },
-        "path": "/pdf/out.html"
-      }
+      "uuid": "ed94398f-893f-40c6-b14c-bf02b5f6be16"
     },
     {
+      "client-fingerprint": "chrome",
       "name": "🇹🇼 🇨🇳 台湾 | TWN",
-      "network": "ws",
-      "password": "531d9e93-53be-4f05-a9c1-33490d4da2f3",
+      "network": "tcp",
+      "packet-encoding": "xudp",
       "port": 443,
-      "server": "t2w2t2w2.bpca2026.top",
-      "skip-cert-verify": true,
-      "sni": "t2w2t2w2.bpca2026.top",
-      "type": "trojan",
-      "udp": true,
-      "ws-opts": {
-        "headers": {
-          "Host": "t2w2t2w2.bpca2026.top"
-        },
-        "path": "/images"
-      }
+      "reality-opts": {
+        "public-key": "UT9tFQOdy54SeW_tg-XQN3QkGYoWUpO_88XFXijkrXc",
+        "short-id": "2da72ce6"
+      },
+      "server": "166.0.198.22",
+      "servername": "navi.bankrate.com",
+      "tls": true,
+      "type": "vless",
+      "uuid": "ed94398f-893f-40c6-b14c-bf02b5f6be16"
     },
     {
+      "name": "🇹🇼 🇨🇳 台湾 | TWN 2",
+      "password": "2902c46c8493",
+      "port": 443,
+      "server": "er8u54dh.df6h451rh.xin",
+      "skip-cert-verify": true,
+      "sni": "px.ads.linkedin.com",
+      "type": "anytls"
+    },
+    {
+      "alpn": [
+        "h3"
+      ],
+      "auth": "216c50f9-37dc-457d-b3f5-90732791d10d",
+      "down": 200,
       "name": "🇺🇸 美国 | USA",
-      "password": "934f37d8-efdc-4bb2-9cd3-d55ae5de6213",
+      "password": "216c50f9-37dc-457d-b3f5-90732791d10d",
+      "port": 443,
+      "server": "45.86.74.193",
+      "skip-cert-verify": true,
+      "sni": "media.embrofree.org",
+      "type": "hysteria2",
+      "udp": true,
+      "up": 100
+    },
+    {
+      "name": "🇺🇸 美国 | USA 2",
+      "password": "e747a3a6-1759-4211-a759-75e0ef2ea52b",
       "port": 443,
       "server": "signal.lovehk.xyz",
       "skip-cert-verify": true,
@@ -835,129 +838,39 @@
       "udp": true
     },
     {
-      "name": "🇺🇸 美国 | USA 2",
-      "network": "ws",
-      "port": 443,
-      "server": "34y35554.cloudflare.182682.xyz",
-      "servername": "tw1.bbusxxxh.top",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "531d9e93-53be-4f05-a9c1-33490d4da2f3",
-      "ws-opts": {
-        "headers": {
-          "Host": "tw1.bbusxxxh.top"
-        },
-        "path": "/images"
-      }
-    },
-    {
+      "client-fingerprint": "edge",
+      "grpc-opts": {
+        "grpc-mode": "gun",
+        "grpc-service-name": "99f2107b03f8"
+      },
       "name": "🇺🇸 美国 | USA 3",
-      "network": "ws",
+      "network": "grpc",
       "port": 443,
-      "server": "er5we.cf.877774.xyz",
-      "servername": "era01.gg9901.uk",
+      "reality-opts": {
+        "public-key": "cO3wYHISTeorXcM8ffaDCDdqZ-olBQL-GyZqb-W7rTk",
+        "short-id": "bd8f712209a9c283"
+      },
+      "server": "162.35.101.177",
+      "servername": "0592efg.us8.h1clayd.click",
       "tls": true,
       "type": "vless",
-      "udp": true,
-      "uuid": "531d9e93-53be-4f05-a9c1-33490d4da2f3",
-      "ws-opts": {
-        "headers": {
-          "Host": "era01.gg9901.uk"
-        },
-        "path": "/images"
-      }
+      "uuid": "cda0862a-0f87-4be9-8ed8-1d0c9e382839"
     },
     {
-      "client-fingerprint": "chrome",
+      "auth": "8JyKbwVKjhMSF8b1WjuIpImoXKUCfn6",
       "name": "🇺🇸 美国 | USA 4",
-      "network": "ws",
+      "password": "8JyKbwVKjhMSF8b1WjuIpImoXKUCfn6",
       "port": 443,
-      "server": "134.122.0.192",
-      "servername": "v1n4.11676767.xyz",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "5d7b401c-78fa-4254-872e-6d42bf7e75ec",
-      "ws-opts": {
-        "headers": {
-          "Host": "v1n4.11676767.xyz"
-        },
-        "path": "/pdf/out.html"
-      }
-    },
-    {
-      "name": "🇺🇸 美国 | USA 5",
-      "network": "ws",
-      "port": 443,
-      "server": "23.227.38.48",
-      "servername": "uub01.gg9901.uk",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "531d9e93-53be-4f05-a9c1-33490d4da2f3",
-      "ws-opts": {
-        "headers": {
-          "Host": "uub01.gg9901.uk"
-        },
-        "path": "/images"
-      }
-    },
-    {
-      "name": "🇺🇸 美国 | USA 6",
-      "network": "ws",
-      "password": "531d9e93-53be-4f05-a9c1-33490d4da2f3",
-      "port": 443,
-      "server": "44tgt5.cloudflare.182682.xyz",
+      "server": "23.94.78.254",
       "skip-cert-verify": true,
-      "sni": "uuu-3-8uuu.ccc3cosmo.top",
-      "type": "trojan",
-      "udp": true,
-      "ws-opts": {
-        "headers": {
-          "Host": "uuu-3-8uuu.ccc3cosmo.top"
-        },
-        "path": "/images"
-      }
-    },
-    {
-      "name": "🇺🇸 美国 | USA 7",
-      "network": "ws",
-      "port": 443,
-      "server": "23.227.38.76",
-      "servername": "eeeccc.ttttlefjljl.xyz",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "531d9e93-53be-4f05-a9c1-33490d4da2f3",
-      "ws-opts": {
-        "headers": {
-          "Host": "eeeccc.ttttlefjljl.xyz"
-        },
-        "path": "/images"
-      }
-    },
-    {
-      "name": "🇺🇸 美国 | USA 8",
-      "network": "ws",
-      "port": 443,
-      "server": "uuafe56.cf.877774.xyz",
-      "servername": "uua01.gg9901.uk",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "531d9e93-53be-4f05-a9c1-33490d4da2f3",
-      "ws-opts": {
-        "headers": {
-          "Host": "uua01.gg9901.uk"
-        },
-        "path": "/images"
-      }
+      "sni": "dl2.yuanshicheng.com",
+      "type": "hysteria2",
+      "udp": true
     },
     {
       "alterId": 0,
       "cipher": "auto",
-      "name": "🇺🇸 美国 | USA 9",
+      "name": "🇺🇸 美国 | USA 5",
       "network": "ws",
       "port": 16648,
       "server": "fctwi.xiaoyan.io",
@@ -973,76 +886,42 @@
       }
     },
     {
-      "alterId": 0,
-      "cipher": "auto",
-      "name": "🇺🇸 美国 | USA 10",
-      "network": "ws",
-      "port": 8443,
-      "server": "188.114.99.137",
-      "servername": "v2ray1.dozapp.xyz",
+      "name": "🇺🇸 美国 | USA 6",
+      "password": "934f37d8-efdc-4bb2-9cd3-d55ae5de6213",
+      "port": 443,
+      "server": "signal.lovehk.xyz",
       "skip-cert-verify": true,
-      "tls": true,
-      "type": "vmess",
-      "udp": true,
-      "uuid": "60441548-b68e-43b2-8191-e3b884be4b3c",
-      "ws-opts": {
-        "headers": {
-          "Host": "v2ray1.dozapp.xyz"
-        },
-        "path": "/lMnsZUN4/"
-      }
+      "sni": "signal.lovehk.xyz",
+      "type": "anytls",
+      "udp": true
     },
     {
       "client-fingerprint": "chrome",
-      "name": "🇺🇸 美国 | USA 11",
+      "name": "🇻🇳 越南 | VNM",
       "network": "ws",
-      "port": 443,
-      "server": "5.78.155.4",
-      "servername": "v1n4.11676767.xyz",
+      "port": 8444,
+      "server": "221.133.21.135",
+      "servername": "www.bing.com",
       "tls": true,
       "type": "vless",
       "udp": true,
-      "uuid": "5d7b401c-78fa-4254-872e-6d42bf7e75ec",
+      "uuid": "2144e802-a64f-4261-af53-41309fee1d99",
       "ws-opts": {
         "headers": {
-          "Host": "v1n4.11676767.xyz"
+          "Host": "221.133.21.135"
         },
-        "path": "/pdf/out.html"
+        "path": "/tk"
       }
     },
     {
-      "name": "🇺🇸 美国 | USA 12",
-      "network": "ws",
-      "port": 443,
-      "server": "23.227.38.171",
-      "servername": "eeeccc.ttttlefjljl.xyz",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "531d9e93-53be-4f05-a9c1-33490d4da2f3",
-      "ws-opts": {
-        "headers": {
-          "Host": "eeeccc.ttttlefjljl.xyz"
-        },
-        "path": "/images"
-      }
-    },
-    {
-      "name": "🇺🇸 美国 | USA 13",
-      "network": "ws",
-      "port": 443,
-      "server": "23.227.38.221",
-      "servername": "eeeccc.ttttlefjljl.xyz",
-      "tls": true,
-      "type": "vless",
-      "udp": true,
-      "uuid": "531d9e93-53be-4f05-a9c1-33490d4da2f3",
-      "ws-opts": {
-        "headers": {
-          "Host": "eeeccc.ttttlefjljl.xyz"
-        },
-        "path": "/images"
-      }
+      "name": "🇻🇳 越南 | VNM 2",
+      "password": "967fbc94-fccd-46c2-9241-be92d4906186",
+      "port": 1665,
+      "server": "u2xak.mjanyt.com",
+      "skip-cert-verify": true,
+      "sni": "any.mjanyt.com",
+      "type": "anytls",
+      "udp": true
     }
   ],
   "schema_version": 1,
