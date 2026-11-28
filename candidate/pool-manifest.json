@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-28T08:19:48Z",
+  "generated_at": "2026-11-28T08:28:05Z",
   "nodes": [
     {
       "fingerprint": "ad78055f69b29aa5ddfc53599c09edc8cecfb1e95f14295171a864849f1024a1",
@@ -1633,13 +1633,11 @@
       "node_id": "c3b86f371951e42bef08",
       "source_names": [
         "🇩🇪DE_4|3.8MB/s",
-        "🇦🇪_AE_阿拉伯联合酋长国->🇩🇪_DE_德国_IPV4",
-        "🇩🇪DE_1|2.0MB/s"
+        "🇦🇪_AE_阿拉伯联合酋长国->🇩🇪_DE_德国_IPV4"
       ],
       "sources": [
         "source-003",
         "source-005",
-        "source-012",
         "source-017"
       ]
     },
@@ -2892,11 +2890,13 @@
       "name": "US_speednode_0027",
       "node_id": "41e72fb4749594eeda7f",
       "source_names": [
-        "US_speednode_0027"
+        "US_speednode_0027",
+        "🇩🇪DE_3|2.6MB/s"
       ],
       "sources": [
         "source-003",
         "source-005",
+        "source-012",
         "source-017"
       ]
     },
@@ -3241,10 +3241,12 @@
       "name": "🇩🇪DE_14|3.6MB/s",
       "node_id": "d548d2e72c5fbd8d631d",
       "source_names": [
-        "🇩🇪DE_14|3.6MB/s"
+        "🇩🇪DE_14|3.6MB/s",
+        "🇩🇪DE_4|1.5MB/s"
       ],
       "sources": [
-        "source-003"
+        "source-003",
+        "source-012"
       ]
     },
     {
@@ -4340,12 +4342,10 @@
       "name": "🇺🇸_US_美国_IPV4 (5)",
       "node_id": "a96daa72a49a62778a8b",
       "source_names": [
-        "🇺🇸_US_美国_IPV4 (5)",
-        "🇺🇸US_2|1.2MB/s"
+        "🇺🇸_US_美国_IPV4 (5)"
       ],
       "sources": [
         "source-005",
-        "source-012",
         "source-017"
       ]
     },
@@ -4651,10 +4651,12 @@
       "node_id": "4853a1039c434c8de369",
       "source_names": [
         "🇬🇧 英国 | GBR",
+        "🇩🇪DE_2|1.9MB/s",
         "🇬🇧 英国 | GBR 2"
       ],
       "sources": [
         "source-005",
+        "source-012",
         "source-013",
         "source-017"
       ]
@@ -27743,25 +27745,12 @@
       ]
     },
     {
-      "fingerprint": "69d3c3059088e9aed88f3230a6dc05f0f0a549af025522bc227905a06c0faf40",
-      "name": "🇪🇪EE_1|1.3MB/s",
-      "node_id": "69d3c3059088e9aed88f",
+      "fingerprint": "45c088adebf0d0b2df7e9de83a073662431e50c1921b9cadd824e51dcfef1b8b",
+      "name": "🇩🇪DE_1|1.1MB/s",
+      "node_id": "45c088adebf0d0b2df7e",
       "source_names": [
-        "🇪🇪EE_1|1.3MB/s",
-        "🇪🇪 爱沙尼亚 | EST"
-      ],
-      "sources": [
-        "source-012",
-        "source-013"
-      ]
-    },
-    {
-      "fingerprint": "0604e9f935352183a8155b8891129ad055b7743aeb975353309acb335ded1a8a",
-      "name": "🇸🇬SG_1|3.2MB/s",
-      "node_id": "0604e9f935352183a815",
-      "source_names": [
-        "🇸🇬SG_1|3.2MB/s",
-        "🇲🇾 马来西亚 | MYS"
+        "🇩🇪DE_1|1.1MB/s",
+        "🇩🇪 德国 | DEU 8"
       ],
       "sources": [
         "source-012",
@@ -27770,10 +27759,10 @@
     },
     {
       "fingerprint": "2f69135e8308cb8537632b6c94509b476679910b00bbb224b916618f66f99111",
-      "name": "🇺🇸US_1|2.8MB/s",
+      "name": "🇺🇸US_1|4.1MB/s",
       "node_id": "2f69135e8308cb853763",
       "source_names": [
-        "🇺🇸US_1|2.8MB/s",
+        "🇺🇸US_1|4.1MB/s",
         "🇺🇸 美国 | USA 9"
       ],
       "sources": [
@@ -27782,44 +27771,11 @@
       ]
     },
     {
-      "fingerprint": "93d0eee476fbf5efaa0650c52bbf771fa33ec53a70a83e67ffa8d1c069b372b7",
-      "name": "🇺🇸US_3|3.5MB/s",
-      "node_id": "93d0eee476fbf5efaa06",
+      "fingerprint": "033896d3a42909e491c3922ef4551826c67e32d78abcd3e2da03f2d7e4ae104b",
+      "name": "🇰🇷KR_1|2.2MB/s",
+      "node_id": "033896d3a42909e491c3",
       "source_names": [
-        "🇺🇸US_3|3.5MB/s"
-      ],
-      "sources": [
-        "source-012"
-      ]
-    },
-    {
-      "fingerprint": "a899655dcd6a594da7e929e813d403fe1c8884478ca04d4e3bfeed16cfc9455c",
-      "name": "🇺🇸US_4|3.9MB/s",
-      "node_id": "a899655dcd6a594da7e9",
-      "source_names": [
-        "🇺🇸US_4|3.9MB/s"
-      ],
-      "sources": [
-        "source-012"
-      ]
-    },
-    {
-      "fingerprint": "e4b9f6f9202bf2d1b546680bc01fa0a330c84a0c3e4d827cf00bea69b0aea285",
-      "name": "🇺🇸US_5|1.0MB/s",
-      "node_id": "e4b9f6f9202bf2d1b546",
-      "source_names": [
-        "🇺🇸US_5|1.0MB/s"
-      ],
-      "sources": [
-        "source-012"
-      ]
-    },
-    {
-      "fingerprint": "6c0c41831916bc564bfb03dd1824ab10f18049e65e18abe4ef2f919432670159",
-      "name": "🇹🇭TH_1|1.1MB/s",
-      "node_id": "6c0c41831916bc564bfb",
-      "source_names": [
-        "🇹🇭TH_1|1.1MB/s"
+        "🇰🇷KR_1|2.2MB/s"
       ],
       "sources": [
         "source-012"
@@ -27925,22 +27881,22 @@
       ]
     },
     {
-      "fingerprint": "45c088adebf0d0b2df7e9de83a073662431e50c1921b9cadd824e51dcfef1b8b",
-      "name": "🇩🇪 德国 | DEU 8",
-      "node_id": "45c088adebf0d0b2df7e",
+      "fingerprint": "ad2e8c7be69442c03e0ebba6e1404bc602e6f6694a91bbb363005411822e87b0",
+      "name": "🇩🇪 德国 | DEU 9",
+      "node_id": "ad2e8c7be69442c03e0e",
       "source_names": [
-        "🇩🇪 德国 | DEU 8"
+        "🇩🇪 德国 | DEU 9"
       ],
       "sources": [
         "source-013"
       ]
     },
     {
-      "fingerprint": "ad2e8c7be69442c03e0ebba6e1404bc602e6f6694a91bbb363005411822e87b0",
-      "name": "🇩🇪 德国 | DEU 9",
-      "node_id": "ad2e8c7be69442c03e0e",
+      "fingerprint": "69d3c3059088e9aed88f3230a6dc05f0f0a549af025522bc227905a06c0faf40",
+      "name": "🇪🇪 爱沙尼亚 | EST",
+      "node_id": "69d3c3059088e9aed88f",
       "source_names": [
-        "🇩🇪 德国 | DEU 9"
+        "🇪🇪 爱沙尼亚 | EST"
       ],
       "sources": [
         "source-013"
@@ -28060,6 +28016,17 @@
       "sources": [
         "source-013",
         "source-023"
+      ]
+    },
+    {
+      "fingerprint": "0604e9f935352183a8155b8891129ad055b7743aeb975353309acb335ded1a8a",
+      "name": "🇲🇾 马来西亚 | MYS",
+      "node_id": "0604e9f935352183a815",
+      "source_names": [
+        "🇲🇾 马来西亚 | MYS"
+      ],
+      "sources": [
+        "source-013"
       ]
     },
     {
