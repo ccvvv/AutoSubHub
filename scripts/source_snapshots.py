@@ -189,10 +189,11 @@ def apply_completed_receipt(
                 raise ValueError("Node was already completed by a different receipt")
             if record.get("result") and record.get("result") != item["status"]:
                 raise ValueError("Duplicate receipt conflicts with the recorded node result")
+        result_status = item["status"]
         record.update({
-            "status": "completed",
-            "result": item["status"],
-            "completed_at": record.get("completed_at") or now,
+            "status": result_status,
+            "result": result_status,
+            "completed_at": now,
             "receipt_id": receipt_id or record.get("receipt_id"),
         })
         state_nodes[fingerprint] = record
@@ -239,6 +240,12 @@ def reconcile_sources(
     queue_nodes: list[dict[str, Any]] = []
     queue_proxies: list[dict[str, Any]] = []
     for fingerprint, entry in merged.items():
+        record = state_nodes.get(fingerprint, {})
+        # Failed phone-test nodes are removed from the live pool and must not
+        # re-enter merely because their source snapshot still contains them.
+        if record.get("status") == "failed":
+            continue
+
         proxy = dict(entry["proxy"])
         base_name = str(proxy["name"])
         name = base_name
@@ -258,25 +265,30 @@ def reconcile_sources(
             "sources": entry["sources"],
             "source_names": entry["source_names"],
         })
-        record = state_nodes.get(fingerprint, {})
         status = record.get("status")
-        if status not in {"completed", "passed", "failed", "precheck_failed"}:
+        if status == "precheck_failed":
+            record["last_seen_at"] = now
+            state_nodes[fingerprint] = record
+            continue
+
+        # Passed nodes remain in the pool and are intentionally retested each
+        # build. New/unseen nodes enter the queue as pending.
+        if status not in {"passed", "failed"}:
             record = {
                 "status": "pending",
                 "first_seen_at": record.get("first_seen_at") or now,
                 "last_seen_at": now,
             }
-            state_nodes[fingerprint] = record
-            queue_proxies.append(dict(proxy))
-            queue_nodes.append({
-                "node_id": fingerprint[:20],
-                "fingerprint": fingerprint,
-                "name": name,
-                "sources": entry["sources"],
-            })
         else:
             record["last_seen_at"] = now
-            state_nodes[fingerprint] = record
+        state_nodes[fingerprint] = record
+        queue_proxies.append(dict(proxy))
+        queue_nodes.append({
+            "node_id": fingerprint[:20],
+            "fingerprint": fingerprint,
+            "name": name,
+            "sources": entry["sources"],
+        })
 
     # Pending entries that disappeared from every source are cancelled, not tested.
     for fingerprint, record in list(state_nodes.items()):
