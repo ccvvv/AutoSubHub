@@ -39,15 +39,20 @@ def represent_quoted_string(dumper, value):
 AutoHubSafeDumper.add_representer(QuotedYamlString, represent_quoted_string)
 
 
-def atomic_yaml(path: Path, value: dict) -> bytes:
-    path.parent.mkdir(parents=True, exist_ok=True)
+def yaml_bytes(value: dict) -> bytes:
     for proxy in value.get("proxies", []):
         if not isinstance(proxy, dict):
             continue
         options = proxy.get("reality-opts")
         if isinstance(options, dict) and isinstance(options.get("short-id"), str):
             options["short-id"] = QuotedYamlString(options["short-id"])
-    raw = yaml.dump(value, Dumper=AutoHubSafeDumper, allow_unicode=True, sort_keys=False).encode("utf-8")
+    return yaml.dump(value, Dumper=AutoHubSafeDumper, allow_unicode=True,
+                     sort_keys=False).encode("utf-8")
+
+
+def atomic_yaml(path: Path, value: dict) -> bytes:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    raw = yaml_bytes(value)
     temporary = path.with_suffix(path.suffix + ".tmp")
     temporary.write_bytes(raw)
     temporary.replace(path)
@@ -123,8 +128,7 @@ def prune_and_refresh(pool_path: Path, manifest_path: Path, receipt_path: Path) 
             completed_state,
         )
         candidate_path = pool_path.parent / "subscription.yaml"
-        candidate_bytes = yaml.safe_dump({"proxies": queue["proxies"]}, allow_unicode=True,
-                                         sort_keys=False).encode("utf-8")
+        candidate_bytes = yaml_bytes({"proxies": queue["proxies"]})
         next_manifest = {
             "schema_version": 1,
             "generated_at": datetime.now(timezone.utc).isoformat(),
