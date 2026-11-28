@@ -12,17 +12,17 @@ from collections import OrderedDict
 from datetime import datetime, timezone
 from typing import Any
 
+from scripts.node_identity import node_fingerprint
+
 
 def url_fingerprint(url: str) -> str:
     return hashlib.sha256(url.encode("utf-8")).hexdigest()
 
 
-def node_fingerprint(proxy: dict[str, Any]) -> str:
-    if not isinstance(proxy, dict):
-        raise ValueError("Proxy entry must be an object")
-    identity = {key: value for key, value in proxy.items() if key != "name"}
-    encoded = json.dumps(identity, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
-    return hashlib.sha256(encoded.encode("utf-8")).hexdigest()
+def can_retain_previous_snapshot(previous: dict[str, Any] | None, url: str) -> bool:
+    """Only reuse a failed source's snapshot when its configured URL is unchanged."""
+    return (isinstance(previous, dict)
+            and previous.get("source_url_sha256") == url_fingerprint(url))
 
 
 def validate_nodes(nodes: Any) -> list[dict[str, Any]]:
@@ -122,7 +122,7 @@ def build_queue_from_pool(
         proxy["name"] = name
         queue_proxies.append(proxy)
         queue_nodes.append({
-            "node_id": fingerprint[:20],
+            "node_id": fingerprint,
             "fingerprint": fingerprint,
             "name": name,
             "sources": list(meta.get("sources") or []),
@@ -156,7 +156,7 @@ def apply_completed_receipt(
         node_id = node.get("node_id")
         fingerprint = node.get("fingerprint")
         if (not isinstance(node_id, str) or not isinstance(fingerprint, str)
-                or len(fingerprint) != 64 or fingerprint[:20] != node_id):
+                or len(fingerprint) != 64 or fingerprint != node_id):
             raise ValueError("Manifest is missing a verifiable full node fingerprint")
         if node_id in by_id:
             raise ValueError("Manifest contains duplicate node IDs")
