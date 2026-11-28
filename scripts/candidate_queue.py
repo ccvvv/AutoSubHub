@@ -41,9 +41,8 @@ def merge_candidate_snapshots(snapshots: list[tuple[str, dict, dict]]) -> tuple[
             fingerprint = canonical_fingerprint(proxy)
             declared_id = manifest_by_name[name].get("node_id")
             declared_fingerprint = manifest_by_name[name].get("fingerprint")
-            # Historical immutable commits used a 20-hex prefix. Recompute it
-            # from the proxy and normalize immediately; all current output is full SHA-256.
-            if declared_id not in (fingerprint, fingerprint[:20]):
+            # Every published candidate manifest must carry the complete SHA-256 ID.
+            if declared_id != fingerprint:
                 raise ValueError(f"Candidate manifest identity mismatch at {commit}: {name}")
             if declared_fingerprint is not None and declared_fingerprint != fingerprint:
                 raise ValueError(f"Candidate full fingerprint mismatch at {commit}: {name}")
