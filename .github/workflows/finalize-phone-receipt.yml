@@ -2,7 +2,7 @@ name: Finalize phone-tested subscription
 
 on:
   push:
-    branches: [published-subscriptions, main]
+    branches: [published-subscriptions]
     paths:
       - "receipts/latest.json"
       - "receipts/candidate.yaml"
