@@ -160,11 +160,11 @@ class FinalizePhoneReceiptTests(unittest.TestCase):
     def test_all_failed_receipt_is_consumed_without_replacing_final(self):
         receipt = dict(self.base_receipt)
         receipt["results"] = [
-            {"node_id": "id-fast", "status": "passed", "download_speed_bps": 199999,
+            {"node_id": self.ids["fast-node"], "status": "passed", "download_speed_bps": 199999,
              "application_checks": {app: {"status": "passed"} for app in ("youtube", "telegram", "google", "chatgpt", "github")}},
-            {"node_id": "id-slow", "status": "failed", "download_speed_bps": 0,
+            {"node_id": self.ids["slow-node"], "status": "failed", "download_speed_bps": 0,
              "application_checks": {app: {"status": "passed"} for app in ("youtube", "telegram", "google", "chatgpt", "github")}},
-            {"node_id": "id-failed", "status": "failed", "download_speed_bps": 0,
+            {"node_id": self.ids["failed-node"], "status": "failed", "download_speed_bps": 0,
              "application_checks": {app: {"status": "passed"} for app in ("youtube", "telegram", "google", "chatgpt", "github")}},
         ]
         result = self.run_validator(receipt)
