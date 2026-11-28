@@ -190,7 +190,8 @@ def prune_and_refresh(pool_path: Path, manifest_path: Path, receipt_path: Path) 
         "schema_version": 1,
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "candidate_sha256": hashlib.sha256(candidate_bytes).hexdigest(),
-        "nodes": queue["nodes"],
+        "nodes": [{key: value for key, value in item.items() if key != "fingerprint"}
+                   for item in queue["nodes"]],
     }
     atomic_json(pool_path.parent / "manifest.json", refreshed_manifest)
 
