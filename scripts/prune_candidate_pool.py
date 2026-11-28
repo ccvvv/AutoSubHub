@@ -163,22 +163,36 @@ def prune_and_refresh(pool_path: Path, manifest_path: Path, receipt_path: Path) 
     proxies = pool.get("proxies")
     if not isinstance(proxies, list):
         raise SystemExit("Legacy pool has no proxy list; pool left unchanged")
-    by_name = {item.get("name"): item for item in proxies if isinstance(item, dict)}
-    if len(by_name) != len(proxies):
-        raise SystemExit("Legacy pool has invalid or duplicate names; pool left unchanged")
-    enriched_nodes = []
-    for item in manifest_nodes:
-        name = item.get("name")
-        proxy = by_name.get(name)
-        if proxy is None:
-            raise SystemExit("Legacy receipt node is not present in the pool; pool left unchanged")
+    by_id = {}
+    for proxy in proxies:
+        if not isinstance(proxy, dict):
+            raise SystemExit("Legacy pool contains an invalid proxy; pool left unchanged")
         fingerprint = node_fingerprint(proxy)
-        if fingerprint[:20] != item.get("node_id"):
-            raise SystemExit("Legacy receipt fingerprint mismatch; pool left unchanged")
+        current_id = fingerprint[:20]
+        if current_id in by_id:
+            raise SystemExit("Legacy pool contains duplicate node IDs; pool left unchanged")
+        by_id[current_id] = (proxy, fingerprint)
+    enriched_nodes = []
+    matched_ids = set()
+    for item in manifest_nodes:
+        node_id = item.get("node_id")
+        match = by_id.get(node_id)
+        # A receipt can outlive the legacy live pool. Missing IDs are already
+        # absent, so ignore them and continue processing the IDs still present.
+        if match is None:
+            continue
+        proxy, fingerprint = match
+        if item.get("name") != proxy.get("name"):
+            raise SystemExit("Legacy receipt node name mismatch; pool left unchanged")
         enriched_nodes.append({**item, "fingerprint": fingerprint, "sources": []})
+        matched_ids.add(node_id)
     enriched_manifest = {**manifest, "nodes": enriched_nodes}
+    matched_receipt = {**receipt, "results": [
+        item for item in receipt.get("results", [])
+        if isinstance(item, dict) and item.get("node_id") in matched_ids
+    ]}
     state = {"schema_version": 1, "nodes": {}}
-    completed_state = apply_completed_receipt(state, enriched_manifest, receipt)
+    completed_state = apply_completed_receipt(state, enriched_manifest, matched_receipt)
     pool_nodes = [
         {
             "node_id": node_fingerprint(proxy)[:20],
