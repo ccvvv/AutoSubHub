@@ -4,100 +4,819 @@ mode: rule
 log-level: warning
 ipv6: false
 proxies:
-- client-fingerprint: random
-  encryption: none
-  name: 🇮🇹IT_30|1.5MB/s|M003-260806 [高速]
-  network: ws
+- name: '[367.8ms +/-3ms] 4FreeIran-980fa79e9b [高速]'
+  server: 34.24.25.1
   port: 443
-  server: www.visa.com.hk
+  type: hysteria2
+  password: 8dOHZ13sx33R1/PQbhTK/w==
+  sni: bing.com
+  skip-cert-verify: true
+- name: NN_speednode_0023 [高速]
+  password: exaxgqkKkd0TAMrCxeonWg==
+  port: 443
+  server: usgp1-cdn-route.couldflare-cdn.com
+  tls: true
+  type: http
+  udp: true
+  username: mrwdfNTD8M79LCukCieldrqZWqs=
+- name: 🇳🇱 荷兰 | NLD [高速]
+  server: 185.16.110.62
+  port: 2052
+  type: vless
+  uuid: 85432578-96fd-4613-a255-e235a81cc94b
+  tls: false
+  network: ws
+  ws-opts:
+    path: /?ed=2052
+    headers:
+      Host: cd90.u8o.lol
+  udp: true
+- name: 🇯🇵JP_23|462KB/s|R002-260618 [高速]
+  port: 8443
+  server: 64.176.51.83
+  skip-cert-verify: true
+  sni: 64.176.51.83
+  sub_tag: R002-260618
+  tls: true
+  type: http
+  udp: true
+- name: 🇳🇱NL_216|5.0MB/s|P002-260618 [高速]
+  password: None
+  port: 443
+  server: 5.255.118.82
+  skip-cert-verify: true
+  sub_tag: P002-260618
+  tls: true
+  type: http
+  udp: true
+- name: 🇳🇱NL_219|2.5MB/s|R002-260618 [高速]
+  port: 443
+  server: 5.255.97.222
+  skip-cert-verify: true
+  sub_tag: R002-260618
+  tls: true
+  type: http
+  udp: true
+- name: 🇸🇬SG_53|530KB/s [高速]
+  password: ''
+  port: 8443
+  server: 66.42.49.247
+  skip-cert-verify: true
+  tls: true
+  type: http
+  username: ''
+  udp: true
+- client-fingerprint: firefox
+  encryption: none
+  name: 🇪🇪EE_11|2.4MB/s|M003-260806 [高速]
+  network: xhttp
+  port: 443
+  server: 165.231.177.90
   sub_tag: M003-260806
   tls: true
   type: vless
   udp: true
-  uuid: 937bc631-4022-41d2-ae15-d8247ba5e32d
-  ws-opts:
-    headers:
-      Host: it-mil.862400.xyz
-      User-Agent: Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko)
-        Chrome/65.0.3325.181 Safari/537.36
-    path: /announcement
-    early-data-header-name: Sec-WebSocket-Protocol
-    max-early-data: 2048
+  uuid: 0173d52e-8e1b-4681-831e-11529677b72f
+  xhttp-opts: {}
   xudp: true
   packet-encoding: xudp
-  servername: it-mil.862400.xyz
-- name: 🇳🇱NL_166|2.1MB/s|R002-260618 [高速]
+  servername: cab-6b07048f.ferrin.uk
+- client-fingerprint: firefox
+  encryption: none
+  name: 🇪🇪EE_12|2.1MB/s|M003-260806 [高速]
+  network: xhttp
   port: 443
-  server: 5.255.118.82
+  server: 196.198.111.122
+  sub_tag: M003-260806
+  tls: true
+  type: vless
+  udp: true
+  uuid: 0173d52e-8e1b-4681-831e-11529677b72f
+  xhttp-opts: {}
+  xudp: true
+  packet-encoding: xudp
+  servername: cab-6b07048f.ferrin.uk
+- name: '[OpenRay] 🌐XX-81 [高速]'
+  type: vless
+  server: vps3.nemnogogo.com
+  port: 443
+  uuid: 38308ff1-5aa9-494f-a25a-0f2870d56b3e
+  udp: true
+  tls: true
+  servername: vps3.nemnogogo.com
+  alpn:
+  - h2
+  client-fingerprint: safari
+  network: grpc
+  grpc-opts:
+    grpc-service-name: mobile.api.Event
+- name: 🇺🇸 美国 | USA 6 [高速]
+  server: 3.219.184.102
+  port: 443
+  type: vless
+  uuid: a5b1d16b-719b-4bd6-9d7b-fe6d84607da9
+  tls: true
+  alpn:
+  - h2
+  servername: fortuna.masynbazar.ru
+  client-fingerprint: chrome
+  network: xhttp
+  xhttp-opts:
+    path: /
+  udp: true
+- name: '[OpenRay] 🌐XX-412 [高速]'
+  type: vless
+  server: vps3.nemnogogo.com
+  port: 443
+  uuid: 38308ff1-5aa9-494f-a25a-0f2870d56b3e
+  udp: true
+  tls: true
+  servername: vps3.nemnogogo.com
+  client-fingerprint: qq
+  network: grpc
+  grpc-opts:
+    grpc-service-name: mobile.api.Event
+- name: '[OpenRay] 🇧🇷BR-198 [高速]'
+  type: vless
+  server: 201.51.12.98
+  port: 443
+  uuid: 38308ff1-5aa9-494f-a25a-0f2870d56b3e
+  udp: true
+  tls: true
+  servername: vps3.nemnogogo.com
+  alpn:
+  - h2
+  client-fingerprint: chrome
+  network: grpc
+  grpc-opts:
+    grpc-service-name: mobile.api.Event
+- name: '[OpenRay] 🇧🇷BR-160 [高速]'
+  type: vless
+  server: 201.24.116.192
+  port: 443
+  uuid: 38308ff1-5aa9-494f-a25a-0f2870d56b3e
+  udp: true
+  tls: true
+  servername: vps3.nemnogogo.com
+  client-fingerprint: firefox
+  network: grpc
+  grpc-opts:
+    grpc-service-name: mobile.api.Event
+- name: '[OpenRay] 🇧🇷BR-113 [高速]'
+  type: vless
+  server: 201.51.12.98
+  port: 443
+  uuid: 38308ff1-5aa9-494f-a25a-0f2870d56b3e
+  udp: true
+  tls: true
+  servername: vps3.nemnogogo.com
+  client-fingerprint: firefox
+  network: grpc
+  grpc-opts:
+    grpc-service-name: mobile.api.Event
+- name: '[OpenRay] 🌐XX-123 [高速]'
+  type: vless
+  server: vps3.nemnogogo.com
+  port: 443
+  uuid: 38308ff1-5aa9-494f-a25a-0f2870d56b3e
+  udp: true
+  tls: true
+  servername: vps3.nemnogogo.com
+  client-fingerprint: safari
+  network: grpc
+  grpc-opts:
+    grpc-service-name: mobile.api.Event
+- name: '[OpenRay] 🌐XX-1184 [高速]'
+  type: vless
+  server: leviko-ru0640.shopingggg.ir
+  port: 443
+  uuid: 38308ff1-5aa9-494f-a25a-0f2870d56b3e
+  udp: true
+  tls: true
+  servername: vps3.nemnogogo.com
+  alpn:
+  - h2
+  client-fingerprint: firefox
+  network: grpc
+  grpc-opts:
+    grpc-service-name: mobile.api.Event
+- name: '[OpenRay] 🌐XX-550 [高速]'
+  type: vless
+  server: vps3.nemnogogo.com
+  port: 443
+  uuid: 38308ff1-5aa9-494f-a25a-0f2870d56b3e
+  udp: true
+  tls: true
+  servername: vps3.nemnogogo.com
+  client-fingerprint: firefox
+  network: grpc
+  grpc-opts:
+    grpc-service-name: mobile.api.Event
+- client-fingerprint: firefox
+  grpc-opts:
+    grpc-mode: gun
+    grpc-service-name: mobile.api.Event
+  name: 🇷🇺 俄罗斯 | RUS 3-2 [高速]
+  network: grpc
+  port: 443
+  server: 201.24.116.192
+  servername: vps3.nemnogogo.com
+  tls: true
+  type: vless
+  udp: true
+  uuid: 38308ff1-5aa9-494f-a25a-0f2870d56b3e
+- name: '[OpenRay] 🌐XX-833 [高速]'
+  type: vless
+  server: vps3.nemnogogo.com
+  port: 443
+  uuid: 38308ff1-5aa9-494f-a25a-0f2870d56b3e
+  udp: true
+  tls: true
+  servername: vps3.nemnogogo.com
+  alpn:
+  - h2
+  client-fingerprint: firefox
+  network: grpc
+  grpc-opts:
+    grpc-service-name: mobile.api.Event
+- client-fingerprint: firefox
+  grpc-opts:
+    grpc-mode: gun
+    grpc-service-name: mobile.api.Event
+  name: 🇷🇺 俄罗斯 | RUS [高速]
+  network: grpc
+  port: 443
+  server: 201.51.12.98
+  servername: vps3.nemnogogo.com
+  tls: true
+  type: vless
+  udp: true
+  uuid: 38308ff1-5aa9-494f-a25a-0f2870d56b3e
+- name: '[OpenRay] 🌐XX-1923 [高速]'
+  type: vless
+  server: vps3.nemnogogo.com
+  port: 443
+  uuid: 38308ff1-5aa9-494f-a25a-0f2870d56b3e
+  udp: true
+  tls: true
+  servername: vps3.nemnogogo.com
+  alpn:
+  - h2
+  network: grpc
+  grpc-opts:
+    grpc-service-name: mobile.api.Event
+- alpn:
+  - h2
+  client-fingerprint: firefox
+  grpc-opts:
+    grpc-mode: gun
+    grpc-service-name: mobile.api.Event
+  name: 🇷🇺 俄罗斯 | RUS 3 [高速]
+  network: grpc
+  port: 443
+  server: vps3.nemnogogo.com
+  servername: vps3.nemnogogo.com
+  tls: true
+  type: vless
+  udp: true
+  uuid: 38308ff1-5aa9-494f-a25a-0f2870d56b3e
+- name: 🇯🇵JP_2|448KB/s|P002-260618 [高速]
+  password: None
+  port: 343
+  server: 133.18.200.207
   skip-cert-verify: true
-  sub_tag: R002-260618
+  sub_tag: P002-260618
   tls: true
   type: http
   udp: true
-- name: 🇺🇸US_569|720KB/s|R002-260618 [高速]
+- type: anytls
+  name: 🇹🇼_TW_台湾_IPV4 [高速]
+  server: rtifgjdr.df6h451rh.xin
+  port: 443
+  password: 2902c46c8493
+  tls: true
+  servername: docs.microsoft.com
+  sni: docs.microsoft.com
+  skip-cert-verify: true
+- type: hysteria
+  name: 🇺🇸_US_美国_IPV4 (2) [高速]
+  server: 38.6.222.132
+  port: 11008
+  password: dongtaiwang.com
+  tls: true
+  servername: bing.com
+  sni: bing.com
+  skip-cert-verify: true
+  alpn:
+  - h3
+  up: '11'
+  down: '55'
+  auth-str: dongtaiwang.com
+- type: hysteria2
+  name: 🇦🇪_AE_阿拉伯联合酋长国->🇩🇪_DE_德国_IPV4 [高速]
+  server: uk-tube-01.stre4m.net
+  port: 13337
+  password: 900c8c92-1979-4c7c-8f2f-63e87d53d8fe
+  tls: true
+  servername: mother-earth.fyi
+  sni: mother-earth.fyi
+  skip-cert-verify: true
+- name: US_speednode_0027 [普通]
+  port: 443
+  server: 172.64.69.89
+  skip-cert-verify: true
+  tls: true
+  type: http
+  udp: true
+- name: '[259.2ms +/-1ms] http-172.64.69.89 [普通]'
+  server: 172.64.69.89
+  port: 443
+  type: http
+  tls: true
+  skip-cert-verify: true
+- name: '[353.5ms +/-9ms] http-usgp1-cdn-route.couldfl(…) [普通]'
+  server: usgp1-cdn-route.couldflare-cdn.com
+  port: 443
+  type: http
+  username: mrwdfNTD8M79LCukCieldrqZWqs=
+  password: exaxgqkKkd0TAMrCxeonWg==
+  tls: true
+  skip-cert-verify: true
+- name: 🇺🇸US_392|257KB/s|R002-260618 [普通]
   password: exaxgqkKkd0TAMrCxeonWg==
   port: 443
   server: usgp1-cdn-route.couldflare-cdn.com
+  sni: usgp1-cdn-route.couldflare-cdn.com
   sub_tag: R002-260618
   tls: true
   type: http
+  udp: true
   username: mrwdfNTD8M79LCukCieldrqZWqs=
-  udp: true
-  sni: usgp1-cdn-route.couldflare-cdn.com
-- name: 🇹🇼TW_2|2.8MB/s [高速]
-  password: 2902c46c8493
+  x-toolall-mihomo: true
+- name: 🇺🇸US_434|199KB/s|R002-260618 [普通]
   port: 443
-  server: rtifgjdr.df6h451rh.xin
+  server: 137.175.22.52
   skip-cert-verify: true
+  sni: 137.175.22.52
+  sub_tag: R002-260618
+  tls: true
+  type: http
+  udp: true
+- name: 🇺🇸US_377|321KB/s|R002-260618 [普通]
+  port: 443
+  server: 38.28.193.188
+  skip-cert-verify: true
+  sub_tag: R002-260618
+  tls: true
+  type: http
+  udp: true
+- cipher: chacha20-ietf-poly1305
+  name: 🇮🇹IT_24|1.3MB/s|C001-260618 [普通]
+  password: 034b5d9404b79a2df62fcb77a49cf748306765448d8b5e93
+  plugin: v2ray-plugin
+  plugin-opts:
+    host: italy.astroapps.io
+    mode: websocket
+    path: /b5cba947dfef6a5494b25d76
+    tls: true
+  port: 443
+  server: italy.astroapps.io
+  sub_tag: C001-260618
+  type: ss
+  udp: true
+- cipher: chacha20-ietf-poly1305
+  name: 🇫🇮FI_10|259KB/s|M003-260806 [普通]
+  password: 1c57654308df6d9b93b2bf749dd9f21ed7355aab8fd7ffbb
+  plugin: v2ray-plugin
+  plugin-opts:
+    host: finland.astroapps.io
+    mode: websocket
+    path: /ccad980a661bd347eaebae0f
+    tls: true
+  port: 443
+  server: finland.astroapps.io
+  sub_tag: M003-260806
+  type: ss
+  udp: true
+- name: '[OpenRay] 🌐XX-1834 [普通]'
+  type: vless
+  server: vps3.nemnogogo.com
+  port: 443
+  uuid: 38308ff1-5aa9-494f-a25a-0f2870d56b3e
+  udp: true
+  tls: true
+  servername: vps3.nemnogogo.com
+  alpn:
+  - h2
+  client-fingerprint: edge
+  network: grpc
+  grpc-opts:
+    grpc-service-name: mobile.api.Event
+- name: '[OpenRay] 🇧🇷BR-119 [普通]'
+  type: vless
+  server: 201.51.12.98
+  port: 443
+  uuid: 38308ff1-5aa9-494f-a25a-0f2870d56b3e
+  udp: true
+  tls: true
+  servername: vps3.nemnogogo.com
+  client-fingerprint: chrome
+  network: grpc
+  grpc-opts:
+    grpc-service-name: mobile.api.Event
+- name: '[OpenRay] 🌐XX-90 [普通]'
+  type: vless
+  server: vps3.nemnogogo.com
+  port: 443
+  uuid: 38308ff1-5aa9-494f-a25a-0f2870d56b3e
+  udp: true
+  tls: true
+  servername: vps3.nemnogogo.com
+  client-fingerprint: chrome
+  network: grpc
+  grpc-opts:
+    grpc-service-name: mobile.api.Event
+- alpn:
+  - h2
+  client-fingerprint: firefox
+  grpc-opts:
+    grpc-mode: gun
+    grpc-service-name: mobile.api.Event
+  name: 🇷🇺 俄罗斯 | RUS-2 [普通]
+  network: grpc
+  port: 443
+  server: leviko-ru0640.shopingggg.ir
+  servername: vps3.nemnogogo.com
+  tls: true
+  type: vless
+  udp: true
+  uuid: 38308ff1-5aa9-494f-a25a-0f2870d56b3e
+- type: anytls
+  name: 🇭🇰_HK_香港_IPV4 [普通]
+  server: ibsdsf.df6h451rh.xin
+  port: 443
+  password: 2902c46c8493
+  tls: true
+  servername: docs.microsoft.com
   sni: docs.microsoft.com
-  type: anytls
-  udp: true
-- name: 🇹🇼TW_1|1.6MB/s [高速]
-  password: 2902c46c8493
-  port: 443
-  server: er8u54dh.df6h451rh.xin
   skip-cert-verify: true
-  sni: px.ads.linkedin.com
-  type: anytls
-- name: 🇹🇼 台湾3|@ripaojiedian [高速]
-  password: 2902c46c8493
-  port: 443
-  server: er8u54dh.df6h451rh.xin
+- name: '🇬🇧 英国 | GBR #1 [普通]'
+  password: 900c8c92-1979-4c7c-8f2f-63e87d53d8fe
+  port: 13337
+  server: uk-tube-01.stre4m.net
   skip-cert-verify: true
-  sni: px.ads.linkedin.com
-  type: anytls
-  udp: true
-- fingerprint: ''
-  name: 🇹🇼TW_3|5.1MB/s [高速]
-  password: 0324fbc29561
+  sni: mother-earth.fyi
+  tls: false
+  type: hysteria2
+- cipher: chacha20-ietf-poly1305
+  name: 🇮🇹IT_9|3.9MB/s [普通]
+  password: 034b5d9404b79a2df62fcb77a49cf748306765448d8b5e93
+  plugin: v2ray-plugin
+  plugin-opts:
+    host: italy.astroapps.io
+    mode: websocket
+    path: /b5cba947dfef6a5494b25d76
+    tls: true
   port: 443
-  server: mfjh645drfj1dr6j5.df6h451rh.xin
-  skip-cert-verify: true
-  sni: px.ads.linkedin.com
-  type: anytls
+  server: italy.astroapps.io
+  type: ss
   udp: true
-  username: 0324fbc29561
+- name: 🇩🇪DE_20|323KB/s|R002-260618 [普通]
+  port: 8443
+  server: 77.221.136.60
+  skip-cert-verify: true
+  sub_tag: R002-260618
+  tls: true
+  type: http
+  udp: true
+- name: 🇩🇪 德国 | DEU-2 [普通]
+  server: 5.42.104.42
+  port: 443
+  type: vless
+  uuid: f4b08bf1-d9bd-4755-aa88-ba922282c608
+  tls: true
+  flow: xtls-rprx-vision
+  reality-opts:
+    public-key: nPYLh9nRxKK0OQVQrboJyKN4Y3DViI412cbN9Tbz9AQ
+    short-id: 53668ac88eefee81
+  servername: rugermicro2.gangplatform.com
+  client-fingerprint: qq
+  network: tcp
+  udp: true
+- name: '[OpenRay] 🇮🇩ID-145 [普通]'
+  type: socks5
+  server: 202.155.99.212
+  port: 62000
+  udp: true
+  username: gebHTLF6
+  password: APJ7RmY9
+- name: 🇸🇬SG_26|271KB/s|K001-260618 [普通]
+  password: None
+  port: 443
+  server: 154.26.139.24
+  skip-cert-verify: true
+  sub_tag: K001-260618
+  tls: true
+  type: http
+  username: ''
+  udp: true
+- name: 🇹🇭TH_13|574KB/s|R002-260618 [普通]
+  password: YlRoWvE0dL_cUqS94wPeKnA4
+  port: 62000
+  server: 87.84.49.245
+  sub_tag: R002-260618
+  type: socks5
+  username: ks878449260d
+  udp: true
+- name: 🇺🇸US_417|153KB/s|R002-260618 [普通]
+  port: 443
+  server: 38.28.185.222
+  skip-cert-verify: true
+  sub_tag: R002-260618
+  tls: true
+  type: http
+  udp: true
+- type: hysteria
+  name: 🇺🇸_US_美国_IPV4 [普通]
+  server: 137.175.82.41
+  port: 20022
+  password: dongtaiwang.com
+  tls: true
+  servername: bing.com
+  sni: bing.com
+  skip-cert-verify: true
+  alpn:
+  - h3
+  up: '11'
+  down: '55'
+  auth-str: dongtaiwang.com
+- name: 🇷🇴 罗马尼亚 | ROU [普通]
+  server: 193.168.140.228
+  port: 443
+  type: vless
+  uuid: 89f361ea-a370-4cbe-b2b3-d3e9c0b7c4c1
+  tls: true
+  reality-opts:
+    public-key: UGeXXP0IS2_P7AWPDbbk_w7BzZLoPPrk3ha7OgI_0D4
+  servername: www.vodafone.ro
+  client-fingerprint: firefox
+  network: xhttp
+  xhttp-opts:
+    path: /
+    host: www.vodafone.ro
+    mode: auto
+    x-padding-bytes: 100-1000
+  udp: true
+- name: 🇺🇸US_142|87KB/s|R002-260618 [普通]
+  port: 443
+  server: 38.28.185.152
+  skip-cert-verify: true
+  sub_tag: R002-260618
+  tls: true
+  type: http
+  udp: true
+- name: 🇺🇸US_438|147KB/s|R002-260618 [普通]
+  port: 443
+  server: 137.175.77.35
+  skip-cert-verify: true
+  sni: 137.175.77.35
+  sub_tag: R002-260618
+  tls: true
+  type: http
+  udp: true
+- name: 🇺🇸US_477|136KB/s|R002-260618 [普通]
+  port: 443
+  server: 38.28.185.247
+  skip-cert-verify: true
+  sub_tag: R002-260618
+  tls: true
+  type: http
+  udp: true
+- type: hysteria
+  name: 🇫🇷_FR_法国_IPV4 [普通]
+  server: 62.210.124.132
+  port: 24667
+  password: dongtaiwang.com
+  tls: true
+  servername: bing.com
+  sni: bing.com
+  skip-cert-verify: true
+  alpn:
+  - h3
+  up: '11'
+  down: '55'
+  auth-str: dongtaiwang.com
+- alpn:
+  - h3
+  auth-str: dongtaiwang.com
+  down: 55 Mbps
+  name: https://alvin9999.com [普通]
+  port: 24667
+  protocol: udp
+  server: 62.210.124.132
+  skip-cert-verify: true
+  sni: bing.com
+  type: hysteria
+  up: 11 Mbps
+- type: hysteria
+  name: 🇺🇸_US_美国_IPV4 (3) [普通]
+  server: 38.6.222.131
+  port: 11008
+  password: dongtaiwang.com
+  tls: true
+  servername: bing.com
+  sni: bing.com
+  skip-cert-verify: true
+  alpn:
+  - h3
+  up: '11'
+  down: '55'
+  auth-str: dongtaiwang.com
+- client-fingerprint: firefox
+  grpc-opts:
+    grpc-service-name: 5b79e8a94241
+  name: 荷兰_B1150D [普通]
+  network: grpc
+  port: 443
+  reality-opts:
+    public-key: zbz--PMjcIC4Ggr3j-ibDf0fzXRTj0lM_HzjPJyMkVE
+    short-id: 50a749f0eccb628c
+  server: 79.182.39.135
+  servername: 15b171g.nl7.h1clayd.click
+  tls: true
+  type: vless
+  udp: true
+  uuid: cda0862a-0f87-4be9-8ed8-1d0c9e382839
+- down: ''
+  fingerprint: ''
+  name: 🇩🇪DE_13|2.4MB/s [普通]
+  obfs: ''
+  obfs-password: ''
+  password: 900c8c92-1979-4c7c-8f2f-63e87d53d8fe
+  port: 13337
+  server: uk-tube-01.stre4m.net
+  servername: mother-earth.fyi
+  skip-cert-verify: true
+  sni: mother-earth.fyi
+  tls: true
+  type: hysteria2
+  up: ''
+- name: 🇳🇱 荷兰 | NLD 3-2 [普通]
+  server: 79.182.39.135
+  port: 443
+  type: vless
+  uuid: cda0862a-0f87-4be9-8ed8-1d0c9e382839
+  tls: true
+  reality-opts:
+    public-key: zbz--PMjcIC4Ggr3j-ibDf0fzXRTj0lM_HzjPJyMkVE
+    short-id: 50a749f0eccb628c
+  servername: 15b171g.nl7.h1clayd.click
+  client-fingerprint: firefox
+  network: grpc
+  grpc-opts:
+    grpc-mode: gun
+    grpc-service-name: 5b79e8a94241
+  udp: true
+- alpn:
+  - h3
+  auth: 900c8c92-1979-4c7c-8f2f-63e87d53d8fe
+  name: 🇬🇧 英国 | GBR [普通]
+  password: 900c8c92-1979-4c7c-8f2f-63e87d53d8fe
+  port: 13337
+  server: uk-tube-01.stre4m.net
+  skip-cert-verify: true
+  sni: mother-earth.fyi
+  type: hysteria2
 proxy-groups:
 - name: 高速节点
   type: select
   proxies:
-  - 🇮🇹IT_30|1.5MB/s|M003-260806 [高速]
-  - 🇳🇱NL_166|2.1MB/s|R002-260618 [高速]
-  - 🇺🇸US_569|720KB/s|R002-260618 [高速]
-  - 🇹🇼TW_2|2.8MB/s [高速]
-  - 🇹🇼TW_1|1.6MB/s [高速]
-  - 🇹🇼 台湾3|@ripaojiedian [高速]
-  - 🇹🇼TW_3|5.1MB/s [高速]
+  - '[367.8ms +/-3ms] 4FreeIran-980fa79e9b [高速]'
+  - NN_speednode_0023 [高速]
+  - 🇳🇱 荷兰 | NLD [高速]
+  - 🇯🇵JP_23|462KB/s|R002-260618 [高速]
+  - 🇳🇱NL_216|5.0MB/s|P002-260618 [高速]
+  - 🇳🇱NL_219|2.5MB/s|R002-260618 [高速]
+  - 🇸🇬SG_53|530KB/s [高速]
+  - 🇪🇪EE_11|2.4MB/s|M003-260806 [高速]
+  - 🇪🇪EE_12|2.1MB/s|M003-260806 [高速]
+  - '[OpenRay] 🌐XX-81 [高速]'
+  - 🇺🇸 美国 | USA 6 [高速]
+  - '[OpenRay] 🌐XX-412 [高速]'
+  - '[OpenRay] 🇧🇷BR-198 [高速]'
+  - '[OpenRay] 🇧🇷BR-160 [高速]'
+  - '[OpenRay] 🇧🇷BR-113 [高速]'
+  - '[OpenRay] 🌐XX-123 [高速]'
+  - '[OpenRay] 🌐XX-1184 [高速]'
+  - '[OpenRay] 🌐XX-550 [高速]'
+  - 🇷🇺 俄罗斯 | RUS 3-2 [高速]
+  - '[OpenRay] 🌐XX-833 [高速]'
+  - 🇷🇺 俄罗斯 | RUS [高速]
+  - '[OpenRay] 🌐XX-1923 [高速]'
+  - 🇷🇺 俄罗斯 | RUS 3 [高速]
+  - 🇯🇵JP_2|448KB/s|P002-260618 [高速]
+  - 🇹🇼_TW_台湾_IPV4 [高速]
+  - 🇺🇸_US_美国_IPV4 (2) [高速]
+  - 🇦🇪_AE_阿拉伯联合酋长国->🇩🇪_DE_德国_IPV4 [高速]
+- name: 普通节点
+  type: select
+  proxies:
+  - US_speednode_0027 [普通]
+  - '[259.2ms +/-1ms] http-172.64.69.89 [普通]'
+  - '[353.5ms +/-9ms] http-usgp1-cdn-route.couldfl(…) [普通]'
+  - 🇺🇸US_392|257KB/s|R002-260618 [普通]
+  - 🇺🇸US_434|199KB/s|R002-260618 [普通]
+  - 🇺🇸US_377|321KB/s|R002-260618 [普通]
+  - 🇮🇹IT_24|1.3MB/s|C001-260618 [普通]
+  - 🇫🇮FI_10|259KB/s|M003-260806 [普通]
+  - '[OpenRay] 🌐XX-1834 [普通]'
+  - '[OpenRay] 🇧🇷BR-119 [普通]'
+  - '[OpenRay] 🌐XX-90 [普通]'
+  - 🇷🇺 俄罗斯 | RUS-2 [普通]
+  - 🇭🇰_HK_香港_IPV4 [普通]
+  - '🇬🇧 英国 | GBR #1 [普通]'
+  - 🇮🇹IT_9|3.9MB/s [普通]
+  - 🇩🇪DE_20|323KB/s|R002-260618 [普通]
+  - 🇩🇪 德国 | DEU-2 [普通]
+  - '[OpenRay] 🇮🇩ID-145 [普通]'
+  - 🇸🇬SG_26|271KB/s|K001-260618 [普通]
+  - 🇹🇭TH_13|574KB/s|R002-260618 [普通]
+  - 🇺🇸US_417|153KB/s|R002-260618 [普通]
+  - 🇺🇸_US_美国_IPV4 [普通]
+  - 🇷🇴 罗马尼亚 | ROU [普通]
+  - 🇺🇸US_142|87KB/s|R002-260618 [普通]
+  - 🇺🇸US_438|147KB/s|R002-260618 [普通]
+  - 🇺🇸US_477|136KB/s|R002-260618 [普通]
+  - 🇫🇷_FR_法国_IPV4 [普通]
+  - https://alvin9999.com [普通]
+  - 🇺🇸_US_美国_IPV4 (3) [普通]
+  - 荷兰_B1150D [普通]
+  - 🇩🇪DE_13|2.4MB/s [普通]
+  - 🇳🇱 荷兰 | NLD 3-2 [普通]
+  - 🇬🇧 英国 | GBR [普通]
 - name: AUTO
   type: url-test
   proxies:
-  - 🇮🇹IT_30|1.5MB/s|M003-260806 [高速]
-  - 🇳🇱NL_166|2.1MB/s|R002-260618 [高速]
-  - 🇺🇸US_569|720KB/s|R002-260618 [高速]
-  - 🇹🇼TW_2|2.8MB/s [高速]
-  - 🇹🇼TW_1|1.6MB/s [高速]
-  - 🇹🇼 台湾3|@ripaojiedian [高速]
-  - 🇹🇼TW_3|5.1MB/s [高速]
+  - '[367.8ms +/-3ms] 4FreeIran-980fa79e9b [高速]'
+  - NN_speednode_0023 [高速]
+  - 🇳🇱 荷兰 | NLD [高速]
+  - 🇯🇵JP_23|462KB/s|R002-260618 [高速]
+  - 🇳🇱NL_216|5.0MB/s|P002-260618 [高速]
+  - 🇳🇱NL_219|2.5MB/s|R002-260618 [高速]
+  - 🇸🇬SG_53|530KB/s [高速]
+  - 🇪🇪EE_11|2.4MB/s|M003-260806 [高速]
+  - 🇪🇪EE_12|2.1MB/s|M003-260806 [高速]
+  - '[OpenRay] 🌐XX-81 [高速]'
+  - 🇺🇸 美国 | USA 6 [高速]
+  - '[OpenRay] 🌐XX-412 [高速]'
+  - '[OpenRay] 🇧🇷BR-198 [高速]'
+  - '[OpenRay] 🇧🇷BR-160 [高速]'
+  - '[OpenRay] 🇧🇷BR-113 [高速]'
+  - '[OpenRay] 🌐XX-123 [高速]'
+  - '[OpenRay] 🌐XX-1184 [高速]'
+  - '[OpenRay] 🌐XX-550 [高速]'
+  - 🇷🇺 俄罗斯 | RUS 3-2 [高速]
+  - '[OpenRay] 🌐XX-833 [高速]'
+  - 🇷🇺 俄罗斯 | RUS [高速]
+  - '[OpenRay] 🌐XX-1923 [高速]'
+  - 🇷🇺 俄罗斯 | RUS 3 [高速]
+  - 🇯🇵JP_2|448KB/s|P002-260618 [高速]
+  - 🇹🇼_TW_台湾_IPV4 [高速]
+  - 🇺🇸_US_美国_IPV4 (2) [高速]
+  - 🇦🇪_AE_阿拉伯联合酋长国->🇩🇪_DE_德国_IPV4 [高速]
+  - US_speednode_0027 [普通]
+  - '[259.2ms +/-1ms] http-172.64.69.89 [普通]'
+  - '[353.5ms +/-9ms] http-usgp1-cdn-route.couldfl(…) [普通]'
+  - 🇺🇸US_392|257KB/s|R002-260618 [普通]
+  - 🇺🇸US_434|199KB/s|R002-260618 [普通]
+  - 🇺🇸US_377|321KB/s|R002-260618 [普通]
+  - 🇮🇹IT_24|1.3MB/s|C001-260618 [普通]
+  - 🇫🇮FI_10|259KB/s|M003-260806 [普通]
+  - '[OpenRay] 🌐XX-1834 [普通]'
+  - '[OpenRay] 🇧🇷BR-119 [普通]'
+  - '[OpenRay] 🌐XX-90 [普通]'
+  - 🇷🇺 俄罗斯 | RUS-2 [普通]
+  - 🇭🇰_HK_香港_IPV4 [普通]
+  - '🇬🇧 英国 | GBR #1 [普通]'
+  - 🇮🇹IT_9|3.9MB/s [普通]
+  - 🇩🇪DE_20|323KB/s|R002-260618 [普通]
+  - 🇩🇪 德国 | DEU-2 [普通]
+  - '[OpenRay] 🇮🇩ID-145 [普通]'
+  - 🇸🇬SG_26|271KB/s|K001-260618 [普通]
+  - 🇹🇭TH_13|574KB/s|R002-260618 [普通]
+  - 🇺🇸US_417|153KB/s|R002-260618 [普通]
+  - 🇺🇸_US_美国_IPV4 [普通]
+  - 🇷🇴 罗马尼亚 | ROU [普通]
+  - 🇺🇸US_142|87KB/s|R002-260618 [普通]
+  - 🇺🇸US_438|147KB/s|R002-260618 [普通]
+  - 🇺🇸US_477|136KB/s|R002-260618 [普通]
+  - 🇫🇷_FR_法国_IPV4 [普通]
+  - https://alvin9999.com [普通]
+  - 🇺🇸_US_美国_IPV4 (3) [普通]
+  - 荷兰_B1150D [普通]
+  - 🇩🇪DE_13|2.4MB/s [普通]
+  - 🇳🇱 荷兰 | NLD 3-2 [普通]
+  - 🇬🇧 英国 | GBR [普通]
   url: https://www.gstatic.com/generate_204
   interval: 300
   tolerance: 80
@@ -106,12 +825,66 @@ proxy-groups:
   proxies:
   - AUTO
   - 高速节点
-  - 🇮🇹IT_30|1.5MB/s|M003-260806 [高速]
-  - 🇳🇱NL_166|2.1MB/s|R002-260618 [高速]
-  - 🇺🇸US_569|720KB/s|R002-260618 [高速]
-  - 🇹🇼TW_2|2.8MB/s [高速]
-  - 🇹🇼TW_1|1.6MB/s [高速]
-  - 🇹🇼 台湾3|@ripaojiedian [高速]
-  - 🇹🇼TW_3|5.1MB/s [高速]
+  - 普通节点
+  - '[367.8ms +/-3ms] 4FreeIran-980fa79e9b [高速]'
+  - NN_speednode_0023 [高速]
+  - 🇳🇱 荷兰 | NLD [高速]
+  - 🇯🇵JP_23|462KB/s|R002-260618 [高速]
+  - 🇳🇱NL_216|5.0MB/s|P002-260618 [高速]
+  - 🇳🇱NL_219|2.5MB/s|R002-260618 [高速]
+  - 🇸🇬SG_53|530KB/s [高速]
+  - 🇪🇪EE_11|2.4MB/s|M003-260806 [高速]
+  - 🇪🇪EE_12|2.1MB/s|M003-260806 [高速]
+  - '[OpenRay] 🌐XX-81 [高速]'
+  - 🇺🇸 美国 | USA 6 [高速]
+  - '[OpenRay] 🌐XX-412 [高速]'
+  - '[OpenRay] 🇧🇷BR-198 [高速]'
+  - '[OpenRay] 🇧🇷BR-160 [高速]'
+  - '[OpenRay] 🇧🇷BR-113 [高速]'
+  - '[OpenRay] 🌐XX-123 [高速]'
+  - '[OpenRay] 🌐XX-1184 [高速]'
+  - '[OpenRay] 🌐XX-550 [高速]'
+  - 🇷🇺 俄罗斯 | RUS 3-2 [高速]
+  - '[OpenRay] 🌐XX-833 [高速]'
+  - 🇷🇺 俄罗斯 | RUS [高速]
+  - '[OpenRay] 🌐XX-1923 [高速]'
+  - 🇷🇺 俄罗斯 | RUS 3 [高速]
+  - 🇯🇵JP_2|448KB/s|P002-260618 [高速]
+  - 🇹🇼_TW_台湾_IPV4 [高速]
+  - 🇺🇸_US_美国_IPV4 (2) [高速]
+  - 🇦🇪_AE_阿拉伯联合酋长国->🇩🇪_DE_德国_IPV4 [高速]
+  - US_speednode_0027 [普通]
+  - '[259.2ms +/-1ms] http-172.64.69.89 [普通]'
+  - '[353.5ms +/-9ms] http-usgp1-cdn-route.couldfl(…) [普通]'
+  - 🇺🇸US_392|257KB/s|R002-260618 [普通]
+  - 🇺🇸US_434|199KB/s|R002-260618 [普通]
+  - 🇺🇸US_377|321KB/s|R002-260618 [普通]
+  - 🇮🇹IT_24|1.3MB/s|C001-260618 [普通]
+  - 🇫🇮FI_10|259KB/s|M003-260806 [普通]
+  - '[OpenRay] 🌐XX-1834 [普通]'
+  - '[OpenRay] 🇧🇷BR-119 [普通]'
+  - '[OpenRay] 🌐XX-90 [普通]'
+  - 🇷🇺 俄罗斯 | RUS-2 [普通]
+  - 🇭🇰_HK_香港_IPV4 [普通]
+  - '🇬🇧 英国 | GBR #1 [普通]'
+  - 🇮🇹IT_9|3.9MB/s [普通]
+  - 🇩🇪DE_20|323KB/s|R002-260618 [普通]
+  - 🇩🇪 德国 | DEU-2 [普通]
+  - '[OpenRay] 🇮🇩ID-145 [普通]'
+  - 🇸🇬SG_26|271KB/s|K001-260618 [普通]
+  - 🇹🇭TH_13|574KB/s|R002-260618 [普通]
+  - 🇺🇸US_417|153KB/s|R002-260618 [普通]
+  - 🇺🇸_US_美国_IPV4 [普通]
+  - 🇷🇴 罗马尼亚 | ROU [普通]
+  - 🇺🇸US_142|87KB/s|R002-260618 [普通]
+  - 🇺🇸US_438|147KB/s|R002-260618 [普通]
+  - 🇺🇸US_477|136KB/s|R002-260618 [普通]
+  - 🇫🇷_FR_法国_IPV4 [普通]
+  - https://alvin9999.com [普通]
+  - 🇺🇸_US_美国_IPV4 (3) [普通]
+  - 荷兰_B1150D [普通]
+  - 🇩🇪DE_13|2.4MB/s [普通]
+  - 🇳🇱 荷兰 | NLD 3-2 [普通]
+  - 🇬🇧 英国 | GBR [普通]
 rules:
 - MATCH,手动选择
