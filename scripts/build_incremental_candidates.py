@@ -172,29 +172,40 @@ def main() -> None:
                 cache_changed = record_response(cache, url, status, headers) or cache_changed
             print(f"{source_id}: HTTP {status}; snapshot nodes={len(snapshot['nodes'])}; rejected HTTP={rejected}")
             continue
+        current_url_hash = url_fingerprint(url)
         if previous is None:
             source_status[source_id] = {
                 "status": "missing", "node_count": 0,
                 "error": type(error).__name__,
-                "source_url_sha256": url_fingerprint(url),
-                "configured_url_sha256": url_fingerprint(url),
+                "source_url_sha256": current_url_hash,
+                "configured_url_sha256": current_url_hash,
             }
             failures.append(source_id)
             print(f"{source_id}: initial fetch failed ({type(error).__name__}); no empty snapshot created")
+            continue
+        if previous.get("source_url_sha256") != current_url_hash:
+            source_status[source_id] = {
+                "status": "source_changed_error", "node_count": 0,
+                "error": type(error).__name__,
+                "source_url_sha256": None,
+                "configured_url_sha256": current_url_hash,
+            }
+            failures.append(source_id)
+            print(f"{source_id}: configured URL changed and fetch failed; old source snapshot discarded")
             continue
         fetched[source_id] = previous
         source_status[source_id] = {
             "status": "error", "node_count": len(previous.get("nodes", [])),
             "error": type(error).__name__,
-            "configured_url_sha256": url_fingerprint(url),
+            "configured_url_sha256": current_url_hash,
         }
         failures.append(source_id)
-        print(f"{source_id}: fetch/parse failed; retained previous snapshot ({type(error).__name__})")
+        print(f"{source_id}: fetch/parse failed; retained matching previous snapshot ({type(error).__name__})")
 
     if not fetched:
         raise RuntimeError("No usable source snapshots are available; refusing to replace the existing pool")
 
-    # Remove stale source groups only when the configured source list itself changed.
+    # Drop source groups whose configured URL changed but could not be fetched; never reuse an old URL's nodes.
     snapshot_dir.mkdir(parents=True, exist_ok=True)
     for old_id in set(old_snapshots) - set(fetched):
         (snapshot_dir / f"{old_id}.json").unlink(missing_ok=True)
@@ -349,7 +360,8 @@ def main() -> None:
         fingerprint = node_fingerprint(node)
         meta = pending_by_fp[fingerprint]
         queue_manifest_nodes.append({
-            "node_id": fingerprint[:20],
+            "node_id": fingerprint,
+            "fingerprint": fingerprint,
             "name": node["name"],
             "sources": meta["sources"],
             "github_delay_ms": next(delay for delay, item in tested if node_fingerprint(item) == fingerprint),
