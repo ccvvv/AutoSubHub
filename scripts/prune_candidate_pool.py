@@ -110,11 +110,11 @@ def prune_and_refresh(pool_path: Path, manifest_path: Path, receipt_path: Path) 
     # fingerprints are skipped safely; present fingerprints must match exactly.
     matched_nodes = []
     for item in manifest_nodes:
-        fingerprint = item.get("fingerprint")
+        fingerprint = item.get("fingerprint", item.get("node_id"))
         if item.get("node_id") != fingerprint or not is_full_fingerprint(fingerprint):
             raise SystemExit("Phone manifest lacks a valid full SHA-256 fingerprint")
         if fingerprint in meta_by_id:
-            matched_nodes.append(item)
+            matched_nodes.append({**item, "fingerprint": fingerprint})
     matched_ids = {item["node_id"] for item in matched_nodes}
     missing_ids = [item["node_id"] for item in manifest_nodes if item["node_id"] not in matched_ids]
     matched_results = [item for item in results if item["node_id"] in matched_ids]
