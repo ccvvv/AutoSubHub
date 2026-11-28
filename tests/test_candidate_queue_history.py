@@ -173,5 +173,59 @@ class CandidateQueueHistoryTests(unittest.TestCase):
                     )
 
 
+    def test_empty_batch_advances_tip_without_erasing_prior_testable_nodes(self):
+        empty = {"proxies": []}
+        nonempty = {"proxies": [
+            {"name": "kept-node", "type": "ss", "server": "kept.example", "port": 443}
+        ]}
+        snapshots = {}
+        for commit, candidate in ((A, empty), (B, nonempty)):
+            raw = yaml.safe_dump(candidate, allow_unicode=True, sort_keys=False).encode()
+            manifest = {
+                "candidate_sha256": hashlib.sha256(raw).hexdigest(),
+                "nodes": [{"name": p["name"]} for p in candidate["proxies"]],
+            }
+            snapshots[commit] = (raw, manifest)
+        with tempfile.TemporaryDirectory() as tmp:
+            state_path = Path(tmp) / "queue.json"
+            state_path.write_text(json.dumps({"last_uploaded_candidate_commit": C}))
+            git_results = [
+                type("Result", (), {"stdout": "false"})(),
+                type("Result", (), {"stdout": ""})(),
+                type("Result", (), {"stdout": f"{A}" + chr(10) + f"{B}" + chr(10) + f"{C}" + chr(10)})(),
+            ]
+            with patch("scripts.candidate_queue.subprocess.run", side_effect=git_results):
+                candidate, manifest, commits, tip = collect_pending_candidate_batches(
+                    "https://github.com/ccvvv/AutoSubHub.git",
+                    "ccvvv/AutoSubHub", "published-subscriptions",
+                    FakeSession(snapshots), state_path,
+                )
+        self.assertEqual(commits, [B, A])
+        self.assertEqual(tip, A)
+        self.assertEqual([p["name"] for p in candidate["proxies"]], ["kept-node"])
+        self.assertEqual(len(manifest["nodes"]), 1)
+
+    def test_empty_only_pending_batch_is_returned_for_guard_to_reject(self):
+        candidate = {"proxies": []}
+        raw = yaml.safe_dump(candidate, allow_unicode=True, sort_keys=False).encode()
+        manifest = {"candidate_sha256": hashlib.sha256(raw).hexdigest(), "nodes": []}
+        with tempfile.TemporaryDirectory() as tmp:
+            state_path = Path(tmp) / "queue.json"
+            state_path.write_text(json.dumps({"last_uploaded_candidate_commit": C}))
+            git_results = [
+                type("Result", (), {"stdout": "false"})(),
+                type("Result", (), {"stdout": ""})(),
+                type("Result", (), {"stdout": f"{A}" + chr(10) + f"{C}" + chr(10)})(),
+            ]
+            with patch("scripts.candidate_queue.subprocess.run", side_effect=git_results):
+                candidate_result, manifest_result, commits, tip = collect_pending_candidate_batches(
+                    "https://github.com/ccvvv/AutoSubHub.git",
+                    "ccvvv/AutoSubHub", "published-subscriptions",
+                    FakeSession({A: (raw, manifest)}), state_path,
+                )
+        self.assertEqual(commits, [A])
+        self.assertEqual(tip, A)
+        self.assertEqual(candidate_result, {"proxies": []})
+
 if __name__ == "__main__":
     unittest.main()

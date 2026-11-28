@@ -183,15 +183,16 @@ def apply_completed_receipt(
     for node_id, fingerprint in by_id.items():
         item = result_by_id[node_id]
         record = state_nodes.get(fingerprint, {})
-        if record.get("status") == "completed":
+        if record.get("status") in {"passed", "failed"}:
             prior_receipt = record.get("receipt_id")
             if prior_receipt and prior_receipt != receipt_id:
                 raise ValueError("Node was already completed by a different receipt")
             if record.get("result") and record.get("result") != item["status"]:
                 raise ValueError("Duplicate receipt conflicts with the recorded node result")
+        result_status = item["status"]
         record.update({
-            "status": "completed",
-            "result": item["status"],
+            "status": result_status,
+            "result": result_status,
             "completed_at": record.get("completed_at") or now,
             "receipt_id": receipt_id or record.get("receipt_id"),
         })
@@ -239,6 +240,12 @@ def reconcile_sources(
     queue_nodes: list[dict[str, Any]] = []
     queue_proxies: list[dict[str, Any]] = []
     for fingerprint, entry in merged.items():
+        record = state_nodes.get(fingerprint, {})
+        # Failed phone-test nodes are removed from the live pool and must not
+        # re-enter merely because their source snapshot still contains them.
+        if record.get("status") == "failed":
+            continue
+
         proxy = dict(entry["proxy"])
         base_name = str(proxy["name"])
         name = base_name
@@ -258,25 +265,34 @@ def reconcile_sources(
             "sources": entry["sources"],
             "source_names": entry["source_names"],
         })
-        record = state_nodes.get(fingerprint, {})
         status = record.get("status")
-        if status not in {"completed", "passed", "failed", "precheck_failed"}:
+        if status == "precheck_failed":
+            record["last_seen_at"] = now
+            state_nodes[fingerprint] = record
+            continue
+
+        # Only unseen/configuration-changed fingerprints enter the phone queue.
+        # Completed nodes stay in the live pool but are not retested on every build.
+        if status in {"completed", "passed"}:
+            record["last_seen_at"] = now
+            state_nodes[fingerprint] = record
+            continue
+        if status not in {"failed", "precheck_failed"}:
             record = {
                 "status": "pending",
                 "first_seen_at": record.get("first_seen_at") or now,
                 "last_seen_at": now,
             }
-            state_nodes[fingerprint] = record
-            queue_proxies.append(dict(proxy))
-            queue_nodes.append({
-                "node_id": fingerprint[:20],
-                "fingerprint": fingerprint,
-                "name": name,
-                "sources": entry["sources"],
-            })
         else:
             record["last_seen_at"] = now
-            state_nodes[fingerprint] = record
+        state_nodes[fingerprint] = record
+        queue_proxies.append(dict(proxy))
+        queue_nodes.append({
+            "node_id": fingerprint[:20],
+            "fingerprint": fingerprint,
+            "name": name,
+            "sources": entry["sources"],
+        })
 
     # Pending entries that disappeared from every source are cancelled, not tested.
     for fingerprint, record in list(state_nodes.items()):

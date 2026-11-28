@@ -131,6 +131,32 @@ class SourceSnapshotTests(unittest.TestCase):
         outcomes = {v["result"] for v in completed["nodes"].values()}
         self.assertEqual(outcomes, {"passed", "failed"})
 
+
+    def test_passed_nodes_stay_in_pool_but_are_not_requeued_and_failed_nodes_are_removed(self):
+        a, _ = apply_source_response(None, "source-001", "https://feed.example/1",
+                                     200, [proxy("a", "a.example"), proxy("b", "b.example")])
+        pool, queue, state = reconcile_sources({"source-001": a})
+        manifest = {"nodes": queue["nodes"]}
+        receipt = {"task_id": "receipt-2", "results": [
+            {"node_id": item["node_id"], "status": status}
+            for item, status in zip(queue["nodes"], ("passed", "failed"))
+        ]}
+        completed = apply_completed_receipt(state, manifest, receipt)
+        next_pool, next_queue, _ = reconcile_sources({"source-001": a}, completed)
+        self.assertEqual({p["server"] for p in next_pool["proxies"]}, {"a.example"})
+        self.assertEqual(next_queue["proxies"], [])
+
+    def test_failed_node_does_not_return_when_source_snapshot_is_unchanged(self):
+        node = proxy("a", "a.example")
+        a, _ = apply_source_response(None, "source-001", "https://feed.example/1", 200, [node])
+        _, queue, state = reconcile_sources({"source-001": a})
+        receipt = {"task_id": "receipt-3", "results": [
+            {"node_id": queue["nodes"][0]["node_id"], "status": "failed"}
+        ]}
+        failed_state = apply_completed_receipt(state, {"nodes": queue["nodes"]}, receipt)
+        _, next_queue, _ = reconcile_sources({"source-001": a}, failed_state)
+        self.assertEqual(next_queue["nodes"], [])
+
     def test_receipt_must_match_full_fingerprint_manifest_exactly(self):
         a, _ = apply_source_response(None, "source-001", "https://feed.example/1",
                                      200, [proxy("a", "a.example")])

@@ -136,12 +136,19 @@ jobs:
           for file in pool.yaml pool-manifest.json probe-state.json; do
             cp "$GITHUB_WORKSPACE/candidate/$file" "/tmp/published/candidate/$file"
           done
-          cp "$GITHUB_WORKSPACE/candidates/candidates.yaml" /tmp/published/candidate/subscription.yaml
-          cp "$GITHUB_WORKSPACE/candidates/manifest.json" /tmp/published/candidate/manifest.json
+          if [ "${{ steps.generate.outputs.has_candidates }}" = "true" ]; then
+            cp "$GITHUB_WORKSPACE/candidates/candidates.yaml" /tmp/published/candidate/subscription.yaml
+            cp "$GITHUB_WORKSPACE/candidates/manifest.json" /tmp/published/candidate/manifest.json
+          else
+            echo "No cloud-passed candidates; preserving the previous phone-test subscription snapshot."
+          fi
           cd /tmp/published
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add source-snapshots/ source-manifest.json candidate/pool.yaml candidate/pool-manifest.json candidate/probe-state.json candidate/subscription.yaml candidate/manifest.json
+          git add source-snapshots/ source-manifest.json candidate/pool.yaml candidate/pool-manifest.json candidate/probe-state.json
+          if [ "${{ steps.generate.outputs.has_candidates }}" = "true" ]; then
+            git add candidate/subscription.yaml candidate/manifest.json
+          fi
           if [ -f candidate/source-cache.json ]; then git add candidate/source-cache.json; fi
           if git diff --cached --quiet; then
             echo "Candidate unchanged; public URL already serves this version."
